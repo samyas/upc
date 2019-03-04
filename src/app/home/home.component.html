@@ -1,0 +1,111 @@
+<!--mat-toolbar color="primary">
+  <button mat-button class="app-menu-button" >
+    <i class="material-icons">menu</i>
+  </button>
+  <span class="title">Angular Material Demo</span>
+</mat-toolbar>
+ <router-outlet></router-outlet-->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidebar-panel"
+    fixedInViewport="true"
+    [attr.role]="isHandset ? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
+    [opened]="!(isHandset | async)!.matches">
+
+    <div class="opt-side relative ">
+      <div class="sidebar-container ps ps--active-y">
+        <div class="branding text-center">
+          <h2><i aria-hidden="true" class="fa fa-superpowers"></i> <span> BAYER</span>
+          </h2>
+        </div>
+        <div class="main-nav">
+
+          <div class="user-pro-wrap">
+            <div class="user-profile-thumb text-center">
+              <div class="user-i">
+                <img alt="" class="rad-full mb-1" height="100" src="assets/images/userpic.jpg" width="100">
+                <div> <span>John Doe</span></div>
+              </div>
+            </div>
+            <div class="most-used text-center">
+              <a class="most-link" color="primary">
+                <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">home</mat-icon>
+              </a>
+              <a class="most-link" color="primary">
+                <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">person</mat-icon>
+              </a>
+              <a class="most-link" color="primary">
+                <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">settings</mat-icon>
+              </a>
+            </div>
+          </div>
+
+          <!--mat-toolbar color="primary">Menu</mat-toolbar-->
+          <!--mat-nav-list class="navigation" role="navigation">
+            <a mat-list-item routerLink="./dashboard" routerLinkActive="active">Dashboard
+
+              <mat-nav-list class="sub-menu" role="navigation">
+                <a mat-list-item routerLink="./uploads" routerLinkActive="active">A1</a>
+                <a mat-list-item>A2</a>
+              </mat-nav-list>
+
+
+            </a>
+            <a mat-list-item routerLink="./uploads" routerLinkActive="active">Upload</a>
+            <a mat-list-item>Markers</a>
+          </mat-nav-list-->
+
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Home
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Jobs
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </div>
+
+      </div>
+      <div class="bg-overlay"></div>
+    </div>
+
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="(isHandset | async)!.matches">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Application Title</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+
+    <!-- Material Button -->
+    <!--mat-card>
+      <mat-card-content>
+        <h2 class="example-h2">Material Button</h2>
+        <button class="app-button" mat-button>FLAT</button>
+        <button class="app-button" mat-raised-button mat-tooltip="This is a tooltip!">RAISED</button>
+        <button class="app-button" mat-raised-button color="primary">PRIMARY RAISED</button>
+        <button class="app-button" mat-raised-button color="accent">ACCENT RAISED</button>
+      </mat-card-content>
+    </mat-card-->
+    <!-- /Material Button -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

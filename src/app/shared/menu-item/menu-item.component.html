@@ -1,0 +1,15 @@
+<mat-list-item matRipple >
+  <div class="anml-data">
+    <div class="icon-container"><mat-icon class="amml-icon">{{menuItem.icon}}</mat-icon></div>    
+    <span class="label"></span>
+    <a  class="label" routerLink={{menuItem.link}} routerLinkActive="active">{{menuItem.label}}</a>
+  </div>
+  <ng-container *ngIf="hasItems()">
+    <mat-icon (click)="expanded=!expanded" [@isExpanded]="expanded ? 'yes' : 'no'">keyboard_arrow_down</mat-icon>
+  </ng-container>
+</mat-list-item>
+<mat-divider></mat-divider>
+<div *ngIf="hasItems() && expanded"  [@slideInOut] class="amml-submenu">
+  <app-menu-item *ngFor="let item of menuItem.items" [menuItem]="item"></app-menu-item>
+
+</div>
