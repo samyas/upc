@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
 import { MenuItemComponent } from './menu-item/menu-item.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { MenuItemComponent } from './menu-item/menu-item.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
   ],
   declarations: [ MenuItemComponent],
   exports: [
@@ -20,6 +22,7 @@ import { MenuItemComponent } from './menu-item/menu-item.component';
     ReactiveFormsModule,
     RouterModule,
     MaterialModule,
+    FlexLayoutModule,
     MenuItemComponent
   ]
 })

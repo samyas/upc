@@ -28,6 +28,10 @@ import { HomeComponent } from './home.component';
         path: 'students',
         loadChildren: '../uploads/uploads.module#UploadsModule',
       },
+      {
+        path: 'project',
+        loadChildren: '../project/project.module#ProjectModule',
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
      /* {
         path: 'candidates',

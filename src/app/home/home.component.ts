@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     {
       label: 'Projects',
       icon: 'computer',
-      link: './projects'
+      link: './project'
     },
     {
       label: 'Tests',

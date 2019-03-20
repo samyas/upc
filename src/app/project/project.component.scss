@@ -1,0 +1,73 @@
+.mat-card-header > .mat-card-header-text{
+    padding: 0px 0px 0px 0px!important;
+   }
+
+.project-card{
+
+    border-left: 4px solid #68a31b;
+    padding: 0px;
+   .mat-card-header{
+       padding-top: 3px;
+   }
+    .highlight{
+        text-decoration: underline;
+        font-weight: bold;
+        
+    }
+    .card-project-departement{
+        background-color: 	#2E98D2;
+        color:white;
+        margin-top: 3px;
+    }
+    .mat-chip {
+        background-color: #2E98D2;
+        color: #fff;
+    }
+}
+
+
+
+.project-header-properties{
+    padding-top:0px;
+    .mat-list-item {
+            height: 25px;
+            color: rgba(0,0,0,.54);
+            .mat-icon{
+                color: 	#2E98D2;
+                margin-right: 10px;
+            }
+    }
+}
+
+.testimonial-item{
+    text-align: center; 
+    overflow: visible;    
+    padding: 0;   
+    .text{
+        font-style: italic;
+    }
+    img{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .user-card{
+        background: #C32929;
+    }
+    h3, p, i{
+        color: white
+    }
+    .card-location{
+        background: #D23A2E;
+        .mat-icon{
+            color: white
+        }
+    }
+    .properties{
+        .mat-icon{
+            color: #C32929;
+            margin-right: 10px;
+        }
+    }
+
+} 
