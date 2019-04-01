@@ -1,15 +1,24 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
+import { ProjectsComponent } from './projects.component';
+
 import { ProjectComponent } from './project.component';
 
 
 export const ProjectsRoutes: Route[] = [
   {
     path: '',
-    component: ProjectComponent,
+    component: ProjectsComponent,
     data: {
       title: 'Projects'
+    }
+  },
+  {
+    path: ':id',
+    component: ProjectComponent,
+    data: {
+      title: 'Project'
     }
   }
 ];
