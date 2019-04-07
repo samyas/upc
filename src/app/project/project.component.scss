@@ -1,73 +1,127 @@
-.mat-card-header > .mat-card-header-text{
-    padding: 0px 0px 0px 0px!important;
-   }
-
-.project-card{
-
-    border-left: 4px solid #68a31b;
-    padding: 0px;
-   .mat-card-header{
-       padding-top: 3px;
-   }
-    .highlight{
-        text-decoration: underline;
-        font-weight: bold;
-        
+.mat-form-field{
+    font:400 16px/1.125 Roboto,"Helvetica Neue",sans-serif
+}
+[_nghost-c28]{
+    display:block
+}
+.project-details{
+    padding:24px
+}
+.project-details .splash{
+    background:#fff;
+    border-radius:2px;
+    overflow:hidden;
+    box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
+}
+.project-details .splash .left{
+    padding:12px
+}
+@media screen and (max-width:1279px){
+    .project-details{
+        padding:16px
     }
-    .card-project-departement{
-        background-color: 	#2E98D2;
-        color:white;
-        margin-top: 3px;
-    }
-    .mat-chip {
-        background-color: #2E98D2;
-        color: #fff;
+    .project-details .splash .left{
+        padding:8px
     }
 }
-
-
-
-.project-header-properties{
-    padding-top:0px;
-    .mat-list-item {
-            height: 25px;
-            color: rgba(0,0,0,.54);
-            .mat-icon{
-                color: 	#2E98D2;
-                margin-right: 10px;
-            }
+.project-details .splash .left .options{
+    color:#fff
+}
+.project-details .splash .left .codename{
+    font-size:20px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:40px
+}
+.project-details .splash .right{
+    padding:24px
+}
+.project-details .splash .right .splash-title{
+    font-size:18px;
+    font-weight:500;
+    margin-bottom:24px
+}
+.project-details .splash .right .details{
+    margin-left:12px;
+    margin-right:12px
+}
+@media screen and (max-width:1279px){
+    .project-details .splash .right{
+        padding:16px
+    }
+    .project-details .splash .right .splash-title{
+        margin-bottom:16px
+    }
+    .project-details .splash .right .details{
+        margin-left:8px;
+        margin-right:8px
     }
 }
-
-.testimonial-item{
-    text-align: center; 
-    overflow: visible;    
-    padding: 0;   
-    .text{
-        font-style: italic;
+.project-details .splash .right .details .detail:first-child{
+    padding-left:0
+}
+.project-details .splash .right .details .detail .name{
+    margin-bottom:12px;
+    font-weight:500
+}
+.project-details .splash .right .details .detail .value{
+    color:#666
+}
+.project-details .splash .right .details .mat-chip{
+    margin-bottom:4px
+}
+.project-details .splash .right .details .member img{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    margin-right:6px
+}
+.project-details .splash .right .divider{
+    margin-top:24px;
+    margin-bottom:24px
+}
+.project-details .splash .right .right-bottom .description-title{
+    font-weight:500
+}
+.project-details .splash .right .right-bottom .description{
+    color:#666;
+    margin-top:12px;
+    margin-left:12px;
+    margin-right:12px
+}
+.project-details .progress-cards .progress-card{
+    background:#fff;
+    padding:24px;
+    box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
+}
+@media screen and (max-width:1279px){
+    .project-details .splash .right .divider{
+        margin-top:16px;
+        margin-bottom:16px
     }
-    img{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
+    .project-details .splash .right .right-bottom .description{
+        margin-top:8px;
+        margin-left:8px;
+        margin-right:8px
     }
-    .user-card{
-        background: #C32929;
+    .project-details .progress-cards .progress-card{
+        padding:16px
     }
-    h3, p, i{
-        color: white
+}
+.project-details .progress-cards .progress-card .progress-details .value{
+    font-size:30px
+}
+.project-details .progress-cards .progress-card .progress-details .description{
+    color:#666
+}
+.project-details .progress-cards .progress-card .progress-details .arrow{
+    color:#666;
+    margin-right:-12px;
+    margin-bottom:-12px
+}
+@media screen and (max-width:1279px){
+    .project-details .progress-cards .progress-card .progress-details .arrow{
+        margin-right:-8px;
+        margin-bottom:-8px
     }
-    .card-location{
-        background: #D23A2E;
-        .mat-icon{
-            color: white
-        }
-    }
-    .properties{
-        .mat-icon{
-            color: #C32929;
-            margin-right: 10px;
-        }
-    }
-
-} 
+}

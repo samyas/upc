@@ -1,0 +1,77 @@
+.mat-form-field{
+    font:400 16px/1.125 Roboto,"Helvetica Neue",sans-serif
+}
+.profile{
+    padding:24px
+}
+@media screen and (max-width:1279px){
+    .profile{
+        padding:16px
+    }
+}
+.profile .splash{
+    background:#fff;
+    padding:32px 8px;
+    border:1px solid #e0e0e0
+}
+.profile .splash .left{
+    padding:16px 32px
+}
+.profile .splash .left .picture{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    margin-right:38px;
+    box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
+}
+.profile .splash .left .name{
+    font-size:28px
+}
+.profile .splash .left .contact, .profile .splash .left .description{
+    margin-top:6px;
+    font-size:14px;
+    color:#666
+}
+.profile .splash .left .contact .icon, .profile .splash .left .description .icon{
+    font-size:18px;
+    line-height:18px;
+    width:18px;
+    height:18px
+}
+.profile .splash .left .actions{
+    margin-top:6px
+}
+.profile .splash .left .actions .primary-button{
+    padding:2px 32px
+}
+.profile .splash .right{
+    padding:16px 32px;
+    border-left:1px solid #e0e0e0
+}
+@media screen and (max-width:959px){
+    .profile .splash .right{
+        border-left:none
+    }
+}
+.profile .splash .right .info{
+    font-size:14px
+}
+.profile .splash .right .info .names .name{
+    font-weight:500
+}
+.profile .splash .right .info .values{
+    margin-left:24px
+}
+.profile .splash .right .info .name, .profile .splash .right .info .value{
+    padding:8px 0
+}
+.profile .splash .right .social{
+    height:40px;
+    font-size:20px;
+    color:#455a64;
+    cursor:pointer
+}
+.profile .profile-tabs{
+    margin-top:24px;
+    background:#fff
+}

@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectComponent implements OnInit {
 
+  public icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite'];
+  public colors = [ 'accent', 'primary', 'warn' ];
+
   constructor() { }
 
   ngOnInit() {
