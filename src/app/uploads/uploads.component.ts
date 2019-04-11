@@ -5,7 +5,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-uploads',
-  templateUrl: './students.component.html',
+  templateUrl: './uploads.component.html',
   styleUrls: ['./uploads.component.scss']
 })
 export class UploadsComponent implements OnInit {

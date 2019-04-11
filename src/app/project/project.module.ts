@@ -13,7 +13,7 @@ import { TaskComponent } from './task/task.component';
   imports: [
     CommonModule, SharedModule, projectsRouting
   ],
-  entryComponents:[
+  entryComponents: [
     TaskComponent
   ]
 })
