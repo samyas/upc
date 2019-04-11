@@ -1,0 +1,26 @@
+<h1 mat-dialog-title><span *ngIf="!task.id">Add</span><span *ngIf="task.id">Edit</span>Task</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form" class="user-form">      
+      <div fxLayout="column" class="form-field-outer">
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Title" formControlName="title">
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <textarea  matInput placeholder="Description" formControlName="description"> </textarea>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <input matInput [matDatepicker]="startDate" placeholder="Start" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+        </mat-form-field>
+        <mat-radio-group formControlName="workshop">
+            <mat-radio-button value="yes" labelPosition="before">Work shop</mat-radio-button>
+            <mat-radio-button value="no" labelPosition="before">No Work Shop</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="primary" [mat-dialog-close]="form.value" [disabled]="!form.valid"><span *ngIf="!task.id">Save</span><span *ngIf="task.id">Update</span></button>
+    <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+</div>
