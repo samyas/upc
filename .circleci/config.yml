@@ -29,7 +29,10 @@ jobs:
                 command: npm install @angular/cli 
             - run:
                 name: Install node-sass
-                command: npm uninstall node-sass 
+                command: npm install node-sass 
+            - run:
+                name: Rebuild node-sass
+                command: npm rebuild node-sass                
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
