@@ -56,7 +56,7 @@ jobs:
                     - .firebaserc
     deploy:
         docker:
-            - image: circleci/node:chakracore-8.11-browsers-legacy
+            - image: circleci/node:10-browsers
         working_directory: ~/project
         steps:
             - run:
