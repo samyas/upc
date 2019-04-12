@@ -24,6 +24,9 @@ jobs:
             - run:
                 name: Install dependencies
                 command: npm install
+            - run:
+                name: Install angular-cli
+                command: npm @angular/cli
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
@@ -36,7 +39,7 @@ jobs:
  #               command: npm run test-prod
             - run:
                 name: Building
-                command: npm run build-prod
+                command: ng build --prod
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
