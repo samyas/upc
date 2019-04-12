@@ -3,7 +3,7 @@ jobs:
     build:
         working_directory: ~/project
         docker:
-            - image: circleci/node:chakracore-8.11-browsers-legacy
+            - image: circleci/node:10-browsers
         steps:
             - checkout
             - run:
@@ -27,12 +27,13 @@ jobs:
             - run:
                 name: Install angular-cli
                 command: npm install @angular/cli 
-            - run:
-                name: Install node-sass
-                command: npm install node-sass 
-            - run:
-                name: Rebuild node-sass
-                command: npm rebuild node-sass                
+#            - run:
+#               name: Install node-sass
+#                name: Install node-sass
+#                command: npm install node-sass 
+#            - run:
+#                name: Rebuild node-sass
+#                command: npm rebuild node-sass                
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
