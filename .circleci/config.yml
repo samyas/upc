@@ -17,7 +17,7 @@ jobs:
                 command: cp build_scripts/deploy_config.sh deploy_config.sh
             - run:
                 name: load in environment variables
-                command: ./deploy_config.sh
+                command: sh ./deploy_config.sh
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
