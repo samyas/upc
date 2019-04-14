@@ -1,0 +1,7 @@
+@import "palettes";
+
+$basf-orange-primary: mat-palette($mat-basf-orange);
+$basf-orange-accent: mat-palette($mat-amber, A200, A100, A700);
+$basf-orange-warn: mat-palette($mat-orange, A200);
+
+$basf-orange-theme: mat-light-theme($basf-orange-primary, $basf-orange-accent, $basf-orange-warn);

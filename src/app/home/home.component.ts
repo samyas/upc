@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 
 import { Observable } from 'rxjs';
+import { Settings } from '../core/app.settings.model';
+import { AppSettings } from '../core/app.settings';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +14,7 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
 
   isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
+  public settings: Settings;
 
   menuItems: Array<MenuItem> = [
     {
@@ -49,10 +52,16 @@ export class HomeComponent implements OnInit {
   ];
 
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(public appSettings: AppSettings, private breakpointObserver: BreakpointObserver) {
+    this.settings = this.appSettings.settings;
+  }
 
 
   ngOnInit() {
+  }
+
+  changeTheme(theme: string) {
+    this.settings.theme = theme;
   }
 
 }

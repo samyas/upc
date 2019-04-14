@@ -1,0 +1,7 @@
+@import "palettes";
+
+$basf-red-primary: mat-palette($mat-basf-red);
+$basf-red-accent: mat-palette($mat-pink, A200, A100, A400);
+$basf-red-warn: mat-palette($mat-red, 500);
+
+$basf-red-theme: mat-light-theme($basf-red-primary, $basf-red-accent, $basf-red-warn);

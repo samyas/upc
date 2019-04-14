@@ -43,4 +43,44 @@
         @include angular-material-theme($gray-dark-theme);
         @include theme-reset($gray-dark-theme);
     }
+    &.basf-red{
+        @import "skins/basf/red";
+        @include angular-material-theme($basf-red-theme);
+        @include theme-reset($basf-red-theme);
+    }
+    &.basf-orange{
+        @import "skins/basf/orange";
+        @include angular-material-theme($basf-orange-theme);
+        @include theme-reset($basf-orange-theme);
+    }
+    &.basf-dark-blue{
+        @import "skins/basf/dark-blue";
+        @include angular-material-theme($basf-dark-blue-theme);
+        @include theme-reset($basf-dark-blue-theme);
+    }
+    &.basf-dark-green{
+        @import "skins/basf/dark-green";
+        @include angular-material-theme($basf-dark-green-theme);
+        @include theme-reset($basf-dark-green-theme);
+    }
+    &.basf-dark-grey{
+        @import "skins/basf/dark-grey";
+        @include angular-material-theme($basf-dark-grey-theme);
+        @include theme-reset($basf-dark-grey-theme);
+    }
+    &.basf-light-blue{
+        @import "skins/basf/light-blue";
+        @include angular-material-theme($basf-light-blue-theme);
+        @include theme-reset($basf-light-blue-theme);
+    }
+    &.basf-light-green{
+        @import "skins/basf/light-green";
+        @include angular-material-theme($basf-light-green-theme);
+        @include theme-reset($basf-light-green-theme);
+    }
+    &.basf-light-grey{
+        @import "skins/basf/light-grey";
+        @include angular-material-theme($basf-light-grey-theme);
+        @include theme-reset($basf-light-grey-theme);
+    }
 }

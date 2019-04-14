@@ -1,0 +1,7 @@
+@import "palettes";
+
+$basf-light-green-primary: mat-palette($mat-basf-light-green);
+$basf-light-green-accent: mat-palette($mat-amber, A200, A100, A700);
+$basf-light-green-warn: mat-palette($mat-green, A200);
+
+$basf-light-green-theme: mat-light-theme($basf-light-green-primary, $basf-light-green-accent, $basf-light-green-warn);

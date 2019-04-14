@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 import { AppComponent } from './app.component';
+import { AppSettings } from './core/app.settings';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { AppComponent } from './app.component';
     RouterModule, AppRoutingModule,
     OverlayModule
   ],
-  providers: [],
+  providers: [   AppSettings],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

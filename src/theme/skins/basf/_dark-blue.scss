@@ -1,0 +1,7 @@
+@import "palettes";
+
+$basf-dark-blue-primary: mat-palette($mat-basf-dark-blue);
+$basf-dark-blue-accent: mat-palette($mat-amber, A200, A100, A700);
+$basf-dark-blue-warn: mat-palette($mat-blue, A200);
+
+$basf-dark-blue-theme: mat-light-theme($basf-dark-blue-primary, $basf-dark-blue-accent, $basf-dark-blue-warn);

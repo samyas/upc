@@ -1,4 +1,4 @@
-<mat-list-item matRipple >
+<mat-list-item matRipple color="primary">
   <div class="anml-data">
     <div class="icon-container"><mat-icon class="amml-icon">{{menuItem.icon}}</mat-icon></div>    
     <span class="label"></span>
@@ -8,7 +8,7 @@
     <mat-icon (click)="expanded=!expanded" [@isExpanded]="expanded ? 'yes' : 'no'">keyboard_arrow_down</mat-icon>
   </ng-container>
 </mat-list-item>
-<mat-divider></mat-divider>
+<!--mat-divider></mat-divider-->
 <div *ngIf="hasItems() && expanded"  [@slideInOut] class="amml-submenu">
   <app-menu-item *ngFor="let item of menuItem.items" [menuItem]="item"></app-menu-item>
 
