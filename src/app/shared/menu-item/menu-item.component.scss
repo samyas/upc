@@ -11,13 +11,16 @@
     display: flex;
     justify-content: flex-start;
     height: 48px;
-    height: 40px;
-    padding: 0 12px 0 24px;
-    border-radius: 0 20px 20px 0;
-    margin-right: 16px;
-    //background-color: #C50022;
-   // color : #ffffff
+    &.active{
+      padding: 0 12px 0 24px;
+      border-radius: 0 25px 25px 0;
+     // margin-right: 16px;
+      background-color: #C50022;
+      color : #ffffff
+    }
+
   }
+  
   
   .amml-icon-fa {
     font-size: 20px;
