@@ -39,26 +39,32 @@
 
         </div>
 
-        <div  fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" class="p-2">  
+        <div  fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-2">  
             
                 <mat-card class="project-card">
                         <mat-card-header class="mat-card-header">
                             
                                 <div class="mat-card-header-text">
                                     <mat-card-title class="mat-card-title">Interplay between crystallization kinetics and molecular</mat-card-title>
+                                   
                                     <mat-list class="project-header-properties">
-                                        <mat-list-item><mat-icon>person</mat-icon>Dr. Imed Romdhani</mat-list-item>
-                                        <mat-list-item><mat-icon>mail_outline</mat-icon>emilio.verdines@gmail.com</mat-list-item>
-                                        <mat-list-item><mat-icon>call</mat-icon>(212) 457-2308</mat-list-item>
-                                        <mat-list-item><mat-icon>date_range</mat-icon> 21/09/03/18</mat-list-item>
+
+                                            <div fxLayout="row" fxLayoutAlign="space-around center">
+                                                    <mat-list-item><mat-icon>person</mat-icon>Dr. Imed Romdhani</mat-list-item>
+                                                    <mat-list-item><mat-icon>mail_outline</mat-icon>emilio.verdines@gmail.com</mat-list-item>
+                                            </div> 
+                                            <div fxLayout="row" fxLayoutAlign="space-around center">
+                                                    <mat-list-item><mat-icon>call</mat-icon>(212) 457-2308</mat-list-item>
+                                                    <mat-list-item> <mat-icon>date_range</mat-icon> 21/09/03/18</mat-list-item>
+                                            </div> 
+                             
+                                       
+                                    
                                     </mat-list>
+                                    <mat-divider></mat-divider>
                                 </div>
                         </mat-card-header>
                         <mat-card-content>
-                                <div fxLayout="row" fxLayoutAlign="center center" class="py-2 card-project-departement">
-                                        <mat-icon class="mr-2">location_on</mat-icon>
-                                        <i>Los Anglos, USA</i>
-                                    </div>
                                 <p class="secondary-text-color mt-2" style="padding:5px;">  <span class="highlight">Abstract:</span> This PhD project will focus on the investigation of the crystallization kinetics of several organic molecules (from low molecular weight compounds to polymers),
                                      by means of broadband dielectric spectroscopy. The aim of this research is to unveil the correlation between the relaxation processes active during crystallization and the molecular mechanisms responsible for the formation of ordered structures
                                 </p>
@@ -68,8 +74,33 @@
                                         <mat-chip>Dynamics</mat-chip>
                                         <mat-chip>Accent fish</mat-chip>
                                 </mat-chip-list>
+                               
+                                <mat-progress-bar style="margin-top: 5px;" mode="determinate" value="40"></mat-progress-bar>
+                                <button color="warn" mat-fab mat-fab-card-float>
+                                        <mat-icon  class="mat-icon material-icons" role="img" aria-hidden="true">share</mat-icon>
+                                     </button>
+                                <div fxLayout="row" fxLayoutAlign="space-around center">
+                                        <button mat-icon-button color="accent"><mat-icon>fiber_manual_record</mat-icon>6 To Dos</button>
+                                        <button mat-icon-button color="accent"><mat-icon>fiber_manual_record</mat-icon>6 To Dos</button>
+                                </div> 
+
+                                <div fxLayout="row" fxLayoutAlign="space-around center">
+                                        <button mat-icon-button color="accent"><mat-icon>fiber_manual_record</mat-icon>6 To Dos</button>
+                                        <button mat-icon-button color="accent"><mat-icon>fiber_manual_record</mat-icon>6 To Dos</button>
+                                </div> 
+
+                                <div fxLayout="row" fxLayoutAlign="space-around center">
+                                        <button mat-icon-button color="accent"><mat-icon>fiber_manual_record</mat-icon>6 To Dos</button>
+                                        <button mat-icon-button color="accent"><mat-icon>fiber_manual_record</mat-icon>6 To Dos</button>
+                                </div> 
+
+                              
+
+                              
+
+
                             </mat-card-content>
-                        <mat-divider></mat-divider>
+                       
                         <mat-card-actions fxLayoutAlign="end center" class="secondary-text-color">                               
                             <button mat-icon-button><mat-icon>favorite</mat-icon></button>
                             <button mat-icon-button><mat-icon>share</mat-icon></button>
