@@ -35,7 +35,7 @@
 	<mat-drawer-container class="fullscreen">
 
  
-		<mat-drawer class="sidenav" opened = true #snav [mode]="'side'">
+		<mat-drawer class="sidenav" [opened] = "!(isHandset | async)!.matches" #snav [mode]="'side'">
 
       <!--div class="sidenav-menu-outer ps ps--active-y"-->
           <div class="user-block py-3" fxlayout="column" fxlayoutalign="center center">
@@ -52,7 +52,7 @@
 
 		</mat-drawer>
 
-		<mat-drawer-content class="right-side">
+		<mat-drawer-content >
    
       <router-outlet></router-outlet>
 

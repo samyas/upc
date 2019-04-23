@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
   public settings: Settings;
 
+
   menuItems: Array<MenuItem> = [
     {
       label: 'Dashboard',

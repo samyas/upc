@@ -144,7 +144,7 @@
                                             </ng-template>
 
                                                 <div fxLayout="row" class="p-2">
-                                                        <div fxFlex="25" class="p-2">
+                                                        <!--div fxFlex="25" class="p-2">
                                                             <mat-card class="mat-elevation-z0">            
                                 
 
@@ -156,8 +156,7 @@
                                                                         <button mat-icon-button (click)="openTaskDialog(null)"><mat-icon>add_circle_ou...</mat-icon></button>                       
                                                                     </mat-card>
                                                                             
-                                                                    <mat-card *ngFor="let color of colors" [class.bg-primary]="color=='primary'" [class.bg-accent]="color=='accent'" 
-                                                                    [class.bg-warn]="color=='warn'" class="task-card draggable ">
+                                                                    <mat-card *ngFor="let color of colors" class="task-card draggable ">
                                                                     <mat-card-header class="mat-card-header">
                                                                             <img class="mat-card-avatar" matcardavatar src="assets/images/users/user.jpg">
                                                                             <div class="mat-card-header-text">
@@ -174,44 +173,63 @@
                                                                     </mat-card>                 
                                                                 </mat-card-content>           
                                                             </mat-card> 
-                                                        </div>
+                                                        </div-->
                                                         <div fxFlex="25" class="p-2"> 
-                                                            <mat-card>            
+                                                        <mat-card class="status-panel">            
+                                                                <mat-card-header class="bg-primary p-1" fxLayoutAlign="space-between center">
+                                                                        <mat-card-title class="m-0"><h3>IDEAS/TASKS</h3></mat-card-title>
+                                                                        <button mat-icon-button><mat-icon>add_circle_ou...</mat-icon></button>
+                                                                    </mat-card-header>
+
+                                                                <mat-card-content class="bag">
+                                                                    <mat-card *ngFor="let color of colors"  class="task-card draggable ">
+                                                                        You can move these elements between these two containers
+                                                                    </mat-card>                 
+                                                                </mat-card-content>          
+                                                            </mat-card> 
+                                                        </div>
+
+                                                        <div fxFlex="25" class="p-2"> 
+                                                            <mat-card class="status-panel">            
                                                                 <mat-card-header fxLayoutAlign="center">
                                                                     <mat-card-subtitle fxLayoutAlign="center">
                                                                         <h2>IN PROGRESS</h2> 
                                                                     </mat-card-subtitle>
                                                                 </mat-card-header>
                                                                 <mat-card-content class="bag">
-                                                                    <mat-card *ngFor="let color of colors"  [class.bg-primary]="color=='primary'" [class.bg-accent]="color=='accent'" [class.bg-warn]="color=='warn'"  class="task-card draggable ">
+                                                                    <mat-card *ngFor="let color of colors"  class="task-card draggable ">
                                                                         You can move these elements between these two containers
                                                                     </mat-card>                 
                                                                 </mat-card-content>          
                                                             </mat-card> 
                                                         </div>
                                                         <div fxFlex="25" class="p-2"> 
-                                                                <mat-card>            
-                                                                    <mat-card-header fxLayoutAlign="center">
-                                                                        <mat-card-subtitle fxLayoutAlign="center">
-                                                                            <h2>READY FOR REVIEW</h2> 
-                                                                        </mat-card-subtitle>
-                                                                    </mat-card-header>
+                                                                <mat-card class="status-panel">            
+                                                                   
+
+                                                                    <mat-card-header class="bg-primary p-1" fxLayoutAlign="space-between center">
+                                                                            <mat-card-title class="m-0"><h3>READY FOR REVIEW</h3></mat-card-title>
+                                                                            <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                                                        </mat-card-header>
+
                                                                     <mat-card-content class="bag">
-                                                                        <mat-card *ngFor="let color of colors"  [class.bg-primary]="color=='primary'" [class.bg-accent]="color=='accent'" [class.bg-warn]="color=='warn'"  class="task-card draggable ">
+                                                                        <mat-card *ngFor="let color of colors"  class="task-card draggable ">
                                                                             You can move these elements between these two containers
                                                                         </mat-card>                 
                                                                     </mat-card-content>          
                                                                 </mat-card> 
                                                             </div>
                                                             <div fxFlex="25" class="p-2"> 
-                                                                    <mat-card>            
+                                                                    <mat-card class="status-panel">            
                                                                         <mat-card-header fxLayoutAlign="center">
                                                                             <mat-card-subtitle fxLayoutAlign="center">
                                                                                 <h2>APPROVED</h2> 
                                                                             </mat-card-subtitle>
                                                                         </mat-card-header>
+
+
                                                                         <mat-card-content class="bag">
-                                                                            <mat-card *ngFor="let color of colors"  [class.bg-primary]="color=='primary'" [class.bg-accent]="color=='accent'" [class.bg-warn]="color=='warn'"  class="task-card draggable ">
+                                                                            <mat-card *ngFor="let color of colors"  class="task-card draggable ">
                                                                                 You can move these elements between these two containers
                                                                             </mat-card>                 
                                                                         </mat-card-content>          

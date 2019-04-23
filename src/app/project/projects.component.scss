@@ -4,7 +4,7 @@
 
 .project-card{
 
-    border-left: 4px solid #68a31b;
+   // border-left: 4px solid #68a31b;
     padding: 0px;
    .mat-card-header{
        padding-top: 3px;
@@ -25,6 +25,32 @@
     }
 }
 
+.mat-card-actions {
+    padding: 0px 0!important;
+        margin-bottom: 0px!important;
+}
+
+.btn-add{
+    background-color: #21A0D2!important;
+    color: #fff!important;
+    padding: 25px;
+    margin: 20px;
+}
+
+.btn-filter{
+    background-color: #21A0D2!important;
+    color: #fff!important;
+    padding: 3px;
+    min-width: 150px;
+    margin: 20px;
+}
+.mat-badge-medium.mat-badge-after .mat-badge-content {
+    right: -26px!important;
+}
+
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -3px!important;
+}
 
 
 .project-header-properties{
