@@ -1,6 +1,6 @@
 
 <div class="project-details">
-<!--div  class="ng-tns-c28-32" fxlayout="column" fxlayoutgap="16px" fxlayoutgap.gt-md="24px" style="flex-direction: column; box-sizing: border-box; display: flex;">
+<div  class="ng-tns-c28-32" fxlayout="column" fxlayoutgap="16px" fxlayoutgap.gt-md="24px" style="flex-direction: column; box-sizing: border-box; display: flex;">
   <div  class="splash" fxlayout="column" fxlayout.gt-sm="row" style="margin-bottom: 24px; flex-direction: row; box-sizing: border-box; display: flex;">
       <div  class="left" fxflex.gt-sm="300px" fxflex.gt-xs="200px" fxlayout="column" style="flex-direction: column; box-sizing: border-box; display: flex; flex: 1 1 300px; max-width: 300px; min-width: 300px; background: linear-gradient(to left, rgb(203, 173, 109), rgb(213, 51, 105));">
           <div  class="ng-tns-c28-32" fxlayout="row" fxlayoutalign="end center" style="flex-direction: row; box-sizing: border-box; display: flex; max-height: 100%; place-content: center flex-end; align-items: center;">
@@ -118,7 +118,7 @@
           </div>
       </div>
   </div>
-</div-->
+</div>
 
 <div fxLayout="column" class="p-2">
         <div class="p-2">
@@ -176,10 +176,10 @@
                                                         </div-->
                                                         <div fxFlex="25" class="p-2"> 
                                                         <mat-card class="status-panel">            
-                                                                <mat-card-header class="bg-primary p-1" fxLayoutAlign="space-between center">
-                                                                        <mat-card-title class="m-0"><h3>IDEAS/TASKS</h3></mat-card-title>
-                                                                        <button mat-icon-button><mat-icon>add_circle_ou...</mat-icon></button>
-                                                                    </mat-card-header>
+                                                                <mat-card-header class="back-blue-dark p-2" fxLayoutAlign="space-between center">
+                                                                        <mat-card-title class="m-0"><h3>IDEAS/TASKS (4)</h3></mat-card-title>
+                                                                        <button mat-icon-button (click)="openTaskDialog(null)"><mat-icon>add_circle_ou...</mat-icon></button>
+                                                                </mat-card-header>
 
                                                                 <mat-card-content class="bag">
                                                                     <mat-card *ngFor="let color of colors"  class="task-card draggable ">
@@ -191,11 +191,11 @@
 
                                                         <div fxFlex="25" class="p-2"> 
                                                             <mat-card class="status-panel">            
-                                                                <mat-card-header fxLayoutAlign="center">
-                                                                    <mat-card-subtitle fxLayoutAlign="center">
-                                                                        <h2>IN PROGRESS</h2> 
-                                                                    </mat-card-subtitle>
+                                                                <mat-card-header class="back-orange p-2" fxLayoutAlign="space-between center">
+                                                                    <mat-card-title class="m-0"><h3>IN PROGRESS (3)</h3></mat-card-title>
+                                                                    <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
                                                                 </mat-card-header>
+
                                                                 <mat-card-content class="bag">
                                                                     <mat-card *ngFor="let color of colors"  class="task-card draggable ">
                                                                         You can move these elements between these two containers
@@ -207,7 +207,7 @@
                                                                 <mat-card class="status-panel">            
                                                                    
 
-                                                                    <mat-card-header class="bg-primary p-1" fxLayoutAlign="space-between center">
+                                                                    <mat-card-header class="back-blue-light p-2" fxLayoutAlign="space-between center">
                                                                             <mat-card-title class="m-0"><h3>READY FOR REVIEW</h3></mat-card-title>
                                                                             <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
                                                                         </mat-card-header>
@@ -221,10 +221,9 @@
                                                             </div>
                                                             <div fxFlex="25" class="p-2"> 
                                                                     <mat-card class="status-panel">            
-                                                                        <mat-card-header fxLayoutAlign="center">
-                                                                            <mat-card-subtitle fxLayoutAlign="center">
-                                                                                <h2>APPROVED</h2> 
-                                                                            </mat-card-subtitle>
+                                                                        <mat-card-header class="back-green-light p-2" fxLayoutAlign="space-between center">
+                                                                            <mat-card-title class="m-0"><h3>APPROVED </h3></mat-card-title>
+                                                                            <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
                                                                         </mat-card-header>
 
 

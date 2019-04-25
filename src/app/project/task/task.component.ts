@@ -20,6 +20,7 @@ export class TaskComponent implements OnInit {
           title: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
           description: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
           startDate: null,
+          endDate: null,
           workshop: null
          /* profile: this.fb.group({
             name: null,
