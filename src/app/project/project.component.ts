@@ -10,6 +10,9 @@ export class ProjectComponent implements OnInit {
 
   public icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite'];
   public colors = [ 'accent', 'primary', 'warn' ];
+  color = 'primary';
+  mode = 'determinate';
+  value = 50;
 
   constructor( public dialog: MatDialog) { }
 
