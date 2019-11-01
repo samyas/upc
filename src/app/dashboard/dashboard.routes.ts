@@ -1,13 +1,23 @@
+
 import { ModuleWithProviders } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
-import { DashboardComponent } from './dashboard.component';
+import { SupervisorDashboardComponent } from './supervisor-dashboard.component';
+import { LeaderDashboardComponent } from './leader-dashboard.component';
 
 
 export const DashboardRoutes: Route[] = [
   {
-    path: '',
-    component: DashboardComponent,
+    path: 'supervisor',
+    component: SupervisorDashboardComponent,
+    data: {
+      title: 'Dashboard'
+    }
+  },
+
+  {
+    path: 'leader',
+    component: LeaderDashboardComponent,
     data: {
       title: 'Dashboard'
     }

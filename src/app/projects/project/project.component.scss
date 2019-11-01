@@ -1,3 +1,70 @@
+.goal-title{
+    margin-left:10px;
+    margin-right: 10px;
+}
+
+.w-100{
+    width: 100%;
+}
+
+.rounded{
+    background: #c50022;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    z-index: 1;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline {
+    position: relative;
+   // max-width: 1200px;
+   // margin: 0 auto;
+  }
+
+
+  .mat-chip-list-stacked mat-chip {
+    width:20%!important;
+    margin-left: 40px;
+}
+
+  .task-line::before {
+    content: " ";
+    position: absolute;
+    border: medium solid #c50022;
+    width: 15px;
+    border-width: 0px 20px 5px 10px;
+    z-index: 1;
+    margin-top: 25px;
+    margin-left: 9px;
+    /* border-color: #272526 #f5ebed #1f0a0e #c50022; */
+}
+
+.btn-save{
+    background-color: #21A0D2!important;
+    color: #fff!important;
+    padding: 3px;
+    min-width: 150px;
+    margin: 10px;
+    border-radius:25px;
+}
+  
+  /* The actual timeline (the vertical ruler) */
+  .timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: #c54d4d;
+    top: 0;
+    bottom: 0;
+    //left: 50%;
+    margin-left: 33px;
+  }
+  
+
 .mat-form-field{
     font:400 16px/1.125 Roboto,"Helvetica Neue",sans-serif
 }

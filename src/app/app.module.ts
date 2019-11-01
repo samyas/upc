@@ -5,12 +5,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppSettings } from './core/app.settings';
+import { AuthInterceptor } from './core/http/auth-interceptor';
+
+/** Http interceptor providers in outside-in order */
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+];
 
 @NgModule({
   declarations: [
@@ -20,9 +27,9 @@ import { AppSettings } from './core/app.settings';
     // BrowserModule,
     BrowserAnimationsModule,
     RouterModule, AppRoutingModule,
-    OverlayModule
+    OverlayModule, HttpClientModule
   ],
-  providers: [   AppSettings],
+  providers: [   AppSettings, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

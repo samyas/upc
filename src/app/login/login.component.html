@@ -23,7 +23,7 @@
       <mat-card>
         
         <mat-card-content>
-          <form class="example-form">
+          <form [formGroup]="form"  class="example-form">
 
             <div class="text-center">
                 <img alt="homepage" src="assets/images/logo-icon.png">
@@ -32,18 +32,18 @@
 
             
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Username">
+              <input matInput placeholder="Username"  formControlName="username">
             </mat-form-field>
           
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Password">
+              <input matInput placeholder="Password"  formControlName="password">
             </mat-form-field>
           
            
                 <mat-checkbox>Remember me</mat-checkbox>
          
 
-            <button class="app-button" mat-raised-button color="primary">Login</button>
+            <button (click)="login()" class="app-button" mat-raised-button color="primary">Login</button>
           </form>
 
           <div class="register">

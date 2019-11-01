@@ -37,7 +37,22 @@
 }
 
 
-
+.group-title{
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    font-weight: 600;
+    padding-left: 24px;
+    margin-top: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+	text-transform: uppercase;
+	height: 40px;
+}
+.hint-text {
+    color: rgba(0,0,0,.38);
+}
 
 
 .options{

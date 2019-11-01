@@ -1,0 +1,336 @@
+<div class="project-details">
+<div   fxLayout="column" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    
+        <mat-accordion >
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                                <div  class="splash-title">Project Information</div>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                                <mat-icon>more_horiz</mat-icon>
+                        </mat-panel-description>
+                
+                    </mat-expansion-panel-header>
+                    <div  class="splash" fxLayout="column" fxLayout.gt-sm="row" >
+                        
+                        <div  class="right" fxFlex="auto" fxFlex.gt-sm="" fxLayout="column" fxLayoutAlign.gt-sm="space-between">
+
+                            <div  class="details" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+                                <div  class="detail">
+                                    <div  class="name">Project Name</div>
+                                    <div  class="value">{{project?.name}}</div>
+                                </div>
+                                <div  class="detail">
+                                    <div  class="name">Due Date</div>
+                                    <div  class="value">April 7, 2019</div>
+                                </div>
+                                <div  class="detail">
+                                    <div  class="name">Labels</div>
+                                    <div  class="value">
+                                        <mat-chip-list aria-orientation="horizontal">
+                                            <div class="mat-chip-list-wrapper">
+                                        
+                                                <mat-chip>Redesign</mat-chip>
+                                                <mat-chip>Product</mat-chip>
+                                                <mat-chip>Illustration</mat-chip>
+                                                <mat-chip>Web Design</mat-chip>
+                                            </div>
+                                        </mat-chip-list>
+                                    </div>
+                                </div>
+                                <div  class="detail">
+                                    <div  class="name">Members</div>
+                                    <div  class="value" fxLayout="row">
+                                    
+                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/michael.jpg"></div>
+                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/bruno.jpg"></div>
+                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/adam.jpg"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--div  class="details" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+                                <div  class="detail">
+                                    <div  class="name">Category</div>
+                                    <div  class="value">Material</div>
+                                </div>
+                                <div  class="detail">
+                                    <div  class="name">Departement</div>
+                                    <div  class="value">Material Sicence</div>
+                                </div>
+
+                                <div  class="detail">
+                                    <div  class="name">Status</div>
+                                    <div  class="value">Active</div>
+                                </div>
+                                <div  class="detail">
+                                    <div  class="name">Progress</div>
+                                    <div  class="value">60%</div>
+                                </div>
+                                <div  class="detail">
+                                    <div  class="name">Powered</div>
+                                    <div  class="value" fxLayout="row">
+                                    
+                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/michael.jpg"></div>
+                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/bruno.jpg"></div>
+                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/adam.jpg"></div>
+                                    </div>
+                                </div>
+                            </div-->
+
+                            <div  class="divider reverse"></div>
+                            <div  class="right-bottom">
+                                <div  class="description-title">Project Description</div>
+                                <div  class="description">
+                                    <p> Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. </p>
+                                    <p> Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring. </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div  class="left" fxFlex.gt-sm="300px" fxFlex.gt-xs="200px" fxLayout="column">
+                            <div   fxLayout="row" fxLayoutAlign="end center">
+                                <button mat-icon-button> <mat-icon>more_horiz</mat-icon></button>
+                            </div>
+                            <div  class="codename" fxFlex="" fxLayout="column" fxLayoutAlign="start center">
+                                <mat-list>
+                                    <mat-list-item>Category: Material</mat-list-item>
+                                    <mat-list-item>Departement: Material Sicence</mat-list-item>
+                                    <mat-list-item>Status : Active</mat-list-item>
+                                    <mat-list-item>Progress : 60%</mat-list-item>
+                                </mat-list>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+        </mat-accordion>        
+   
+    <div fxLayout="column">
+            <mat-card>
+                <mat-card-content>
+                    <mat-tab-group>
+                       
+                        <mat-tab label="Goals & Tasks">
+                          
+                                <div fxLayout="row" fxLayoutAlign="start start">
+                                        <div  fxFlex="40" fxFlex.gt-md="40" fxFlex.gt-sm="40"  fxFlex.sm="40" class="p-2"> 
+                                                <button mat-icon-button (click)="openGoalDialog(null)"><mat-icon>add_circle</mat-icon></button>
+                                            <div class="timeline">
+                                                <mat-accordion>
+                                                        <mat-expansion-panel *ngFor="let goal of project.goals" class="mat-elevation-z" (opened)="panelOpenState = true"
+                                                                            (closed)="panelOpenState = false">
+                                                                            <mat-expansion-panel-header>
+                                                                                <mat-panel-title>
+                                                                                        <span class="rounded"> 1 </span>
+                                                                                        <div class="goal-title"><h3 matLine> {{goal.name}} </h3></div>
+                                                                                        <p matLine> <small> {{goal.startDate | date: 'dd/MM/yyyy'}} -  {{goal.endDate  | date: 'dd/MM/yyyy'}} </small></p>
+
+                                                                                        
+                                                                                        <button mat-icon-button (click)="openTaskDialog(goal.goalId, null)"><mat-icon>add_circle</mat-icon></button>
+                                                                                </mat-panel-title>
+                                                                            </mat-expansion-panel-header>
+
+                                                                            <mat-chip-list  class="mat-chip-list-stacked" aria-orientation="vertical">
+                                                                                    <mat-chip class="task-line"  (click)="showTask(goal.goalId, task.taskId)"  *ngFor="let task of goal.tasks" selected>{{task.name}}</mat-chip>
+                                                                            </mat-chip-list>                                                                       
+                                                        </mat-expansion-panel>
+                                                </mat-accordion>
+                                            </div>    
+                                        </div>
+
+                                        <div  fxFlex="60" *ngIf="selectedTask" fxFlex.gt-md="60" fxFlex.gt-sm="60"  fxFlex.sm="60" class="p-2"> 
+                                                <mat-card class="project-card">
+                                                        <mat-card-header>
+                                                                    <mat-card-title class="mat-card-title">{{selectedTask.name}}</mat-card-title>
+                                                                    <mat-card-subtitle class="mat-card-subtitle">
+                                                                            <mat-icon>date_range</mat-icon> {{selectedTask.startDate | date: 'dd/MM/yyyy'}}, <mat-icon>person</mat-icon>Dr. Imed Romdhani
+                                                                   </mat-card-subtitle>
+                                                               
+                                                        </mat-card-header>
+                                                        <mat-divider></mat-divider>
+                                                        <mat-card-content>
+                                                                <h3>Description:</h3>
+                                                                <p class="secondary-text-color mt-2" style="padding:5px;"> 
+                                                                      This PhD project will focus on the investigation of the crystallization kinetics of several organic molecules (from low molecular weight compounds to polymers),
+                                                                     by means of broadband dielectric spectroscopy. The aim of this research is to unveil the correlation between the relaxation processes active during crystallization and the molecular mechanisms responsible for the formation of ordered structures
+                                                                </p>
+                                                                <h3>Plan:</h3>    <mat-icon>date_range</mat-icon> 21/09/03/18
+                                                                <h3>Attachements:</h3>
+
+                                                                <mat-progress-bar style="margin-top: 5px;" mode="determinate" value="40"></mat-progress-bar> 
+                                                        </mat-card-content>
+                                                        <mat-divider></mat-divider>   
+                                                        <mat-card-actions fxLayoutAlign="center center">  
+                                                            <button mat-icon-button><mat-icon>favorite</mat-icon></button>
+                                                            <button mat-icon-button><mat-icon>share</mat-icon></button>
+                                                            <button mat-icon-button><mat-icon>edit</mat-icon></button>
+                                                            <button  [routerLink]="['.', 1]" mat-icon-button><mat-icon>visibility</mat-icon></button>
+                                                        </mat-card-actions>
+                                                </mat-card>   
+                                        </div>
+
+                                </div>
+                        </mat-tab>
+                        <mat-tab label="Current Sprint">
+                                <mat-drawer-container class="chat-container">
+                                        <div fxLayout="row" class="p-2">
+                                            <div fxFlex="100" fxFlex.gt-md="25" fxFlex.sm="50" class="p-2"> 
+                                            <mat-card class="status-panel">            
+                                                    <mat-card-header class="back-blue-dark p-2" fxLayoutAlign="space-between center">
+                                                            <mat-card-title class="m-0"><h3>IDEAS/TASKS (4)</h3></mat-card-title>
+                                                            <button mat-icon-button (click)="openTaskDialog(null)"><mat-icon>add_circle_ou...</mat-icon></button>
+                                                    </mat-card-header>
+
+                                                    <mat-card-content class="bag">
+                                                        <mat-card *ngFor="let color of colors"  class="task-card draggable" >
+                                                        <div fxLayoutAlign="space-between center">
+                                                                <p>You can move these elements between these two containers</p> 
+                                                                <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                                            </div>
+                                                            <div fxLayoutAlign="space-between center">
+                                                                    <button mat-icon-button class="small"><mat-icon>chat</mat-icon>22</button>
+                                                                    <img matlistavatar  mattooltip="Lina Miller"  src="assets/images/users/michael.jpg">
+                                                                </div>
+                                                        </mat-card>                 
+                                                    </mat-card-content>          
+                                                </mat-card> 
+                                            </div>
+
+                                            <div fxFlex="100" fxFlex.gt-md="25" fxFlex.sm="50" class="p-2"> 
+                                                <mat-card class="status-panel">            
+                                                    <mat-card-header class="back-orange p-2" fxLayoutAlign="space-between center">
+                                                        <mat-card-title class="m-0"><h3>IN PROGRESS (3)</h3></mat-card-title>
+                                                        <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                                    </mat-card-header>
+
+                                                    <mat-card-content class="bag">
+                                                        <mat-card *ngFor="let color of colors"  class="task-card draggable ">
+                                                            You can move these elements between these two containers
+                                                        </mat-card>                 
+                                                    </mat-card-content>          
+                                                </mat-card> 
+                                            </div>
+                                            <div  fxFlex="100" fxFlex.gt-md="25" fxFlex.sm="50" class="p-2"> 
+                                                    <mat-card class="status-panel">            
+                                                    
+
+                                                        <mat-card-header class="back-blue-light p-2" fxLayoutAlign="space-between center">
+                                                                <mat-card-title class="m-0"><h3>READY FOR REVIEW</h3></mat-card-title>
+                                                                <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
+                                                            </mat-card-header>
+
+                                                        <mat-card-content class="bag">
+                                                            <mat-card *ngFor="let color of colors"  class="task-card draggable ">
+                                                                You can move these elements between these two containers
+                                                            </mat-card>                 
+                                                        </mat-card-content>          
+                                                    </mat-card> 
+                                                </div>
+                                                <div  fxFlex="100" fxFlex.gt-md="25" fxFlex.sm="50" class="p-2"> 
+                                                        <mat-card class="status-panel">            
+                                                            <mat-card-header class="back-green-light p-2" fxLayoutAlign="space-between center">
+                                                                <mat-card-title class="m-0"><h3>APPROVED </h3></mat-card-title>
+                                                                <button mat-icon-button (click)="personInfo.toggle()"><mat-icon>more_vert</mat-icon></button>
+                                                            </mat-card-header>
+
+
+                                                            <mat-card-content class="bag">
+                                                                <mat-card *ngFor="let color of colors"  class="task-card draggable ">
+                                                                    You can move these elements between these two containers
+                                                                </mat-card>                 
+                                                            </mat-card-content>          
+                                                        </mat-card> 
+                                                    </div>
+                                        </div>
+
+                                        <mat-drawer #personInfo mode="over" position="end" class="person-info-sidenav mat-elevation-z1" autoFocus="false">
+                                                <div class="p-0 h-100" perfectScrollbar>
+                            
+                                                    <div class="bg-primary w-100 text-center"> 
+                                                        <div fxLayout="row" fxLayoutAlign="space-between center" class="p-2">
+                                                            <h2>Contact Info</h2>
+                                                            <button mat-icon-button (click)="personInfo.toggle()"><mat-icon>close</mat-icon></button>
+                                                        </div>  
+                                                        <img *ngIf="currentChat" src="assets/images/users/user.jpg" class="py-2">
+                                                        <h2 *ngIf="currentChat" class="pb-3">Imed Romdhani</h2>
+                                                    </div> 
+                                                    <mat-list>
+                                                        <mat-list-item>
+                                                            <mat-icon matListIcon class="secondary-text-color">mail_outline</mat-icon>
+                                                            <h3 matLine>author@gmail.com</h3>
+                                                        </mat-list-item>
+                                                        <mat-list-item>
+                                                            <mat-icon matListIcon class="secondary-text-color">call</mat-icon>
+                                                            <h3 matLine>(202) 756-9756</h3>
+                                                        </mat-list-item>
+                                                        <mat-list-item>
+                                                            <mat-icon matListIcon class="secondary-text-color">location_on</mat-icon>
+                                                            <h3 matLine>2903 Avenue Z, Brooklyn, NY</h3>
+                                                        </mat-list-item>
+                                                    </mat-list>                       
+                                                </div>
+                                            </mat-drawer>
+
+                                </mat-drawer-container>
+                         
+                        </mat-tab>
+                        <mat-tab label="Results">
+                        
+                        </mat-tab>
+
+                        <mat-tab label="Goals & Tasks (V2)">
+                            <mat-vertical-stepper [linear]="false" #stepper>
+                                    <mat-step>
+                                        <ng-template matStepLabel>
+                                                <h3 matLine> Goal 1: Bibliograhy  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
+                                        </ng-template>
+                                        <mat-list>
+                                                <mat-list-item *ngFor="let number of [1,2,3]">
+                                                    <mat-icon matListIcon>check_circle</mat-icon>
+                                                    <h3 matLine> Title {{number}} </h3>
+                                                </mat-list-item>
+                                            </mat-list>
+                                    </mat-step>
+                                    <mat-step>
+                                            <ng-template matStepLabel>
+                                                <h3 matLine> Goal 2: Specification  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
+                                            </ng-template>
+                                   </mat-step>
+
+                                   <mat-step>
+                                            <ng-template matStepLabel>
+                                                <h3 matLine> Goal 3: Design & Devlopment  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
+                                            </ng-template>
+                                    </mat-step>
+                                    <mat-step>
+                                            <ng-template matStepLabel>
+                                                    <h3 matLine> Goal 4: Statistic  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
+                                            </ng-template>
+                                    </mat-step>
+
+                                    <mat-step>
+                                            <ng-template matStepLabel>
+                                                    <h3 matLine> Goal 5: Demo  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
+                                            </ng-template>
+                                    </mat-step>
+                                    
+                                    <mat-step>
+                                            <ng-template matStepLabel>
+                                                    <h3 matLine> Goal 6: Check point  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
+                                            </ng-template>
+                                    </mat-step> 
+
+                            </mat-vertical-stepper>
+                    </mat-tab>
+                    </mat-tab-group>
+      
+                </mat-card-content>
+            </mat-card>
+      </div>
+
+</div>
+
+
+
+</div>

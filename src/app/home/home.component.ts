@@ -15,13 +15,14 @@ export class HomeComponent implements OnInit {
 
   isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
   public settings: Settings;
+  menuItems: Array<MenuItem> = [];
+ userInfo: { type: null, name: null};
 
-
-  menuItems: Array<MenuItem> = [
+  items: Array<MenuItem> = [
     {
       label: 'Dashboard',
       icon: 'dashboard',
-      link: './dashboard'
+      link: './dashboard/supervisor'
     },
     {
       label: 'Students',
@@ -52,6 +53,54 @@ export class HomeComponent implements OnInit {
     }
   ];
 
+  modelSupervisorItems: Array<MenuItem> = [
+    {
+      label: 'Dashboards',
+      icon: 'dashboard',
+      link: './dashboard/leader'
+    },
+    {
+      label: 'Students',
+      icon: 'supervisor_account',
+      link: './students'
+    },
+    {
+      label: 'Projects',
+      icon: 'computer',
+      link: './project'
+    }
+  ];
+
+  modelManagerItems: Array<MenuItem> = [
+    {
+      label: 'Dashboards',
+      icon: 'dashboard',
+      link: './dashboard/leader'
+    },
+    {
+      label: 'Students',
+      icon: 'supervisor_account',
+      link: './students'
+    },
+    {
+      label: 'My Projects',
+      icon: 'computer',
+      link: './project'
+    }
+  ];
+
+  modelStudentsItems: Array<MenuItem> = [
+    {
+      label: 'Dashboards',
+      icon: 'dashboard',
+      link: './dashboard/leader'
+    },
+    {
+      label: 'My Projects',
+      icon: 'computer',
+      link: './project'
+    }
+  ];
 
   constructor(public appSettings: AppSettings, private breakpointObserver: BreakpointObserver) {
     this.settings = this.appSettings.settings;
@@ -59,7 +108,21 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
+    this.userInfo = JSON.parse(localStorage.getItem('user'));
+    console.log('get key', this.userInfo);
+    if (this.userInfo == null) {
+      this.menuItems = this.modelStudentsItems;
+    } else {
+      if (this.userInfo.type === 'MANAGER') {
+        this.menuItems = this.modelManagerItems;
+      } else if (this.userInfo.type === 'SUPERVISOR') {
+        this.menuItems = this.modelSupervisorItems;
+      } else if (this.userInfo.type === 'STUDENT') {
+        this.menuItems = this.modelStudentsItems;
+      }
+    }
   }
+
 
   changeTheme(theme: string) {
     this.settings.theme = theme;

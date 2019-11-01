@@ -1,0 +1,44 @@
+
+.amml-item {
+    line-height: 48px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .anml-data {
+    width: 100%;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: flex-start;
+    height: 48px;
+    &.active{
+      padding: 0 12px 0 24px;
+      border-radius: 0 25px 25px 0;
+     // margin-right: 16px;
+      background-color: #C50022;
+      color : #ffffff
+    }
+
+  }
+  
+  
+  .amml-icon-fa {
+    font-size: 20px;
+  }
+  
+  .label{
+    line-height: 48px;
+  }
+  
+  .amml-icon {
+    line-height: 48px;
+  }
+  
+  div .amml-icon {
+    margin-right: 16px;
+  }
+  div.amml-submenu {
+    margin-left: 16px;
+  }
+  
+ 

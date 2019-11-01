@@ -30,7 +30,7 @@ import { HomeComponent } from './home.component';
       },
       {
         path: 'project',
-        loadChildren: '../project/project.module#ProjectModule',
+        loadChildren: '../projects/projects.module#ProjectsModule',
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
      /* {

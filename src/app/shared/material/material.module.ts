@@ -4,7 +4,7 @@ import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule, M
   MatDialogModule, MatSnackBarModule, MatSelectModule, MatInputModule,
   MatSidenavModule, MatCardModule, MatIconModule, MatRadioModule, MatProgressSpinnerModule,
   MatTabsModule, MatListModule, MatExpansionModule, MatTableModule , MatPaginatorModule, MatDatepickerModule,
-  MatNativeDateModule, MatStepperModule, MatBadgeModule} from '@angular/material';
+  MatNativeDateModule, MatStepperModule, MatBadgeModule, MatAutocompleteModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule, M
     MatDialogModule, MatSnackBarModule, MatSelectModule, MatInputModule, MatSidenavModule,
     MatCardModule, MatIconModule, MatRadioModule, MatProgressSpinnerModule,
     MatTabsModule, MatListModule, MatExpansionModule, MatTableModule, MatPaginatorModule, MatDatepickerModule, MatNativeDateModule,
-    MatStepperModule, MatBadgeModule
+    MatStepperModule, MatBadgeModule, MatAutocompleteModule
   ],
   exports: [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule, MatOptionModule,
@@ -21,7 +21,7 @@ import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatChipsModule, M
     MatDialogModule, MatSnackBarModule, MatSelectModule, MatInputModule, MatSidenavModule,
     MatCardModule, MatIconModule, MatRadioModule, MatProgressSpinnerModule,
     MatTabsModule, MatListModule, MatExpansionModule, MatTableModule, MatPaginatorModule, MatDatepickerModule, MatNativeDateModule,
-     MatStepperModule, MatBadgeModule
+     MatStepperModule, MatBadgeModule, MatAutocompleteModule
   ],
 })
 export class MaterialModule { }

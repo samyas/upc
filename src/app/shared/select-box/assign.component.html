@@ -1,0 +1,7 @@
+<ng-container>
+        <a *ngIf="!!showAssign; else assigntemplate" (click)="showAssign=!showAssign" href="">Assign</a>
+        <ng-template #assigntemplate>
+                <ng-content></ng-content>
+        </ng-template>
+       
+</ng-container>

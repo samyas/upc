@@ -1,6 +1,6 @@
 export class Task {
-    id: number;
-    title: string;
+    taskId: string;
+    name: string;
     description: string;
     startDate: Object;
     endDate: Object;
