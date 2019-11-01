@@ -15,7 +15,7 @@ import { Person } from '../model/person.model';
 @Injectable()
 export class PersonService {
 
-  public static readonly PERSON_URI = 'http://localhost:8080/api/persons';
+  public static readonly PERSON_URI = 'https://ppms-back.herokuapp.com/api/persons';
   constructor(private http: HttpClient) {}
 
   getPersons(): Observable<Array<Person>> {

@@ -16,7 +16,7 @@ import { Task } from '../model/task.model';
 @Injectable()
 export class ProjectService {
 
-  public static readonly PROJECT_URI = 'http://localhost:8080/api/projects';
+  public static readonly PROJECT_URI = 'https://ppms-back.herokuapp.com/api/projects';
   constructor(private http: HttpClient) {}
 
   getProjects(): Observable<Array<Project>> {
