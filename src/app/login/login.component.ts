@@ -34,6 +34,6 @@ export class LoginComponent implements OnInit {
      } else if (username.indexOf('2') > 0) {
        return 'SUPERVISOR';
      }
-     return 'STUDENT';
+     return 'PERSON';
   }
 }

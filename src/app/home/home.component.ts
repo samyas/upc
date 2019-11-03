@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
         this.menuItems = this.modelManagerItems;
       } else if (this.userInfo.type === 'SUPERVISOR') {
         this.menuItems = this.modelSupervisorItems;
-      } else if (this.userInfo.type === 'STUDENT') {
+      } else if (this.userInfo.type === 'PERSON') {
         this.menuItems = this.modelStudentsItems;
       }
     }
