@@ -59,11 +59,11 @@ export class HomeComponent implements OnInit {
       icon: 'dashboard',
       link: './dashboard/leader'
     },
-    {
-      label: 'Students',
+  /*  {
+      label: 'Persons',
       icon: 'supervisor_account',
       link: './students'
-    },
+    },*/
     {
       label: 'Projects',
       icon: 'computer',
@@ -77,11 +77,11 @@ export class HomeComponent implements OnInit {
       icon: 'dashboard',
       link: './dashboard/leader'
     },
-    {
-      label: 'Students',
+   /* {
+      label: 'Persons',
       icon: 'supervisor_account',
       link: './students'
-    },
+    },*/
     {
       label: 'My Projects',
       icon: 'computer',
