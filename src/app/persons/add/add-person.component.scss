@@ -1,0 +1,41 @@
+
+
+.goal-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+   
+    .mat-radio-button{
+        margin-right: 12px;
+    }
+  }
+  
+  .field-full-width {
+    width: 100%;
+  }
+  .user-form{
+    .form-field-outer{
+        width: 280px;
+    }
+    .mat-radio-button{
+        margin-right: 12px;
+    }
+}
+
+
+.mat-dialog-title {
+    margin: 0 0 5px!important;
+}
+
+.mat-dialog-content {
+    overflow-y: hidden !important;
+}
+
+.btn-save{
+    background-color: #21A0D2!important;
+    color: #fff!important;
+    padding: 3px;
+    min-width: 150px;
+    margin: 10px;
+    border-radius:25px;
+}

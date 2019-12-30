@@ -1,0 +1,65 @@
+<h1>Oragnisation</h1>
+
+
+<mat-card>
+        
+    <mat-card-content>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+
+            <div *ngIf="serverError" class="text-danger">{{serverError}}</div>
+          
+    
+            <mat-form-field class="">
+              <input matInput placeholder="Name"  formControlName="name">
+              <div *ngIf="submitted && f.name.errors" class="text-danger">
+                <div *ngIf="f.name.errors.required"> Name is required</div>
+            </div>
+            </mat-form-field>
+          
+            <mat-form-field class="">
+              <input matInput placeholder="Contact Email"  formControlName="contactEmail">
+              <div *ngIf="submitted && f.contactEmail.errors" class="invalid-feedback">
+                <div *ngIf="f.contactEmail.errors.required">Email is required</div>
+                <div *ngIf="f.contactEmail.errors.email">Email must be a valid email address</div>
+              </div>
+            </mat-form-field>
+      
+            <mat-form-field class="">
+              <textarea matInput placeholder="Presentation"  formControlName="description"></textarea>
+            </mat-form-field>
+      
+            <mat-form-field class="">
+                <textarea matInput placeholder="Long description"  formControlName="longDescription"></textarea>
+              </mat-form-field>
+    
+    
+           <div class="row" [formGroup]="form.get('address')">
+                  <mat-form-field class="">
+                    <input matInput placeholder="Street" formControlName="street" />
+                  </mat-form-field>
+            
+           
+                  <mat-form-field class="">
+                    <input matInput placeholder="Postal code" formControlName="zipCode" />
+                  </mat-form-field>
+              
+           
+                  <mat-form-field class="">
+                    <input matInput placeholder="City" formControlName="city" />
+                  </mat-form-field>
+              
+               
+                  <mat-form-field class="">
+                    <input matInput placeholder="Country" formControlName="country" />
+                  </mat-form-field>
+            </div>
+    
+            <button class="app-button" mat-raised-button color="primary">Save</button>
+          </form>
+    
+
+    </mat-card-content>
+  </mat-card>

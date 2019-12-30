@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
+import { AuthGuard } from '../core/guards/auth-guard';
 // import { ErrorComponent } from './../shared/errors/error.component';
 // import { AuthGuard } from './../core/auth';
 
@@ -11,26 +12,33 @@ import { HomeComponent } from './home.component';
 
   {
     path: '',
-       // canActivate: [AuthGuard],
+   //  canActivate: [AuthGuard],
     component: HomeComponent,
     data: {
       title: 'Home'
     },
 
     children: [
-
       {
         path: 'dashboard',
         loadChildren: '../dashboard/dashboard.module#DashboardModule',
 
       },
       {
-        path: 'students',
-        loadChildren: '../uploads/uploads.module#UploadsModule',
+        path: 'organisation',
+        loadChildren: '../organisation/organisation.module#OrganisationModule',
       },
       {
         path: 'project',
         loadChildren: '../projects/projects.module#ProjectsModule',
+      },
+      {
+        path: 'persons',
+        loadChildren: '../persons/persons.module#PersonsModule',
+      },
+      {
+        path: 'users',
+        loadChildren: '../users/users.module#UsersModule',
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
      /* {

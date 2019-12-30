@@ -5,6 +5,9 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import { Observable } from 'rxjs';
 import { Settings } from '../core/app.settings.model';
 import { AppSettings } from '../core/app.settings';
+import { AuthService } from '../core/services/auth.service';
+import { User } from '../core/model/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +19,7 @@ export class HomeComponent implements OnInit {
   isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
   public settings: Settings;
   menuItems: Array<MenuItem> = [];
- userInfo: { type: null, name: null};
+  userInfo: User = new User();
 
   items: Array<MenuItem> = [
     {
@@ -77,15 +80,25 @@ export class HomeComponent implements OnInit {
       icon: 'dashboard',
       link: './dashboard/leader'
     },
-   /* {
+    {
       label: 'Persons',
       icon: 'supervisor_account',
-      link: './students'
-    },*/
+      link: './persons'
+    },
+    {
+      label: 'Users',
+      icon: 'supervisor_account',
+      link: './users'
+    },
     {
       label: 'My Projects',
       icon: 'computer',
       link: './project'
+    },
+    {
+      label: 'University',
+      icon: 'computer',
+      link: './organisation'
     }
   ];
 
@@ -102,25 +115,28 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor(public appSettings: AppSettings, private breakpointObserver: BreakpointObserver) {
+  constructor( private router: Router, private auhtService: AuthService,
+    public appSettings: AppSettings, private breakpointObserver: BreakpointObserver) {
     this.settings = this.appSettings.settings;
   }
 
 
   ngOnInit() {
-    this.userInfo = JSON.parse(localStorage.getItem('user'));
-    console.log('get key', this.userInfo);
-    if (this.userInfo == null) {
-      this.menuItems = this.modelStudentsItems;
-    } else {
-      if (this.userInfo.type === 'MANAGER') {
-        this.menuItems = this.modelManagerItems;
-      } else if (this.userInfo.type === 'SUPERVISOR') {
-        this.menuItems = this.modelSupervisorItems;
-      } else if (this.userInfo.type === 'PERSON') {
-        this.menuItems = this.modelStudentsItems;
+    this.menuItems = this.modelManagerItems;
+    this.auhtService.userInfo().subscribe(
+      data => { this.userInfo = data;
+       // this.menuItems = this.modelManagerItems;
       }
-    }
+      , error =>  {
+        console.log(error);
+      });
+  }
+
+  logout() {
+    console.log('ttttt');
+    this.auhtService.logout();
+    console.log('ssssssss');
+    this.router.navigate(['login']);
   }
 
 

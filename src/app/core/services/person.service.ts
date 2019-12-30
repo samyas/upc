@@ -1,5 +1,6 @@
 import { Paged } from './../model/paged.model';
 import { Project, ProjectOverview, Goal } from './../model/project.model';
+import { environment } from '../../../environments/environment';
 
 import { Injectable } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
@@ -15,7 +16,7 @@ import { Person } from '../model/person.model';
 @Injectable()
 export class PersonService {
 
-  public static readonly PERSON_URI = 'https://ppms-back.herokuapp.com/api/persons';
+  public static readonly PERSON_URI = environment.baseUrl + 'persons';
   constructor(private http: HttpClient) {}
 
   getPersons(): Observable<Array<Person>> {
@@ -28,5 +29,9 @@ export class PersonService {
 
   getPersonDetail(id: string): Observable<Person> {
     return this.http.get<Person>(PersonService.PERSON_URI + '/' + id);
+  }
+
+  addPerson(person: Person): Observable<any> {
+    return this.http.post(PersonService.PERSON_URI, JSON.stringify(person),  {responseType: 'text'});
   }
 }

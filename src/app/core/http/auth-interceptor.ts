@@ -4,26 +4,28 @@ import {
 } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(/*private auth: AuthService*/) {}
+  constructor(private authService: AuthService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    // Get the auth token from the service.
-    // const authToken = this.auth.getAuthorizationToken();
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // add auth header with jwt if user is logged in and request is to api url
+    const currentUser = this.authService.currentUserValue;
+    const isLoggedIn = currentUser && currentUser.token;
+   // const isApiUrl = request.url.startsWith(config.apiUrl);
+    if (isLoggedIn) {
+        request = request.clone({ headers: request.headers.set('Authorization', `Bearer ${currentUser.token}`)});
+    }
+    if (!request.headers.has('Content-Type')) {
+      request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+    }
 
-    // Clone the request and replace the original headers with
-    // cloned headers, updated with the authorization.
-    const authReq = req.clone({
-     // headers: req.headers.set('Authorization', authToken)
-        headers: req.headers
-        .set('Content-Type', 'application/json')
-      //  .set('Accept', 'application/json')
-    });
+  // setting the accept header
+  request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
-    // send cloned request with header to the next handler.
-    return next.handle(authReq);
+    return next.handle(request);
   }
 }

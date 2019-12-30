@@ -1,0 +1,46 @@
+
+
+
+        <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="firstName">
+                  <th mat-header-cell *matHeaderCellDef> First Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="lastName">
+                        <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                </ng-container>
+                  
+
+                  <ng-container matColumnDef="enabled">
+                        <th mat-header-cell *matHeaderCellDef> Enabled </th>
+                        <td mat-cell *matCellDef="let element"> {{element.enabled}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef> Email </th>
+                        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="isCreator">
+                        <th mat-header-cell *matHeaderCellDef> isCreator </th>
+                        <td mat-cell *matCellDef="let element"> {{element.organisationCreationRequest}} </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Action </th>
+                        <td mat-cell *matCellDef="let element">
+                                <button (click)="activate(element.id)" mat-icon-button><mat-icon>edit</mat-icon></button>
+                                <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+                        </td>
+                  </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
+
+            
+  

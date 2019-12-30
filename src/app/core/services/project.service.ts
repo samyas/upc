@@ -1,6 +1,7 @@
 import { Assign } from './../model/assign.model';
 import { Paged } from '../model/paged.model';
 import { Project, ProjectOverview, Goal, Apply } from '../model/project.model';
+import { environment } from '../../../environments/environment';
 
 import { Injectable } from '@angular/core';
 import { Response, Headers, RequestOptions } from '@angular/http';
@@ -16,7 +17,7 @@ import { Task } from '../model/task.model';
 @Injectable()
 export class ProjectService {
 
-  public static readonly PROJECT_URI = 'https://ppms-back.herokuapp.com/api/projects';
+  public static readonly PROJECT_URI = environment.baseUrl + 'projects';
   constructor(private http: HttpClient) {}
 
   getProjects(): Observable<Array<Project>> {

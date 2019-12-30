@@ -18,7 +18,7 @@
   <mat-menu #appMenu="matMenu"  [overlapTrigger]="false">
     <button mat-menu-item>
       <mat-icon>person</mat-icon>
-      <a routerLink="/login"  >Logout</a>
+      <a (click)="logout()"  >Logout</a>
     </button>
     <!--button mat-menu-item disabled>
       <mat-icon>voicemail</mat-icon>
@@ -41,8 +41,8 @@
       <!--div class="sidenav-menu-outer ps ps--active-y"-->
           <div class="user-block py-3" fxlayout="column" fxlayoutalign="center center">
             <img alt="user-image" src="assets/images/users/user.jpg">
-            <h2 class="mt-2 ng-star-inserted" >Emilio Verdines ({{userInfo?.name}})</h2>
-            <p class="secondary-text-color ng-star-inserted" >emilio.verdines@company.com</p>
+            <h2 class="mt-2 ng-star-inserted" >{{userInfo?.lastName}} {{userInfo?.firstName}}</h2>
+            <p class="secondary-text-color ng-star-inserted" >{{userInfo?.email}}</p>
           </div>
 
 

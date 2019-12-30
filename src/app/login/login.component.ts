@@ -1,3 +1,4 @@
+import { AuthService } from './../core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,28 +13,45 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
 
 
-  constructor(  private router: Router, public fb: FormBuilder) {
-        this.form = this.fb.group({
-          username: ['', Validators.required],
-          password: ['', Validators.required]});
+  constructor(  private router: Router, public fb: FormBuilder , private authService: AuthService) {
   }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]});
   }
 
   login() {
-    const userInfo = { name: this.form.value.username, type: this.getType(this.form.value.username) };
-    localStorage.setItem('user', JSON.stringify(userInfo));
-    console.log('save key', userInfo);
-    this.router.navigate(['home/']);
+    console.log(this.authService);
+    const username = this.form.value.username;
+    const password = this.form.value.password;
+  this.authService.login(username, password).subscribe(
+      authUser => {
+        if (authUser.needToSelect === false) {
+          this.router.navigate(['home/']);
+        } else {
+          this.router.navigate(['login/choose-organisation/']);
+        }
+      }
+      , error =>  console.log(error)
+    );
   }
 
-  getType(username: string) {
-     if (username.indexOf('1') > 0) {
-       return 'MANAGER';
-     } else if (username.indexOf('2') > 0) {
-       return 'SUPERVISOR';
-     }
-     return 'MANAGER';
+  getLoginInfo() {
+    this.authService.userInfo().subscribe(
+      user => {
+           if (user.hasNoTenants()) {
+            this.router.navigate(['select-organisation/']);
+           } else  if (user.enabled === false) {
+            this.router.navigate(['not-enabled/']);
+           } else  if (user.defaultTenantId !== 0) {
+            this.router.navigate(['home/']);
+           } else  if (user.defaultTenantId !== 0) {
+            this.router.navigate(['home/']);
+           }
+      }
+      , error => console.error(error)
+    );
   }
 }
