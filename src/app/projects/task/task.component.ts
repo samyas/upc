@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Task } from '../../core/model/task.model';
 
@@ -12,8 +11,7 @@ export class TaskComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<TaskComponent>,
-    @Inject(MAT_DIALOG_DATA) public task: Task,
+  constructor( public task: Task,
     public fb: FormBuilder) {
         this.form = this.fb.group({
           taskId: null,
@@ -41,7 +39,7 @@ export class TaskComponent implements OnInit {
     }
 
     close(): void {
-      this.dialogRef.close();
+      //this.dialogRef.close();
     }
 
 }

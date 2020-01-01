@@ -1,0 +1,134 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group">
+
+        <div class="sidebar-profile d-flex flex-column justify-content-center pt-3 pb-2">
+            <div class="picture-wrapper mb-3">
+                <div _ngcontent-c2="" class="user-picture m-auto">
+                    <img alt="" class="img-fluid" src="../../../../assets/images/edinburgh-university-logo.jpeg">
+                 </div>
+            </div>
+            <div class="profile-details text-center">
+                <p class="mb-0 text-uppercase name"><strong>Edinburgh University</strong></p>
+            </div>
+        </div>
+
+        <div class="menu-header mt-3 mb-2"> Main Activity </div>
+
+        <a routerLink="./project" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>Projects</span>
+        </a>
+        <a [routerLink]="['./persons']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>Persons</span>
+        </a>
+        <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <i class="fa fa-fw fa-table"></i>&nbsp;
+            <span>translate</span>
+        </a>
+        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <i class="fa fa-fw fa-edit"></i>&nbsp;
+            <span>Departments</span>
+        </a>
+
+        <div class="menu-header mt-3 mb-2"> University </div>
+
+        <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <i class="fa fa-fw fa-desktop"></i>&nbsp;
+            <span>New Requests</span>
+        </a>
+        <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <i class="fa fa-fw fa-wrench"></i>&nbsp;
+            <span>Configuration</span>
+        </a>
+
+
+        <!--div class="nested-menu">
+            <a class="list-group-element" (click)="addExpandClass('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Menu' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div-->
+
+        <div class="header-fields">
+            <a (click)="rltAndLtr()" class="list-group-element">
+                <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
+            </a>
+            <div class="nested-menu">
+                <a class="list-group-element" (click)="addExpandClass('languages')">
+                    <span><i class="fa fa-language"></i>&nbsp; Language <b class="caret"></b></span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'languages'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('en')">
+                                English
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('fr')">
+                                French
+                            </a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            </div>
+            <div class="nested-menu">
+                <a class="list-group-element" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user"></i>&nbsp; John Smith</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-user"></i> Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-envelope"></i> Inbox</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-gear"></i> Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i> Log Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+     </div>
+    <!--div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+        <span>{{ 'Collapse Sidebar' | translate }}</span>
+    </div-->
+</nav>

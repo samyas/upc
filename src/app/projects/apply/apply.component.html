@@ -1,16 +1,14 @@
-<h1 mat-dialog-title class="blue-light"> Apply</h1>
-<mat-divider></mat-divider>
-<div mat-dialog-content>
-    <form [formGroup]="form" class="goal-form">      
+<h1 class="blue-light"> Apply</h1>
+
+<div>
+    <form [formGroup]="form" class="goal-form">
       <div class="form-field-outer">
-    
-        <mat-form-field class="w-100 mt-4">
+
+        <!--mat-form-field class="w-100 mt-4">
             <textarea  matInput placeholder="Description" formControlName="description"> </textarea>
-        </mat-form-field>
+        </mat-form-field-->
     </div>
     </form>
 </div>
-<div mat-dialog-actions style="float:right;">
-    <button mat-raised-button class="btn-save" [mat-dialog-close]="form.value" [disabled]="!form.valid">  <span class="text"> Apply </span></button> 
 
-</div>
+    <button class="btn-save">  <span class="text"> Apply </span></button>

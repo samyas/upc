@@ -1,37 +1,205 @@
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
+:host {
+    display: inline-block;
     width: 100%;
-  }
-  
-  .example-full-width {
+    height: 100%;
+    //width: 300px;
+   // height: 200px;
+   // background-color: orange;
+}
+
+
+.side-left {
+   // background-color: red;
+  //  height: 100%;
+    width: calc(100% - 620px);
+   // float: left;
+    background-image: url(../../assets/images/background/16023.jpg);
+    background-size: 100%;
+}
+@media screen and (max-width: 660px) {
+    .side-left {
+        display: none;
+   }
+}
+.side-left .sid-layy {
+    background-color: rgba(135, 63, 217, 0.73);
+    position: absolute;
     width: 100%;
-  }  
-
-
-
-  .login-register {
-    height: 100vh;
-    display: flex;
-    background-size: cover;
+    height: 100%;
+    width: calc(100% - 620px);
+}
+.side-right {
+    background-color: #FFF;
+  //  height: 100%;
+    width: 620px;
+   // float: right;
+   // padding: 80px 30px;
+    text-align: center;
+}
+@media screen and (max-width: 660px) {
+    .side-right {
+        width: 100%;
+   }
+}
+.side-right .logo {
+    width: 200px;
+}
+.side-right h2 {
+    font-size: .8rem;
+    font-family: "mouse-300", Arial, Helvetica, sans-serif;
+    padding: 20px 10px;
+}
+.side-right .form-row label {
+    font-size: .8rem;
+}
+.side-right .skjh {
+    font-size: .8rem;
+}
+.side-right .skjh span {
+    float: right;
+}
+.copyco {
+    position: absolute;
+    bottom: 13px;
+    right: 55px;
+    font-size: .8rem;
+}
+.slid-roo {
+    padding: 70px;
+    color: #FFF;
+    position: absolute;
+    bottom: 0px;
+}
+.slid-roo p {
+    font-size: .9rem;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #cccccc70;
+}
+.slid-roo ul li {
+    float: left;
+    padding: 10px;
+    font-size: .8rem;
+}
+.login-box {
+    background-color: #FFF;
+    float: none;
+    margin: auto;
+    border-radius: 25px !important;
+    -webkit-box-shadow: 0px 0px 72px -10px rgba(0, 0, 0, 0.44);
+    -moz-box-shadow: 0px 0px 72px -10px rgba(0, 0, 0, 0.44);
+    box-shadow: 0px 0px 72px -10px rgba(0, 0, 0, 0.44);
+    border-radius: 5px;
+    margin-top: 6%;
+}
+@media screen and (max-width: 575px) {
+    .login-box {
+        margin-top: 0px;
+   }
+}
+@media screen and (max-width: 1096px) {
+    .login-box {
+        margin-bottom: 40px;
+        margin-top: 40px;
+   }
+}
+.log-det {
+    padding: 40px;
+}
+.log-det .small-logo {
+    text-align: center;
     align-items: center;
-   /* background-image: url(assets/images/background/login-register.jpg);*/
-}
-
-
-
-.login-register .login-register-box {
-    max-width: 400px;
-    min-width: 280px;
-    margin: 0 auto;
-    vertical-align: middle;
-}
-
-.error {
-    margin-top: 15px;
-  }
-  
-  button {
+    color: #c82333;
+    font-size: 1.2rem;
     width: 100%;
-    margin-top: 30px;
-  }
+}
+.log-det .small-logo i {
+    font-size: 32px;
+    margin-right: 10px;
+}
+.log-det .dfmn {
+    margin-top: 15px;
+    font-size: .9rem;
+}
+.log-det h2 {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+}
+.log-det ul {
+    float: none;
+    margin: auto;
+    width: 200px;
+}
+.log-det ul li {
+    float: left;
+    padding: 10px;
+}
+.log-det ul li i {
+    padding: 10px;
+    border: 1px solid #CCC;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 50px;
+}
+.log-det p {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.log-det .small-info {
+    font-size: .9rem;
+    border-top: 1px solid #cccccc73;
+    padding-top: 20px;
+    margin-bottom: 5px;
+}
+.log-det .btn {
+    width: 100%;
+}
+.log-det form {
+    max-width: 300px;
+    float: none;
+    margin: auto;
+}
+.log-det .text-box-cont {
+    max-width: 300px;
+    float: none;
+    margin: auto;
+}
+.log-det .text-box-cont .input-group .input-group-prepend span {
+    background-color: #F8F8F8;
+    border-radius: 0px;
+    border-right: 0px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+}
+.log-det .text-box-cont .input-group .input-group-prepend i {
+    color: #777474;
+    font-size: 14px;
+}
+.log-det .text-box-cont .input-group input {
+    border-left: 0px;
+    border-radius: 0px;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+}
+.log-det .text-box-cont .btn {
+    border-radius: 50px;
+    padding: 10px 30px;
+    margin: auto;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+.log-det .forget-p {
+    margin-top: 10px;
+    font-size: .9rem;
+}
+.log-det .forget-p span {
+    color: #c82333;
+    font-weight: 600;
+    margin-left: 5px;
+}
+

@@ -1,8 +1,7 @@
-<h1 mat-dialog-title class="blue-light"><span *ngIf="!goal.goalId">Add </span><span *ngIf="goal.goalId">Edit </span> Goal</h1>
-<mat-divider></mat-divider>
-<div mat-dialog-content>
-    <form [formGroup]="form" class="goal-form">      
-      <div class="form-field-outer">
+<h1 class="blue-light"><span *ngIf="!goal.goalId">Add </span><span *ngIf="goal.goalId">Edit </span> Goal</h1>
+
+    <form [formGroup]="form" class="goal-form">
+      <!--div class="form-field-outer">
         <mat-form-field class="w-100 mt-4">
             <input matInput placeholder="Title" formControlName="name">
         </mat-form-field>
@@ -22,10 +21,8 @@
             </mat-form-field>
       </div>
       <mat-checkbox formControlName="workshop" class="w-100 mt-4">Follow a workshop?</mat-checkbox>
-    </div>
+    </div-->
     </form>
-</div>
-<div mat-dialog-actions style="float:right;">
-    <button mat-raised-button class="btn-save" [mat-dialog-close]="form.value" [disabled]="!form.valid">  <span class="text"> Save </span></button> 
 
-</div>
+
+    <button class="btn-save">  <span class="text"> Save </span></button>

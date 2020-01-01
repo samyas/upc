@@ -1,75 +1,7 @@
+<h1> Add Project</h1>
 <div class="project-details">
-<div   fxLayout="column" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
     <form [formGroup]="form">
-                 
-            <div  class="splash" fxLayout="column" fxLayout.gt-sm="row" >
-                        
-                        <div  class="right" fxFlex="auto" fxFlex.gt-sm="" fxLayout="column" fxLayoutAlign.gt-sm="space-between">
-                    
-                            <div  class="details" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between"  fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
-                              
-                                    <mat-form-field class="w-100">
-                                        <input matInput placeholder="Name" formControlName="name">
-                                    </mat-form-field>
-                             
-                            
-                                    <mat-form-field  class="w-100">
-                                        <input matInput [matDatepicker]="startDate" placeholder="Start" formControlName="startDate">
-                                        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                                        <mat-datepicker #startDate></mat-datepicker>
-                                    </mat-form-field>
-                             
-                              
-                                    <mat-form-field  class="w-100">
-                                        <mat-label>Departement</mat-label>
-                                        <mat-select>
-                                            <mat-option *ngFor="let food of foods" [value]="food.value">
-                                            {{food.viewValue}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
 
-                               
-                            </div>
-
-
-                            <div  class="divider reverse"></div>
-
-                            <mat-form-field  class="w-100">
-                                    <mat-chip-list #chipList aria-label="Fruit selection">
-                                      <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
-                                               [removable]="removable" (removed)="remove(fruit)">
-                                        {{fruit.name}}
-                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                      </mat-chip>
-                                      <input placeholder="Category"
-                                             [matChipInputFor]="chipList"
-                                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                             [matChipInputAddOnBlur]="addOnBlur"
-                                             (matChipInputTokenEnd)="add($event)">
-                                    </mat-chip-list>
-                            </mat-form-field>
-
-                            <mat-form-field class="w-100">
-                                <textarea  matInput placeholder="Short Description" formControlName="shortDescription"> </textarea>
-                           </mat-form-field>
-
-                           <mat-form-field class="w-100">
-                                <textarea  matInput placeholder="Long Description" formControlName="description"> </textarea>
-                           </mat-form-field>
-                         
-                         
-                        </div>
-            </div>
-            
-    
-    
 
     </form>
-</div>
-
-<div mat-dialog-actions style="float:right;">
-    <button mat-raised-button class="btn-save" (click)="save()" [disabled]="!form.valid">  <span class="text"> Save </span></button>
-</div>
-
 </div>

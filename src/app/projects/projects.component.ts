@@ -4,9 +4,6 @@ import { ProjectService } from './../core/services/project.service';
 import { ShortPerson } from './../core/model/short-person.model';
 import { ProjectOverview, Apply } from './../core/model/project.model';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatDialog } from '@angular/material';
-
-import {MatPaginator, MatTableDataSource, PageEvent} from '@angular/material';
 import { FormControl } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -15,52 +12,40 @@ import { ApplyComponent } from './apply/apply.component';
 
 @Component({
   selector: 'app-project',
-  templateUrl: './projects1.component.html',
+  templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
 
   public icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite',  'work', 'mail', 'favorite'];
+  public  nbrs: Array<any> = [1, 2, 3, 4, 5, 7, 8, 9, 10];
 
-  constructor( private projectService: ProjectService, private  personService: PersonService,  public dialog: MatDialog) { }
+  constructor( private projectService: ProjectService, private  personService: PersonService) { }
 
-   list = true;
-
-  displayedColumns = ['name', 'category', 'supervisor', 'examinator',
-   'students', 'status', 'nbrMileStones', 'nbrCheckPoint', 'action'];
-  dataSource: MatTableDataSource<ProjectOverview>  = new MatTableDataSource<ProjectOverview>(ELEMENT_DATA);
-
-  pageEvent: PageEvent;
-
+  list = true;
   projects: Array<ProjectOverview> = [];
   length = 100;
   pageIndex = 0;
   pageSize = 10;
   pageSizeOptions = [10, 25, 50];
   assign: Boolean = true;
-
   options: string[] = ['One', 'Two', 'Three'];
-
   persons: Array<Person> = [];
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   onPageChange(e) {
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
     this.loadData(this.pageIndex, this.pageSize);
-
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
     this.loadData(0, this.pageSize);
     this.loadPersonData();
   }
 
 
   public favorite(projectId) {
-
+/*
     const dialogRef = this.dialog.open(ApplyComponent, {
         data: null
     });
@@ -69,13 +54,12 @@ export class ProjectsComponent implements OnInit {
           applyToSave.personId(this.persons[0].id);
           this.apply(projectId, applyToSave);
         }
-    });
+    });*/
   }
 
   loadData(page: number, pageSize: number) {
     this.projectService.getPagedProjects(null, null, page, pageSize).subscribe(
       data => {
-        this.dataSource =  new MatTableDataSource<ProjectOverview>(data.content);
         this.length = data.totalElements;
         this.projects = data.content;
       }
@@ -112,7 +96,6 @@ export class ProjectsComponent implements OnInit {
     this.projectService.assign(projectId, assignment).subscribe(
       data => {
         this.loadData(this.pageIndex, this.pageSize);
-
       }
       , error => alert(error)
     );
@@ -120,7 +103,6 @@ export class ProjectsComponent implements OnInit {
 
   onSelectExecutor(projectId, $event) {
     console.log('execuctor selected', $event.id);
-    console.log('test');
     const assignment:  Assign = new Assign();
     assignment.personId = $event.id;
     assignment.action = 'ADD';
@@ -128,7 +110,6 @@ export class ProjectsComponent implements OnInit {
     this.projectService.assign(projectId, assignment).subscribe(
       data => {
         this.loadData(this.pageIndex, this.pageSize);
-
       }
       , error => alert(error)
     );

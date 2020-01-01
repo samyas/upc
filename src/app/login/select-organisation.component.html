@@ -1,10 +1,12 @@
 <h1>Choose Universities</h1>
-<mat-form-field>
-  <mat-label>Select Organisation </mat-label>
-  <mat-select>
-    <mat-option *ngFor="let organisation of organisations" [value]="organisation.tenantId" (optionSelected)="onSelection($event)">
-      {{organisation.name}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<button  mat-raised-button color="primary" (click)="next()">next</button>
+
+
+
+<div class="form-group col-md-4">
+  <label for="inputState">Select Organisation </label>
+  <select id="inputState" class="form-control">
+    <option  *ngFor="let organisation of organisations"  value="organisation.tenantId">{{organisation.name}}</option>
+  </select>
+  <button  (click)="next()">next</button>
+</div>
+                        ,

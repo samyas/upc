@@ -1,48 +1,7 @@
 <div class="project-details">
-    <div   fxLayout="column" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                     
-                <div  class="splash" fxLayout="column" fxLayout.gt-sm="row" >
-                            
-                            <div  class="right" fxFlex="auto" fxFlex.gt-sm="" fxLayout="column" fxLayoutAlign.gt-sm="space-between">
-                        
-                                <div  class="details" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between"  fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
-                                  
-                                        <mat-form-field class="w-100">
-                                            <input matInput placeholder="First Name" formControlName="firstName">
-                                        </mat-form-field>
-                                 
-                                        <mat-form-field class="w-100">
-                                            <input matInput placeholder="Last Name" formControlName="lastName">
-                                        </mat-form-field>
-
-                                        <mat-form-field class="w-100">
-                                            <input matInput placeholder="Email" formControlName="email">
-                                        </mat-form-field>
-                                        
-                                        <mat-form-field class="w-100">
-                                            <input matInput placeholder="phone" formControlName="phone">
-                                        </mat-form-field>
-                                
-                            
-                                  
-                                        <mat-form-field  class="w-100">
-                                            <mat-label>Departement</mat-label>
-                                            <mat-select>
-                                                <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                {{food.viewValue}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                </div>
-                            </div>
-                </div>
-                <div mat-dialog-actions style="float:right;">
-                    <button mat-raised-button class="btn-save">  <span class="text"> Save </span></button>
-                </div>
-        </form>
-    </div>
-    
-
-    
-    </div>
+   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+       <div>
+           <button class="btn-save"><span class="text">SAVE</span></button>
+       </div>
+   </form>
+</div>

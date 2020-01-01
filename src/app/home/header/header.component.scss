@@ -1,0 +1,42 @@
+@import '../../../styles/variables.scss';
+:host {
+    .navbar {
+        background-color: $app-primary-color;
+        -webkit-box-shadow: 0 0 28px 0 rgba(86,61,124,.13);
+        box-shadow: 0 0 28px 0 rgba(86,61,124,.13);
+      //   border-bottom: 1px solid #000;
+        .navbar-brand {
+            color: $app-secondary-color;
+        }
+        .nav-item > a {
+            color: $app-secondary-color;
+            padding-left:20px;
+            &:hover {
+                border-bottom: 3px solid $app-secondary-color
+            }
+        }
+    }
+    .messages {
+        width: 300px;
+        .media {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        .media-body {
+            h5 {
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .small {
+                margin: 0;
+            }
+            .last {
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+    }
+}

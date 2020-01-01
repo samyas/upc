@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { TaskComponent } from '../task/task.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { ProjectService } from './../../core/services/project.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ProjectOverview, Project, Goal } from './../../core/model/project.model';
@@ -27,7 +26,7 @@ export class ProjectComponent implements OnInit {
   selectedGoal: Goal;
   selectedTask: Task;
 
-  constructor(private route: ActivatedRoute, private projectService: ProjectService, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private projectService: ProjectService) { }
 
   ngOnInit() {
 
@@ -38,30 +37,32 @@ export class ProjectComponent implements OnInit {
   }
 
     loadProject(id: string) {
-         this.projectService.getProjectDetail(id).subscribe(data => this.project = data, error => console.log(error));
+         this.projectService.getProjectDetail(id).subscribe(
+         data => this.project = data,
+         error => console.log(error));
     }
 
   public openTaskDialog(goalId, task) {
 
-    const dialogRef = this.dialog.open(TaskComponent, {
+   /* const dialogRef = this.dialog.open(TaskComponent, {
         data: task
     });
     dialogRef.afterClosed().subscribe(taskToSave => {
         if (taskToSave) {
           (taskToSave.taskId) ? this.createTask(goalId, taskToSave) : this.createTask(goalId, taskToSave);
         }
-    });
+    });*/
   }
 
   public openGoalDialog(goal: Goal) {
-    const dialogRef = this.dialog.open(GoalComponent, {
+  /*  const dialogRef = this.dialog.open(GoalComponent, {
         data: goal
     });
     dialogRef.afterClosed().subscribe(goalToSave => {
         if (goalToSave) {
            (goalToSave.goalId) ? this.createGoal(goalToSave) : this.createGoal(goalToSave);
         }
-    });
+    });*/
   }
 
   createGoal(goal: Goal) {

@@ -1,7 +1,6 @@
 import { PersonService } from './../../core/services/person.service';
 import { startWith } from 'rxjs/operators';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Person } from 'src/app/core/model/person.model';
 import { Router } from '@angular/router';
@@ -44,7 +43,6 @@ export class AddPersonComponent implements OnInit {
       this.person = this.form.value;
       console.log('person', this.person);
       this.personService.addPerson(this.form.value).subscribe( id => {
-        console.log('success', id);
         this.router.navigate(['home/persons/' + id]);
       }, error => console.log('error', error));
     }

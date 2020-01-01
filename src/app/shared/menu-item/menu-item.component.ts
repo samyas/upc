@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+/*import { Component, OnInit, Input } from '@angular/core';
 import { trigger, style, transition, animate, state, group } from '@angular/animations';
 import { MenuItem } from './menu-item.model';
 
@@ -53,3 +53,4 @@ export class MenuItemComponent implements OnInit {
   }
 
 }
+*/

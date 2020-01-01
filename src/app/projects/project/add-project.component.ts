@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../core/services/project.service';
 import { Project } from '../../core/model/project.model';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
 
 export interface Fruit {
@@ -23,7 +21,6 @@ export interface Food {
 })
 export class AddProjectComponent implements OnInit {
 
-
   public project: Project = new Project();
   public form: FormGroup;
 
@@ -31,7 +28,6 @@ export class AddProjectComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   fruits: Fruit[] = [
   ];
 
@@ -69,7 +65,7 @@ export class AddProjectComponent implements OnInit {
   }
 
 
-  add(event: MatChipInputEvent): void {
+  add(event: any): void {
     const input = event.input;
     const value = event.value;
 

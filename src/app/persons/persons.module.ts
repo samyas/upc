@@ -1,6 +1,5 @@
 import { AddPersonComponent } from './add/add-person.component';
 import { PersonService } from './../core/services/person.service';
-import { SelectBoxComponent } from './../shared/select-box/select-box.component';
 import { ProjectService } from './../core/services/project.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

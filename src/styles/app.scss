@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+//@import "bootstrap/bootstrap";
+@import "~bootstrap/scss/bootstrap.scss";
+@import 'variables';
+@import "spinner";
+@import "utils";
+@import "rtl";
+@import "responsive";
+
+body {
+    font-family: "Roboto",sans-serif;
+  //  font-weight: 300;
+}
+
+input[type=text], input[type=date], input[type=datetime], input[type=number], input[type=search], input[type=time], input[type=url], input[type=email], textarea, select {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #bebebe;
+    padding: 7px;
+    margin: 0;
+    -webkit-transition: all .30s ease-in-out;
+    -moz-transition: all .30s ease-in-out;
+    -ms-transition: all .30s ease-in-out;
+    -o-transition: all .30s ease-in-out;
+    outline: 0;
+}
+@media print {
+    .breadcrumb {
+        display: none !important;
+    }
+}
+
+body {
+    font-family: "mouse-300", Arial, Helvetica, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .full-height {
+    height: 100%;
+    background: yellow;
+  }

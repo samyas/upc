@@ -1,6 +1,5 @@
 import { MenuItem } from './../shared/menu-item/menu-item.model';
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 
 import { Observable } from 'rxjs';
 import { Settings } from '../core/app.settings.model';
@@ -11,12 +10,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component2.html',
+  templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
   public settings: Settings;
   menuItems: Array<MenuItem> = [];
   userInfo: User = new User();
@@ -62,11 +59,6 @@ export class HomeComponent implements OnInit {
       icon: 'dashboard',
       link: './dashboard/leader'
     },
-  /*  {
-      label: 'Persons',
-      icon: 'supervisor_account',
-      link: './students'
-    },*/
     {
       label: 'Projects',
       icon: 'computer',
@@ -116,7 +108,7 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor( private router: Router, private auhtService: AuthService,
-    public appSettings: AppSettings, private breakpointObserver: BreakpointObserver) {
+    public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
   }
 
@@ -125,7 +117,6 @@ export class HomeComponent implements OnInit {
     this.menuItems = this.modelManagerItems;
     this.auhtService.userInfo().subscribe(
       data => { this.userInfo = data;
-       // this.menuItems = this.modelManagerItems;
       }
       , error =>  {
         console.log(error);
@@ -133,9 +124,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-    console.log('ttttt');
     this.auhtService.logout();
-    console.log('ssssssss');
     this.router.navigate(['login']);
   }
 

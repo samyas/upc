@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Goal } from './../../core/model/project.model';
 @Component({
@@ -11,9 +10,7 @@ export class GoalComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<GoalComponent>,
-    @Inject(MAT_DIALOG_DATA) public goal: Goal,
-    public fb: FormBuilder) {
+  constructor(public goal: Goal, public fb: FormBuilder) {
         this.form = this.fb.group({
           id: null,
           name: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
@@ -40,7 +37,7 @@ export class GoalComponent implements OnInit {
     }
 
     close(): void {
-      this.dialogRef.close();
+    //  this.dialogRef.close();
     }
 
 }

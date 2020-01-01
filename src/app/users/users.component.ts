@@ -1,9 +1,6 @@
 import { User } from './../core/model/auth.model';
 import { AuthService } from './../core/services/auth.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatDialog } from '@angular/material';
-
-import {MatPaginator, MatTableDataSource, PageEvent} from '@angular/material';
 import { FormControl } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -15,39 +12,30 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit {
 
-  constructor(private  authService: AuthService,  public dialog: MatDialog) { }
+  constructor(private  authService: AuthService) { }
 
    list = true;
-
-  displayedColumns = [ 'firstName', 'lastName', 'email', 'enabled', 'isCreator', 'action'];
-  dataSource: MatTableDataSource<User>  = new MatTableDataSource<User>();
-
-  pageEvent: PageEvent;
+  users: Array<User> = [];
 
   length = 100;
   pageIndex = 0;
   pageSize = 10;
   pageSizeOptions = [10, 25, 50];
 
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
   onPageChange(e) {
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
     this.loadData(this.pageIndex, this.pageSize);
-
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
     this.loadData(0, this.pageSize);
   }
 
   loadData(page: number, pageSize: number) {
     this.authService.getPagedUsers(null, null, page, pageSize).subscribe(
       data => {
-        this.dataSource =  new MatTableDataSource<User>(data.content);
+        this.users =  data.content;
         this.length = data.totalElements;
       }
       , error => alert(error)

@@ -1,59 +1,72 @@
-<!--h1>
-  login
-</h1>
 
 
-
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Leave a comment"></textarea>
-  </mat-form-field>
-
-  <button class="app-button" mat-raised-button color="primary">Login</button>
-</form-->
-
-
-<div _ngcontent-c21="" class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
-  <div _ngcontent-c21="" class="login-register-box">
-
-      <mat-card>
-        
-        <mat-card-content>
-          <form [formGroup]="form"  class="example-form">
-
-            <div class="text-center">
-                <img alt="homepage" src="assets/images/logo-icon.png">
-                <h4 class="m-t-0">Login to App</h4>
-            </div>
-
-            
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Username"  formControlName="username">
-            </mat-form-field>
-          
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Password"  formControlName="password">
-            </mat-form-field>
-          
-           
-                <mat-checkbox>Remember me</mat-checkbox>
-         
-
-            <button (click)="login()" class="app-button" mat-raised-button color="primary">Login</button>
-          </form>
-
-          <div class="register">
-            <span class="text">Don't have an account?</span>
-            <a class="link">Create an account</a>
+    <div class="d-flex conya justify-content-between align-self-stretch">
+  <div class="side-left">
+    <div class="sid-layy">
+      <!--div class="row slid-roo">
+        <div class="data-portion">
+          <h2>Manage Your orders</h2>
+          <p>Add captions to your slides easily with the .carousel-caption element within any .carousel-item. They can be easily hidden on smaller viewports, as shown below, with optional display utilities. We hide them initially with .d-none and bring them back on medium-sized devices </p>
+          <ul>
+            <li>Ph :- +91 9756545434</li>
+            <li>Fax :- (+7867 65 544)</li>
+          </ul>
         </div>
-
-
-        </mat-card-content>
-      </mat-card>
-
+      </div-->
     </div>
   </div>
+  <div class="side-right">
+
+    <div class="row log-det">
+
+      <div class="small-logo">
+        <i class="fab fa-asymmetrik"></i> PPMS Login
+      </div>
+      <p class="dfmn">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra ut dui in dictum. </p>
+
+
+    <form [formGroup]="form">
+      <div class="text-box-cont">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Username" formControlName="username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon2"><i class="fa fa-lock"></i></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Password"  formControlName="password" aria-label="Password" aria-describedby="basic-addon2">
+        </div>
+
+        <div class="input-group center">
+          <button class="btn btn-success btn-round" (click)="login()">SIGN IN</button>
+        </div>
+        <div class="row">
+          <p class="forget-p">Don't have an account? <span>Sign Up Now</span></p>
+        </div>
+        <div class="row">
+          <p class="small-info">Connect With Social Media</p>
+        </div>
+
+        <div class="row">
+          <ul>
+            <li><i class="fa fa-facebook-f"></i></li>
+            <li><i class="fa fa-twitter"></i></li>
+            <li><i class="fa fa-linkedin-in"></i></li>
+          </ul>
+        </div>
+      </div>
+
+
+    </form>
+
+
+    </div>
+
+  </div>
+  <!--div class="copyco">
+    <p>Copyright 2019 @advanced-it.com</p>
+  </div-->
+</div>
