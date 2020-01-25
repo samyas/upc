@@ -7,8 +7,9 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ProjectOverview, Project, Goal } from './../../core/model/project.model';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { GoalComponent } from '../goal/goal.component';
+import { AddGoalComponent } from '../goal/add-goal.component';
 import { Task } from 'src/app/core/model/task.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -26,7 +27,7 @@ export class ProjectComponent implements OnInit {
   selectedGoal: Goal;
   selectedTask: Task;
 
-  constructor(private route: ActivatedRoute, private projectService: ProjectService) { }
+  constructor(private route: ActivatedRoute, private projectService: ProjectService, private modalService: NgbModal) { }
 
   ngOnInit() {
 
@@ -54,16 +55,20 @@ export class ProjectComponent implements OnInit {
     });*/
   }
 
-  public openGoalDialog(goal: Goal) {
-  /*  const dialogRef = this.dialog.open(GoalComponent, {
-        data: goal
-    });
-    dialogRef.afterClosed().subscribe(goalToSave => {
-        if (goalToSave) {
-           (goalToSave.goalId) ? this.createGoal(goalToSave) : this.createGoal(goalToSave);
+  public openGoalDialog(content: string) {
+
+    const modalRef = this.modalService.open(AddGoalComponent);
+    modalRef.componentInstance.projectId = this.project.projectId;
+    modalRef.result.then((result) => {
+        console.log('modal sucess:' + result);
+        this.loadProject(this.project.projectId);
+        }, (reason) => {
+          console.log('modal failed:' + reason);
         }
-    });*/
+      );
   }
+
+
 
   createGoal(goal: Goal) {
     this.projectService.addGoal(this.project.projectId, goal)

@@ -20,6 +20,9 @@ export class UsersComponent implements OnInit {
   length = 100;
   pageIndex = 0;
   pageSize = 10;
+  tabs = ['Incoming Requests', 'ALL', 'Organisation Creation Requests'];
+  isCreator = false;
+  activeTab = this.tabs[0];
   pageSizeOptions = [10, 25, 50];
 
   onPageChange(e) {
@@ -28,12 +31,21 @@ export class UsersComponent implements OnInit {
     this.loadData(this.pageIndex, this.pageSize);
   }
 
+  setActive(nextTab) {
+    this.activeTab = nextTab;
+    this.loadData(this.pageIndex, this.pageSize);
+  }
+
   ngOnInit() {
     this.loadData(0, this.pageSize);
   }
 
   loadData(page: number, pageSize: number) {
-    this.authService.getPagedUsers(null, null, page, pageSize).subscribe(
+    let filter = '';
+    if (this.activeTab === this.tabs[2]) {
+        filter = '&creator=true';
+    }
+    this.authService.getPagedUsers(filter, null, page, pageSize).subscribe(
       data => {
         this.users =  data.content;
         this.length = data.totalElements;

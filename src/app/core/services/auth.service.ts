@@ -20,11 +20,7 @@ export class AuthService {
 
     public static readonly REGISTER_URI = environment.baseUrl + 'auth';
 
-    private currentUserSubject: BehaviorSubject<AuthUser>;
-    public currentUser: Observable<AuthUser>;
-
     constructor(private http: HttpClient) {
-        this.loadCurrentUser();
     }
 
     register(register: Register): Observable<string> {
@@ -41,7 +37,6 @@ export class AuthService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                authUser.username = username;
                this.saveCurrentUser(authUser);
-               this.loadCurrentUser();
                return authUser;
             }
             return null;
@@ -52,12 +47,8 @@ export class AuthService {
         localStorage.setItem('currentUser', JSON.stringify(authUser));
     }
 
-    loadCurrentUser(): any {
-        this.currentUserSubject = new BehaviorSubject<AuthUser>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
-    }
     public get currentUserValue(): AuthUser {
-        return this.currentUserSubject.value;
+        return JSON.parse(localStorage.getItem('currentUser'));
     }
 
 
@@ -76,7 +67,7 @@ export class AuthService {
     }
 
     getPagedUsers(filter: string, sort: string, page: number, size: number): Observable<Paged<User>> {
-        return this.http.get<Paged<User>>(AuthService.REGISTER_URI + '/users/paged?page=' + page + '&size=' + size);
+        return this.http.get<Paged<User>>(AuthService.REGISTER_URI + '/users/paged?page=' + page + '&size=' + size + filter);
       }
 
     getEmailToken(userId: string): Observable<string> {
@@ -91,7 +82,6 @@ export class AuthService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                authUser.username = this.currentUserValue.username;
                this.saveCurrentUser(authUser);
-               this.currentUserSubject.next(authUser);
                return authUser;
             }
             return null;
@@ -105,6 +95,5 @@ export class AuthService {
     logout(): any {
           // remove user from local storage to log user out
           localStorage.removeItem('currentUser');
-          this.currentUserSubject.next(null);
     }
 }

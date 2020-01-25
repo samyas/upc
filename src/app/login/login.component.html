@@ -1,72 +1,54 @@
+<div class="flex-container">
+    <div class="left-side">
+        <div class="sid-layy">
+            <div class="container">
+                <div class="row">
+                      <div class="col-sm-12">
+                          <h2>Manage Your orders</h2>
+                          <p>
+                            Add captions to your slides easily with the .carousel-caption element within any .carousel-item.
+                            They can be easily hidden on smaller viewports, as shown below, with optional display utilities.
+                            We hide them initially with .d-none and bring them back on medium-sized devices.
+                          </p>
 
+                      </div>
+                </div>
 
-    <div class="d-flex conya justify-content-between align-self-stretch">
-  <div class="side-left">
-    <div class="sid-layy">
-      <!--div class="row slid-roo">
-        <div class="data-portion">
-          <h2>Manage Your orders</h2>
-          <p>Add captions to your slides easily with the .carousel-caption element within any .carousel-item. They can be easily hidden on smaller viewports, as shown below, with optional display utilities. We hide them initially with .d-none and bring them back on medium-sized devices </p>
-          <ul>
-            <li>Ph :- +91 9756545434</li>
-            <li>Fax :- (+7867 65 544)</li>
-          </ul>
+            </div>
         </div>
-      </div-->
     </div>
-  </div>
-  <div class="side-right">
+    <div class="right-side">
+        <div class="container mt-5">
+            <div class="row mt-3 login-box">
+                <div class="col-sm-12">
+                      <div class="small-logo"><i class="fa fa-graduation-cap"></i> PPMS Login </div>
+                      <p class="login-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Sed pharetra ut dui in dictum. </p>
+                      <form [formGroup]="form" role="form" class="mt-5">
 
-    <div class="row log-det">
+                          <div class="form-group input-group">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                              </div>
+                              <input type="text" class="form-control"  formControlName="username" placeholder="Username">
+                          </div>
 
-      <div class="small-logo">
-        <i class="fab fa-asymmetrik"></i> PPMS Login
-      </div>
-      <p class="dfmn">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra ut dui in dictum. </p>
+                          <div class="form-group input-group">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                              </div>
+                              <input type="password" class="form-control"  formControlName="password" placeholder="Password">
+                          </div>
 
+                          <button (click)="login()" class="btn btn-round">SIGN IN</button>
+                        </form>
+                  </div>
+            </div>
+            <div class="row mt-5">
+                <p class="forget-p">Don't have an account? <span [routerLink]="['../register']">Sign Up Now</span></p>
+            </div>
 
-    <form [formGroup]="form">
-      <div class="text-box-cont">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-          </div>
-          <input type="text" class="form-control" placeholder="Username" formControlName="username" aria-label="Username" aria-describedby="basic-addon1">
-        </div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon2"><i class="fa fa-lock"></i></span>
-          </div>
-          <input type="text" class="form-control" placeholder="Password"  formControlName="password" aria-label="Password" aria-describedby="basic-addon2">
-        </div>
+            <hr align="center" width="80%">
 
-        <div class="input-group center">
-          <button class="btn btn-success btn-round" (click)="login()">SIGN IN</button>
-        </div>
-        <div class="row">
-          <p class="forget-p">Don't have an account? <span>Sign Up Now</span></p>
-        </div>
-        <div class="row">
-          <p class="small-info">Connect With Social Media</p>
-        </div>
-
-        <div class="row">
-          <ul>
-            <li><i class="fa fa-facebook-f"></i></li>
-            <li><i class="fa fa-twitter"></i></li>
-            <li><i class="fa fa-linkedin-in"></i></li>
-          </ul>
-        </div>
-      </div>
-
-
-    </form>
-
-
-    </div>
-
-  </div>
-  <!--div class="copyco">
-    <p>Copyright 2019 @advanced-it.com</p>
-  </div-->
+         </div>
+   </div>
 </div>

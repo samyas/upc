@@ -139,6 +139,41 @@
           </tr>
           </thead>
           <tbody>
+
+           <tr *ngFor="let project of projects">
+              <td>
+                  <div class="media">
+                    <img src="../../../assets/images/3.png" class="project-icon-small mr-2" alt="...">
+                    <div class="media-body">
+                      <a class="project-title-small mt-0">{{project.name}}</a>
+                      <span class="project-author-small">
+                           <small class="text-muted">
+                                <i class="fa fa-building"></i> {{project.department?.name}}
+                           </small>
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                    <span class="project-author-small"><i class="fa fa-user"></i> Dr. Imed Romdhani</span>
+                </td>
+                <td> <span class="badge badge-pill badge-danger fs-1">PFE</span></td>
+                <td> <span class="btn btn-label-brand btn-sm btn-bold btn-upper">07 may, 18</span></td>
+                <td> <span class="btn btn-label-danger btn-sm btn-bold btn-upper">07 June, 18</span></td>
+                <td>
+                  <div class="d-flex">
+                    <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                    <a class="align-self-center">Lira Moucjet</a>
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex flex-row bd-highlight">
+                    <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline" type="button"><i class="fa fa-heart"></i></button></div>
+                    <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline"  [routerLink]="['.', project.projectId]"  type="button"><i class="fa fa-eye"></i></button></div>
+                  </div>
+    
+                </td>
+          </tr>
           <tr *ngFor="let  item of nbrs">
             <td>
               <div class="media">

@@ -1,0 +1,97 @@
+<!--h1 class="blue-light"><span *ngIf="!goal.goalId">Add </span><span *ngIf="goal.goalId">Edit </span> Goal</h1>
+
+    <form [formGroup]="form" class="goal-form">
+      <div class="form-field-outer">
+        <mat-form-field class="w-100 mt-4">
+            <input matInput placeholder="Title" formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="w-100 mt-4">
+            <textarea  matInput placeholder="Description" formControlName="description"> </textarea>
+        </mat-form-field>
+        <div   fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex class="w-100 mt-4">
+                <input matInput [matDatepicker]="startDate" placeholder="Start" formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex class="w-100 mt-4">
+                <input matInput [matDatepicker]="endDate" placeholder="End" formControlName="endDate">
+                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                <mat-datepicker #endDate></mat-datepicker>
+            </mat-form-field>
+      </div>
+      <mat-checkbox formControlName="workshop" class="w-100 mt-4">Follow a workshop?</mat-checkbox>
+    </div>
+    </form>
+
+
+    <button class="btn-save">  <span class="text"> Save </span></button-->
+
+
+            <div class="modal-header">
+                <h4 class="modal-title">Add Goal</h4>
+                <button type="button" class="close no-outline" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="form-group">
+                            <label> Name</label>
+                            <input type="text"  formControlName="name" class="form-control" placeholder="Name">
+                            <div *ngIf="submitted && f.name.errors" class="text-danger">
+                                <div *ngIf="f.name.errors.required">Name is required</div>
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" formControlName="description" rows="3"></textarea>
+                        <div *ngIf="submitted && f.description.errors" class="text-danger">
+                                <div *ngIf="f.description.errors.required">Description is required</div>
+                         </div>
+                    </div>
+
+                    
+                 <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Start Date</label>
+                        <div class="input-group datepicker-input">
+                            <input class="form-control"    dateFormat="dd-MMM-yyyy" placeholder="yyyy-mm-dd" name="dps" formControlName="startDate" ngbDatepicker #s="ngbDatepicker">
+                            <button class="input-group-addon" (click)="s.toggle()" type="button">
+                                <span class="fa fa-calendar"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="launchDate">Due Date</label>
+                        <div class="input-group datepicker-input">
+                            <input class="form-control"    dateFormat="dd-MMM-yyyy" placeholder="yyyy-mm-dd" name="dpe" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
+                            <button class="input-group-addon" (click)="e.toggle()" type="button">
+                                <span class="fa fa-calendar"></span>
+                            </button>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="form-group form-check">
+                        <input type="checkbox"  (click)="followWorkshop" class="form-check-input">
+                        <label class="form-check-label">Follow a workshop?</label>
+                </div>
+
+                
+                <div *ngIf="registerForm?.value?.isCreator" class="form-group input-group">
+                        <label>WorkShop</label>
+                        <select formControlName="workshop" class="form-control">
+                            <option disabled>Choose...</option>
+                            <option *ngFor="let type of types" [value]="type.value">{{type.viewValue}}</option>
+                        </select>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn app-primary focus"  (click)="create()" >ADD</button>
+                <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">CANCEL</button>
+            </div>
+  

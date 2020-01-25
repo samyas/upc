@@ -1,4 +1,72 @@
-<h1>Users</h1>
+<div class=" pb-5 page-header">
+            <h1>Users</h1>
+            <hr>
+          
+          </div>
+          
+          <ul class="nav nav-filter">
+                  
+            <li *ngFor="let tab of tabs" class="nav-item">
+              <a class="nav-link" (click)="setActive(tab)" [class.active]="tab==activeTab">{{tab}}</a>
+            </li>
+           
+          
+
+            <div class="margin-right">
+              <li class="sep-item">
+                <button class="nav-link btn app-primary btn-circle btn-outline" [routerLink]="['./add']" type="button"><i class="fa fa-plus"></i></button>
+              </li>
+              <li class="sep-item">
+                <button class="nav-link btn app-primary btn-circle btn-outline" (click)="list=true" type="button"><i class="fa fa-list"></i></button>
+              </li>
+              <li class="sep-item">
+                <button class="nav-link btn app-primary btn-circle btn-outline focus" (click)="list=false" type="button"><i class="fa fa-th-large"></i></button>
+              </li>
+            </div>
+          </ul>
+          
+          
+          <div class="col-sm-12">
+              <div class="card mb-3">
+          
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Enabled</th>
+                      <th>Email</th>
+                      <th>Organisation Creator Request</th>
+                  
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let element of users">
+                      <td>
+                          <div class="d-flex">
+                              <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                              <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
+                          </div>
+                      </td>
+                      <td> <span class="badge badge-pill badge-danger fs-1"> {{element.enabled}}</span></td>
+                      <td> <span class="btn btn-label-brand btn-sm btn-bold btn-upper"> {{element.email}}</span></td>
+                      <td> <span class="btn btn-label-danger btn-sm btn-bold btn-upper"> {{element.organisationCreationRequest}}</span></td>
+                  
+                      <td>
+                        <div class="d-flex flex-row bd-highlight">
+                          <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline" (click)="activate(element.id)" type="button"><i class="fa fa-check"></i></button></div>
+                          <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline"  [routerLink]="['.', element.id]"  type="button"><i class="fa fa-eye"></i></button></div>
+                        </div>
+          
+                      </td>
+                    </tr>
+          
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
 
 
         <!--table mat-table [dataSource]="dataSource">

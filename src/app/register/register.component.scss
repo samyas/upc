@@ -2,30 +2,13 @@
 .flex-container {
   display: flex;
   flex-wrap: nowrap;
-  background-color: DodgerBlue;
-  //height: 100vh;
-}
-
-.flex-container .box {
-  background-color: #f1f1f1;
-  width: 50%;
-  margin: 10px;
-  text-align: center;
-  line-height: 75px;
-  font-size: 30px;
-
+  height: 100vh;
+  min-height: 730px;
 }
 
 .flex-container .left-side {
-  //background-color: #FFF;
- 
- // width: 70%;
   width: calc(100% - 620px);
-  margin: 10px;
   color: #FFF;
-  //text-align: center;
- // line-height: 75px;
-  //font-size: 30px;
   background-image: url(../../assets/images/background/16023.jpg);
   background-size: 100%;
 }
@@ -44,22 +27,19 @@
 }
 
 .flex-container .right-side {
-  background-color: #FFF;
-  width: 620px;
-  margin: 10px;
-  text-align: center;
-  font-size: 30px;
-
-  padding-top: 80px;
+    background-color: #FFF;
+    width: 620px;
+   // text-align: center;
+   // font-size: 30px;
+    padding-top: 40px;
 
    p {
-    width: 100%;
-    text-align: center;
+      width: 100%;
+      text-align: center;
     }
 
   .forget-p {
     font-size: 0.9rem;
-    //border-bottom: 1px solid #cccccc73;
     span {
       color: #c82333;
       font-weight: 600;
@@ -83,9 +63,9 @@
 }
 
 .login-box{
-   
+
     form{
-      max-width: 300px;
+     // max-width: 300px;
       float: none;
       margin: auto;
     }
@@ -93,7 +73,7 @@
     .btn{
       width: 100%;
       border-radius: 50px;
-       padding: 10px 30px;
+      padding: 10px 30px;
       margin: auto;
       margin-bottom: 10px;
       font-size: 13px;
@@ -107,6 +87,21 @@
       font-size: .9rem;
     }
 
+    .email-sent-box{
+      padding-top: 100px;
+      p{
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #077e5b;
+      }
+   
+    }
+
+    .text-danger{
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
     .small-logo{
       text-align: center;
       align-items: center;
@@ -115,3 +110,7 @@
       width: 100%;
     }
 }
+
+  p span {
+      cursor: pointer;
+  }

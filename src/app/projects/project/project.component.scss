@@ -344,31 +344,10 @@ padding: 1rem 1rem;
 .tasklist {
     min-height: 40px;
     margin-bottom: 0;
+
 }
 
-.tasklist li.task-medium {
-    border-left: 3px solid rgba(247,184,75,.5);
-}
-.tasklist li {
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 3px;
-}
 
-.tasklist .checkbox {
-    margin-left: 10px;
-}
-
-.tasklist h5 {
-    overflow: hidden;
-}
-
-.avatar-sm {
-    height: 2.25rem;
-    width: 2.25rem;
-}
 
 .card-box {
     background-color: #fff;
@@ -424,6 +403,43 @@ a {
     color: #3bafda;
     text-decoration: none;
     background-color: transparent;
+}
+
+div.task-medium {
+    border: 1px solid #dee2e6;
+    border-left: 3px solid rgba(247,184,75,.5);
+    background-color: #fff;
+   
+    margin-bottom: 15px;
+    border-radius: 3px;
+    h5{
+        margin:  0;
+        padding: 0;
+    }
+}
+
+li.task-medium {
+    border: 1px solid #dee2e6;
+    border-left: 3px solid rgba(247,184,75,.5);
+    background-color: #fff;
+   
+    margin-bottom: 15px;
+    border-radius: 3px;
+    h5{
+        margin:  0;
+        padding: 0;
+    }
+}
+
+.add-member > a {
+    border: 2px dashed #e6ecf5;
+    width: 35px;
+    line-height: 30px;
+    display: block;
+    text-align: center;
+    border-radius: 100%;
+    color: #c2d0e6;
+    margin-left: 5px;
 }
 /*
 .container-t1 {

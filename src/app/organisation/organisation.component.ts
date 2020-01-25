@@ -1,8 +1,11 @@
+import { AddDepartmentComponent } from './add-department.component';
 import { OrganisationService } from './../core/services/organisation.service';
 
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Organisation } from '../core/model/organisation.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-organisation',
@@ -11,42 +14,36 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class OrganisationComponent implements OnInit {
 
+  organisation: Organisation = new Organisation();
   public form: FormGroup;
   submitted = false;
 
-  constructor(private organisationService: OrganisationService,  public fb: FormBuilder) { }
+  constructor(public organisationService: OrganisationService,
+      private modalService: NgbModal) { }
   ngOnInit() {
-    this.form = this.fb.group({
-        name: ['', Validators.required],
-        contactEmail: ['', Validators.required],
-        description: ['', Validators.required],
-        longDescription: null,
-        address: this.fb.group({
-          street: [null, Validators.required],
-          zipCode: [null, Validators.required],
-          city: [null, Validators.required],
-          country: [null, Validators.required],
-        })
-    }, {
-    //  validator: MustMatch('password', 'confirmPassword')
-  });
-}
+      this.load();
+  }
 
- // convenience getter for easy access to form fields
-  get f() { return this.form.controls; }
+  load() {
+    this.organisationService.getOrganisationDetail().subscribe(
+      data => {
+         this.organisation = data;
+      }
+      , error =>  {
+        console.log(error);
+      }
+    );
+  }
 
- onSubmit() {
-     this.submitted = true;
-     // stop here if form is invalid
-     console.log('val', this.form.value);
-     if (this.form.invalid) {
-         return;
-     }
-
-     console.log(this.form.value);
-     // const register: Register = this.form.value;
-     this.organisationService.addOrganisation(this.form.value).subscribe( id => {
-      console.log('success', id);
-    }, error => console.log('error', error));
- }
+  public openDialog() {
+   const modalRef = this.modalService.open(AddDepartmentComponent);
+    modalRef.componentInstance.organisationId = this.organisation.id;
+    modalRef.result.then((result) => {
+        console.log('modal sucess:' + result);
+        this.load();
+        }, (reason) => {
+          console.log('modal failed:' + reason);
+        }
+      );
+  }
 }

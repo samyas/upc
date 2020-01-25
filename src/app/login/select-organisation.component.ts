@@ -31,9 +31,9 @@ export class SelectOrganisationComponent implements OnInit {
     );
   }
 
-  onSelection(event) {
-    console.log('ev' , event);
-   this.selectedTenantId = event.tenantId;
+  onChange(event) {
+    console.log('ev' , event.target.value);
+   this.selectedTenantId = event.target.value;
   }
 
   next() {

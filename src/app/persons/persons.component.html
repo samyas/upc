@@ -1,5 +1,5 @@
 <div class=" pb-5 page-header">
-  <h1>Projects</h1>
+  <h1>Persons</h1>
   <hr>
 
 </div>
@@ -29,6 +29,49 @@
 </ul>
 
 
+<div class="col-sm-12">
+    <div class="card mb-3">
+
+      <div class="card-body table-responsive">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Email</th>
+            <th>Valid</th>
+            <th>Department</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let element of persons">
+            <td>
+                <div class="d-flex">
+                    <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                    <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
+                </div>
+            </td>
+            <td> <span class="badge badge-pill badge-danger fs-1"> {{element.status}}</span></td>
+            <td> <span class="btn btn-label-brand btn-sm btn-bold btn-upper"> {{element.email}}</span></td>
+            <td> <span class="btn btn-label-danger btn-sm btn-bold btn-upper"> {{element.valid}}</span></td>
+            <td>
+                <span> {{element.department}}</span>
+            </td>
+            <td>
+              <div class="d-flex flex-row bd-highlight">
+                <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline" type="button"><i class="fa fa-heart"></i></button></div>
+                <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline"  [routerLink]="['.', element.id]"  type="button"><i class="fa fa-eye"></i></button></div>
+              </div>
+
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
         <!--table mat-table [dataSource]="dataSource">
                 <ng-container matColumnDef="firstName">
                   <th mat-header-cell *matHeaderCellDef> First Name </th>

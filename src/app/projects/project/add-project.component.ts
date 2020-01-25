@@ -1,3 +1,5 @@
+import { OrganisationService } from './../../core/services/organisation.service';
+import { Department, Organisation } from './../../core/model/organisation.model';
 
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../core/services/project.service';
@@ -17,12 +19,15 @@ export interface Food {
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
-  styleUrls: ['./project.component.scss']
+  styleUrls: ['./add-project.component.scss']
 })
 export class AddProjectComponent implements OnInit {
 
   public project: Project = new Project();
+  public organisation: Organisation = new Organisation();
   public form: FormGroup;
+  submitted = false;
+  serverError = '';
 
   visible = true;
   selectable = true;
@@ -31,17 +36,20 @@ export class AddProjectComponent implements OnInit {
   fruits: Fruit[] = [
   ];
 
-  foods: Food[] = [
-    {value: 'mecanique', viewValue: 'Meacanique'},
-    {value: 'electronic', viewValue: 'Electronic'},
-    {value: 'material', viewValue: 'Material'}
+  types = [
+    {value: 'PFE', viewValue: 'PFE'},
+    {value: 'MASTER', viewValue: 'MASTER'},
+    {value: 'PFA', viewValue: 'PFA'},
+    {value: 'These', viewValue: 'These'}
   ];
 
-  constructor(  private router: Router, private projectService: ProjectService,
+  constructor(  private router: Router, private projectService: ProjectService, private organisationService: OrganisationService,
     public fb: FormBuilder) {
         this.form = this.fb.group({
           id: this.project.projectId,
           name : [this.project.name, Validators.compose([Validators.required, Validators.minLength(5)])],
+          type: [this.project.type, [Validators.required]],
+          department: [null, [Validators.required]],
           description: [this.project.longDescription, Validators.compose([Validators.required, Validators.minLength(3)])],
           shortDescription: [this.project.description, Validators.compose([Validators.required, Validators.minLength(3)])],
           startDate: this.project.startDate,
@@ -51,12 +59,30 @@ export class AddProjectComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.loadOrganisation();
   }
 
+  loadOrganisation() {
+    this.organisationService.getOrganisationDetail().subscribe(
+      data => {
+         this.organisation = data;
+      }
+      , error =>  {
+        console.log(error);
+      }
+    );
+  }
+
+  get f() { return this.form.controls; }
+
   save() {
+    this.submitted = true;
+    console.log('stange', this.form.value.department);
     this.project = this.form.value;
     console.log('pp', this.project);
+    if (this.form.invalid) {
+      return;
+    }
     this.projectService.addProject(this.form.value).subscribe( id => {
       console.log('success', id);
       this.router.navigate(['home/project/' + id]);

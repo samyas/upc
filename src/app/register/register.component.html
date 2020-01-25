@@ -6,11 +6,11 @@
                       <div class="col-sm-12">
                           <h2>Manage Your orders</h2>
                           <p>
-                            Add captions to your slides easily with the .carousel-caption element within any .carousel-item. 
+                            Add captions to your slides easily with the .carousel-caption element within any .carousel-item.
                             They can be easily hidden on smaller viewports, as shown below, with optional display utilities.
                             We hide them initially with .d-none and bring them back on medium-sized devices.
                           </p>
-      
+
                       </div>
                 </div>
 
@@ -21,36 +21,115 @@
         <div class="container mt-5">
             <div class="row mt-3 login-box">
                 <div class="col-sm-12">
-                      <div class="small-logo"><i class="fa fa-graduation-cap"></i> PPMS Login </div>
+                      <div class="small-logo"><i class="fa fa-graduation-cap"></i> PPMS Sign UP </div>
                       <p class="login-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Sed pharetra ut dui in dictum. </p>
-                      <form role="form" class="mt-5">
+                      <div *ngIf="!!emailSent" class="email-sent-box">
+                            <p>Please check your mailbox, an email has been sent.<br> Please click on the button to activate your account </p>
+                            <button class="btn btn-round" (click)="shortCut()">Just for test</button>
+                      </div>
+                      <form *ngIf="!emailSent"  [formGroup]="registerForm" (ngSubmit)="onSubmit()" role="form" class="mt-5">
 
-                          <div class="form-group input-group">
-                              <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        <div class="form-row">
+
+                          <div *ngIf="serverError" class="text-danger">{{serverError}}</div>
+
+                          <div class="form-group col-md-6">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" formControlName="firstName" placeholder="first name">
+                            </div>
+                            <div *ngIf="submitted && f.firstName.errors" class="text-danger">
+                                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                             </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="lastName" placeholder="last name">
+                                </div>
+                                <div *ngIf="submitted && f.lastName.errors" class="text-danger">
+                                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                                </div>
+                          </div>
+                        </div>
+                          <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="email" placeholder="Email"> 
+                                </div>
+                              <div *ngIf="submitted && f.email.errors" class="text-danger">
+                                <div *ngIf="f.email.errors.required">Email is required</div>
+                                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
                               </div>
-                              <input type="text" class="form-control" placeholder="Username">
+                          </div>
+                          <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="username" placeholder="Username">
+                                </div>  
+                                 <div *ngIf="submitted && f.username.errors" class="text-danger">
+                                    <div *ngIf="f.username.errors.required">Username is required</div>
+                                </div>
                           </div>
 
-                          <div class="form-group input-group">
-                              <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                              </div>
-                              <input type="password" class="form-control" placeholder="Password">
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <div class="input-group">   
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                                </div>
+                                <div *ngIf="submitted && f.password.errors" class="text-danger">
+                                  <div *ngIf="f.password.errors.required">Password is required</div>
+                                  <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <div class="input-group"> 
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
+                                </div>    
+                                <div *ngIf="submitted && f.confirmPassword.errors" class="text-danger">
+                                  <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                                  <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                                </div>
+                            </div>
                           </div>
-                          
-                          <button class="btn btn-round">SIGN IN</button>
+
+                          <div class="form-group form-check">
+                            <input type="checkbox"  formControlName="isCreator" class="form-check-input">
+                            <label class="form-check-label">Do you want to create new university profile?</label>
+                          </div>
+
+                          <div *ngIf="registerForm?.value?.isCreator" class="form-group input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">Message</span>
+                            </div>
+                            <textarea class="form-control" formControlName="message" aria-label="Message"></textarea>
+                          </div>
+
+                          <button class="btn btn-round">SIGN UP</button>
                         </form>
                   </div>
             </div>
             <div class="row mt-5">
-                <p class="forget-p">Don't have an account? <span>Sign Up Now</span></p>
+                <p class="forget-p">Do you have an account? <span [routerLink]="['../login']">Sign In Now</span></p>
             </div>
 
             <hr align="center" width="80%">
 
          </div>
    </div>
-
-
 </div>

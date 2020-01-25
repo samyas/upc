@@ -94,11 +94,12 @@
 
                   <div class="col-sm-12">
                     <span class="project-section-title">Teams</span><br>
-                    <div class="d-flex">
+                    <div class="d-flex add-member">
                       <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
                       <img src="../../../assets/images/100_2.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
                       <img src="../../../assets/images/100_3.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
                       <img src="../../../assets/images/100_7.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                      <button class="img-circle img-bordered-sm mr-2" type="button"><i class="fa fa-user-plus"></i></button>
                     </div>
                   </div>
 
@@ -129,26 +130,141 @@
           <div class="container-fluid">
             <div class="row mt-3">
               <div class="col-sm-6">
+                <div class="d-flex justify-content-between p-3">
+                    <h5 class="mt-0"><a class="text-dark">Goals</a></h5>
+                  <button class=" btn app-primary btn-circle btn-outline" (click)="openGoalDialog(content)" type="button"><i class="fa fa-plus"></i></button>
+                </div>
+
+                <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Goal</h4>
+                        <button type="button" class="close no-outline" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                          
+                          <div class="form-group">
+                            <label>Title*</label>
+                            <input type="email" class="form-control">
+                        </div>
+
+                          <div class="form-row">
+                              <div class="form-group col-md-6">
+                                  <label for="launchDate">Start Date*</label>
+                                  <div class="input-group datepicker-input">
+                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                        name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                    <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                        <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+                                        <span class="fa fa-calendar"></span>
+                                    </button>
+                                </div>
+                            </div>    
+                            <div class="form-group col-md-6">
+                                <label for="launchDate">End Date*</label>
+                                <div class="input-group datepicker-input">
+                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                        name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                    <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                        <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+                                        <span class="fa fa-calendar"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" rows="3"></textarea>
+                        </div>
+    
+        
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn app-primary focus" (click)="c('Close click')">ADD</button>
+                        <button type="button" class="btn btn-secondary" (click)="c('Close click')">CANCEL</button>
+                    </div>
+                </ng-template>
+
                 <ul class="StepProgress">
                   <li class="StepProgress-item is-done"><strong>Goal 1: Bibliography</strong>
                     <small class="text-muted"> 12/12/2019 - 30/12/2019</small>
                   </li>
-                  <li class="StepProgress-item is-done"  (click)="isCollapsed = !isCollapsed"
-                      [attr.aria-expanded]="!isCollapsed"  aria-controls="collapseExample"><strong>Goal 2: Analysis & Design</strong>
+                  <li class="StepProgress-item is-done"  >
+                      <span (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed" ><strong>Goal 2: Analysis & Design</strong></span>
                     <small class="text-muted"> 12/12/2019 - 30/12/2019</small>
-                    <div id="collapseExample" [ngbCollapse]="isCollapsed">
+            
+                      <div  class="sortable-list tasklist list-unstyled ui-sortable" [ngbCollapse]="isCollapsed">
+                        <div class="task-medium ui-sortable-handle">
+
+                          <div class="d-flex justify-content-between p-3">
+                            <h5 class="mt-0"><a class="text-dark">iOS App home page</a></h5>
+                            <i class="fa fa-check"></i>
+                          </div>
+                        
+                        </div>
+                      </div>
+                    <!--div id="collapseExample" [ngbCollapse]="isCollapsed">
                       <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
                       <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
                       <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
                       <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
                       <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
 
-                    </div>
+                    </div-->
                   </li>
                   <li class="StepProgress-item current"><strong>Goal 3: Development</strong></li>
                   <li class="StepProgress-item"><strong>Goal 4: Validation</strong></li>
                   <li class="StepProgress-item"><strong>Goal 5: Check point</strong></li>
                 </ul>
+              </div>
+              <div class="col-sm-6">
+                  <div class="task-medium ui-sortable-handle p-3">
+
+                      <div class="d-flex justify-content-between bottom-line">
+                          <a class="project-title mt-0">Nexa - Next generation SAAS</a>
+                      </div>
+                    
+                      <div class="box-task">
+                          <span class="project-section-title">Description</span><br>
+                          <p>
+                            There are many variations of passages of Lorem Ipsum available. 
+                            There are many variations of passages of Lorem Ipsum available.
+                            There are many variations of passages of Lorem Ipsum available
+                          </p>
+                          <div class="clearfix"></div>
+                          
+                          <div class="d-flex justify-content-between">
+                              
+                              <div class="p-2 bd-highlight">
+                                  <span class="project-section-title">Start Date</span><br>
+                                  <span class="btn btn-label-brand btn-sm btn-bold btn-upper">07 may, 18</span>
+                              </div>
+
+                              <div class="p-2 bd-highlight">
+                                  <span class="project-section-title">End Date</span><br>
+                                  <span class="btn btn-label-danger btn-sm btn-bold btn-upper">07 0ct, 18</span>
+                              </div>
+
+                              <div class="p-2 bd-highlight">
+                                  <span class="project-section-title">Assigned</span><br>
+                                  <div class="d-flex">
+                                    <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                    <a class="align-self-center">Dr. Lira Moucjet</a>
+                                  </div>
+                              </div>
+
+                          </div>
+
+                          <span class="project-section-title">Attchement</span><br>
+                        
+                      
+                        </div>
+                    </div>
               </div>
             </div>
           </div>

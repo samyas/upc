@@ -122,7 +122,7 @@ const supervisor: ShortPerson = {id: 'ds', firstName: 'Imed', lastName: 'Romdhan
 const examinator: ShortPerson = {id: 'ds', firstName: 'Abdessalem', lastName: 'SAMET', image: 'ss'};
 const students: ShortPerson[] = [{id: 'ds', firstName: 'Abdessalem', lastName: 'SAMET', image: 'ss'} ,
                                 {id: 'ds', firstName: 'Ghada', lastName: 'Fakhfakh', image: 'ss'}];
-
+/*
 const ELEMENT_DATA: ProjectOverview[] = [
   {projectId: '1', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
    examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
@@ -155,5 +155,5 @@ const ELEMENT_DATA: ProjectOverview[] = [
                    examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
                     nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12}
 
-];
+];*/
 

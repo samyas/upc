@@ -1,7 +1,105 @@
-<h1> Add Project</h1>
-<div class="project-details">
-    <form [formGroup]="form">
 
+<div class="container-fluid">
 
-    </form>
-</div>
+        <div class="border-title">Add New Project</div>
+
+        <div class="container-fluid">
+
+            <form [formGroup]="form">
+
+            <div class="form-row">
+                        <div class="form-group  col-md-4">
+                            <label for="inputAddress">University Logo</label>
+                            <div class="avatar-upload">
+                                <div class="avatar-edit">
+                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                    <label for="imageUpload"></label>
+                                </div>
+                                <div class="avatar-preview">
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                             <div class="form-group">
+                                <label> Name</label>
+                                <input type="text"  formControlName="name" class="form-control" placeholder="Name">
+                                <div *ngIf="submitted && f.name.errors" class="text-danger">
+                                    <div *ngIf="f.name.errors.required">Name is required</div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                    <div class="form-group  col-md-9">
+                                            <label >Department</label>
+                                            <select formControlName="department" class="form-control">
+                                                <option  disabled> Choose ...</option>
+                                                <option  *ngFor="let dep of organisation.departments"  [ngValue]="dep">{{dep.name}}</option>
+                                            </select>
+                                            <div *ngIf="submitted && f.department.errors" class="text-danger">
+                                                <div *ngIf="f.department.errors.required">Departmenent is required</div>
+                                            </div>
+                                    </div>
+                                    <div class="form-group  col-md-3">
+                                        <label>Type</label>
+                                        <select formControlName="type" class="form-control">
+                                            <option disabled>Choose...</option>
+                                            <option *ngFor="let type of types" [value]="type.value">{{type.viewValue}}</option>
+                                        </select>
+                                        <div *ngIf="submitted && f.type.errors" class="text-danger">
+                                            <div *ngIf="f.type.errors.required">Type is required</div>
+                                        </div>
+                                </div>
+                            </div>
+                          </div>      
+
+            </div>
+
+          
+
+  
+
+            <div class="form-group">
+                <label for="description">Abstract</label>
+                <textarea class="form-control" id="description" formControlName="shortDescription" rows="3"></textarea>
+                <div *ngIf="submitted && f.shortDescription.errors" class="text-danger">
+                    <div *ngIf="f.shortDescription.errors.required">Abstract is required</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Start Date</label>
+                    <div class="input-group datepicker-input">
+                        <input class="form-control"    dateFormat="dd-MMM-yyyy" placeholder="yyyy-mm-dd" name="dps" formControlName="startDate" ngbDatepicker #s="ngbDatepicker">
+                        <button class="input-group-addon" (click)="s.toggle()" type="button">
+                            <span class="fa fa-calendar"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="launchDate">Due Date</label>
+                    <div class="input-group datepicker-input">
+                        <input class="form-control"    dateFormat="dd-MMM-yyyy" placeholder="yyyy-mm-dd" name="dpe" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
+                        <button class="input-group-addon" (click)="e.toggle()" type="button">
+                            <span class="fa fa-calendar"></span>
+                        </button>
+                    </div>
+            
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" rows="6" formControlName="description"></textarea>
+                <div *ngIf="submitted && f.description.errors" class="text-danger">
+                    <div *ngIf="f.description.errors.required">Description is required</div>
+                </div>
+            </div>
+
+            
+            <div class="input-group center">
+                <button class="btn btn-success btn-round" (click)="save()">CREATE <i class="fa fa-plus"></i></button>
+            </div>
+            </form>
+        </div>
+    </div>

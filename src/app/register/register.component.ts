@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Register } from '../core/model/auth.model';
 import { MustMatch } from '../core/validators/must-match.validator';
+import { EmailSentComponent } from './email-sent.component';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,7 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
   submitted = false;
+  emailSent = true;
   serverError = '';
 
 
@@ -39,6 +41,15 @@ next() {
   this.router.navigate(['register/email-sent']);
 }
 
+shortCut() {
+  this.authService.getEmailToken( localStorage.getItem('userId')).subscribe(
+    data => {
+      this.router.navigate(['register/validate/' + data]);
+    }
+    , error =>  console.log(error)
+  );
+}
+
  // convenience getter for easy access to form fields
  get f() { return this.registerForm.controls; }
 
@@ -53,7 +64,8 @@ next() {
      this.authService.register(register).subscribe(
       data => {
          localStorage.setItem('userId', data);
-         this.router.navigate(['register/email-sent']);
+      //   this.router.navigate(['register/email-sent']);
+         this.emailSent = true;
       }
       , error =>  {
         console.log(error);

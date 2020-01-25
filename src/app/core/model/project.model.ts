@@ -1,11 +1,12 @@
+import { Department, ShortDepartment } from './organisation.model';
 import { ShortPerson } from './short-person.model';
 import { Task } from './task.model';
 export class ProjectOverview {
     projectId: string;
     name: string;
     description: string;
-    startDate: Object;
-    endDate: Object;
+    startDate: Date;
+    endDate: Date;
     supervisor: ShortPerson;
     examinator: ShortPerson;
     creator: ShortPerson;
@@ -16,6 +17,9 @@ export class ProjectOverview {
     category: string;
     nbrCheckPoint:  number;
     progress: number;
+    type: string;
+    keywords: string;
+    department: ShortDepartment;
     imageId: string;
 
 }

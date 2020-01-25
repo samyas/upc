@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { User } from './../../core/model/auth.model';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/core/services/auth.service';
+
 
 @Component({
     selector: 'app-header',
@@ -8,9 +11,12 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+     @Input() userInfo: User;
+
     public pushRightClass: string;
 
-    constructor( public router: Router) {
+    constructor( public router: Router, private auhtService: AuthService) {
 
         this.router.events.subscribe(val => {
             if (
@@ -43,6 +49,8 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        this.auhtService.logout();
+        this.router.navigate(['login']);
+       // localStorage.removeItem('isLoggedin');
     }
 }

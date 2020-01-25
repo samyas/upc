@@ -1,11 +1,6 @@
 import { ParseErrorLevel } from '@angular/compiler';
-// import { ShortDepartment } from './organisation.model';
+ import { ShortDepartment } from './organisation.model';
 
-
-export class ShortDepartment {
-    id: string;
-    name: string;
-}
 
 export class Person {
     id: string;

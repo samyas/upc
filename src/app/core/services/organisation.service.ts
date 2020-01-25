@@ -1,4 +1,4 @@
-import { Organisation } from './../model/organisation.model';
+import { Organisation, Department } from './../model/organisation.model';
 import { Paged } from '../model/paged.model';
 import { environment } from '../../../environments/environment';
 import { Project, ProjectOverview, Goal } from '../model/project.model';
@@ -21,10 +21,15 @@ export class OrganisationService {
   constructor(private http: HttpClient) {}
 
   getOrganisationDetail(): Observable<Organisation> {
-    return this.http.get<Organisation>(OrganisationService.ORGANISATION_URI);
+    return this.http.get<Organisation>(OrganisationService.ORGANISATION_URI + '/connected/user');
   }
 
   addOrganisation(organisation: Organisation): Observable<any> {
     return this.http.post(OrganisationService.ORGANISATION_URI, JSON.stringify(organisation),  {responseType: 'text'});
+  }
+
+  addDepartment(organisationId: string, department: Department): Observable<any> {
+    return this.http.post(OrganisationService.ORGANISATION_URI + '/' + organisationId + '/departments',
+     JSON.stringify(department),  {responseType: 'text'});
   }
 }

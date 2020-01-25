@@ -1,0 +1,112 @@
+<div class="flex-container">
+        <div class="left-side">
+                <div class="sid-layy">
+                    <div class="row slid-roo">
+                        <div class="data-portion">
+                            <h2>Manage Your orders</h2>
+                            <p>Add captions to your slides easily with the .carousel-caption element within any .carousel-item. They can be easily hidden on smaller viewports, as shown below, with optional display utilities. We hide them initially with .d-none and bring them back on medium-sized devices </p>
+                            <ul>
+                                <li>Ph :- +91 9756545434</li>
+                                <li>Fax :- (+7867 65 544)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        
+        <div class="right-side">
+
+                <div class="container">
+
+                    <div class="border-title">Create University Profile</div>
+
+                    <div class="container">
+
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                        <div class="form-group">
+                            <label for="inputAddress">University Logo</label>
+                            <div class="avatar-upload">
+                                <div class="avatar-edit">
+                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                    <label for="imageUpload"></label>
+                                </div>
+                                <div class="avatar-preview">
+                                    <div class="university-transparent">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>University Name</label>
+                            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+                            <div *ngIf="submitted && f.name.errors" class="text-danger">
+                                    <div *ngIf="f.name.errors.required"> Name is required</div>
+                             </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Email*</label>
+                                <input type="email" class="form-control" formControlName="contactEmail" placeholder="Enter your company Email Address">
+                                <div *ngIf="submitted && f.contactEmail.errors" class="text-danger">
+                                        <div *ngIf="f.contactEmail.errors.required">Email is required</div>
+                                        <div *ngIf="f.contactEmail.errors.email">Email must be a valid email address</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Creation Date*</label>
+                                <input type="date" class="form-control" formControlName="creationDate">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" formControlName="description" rows="3"></textarea>
+                            <div *ngIf="submitted && f.description.errors" class="text-danger">
+                                    <div *ngIf="f.description.errors.required"> Description is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label>Long Description</label>
+                                <textarea class="form-control" formControlName="longDescription" rows="3"></textarea>
+                            </div>
+                    
+                         <div  [formGroup]="form.get('address')">  
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" formControlName="street" placeholder="Street , number">
+                                    
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>City</label>
+                                        <input type="text" class="form-control" formControlName="city">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Country</label>
+                                        <select class="form-control" formControlName="country">
+                                            <option selected>Choose...</option>
+                                            <option>Tunisia</option>
+                                            <option>England</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Post code</label>
+                                        <input type="text" class="form-control" formControlName="zipCode">
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="input-group center">
+                            <button class="btn btn-success btn-round">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>

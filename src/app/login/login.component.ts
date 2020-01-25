@@ -29,7 +29,11 @@ export class LoginComponent implements OnInit {
   this.authService.login(username, password).subscribe(
       authUser => {
         if (authUser.needToSelect === false) {
-          this.router.navigate(['home/']);
+          if (authUser.needToInitOrg === true) {
+            this.router.navigate(['login/init-organisation/']);
+          } else {
+            this.router.navigate(['home/']);
+          }
         } else {
           this.router.navigate(['login/choose-organisation/']);
         }

@@ -18,6 +18,7 @@ import { Person } from '../core/model/person.model';
 export class PersonsComponent implements OnInit {
 
   public icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite',  'work', 'mail', 'favorite'];
+  public  nbrs: Array<any> = [1, 2, 3, 4, 5, 7, 8, 9, 10];
 
   constructor(private  personService: PersonService) { }
 

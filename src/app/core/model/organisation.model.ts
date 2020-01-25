@@ -6,6 +6,12 @@ export class Department {
     longDescription: boolean;
 }
 
+
+export class ShortDepartment {
+    id: string;
+    name: string;
+}
+
 export class Organisation {
     id: string;
     name: string;
