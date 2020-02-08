@@ -45,10 +45,26 @@ export class ProjectService {
     return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/assign', JSON.stringify(assign),  {responseType: 'text'});
   }
 
+  assignTask(id: string, goalId: string, taskId: string, assign: Assign): Observable<any> {
+    console.log('id' , id, assign);
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks/' + taskId + '/assign',
+     JSON.stringify(assign),  {responseType: 'text'});
+  }
+
   addTask(id: string, goalId: string, task: Task): Observable<any> {
     return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks',  JSON.stringify(task),
      {responseType: 'text'});
   }
+
+  changeStatus(id: string, goalId: string, taskId: string, status: string): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks/'  + taskId + '/status',  status,
+     {responseType: 'text'});
+  }
+
+  getTask(id: string, goalId: string, taskId: string): Observable<Task> {
+    return this.http.get<Task>(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks/' + taskId);
+  }
+
 
   updateProject(consultant: Project): Observable<any> {
     return this.http.put(ProjectService.PROJECT_URI, JSON.stringify(consultant));

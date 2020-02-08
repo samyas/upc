@@ -1,3 +1,5 @@
+import { ShortPerson } from './short-person.model';
+
 export class Task {
     taskId: string;
     name: string;
@@ -5,4 +7,6 @@ export class Task {
     startDate: Object;
     endDate: Object;
     workshop: string;
+    assignedTo:  Array<ShortPerson>;
+   createdBy: ShortPerson;
 }

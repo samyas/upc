@@ -3,336 +3,308 @@
   <hr>
 </div>
 
-<div class="row mt-3">
-  <div class="col-sm-12">
-
-    <div class="media">
-      <img src="../../../assets/images/3.png" class="project-icon mr-2" alt="...">
-      <div class="media-body">
-
+<div *ngIf="doubleVue else projectDetails" class="container-fluid">
+  <ngb-tabset [justify]="'justified'">
+    <ngb-tab title="Goals View">
+      <ng-template ngbTabContent>
         <div class="container-fluid">
-          <div class="row">
+          <div class="row mt-3">
             <div class="col-sm-6">
+              <div class="d-flex justify-content-between p-3">
+                  <h5 class="mt-0"><a class="text-dark">Goals</a></h5>
+                <button class=" btn app-primary btn-circle btn-outline" (click)="openGoalDialog()" type="button"><i class="fa fa-plus"></i></button>
+              </div>
+
+
+              <ul class="StepProgress">
+                <li *ngFor="let goal of project.goals"  class="StepProgress-item is-done">
+                  
+                    <div class="d-flex justify-content-between">
+                      <span (click)="selectGoal(goal.goalId)">  <strong>{{goal.name}}</strong> </span>
+                     <button class=" btn app-primary btn-circle btn-outline" (click)="openTaskDialog(goal.goalId)" type="button"><i class="fa fa-plus"></i></button>
+                  </div>
+                  <small class="text-muted"> {{goal.startDate  | date:'dd/MM/yyyy'}} - {{goal.endDate  | date:'dd/MM/yyyy'}}</small>
+                  <div  class="sortable-list tasklist list-unstyled ui-sortable" [ngbCollapse]="selectedGoalId!=goal.goalId">
+                      <div   *ngFor="let task of goal.tasks" (click)="selectTask(task)"  class="task-medium ui-sortable-handle">
+                        <div class="d-flex justify-content-between p-3">
+                          <h5 class="mt-0"><a class="text-dark">{{task.name}}</a></h5>
+                          <i class="fa fa-check"></i>
+                        </div>
+                      
+                      </div>
+                    </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-6">
+                <div  *ngIf="selectedTask" class="task-medium ui-sortable-handle p-3">
+
+                    <div class="d-flex justify-content-between bottom-line">
+                        <a class="project-title mt-0">{{selectedTask.name}}</a>
+                        
+         
+                          <div class="input-group-append" ngbDropdown>
+                            <button class="btn btn app-primary btn-outline dropdown-toggle" type="button" ngbDropdownToggle>ACTION</button>
+                            <div class="dropdown-menu" ngbDropdownMenu>
+                              <a class="dropdown-item"(click)="changeStatus('OPEN')">OPEN</a>
+                              <a class="dropdown-item"(click)="changeStatus('PROGRESS')">PROGRESS</a>
+                              <a class="dropdown-item" (click)="changeStatus('REVIEW')">REVIEW</a>
+                              <div role="separator" class="dropdown-divider"></div>
+                              <a class="dropdown-item" (click)="changeStatus('DONE')">DONE</a>
+                            </div>
+                        
+                        </div>
+                    </div>
+                  
+                    <div class="box-task">
+                      
+                      <div class="d-flex justify-content-between">
+                        <div class="p-2 bd-highlight">
+                          <span class="project-section-title">Status</span><br>
+                          <span class="btn btn-label-brand btn-sm btn-bold btn-upper">{{selectedTask.status }}</span>
+                      </div>
+
+                      </div>
+                        <div class="d-flex justify-content-between">
+                            
+                            <div class="p-2 bd-highlight">
+                                <span class="project-section-title">Start Date</span><br>
+                                <span class="btn btn-label-brand btn-sm btn-bold btn-upper">{{selectedTask.startDate | date:'dd/MM/yyyy' }}</span>
+                            </div>
+
+                            <div class="p-2 bd-highlight">
+                                <span class="project-section-title">End Date</span><br>
+                                <span class="btn btn-label-danger btn-sm btn-bold btn-upper">{{selectedTask.endDate  | date:'dd/MM/yyyy'}}</span>
+                            </div>
+
+                            <div class="p-2 bd-highlight">
+                                <span class="project-section-title">Assigned</span><br>
+                                <div  *ngIf="selectedTask.assignedTo?.length > 0; else selectUser" class="d-flex">
+                                    <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                    <a class="align-self-center">{{selectedTask.assignedTo[0]?.firstName}} {{selectedTask.assignedTo[0]?.lastName}}</a>
+                                </div>
+                                <ng-template #selectUser>
+                                
+                                    <div class="d-flex justify-content-between">
+                                      <button class="img-circle img-bordered-sm mr-2"  *ngIf="!selectionAssignTaskActive" type="button" (click)="selectionAssignTaskActive = !selectionAssignTaskActive"><i class="fa fa-user-plus"></i></button>
+                                  
+                                      <ng-select    *ngIf="!!selectionAssignTaskActive" class="animate-progress"  [items]="persons" 
+                                          [loading]="true" [clearable]="false" bindValue="id" (change)="onAssignTask($event)">
+            
+                                          <ng-template ng-loadingspinner-tmp>
+                                            <button class="img-circle img-bordered-sm mr-2 search_icon" type="button" ><i class="fa fa-user-plus"></i></button>
+                                          </ng-template>
+            
+                                          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                            <div class="d-flex">
+                                              <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                              <a class="align-self-center">  {{item.lastName}}  {{item.firstName}} </a>
+                                            </div>
+                                        </ng-template>
+                                      </ng-select>
+                                    </div>
+                                  </ng-template>
+                            </div>
+
+                        </div>
+
+                        <span class="project-section-title">Description</span><br>
+                        <p>
+                          {{selectedTask.description}}
+                        </p>
+                        <div class="clearfix"></div>
+
+                        <span class="project-section-title">Attchement</span><br>
+                      
+                    
+                      </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+ 
+    <ngb-tab title="Overview View">
+        <ng-template ngbTabContent>
+           <ng-container *ngTemplateOutlet="projectDetails"></ng-container>
+        </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+
+<ng-template #projectDetails>
+    <div class="container-fluid">
+      <div class="row mt-3">
+        <div class="col-sm-12">
+
+          <div class="media">
+            <img src="../../../assets/images/3.png" class="project-icon mr-2" alt="...">
+            <div class="media-body">
 
               <div class="container-fluid">
                 <div class="row">
-                  <div class="col-sm-12">
-                    <a class="project-title mt-0">Nexa - Next generation SAAS</a>
-                  </div>
-                </div>
+                  <div class="col-sm-6">
 
-                <div class="row mt-3">
-                  <div class="col-sm-12">
-                    <span class="project-section-title">Abstract</span><br>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                      This is a wider card with supporting text below as a natural lead-in to additional content.
-                      This is a wider card with supporting text below as a natural lead-in to additional content.
-                      This content is a little bit longer.
-                    </p>
-                    <div class="d-flex flex-row bd-highlight">
-                      <div class="flex-fill bd-highlight">
-                        <span class="project-section-title">Technologies</span><br>
-                        <div class="container">
-                          <div class="row">
-                            <a class="btn keywords" href="#">UX</a>
-                            <a class="btn keywords" href="#">JAVA</a>
-                            <a class="btn keywords" href="#">Angular</a>
-                          </div>
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <a class="project-title mt-0">{{project.name}}</a>
                         </div>
                       </div>
-                    </div>
-                  </div>
 
-                </div>
-              </div>
-
-            </div>
-
-            <div class="col-sm-6">
-              <div class="container-fluid">
-                <div class="row mt-3">
-
-                  <div class="col-sm-6">
-                    <span class="project-section-title"><i class="fa fa-building"></i>Department</span><br>
-                    <span class=""> Communication & Network</span>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <span class="project-section-title">Supervisor</span><br>
-                    <div class="d-flex">
-                      <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                      <a class="align-self-center">Dr. Lira Moucjet</a>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="row mt-3">
-                  <div class="col-sm-6">
-                    <span class="project-section-title">Start Date</span><br>
-                    <span class="btn btn-label-brand btn-sm btn-bold btn-upper">07 may, 18</span>
-                  </div>
-                  <div class="col-sm-6">
-                    <span class="project-section-title">End Date</span><br>
-                    <span class="btn btn-label-danger btn-sm btn-bold btn-upper">07 0ct, 18</span>
-                  </div>
-                </div>
-
-                <div class="row mt-3">
-                  <div class="col-sm-12 flex-fill bd-highlight">
-                    <span class="project-section-title">Progress</span>
-                    <div class="kt-widget__progress d-flex   align-items-center">
-                      <div class="progress" style="height: 5px;width: 100%;">
-                        <div class="progress-bar kt-bg-warning" role="progressbar" style="width: 78%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <span class="kt-widget__stat">78%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mt-3">
-
-                  <div class="col-sm-12">
-                    <span class="project-section-title">Teams</span><br>
-                    <div class="d-flex add-member">
-                      <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                      <img src="../../../assets/images/100_2.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                      <img src="../../../assets/images/100_3.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                      <img src="../../../assets/images/100_7.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                      <button class="img-circle img-bordered-sm mr-2" type="button"><i class="fa fa-user-plus"></i></button>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-
-
-
-
-
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="row mt-3">
-  <div class="col-sm-12">
-
-    <ngb-tabset>
-      <ngb-tab title="Description">
-        <ng-template ngbTabContent>
-          <div class="container-fluid">
-            <div class="row mt-3">
-              <div class="col-sm-6">
-                <div class="d-flex justify-content-between p-3">
-                    <h5 class="mt-0"><a class="text-dark">Goals</a></h5>
-                  <button class=" btn app-primary btn-circle btn-outline" (click)="openGoalDialog(content)" type="button"><i class="fa fa-plus"></i></button>
-                </div>
-
-                <ng-template #content let-c="close" let-d="dismiss">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Goal</h4>
-                        <button type="button" class="close no-outline" aria-label="Close" (click)="d('Cross click')">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                          
-                          <div class="form-group">
-                            <label>Title*</label>
-                            <input type="email" class="form-control">
-                        </div>
-
-                          <div class="form-row">
-                              <div class="form-group col-md-6">
-                                  <label for="launchDate">Start Date*</label>
-                                  <div class="input-group datepicker-input">
-                                    <input class="form-control" placeholder="yyyy-mm-dd"
-                                        name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                                    <button class="input-group-addon" (click)="d.toggle()" type="button">
-                                        <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
-                                        <span class="fa fa-calendar"></span>
-                                    </button>
-                                </div>
-                            </div>    
-                            <div class="form-group col-md-6">
-                                <label for="launchDate">End Date*</label>
-                                <div class="input-group datepicker-input">
-                                    <input class="form-control" placeholder="yyyy-mm-dd"
-                                        name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                                    <button class="input-group-addon" (click)="d.toggle()" type="button">
-                                        <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
-                                        <span class="fa fa-calendar"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" rows="3"></textarea>
-                        </div>
-    
-        
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn app-primary focus" (click)="c('Close click')">ADD</button>
-                        <button type="button" class="btn btn-secondary" (click)="c('Close click')">CANCEL</button>
-                    </div>
-                </ng-template>
-
-                <ul class="StepProgress">
-                  <li class="StepProgress-item is-done"><strong>Goal 1: Bibliography</strong>
-                    <small class="text-muted"> 12/12/2019 - 30/12/2019</small>
-                  </li>
-                  <li class="StepProgress-item is-done"  >
-                      <span (click)="isCollapsed = !isCollapsed"
-                      [attr.aria-expanded]="!isCollapsed" ><strong>Goal 2: Analysis & Design</strong></span>
-                    <small class="text-muted"> 12/12/2019 - 30/12/2019</small>
-            
-                      <div  class="sortable-list tasklist list-unstyled ui-sortable" [ngbCollapse]="isCollapsed">
-                        <div class="task-medium ui-sortable-handle">
-
-                          <div class="d-flex justify-content-between p-3">
-                            <h5 class="mt-0"><a class="text-dark">iOS App home page</a></h5>
-                            <i class="fa fa-check"></i>
-                          </div>
-                        
-                        </div>
-                      </div>
-                    <!--div id="collapseExample" [ngbCollapse]="isCollapsed">
-                      <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
-                      <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
-                      <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
-                      <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
-                      <div class="task-element">Implement Skeleton <i class="fa fa-check-circle"></i></div>
-
-                    </div-->
-                  </li>
-                  <li class="StepProgress-item current"><strong>Goal 3: Development</strong></li>
-                  <li class="StepProgress-item"><strong>Goal 4: Validation</strong></li>
-                  <li class="StepProgress-item"><strong>Goal 5: Check point</strong></li>
-                </ul>
-              </div>
-              <div class="col-sm-6">
-                  <div class="task-medium ui-sortable-handle p-3">
-
-                      <div class="d-flex justify-content-between bottom-line">
-                          <a class="project-title mt-0">Nexa - Next generation SAAS</a>
-                      </div>
-                    
-                      <div class="box-task">
-                          <span class="project-section-title">Description</span><br>
-                          <p>
-                            There are many variations of passages of Lorem Ipsum available. 
-                            There are many variations of passages of Lorem Ipsum available.
-                            There are many variations of passages of Lorem Ipsum available
+                      <div class="row mt-3">
+                        <div class="col-sm-12">
+                          <span class="project-section-title">Abstract</span><br>
+                          <p class="card-text">
+                              {{project.shortDescription}}
                           </p>
-                          <div class="clearfix"></div>
-                          
-                          <div class="d-flex justify-content-between">
-                              
-                              <div class="p-2 bd-highlight">
-                                  <span class="project-section-title">Start Date</span><br>
-                                  <span class="btn btn-label-brand btn-sm btn-bold btn-upper">07 may, 18</span>
+                          <div class="d-flex flex-row bd-highlight">
+                            <div class="flex-fill bd-highlight">
+                              <span class="project-section-title">Technologies</span><br>
+                              <div class="container">
+                                <div class="row">
+                                  <a class="btn keywords" href="#">UX</a>
+                                  <a class="btn keywords" href="#">JAVA</a>
+                                  <a class="btn keywords" href="#">Angular</a>
+                                </div>
                               </div>
-
-                              <div class="p-2 bd-highlight">
-                                  <span class="project-section-title">End Date</span><br>
-                                  <span class="btn btn-label-danger btn-sm btn-bold btn-upper">07 0ct, 18</span>
-                              </div>
-
-                              <div class="p-2 bd-highlight">
-                                  <span class="project-section-title">Assigned</span><br>
-                                  <div class="d-flex">
-                                    <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                                    <a class="align-self-center">Dr. Lira Moucjet</a>
-                                  </div>
-                              </div>
-
+                            </div>
                           </div>
+                        </div>
 
-                          <span class="project-section-title">Attchement</span><br>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="container-fluid">
+                      <div class="row mt-3">
+
+                        <div class="col-sm-6">
+                          <span class="project-section-title"><i class="fa fa-building"></i>Department</span><br>
+                          <span class="">    {{project.department.name}}</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                          <span class="project-section-title">Supervisor</span><br>
+                          <div  *ngIf="!!project.supervisor" class="d-flex">
+                            <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                            <a class="align-self-center">   {{project.supervisor?.firstName}}  {{project.supervisor?.lastName}}</a>
+                          </div>
+                          <div class="d-flex justify-content-between" *ngIf="!project.supervisor">
+                           <button class="img-circle img-bordered-sm mr-2"  *ngIf="!selectionSupervisorActive" type="button" (click)="selectionSupervisorActive = !selectionSupervisorActive"><i class="fa fa-user-plus"></i></button>
+                      
+                          <ng-select    *ngIf="!!selectionSupervisorActive" class="animate-progress"  [items]="persons" 
+                              [loading]="true" [clearable]="false" bindValue="id" (change)="onSelectSupervisor($event)">
+
+                              <ng-template ng-loadingspinner-tmp>
+                                <button class="img-circle img-bordered-sm mr-2 search_icon" type="button" ><i class="fa fa-user-plus"></i></button>
+                              </ng-template>
+
+                              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                <div class="d-flex">
+                                  <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                  <a class="align-self-center">  {{item.lastName}}  {{item.firstName}} </a>
+                                </div>
+                            </ng-template>
+                          </ng-select>
+
                         
                       
-                        </div>
-                    </div>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab title="Goals">
-        <ng-template ngbTabContent>
-
-          <!--div class="container-t1">
-
-              <div class="timeline-block timeline-block-right"  (click)="isCollapsed = !isCollapsed"
-                   [attr.aria-expanded]="!isCollapsed"  aria-controls="collapseExample1">
-                  <div class="marker active"><i class="fa active" aria-hidden="true">1</i></div>
-                  <div class="timeline-content">
-                      <h3>First Year</h3>
-                      <span>Some work experience</span>
-
-                      <div id="collapseExample1" [ngbCollapse]="isCollapsed">
-                          <div class="card">
-                              <div class="card-body">
-                                  <p>Got more entries that you love? Buy more entries anytime! Just hover on your favorite entry and click the Buy button</p>
-                              </div>
                           </div>
+                        </div>
                       </div>
 
+
+                      <div class="row mt-3">
+                        <div class="col-sm-6">
+                          <span class="project-section-title">Start Date</span><br>
+                          <span class="btn btn-label-brand btn-sm btn-bold btn-upper"> {{project.startDate  | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                        <div class="col-sm-6">
+                          <span class="project-section-title">End Date</span><br>
+                          <span class="btn btn-label-danger btn-sm btn-bold btn-upper"> {{project.endDate  | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                      </div>
+
+                      <div class="row mt-3">
+                        <div class="col-sm-12 flex-fill bd-highlight">
+                          <span class="project-section-title">Progress</span>
+                          <div class="kt-widget__progress d-flex   align-items-center">
+                            <div class="progress" style="height: 5px;width: 100%;">
+                              <div class="progress-bar kt-bg-warning" role="progressbar" style="width: 78%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <span class="kt-widget__stat">78%</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row mt-3">
+
+                        <div class="col-sm-12">
+                          <span class="project-section-title">Teams</span><br>
+                          <div class="d-flex add-member">
+                            <img *ngFor="let team of project.team" src="../../../assets/images/100_7.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                            <button *ngIf="!selectionTeamActive" (click)="selectionTeamActive=!selectionTeamActive" class="img-circle img-bordered-sm mr-2" type="button"><i class="fa fa-user-plus"></i></button>
+                            <ng-select    *ngIf="!!selectionTeamActive" class="animate-progress"  [items]="persons" 
+                                [loading]="true" [clearable]="false" bindValue="id" (change)="onSelectTeam($event)">
+
+                                <ng-template ng-loadingspinner-tmp>
+                                  <button class="img-circle img-bordered-sm mr-2 search_icon" type="button" ><i class="fa fa-user-plus"></i></button>
+                                </ng-template>
+
+                                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                  <div class="d-flex">
+                                    <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                    <a class="align-self-center">  {{item.lastName}}  {{item.firstName}} </a>
+                                  </div>
+                              </ng-template>
+                            </ng-select>
+                          </div>
+                        
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
+
+                </div>
               </div>
 
-              <div class="timeline-block timeline-block-left">
-                  <div class="marker"><i class="fa fa-check" aria-hidden="true"></i></div>
-                  <div class="timeline-content">
-                      <h3>Seconed Year</h3>
-                      <span>Some work experience</span>
 
-                  </div>
-              </div>
 
-              <div class="timeline-block timeline-block-right active">
-                  <div class="marker active"><i class="fa fa-check active" aria-hidden="true">1</i></div>
-                  <div class="timeline-content">
-                      <h3>Third Year</h3>
-                      <span>Some work experience</span>
 
-                  </div>
-              </div>
 
-              <div class="timeline-block timeline-block-left">
-                  <div class="marker"><i class="fa fa-check" aria-hidden="true"></i></div>
-                  <div class="timeline-content">
-                      <h3>Fourth Year</h3>
-                      <span>Some work experience</span>
 
-                  </div>
-              </div>
+            </div>
+          </div>
 
-              <div class="timeline-block timeline-block-right">
-                  <div class="marker"><i class="fa fa-check" aria-hidden="true"></i></div>
-                  <div class="timeline-content">
-                      <h3>Fifth Year</h3>
-                      <span>Some work experience</span>
+          <div class="row mt-3">
+            <div class="col-sm-12">
+          
+              <ngb-tabset>
+                <ngb-tab title="Description">
+                    <ng-template ngbTabContent>
+                    {{project.description}}
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Budget">
+                  <ng-template ngbTabContent>
+                  </ng-template>
+                </ngb-tab>
+              </ngb-tabset>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+</ng-template>
 
-                  </div>
-              </div>
-          </div-->
 
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab title="Disabled" >
+    <!--ngb-tab title="Disabled" >
         <ng-template ngbTabContent>
           <div class="row">
             <div class="col-lg-4">
@@ -347,7 +319,7 @@
                     <a class="dropdown-item" href="#">Add Members</a>
                     <a class="dropdown-item" href="#">Add Due Date</a>
                   </div>
-                </div> <!-- end dropdown -->
+                </div> 
 
                 <h4 class="header-title">Upcoming</h4>
                 <p class="sub-header">
@@ -457,7 +429,7 @@
                 </ul>
                 <a href="javascript: void(0);" class="btn btn-primary btn-block mt-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add New</a>
               </div>
-            </div> <!-- end col -->
+            </div> 
 
             <div class="col-lg-4">
               <div class="card-box">
@@ -471,7 +443,7 @@
                     <a class="dropdown-item" href="#">Add Members</a>
                     <a class="dropdown-item" href="#">Add Due Date</a>
                   </div>
-                </div> <!-- end dropdown -->
+                </div>
 
                 <h4 class="header-title">In Progress</h4>
                 <p class="sub-header">
@@ -554,8 +526,8 @@
 
                 </ul>
                 <a href="javascript: void(0);" class="btn btn-primary btn-block mt-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add New</a>
-              </div> <!-- end card-box -->
-            </div> <!-- end col -->
+              </div> 
+            </div>
 
             <div class="col-lg-4">
               <div class="card-box">
@@ -569,7 +541,7 @@
                     <a class="dropdown-item" href="#">Add Members</a>
                     <a class="dropdown-item" href="#">Add Due Date</a>
                   </div>
-                </div> <!-- end dropdown -->
+                </div>
 
                 <h4 class="header-title">Completed</h4>
                 <p class="sub-header">
@@ -674,319 +646,10 @@
                   </li>
                 </ul>
                 <a href="javascript: void(0);" class="btn btn-primary btn-block mt-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add New</a>
-              </div> <!-- end card-box -->
-            </div> <!-- end col -->
+              </div>
+            </div
 
           </div>
         </ng-template>
-      </ngb-tab>
-    </ngb-tabset>
-  </div>
-</div>
-
-
-<!--div class="project-details">
-<div   fxLayout="column" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
-
-        <mat-accordion >
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                                <div  class="splash-title">Project Information</div>
-                        </mat-panel-title>
-                        <mat-panel-description>
-                                <mat-icon>more_horiz</mat-icon>
-                        </mat-panel-description>
-
-                    </mat-expansion-panel-header>
-                    <div  class="splash" fxLayout="column" fxLayout.gt-sm="row" >
-
-                        <div  class="right" fxFlex="auto" fxFlex.gt-sm="" fxLayout="column" fxLayoutAlign.gt-sm="space-between">
-
-                            <div  class="details" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
-                                <div  class="detail">
-                                    <div  class="name">Project Name</div>
-                                    <div  class="value">{{project?.name}}</div>
-                                </div>
-                                <div  class="detail">
-                                    <div  class="name">Due Date</div>
-                                    <div  class="value">April 7, 2019</div>
-                                </div>
-                                <div  class="detail">
-                                    <div  class="name">Labels</div>
-                                    <div  class="value">
-                                        <mat-chip-list aria-orientation="horizontal">
-                                            <div class="mat-chip-list-wrapper">
-
-                                                <mat-chip>Redesign</mat-chip>
-                                                <mat-chip>Product</mat-chip>
-                                                <mat-chip>Illustration</mat-chip>
-                                                <mat-chip>Web Design</mat-chip>
-                                            </div>
-                                        </mat-chip-list>
-                                    </div>
-                                </div>
-                                <div  class="detail">
-                                    <div  class="name">Members</div>
-                                    <div  class="value" fxLayout="row">
-
-                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/michael.jpg"></div>
-                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/bruno.jpg"></div>
-                                        <div  class="member"><img matlistavatar  mattooltip="Lina Miller" src="assets/images/users/adam.jpg"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div  class="divider reverse"></div>
-                            <div  class="right-bottom">
-                                <div  class="description-title">Project Description</div>
-                                <div  class="description">
-                                    <p> Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment. </p>
-                                    <p> Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring. </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div  class="left" fxFlex.gt-sm="300px" fxFlex.gt-xs="200px" fxLayout="column">
-                            <div   fxLayout="row" fxLayoutAlign="end center">
-                                <button mat-icon-button> <mat-icon>more_horiz</mat-icon></button>
-                            </div>
-                            <div  class="codename" fxFlex="" fxLayout="column" fxLayoutAlign="start center">
-                                <mat-list>
-                                    <mat-list-item>Category: Material</mat-list-item>
-                                    <mat-list-item>Departement: Material Sicence</mat-list-item>
-                                    <mat-list-item>Status : Active</mat-list-item>
-                                    <mat-list-item>Progress : 60%</mat-list-item>
-                                </mat-list>
-                            </div>
-                        </div>
-                    </div>
-                </mat-expansion-panel>
-        </mat-accordion>
-
-    <div fxLayout="column">
-            <mat-card>
-                <mat-card-content>
-                    <mat-tab-group>
-
-                        <mat-tab label="Goals & Tasks">
-
-                                <div fxLayout="row" fxLayoutAlign="start start">
-                                        <div  fxFlex="40" fxFlex.gt-md="40" fxFlex.gt-sm="40"  fxFlex.sm="40" class="p-2">
-                                                <button mat-icon-button (click)="openGoalDialog(null)"><mat-icon>add_circle</mat-icon></button>
-                                            <div class="timeline">
-                                                <mat-accordion>
-                                                        <mat-expansion-panel *ngFor="let goal of project.goals" class="mat-elevation-z" (opened)="panelOpenState = true"
-                                                                            (closed)="panelOpenState = false">
-                                                                            <mat-expansion-panel-header>
-                                                                                <mat-panel-title>
-                                                                                        <span class="rounded"> 1 </span>
-                                                                                        <div class="goal-title"><h3 matLine> {{goal.name}} </h3></div>
-                                                                                        <p matLine> <small> {{goal.startDate | date: 'dd/MM/yyyy'}} -  {{goal.endDate  | date: 'dd/MM/yyyy'}} </small></p>
-
-
-                                                                                        <button mat-icon-button (click)="openTaskDialog(goal.goalId, null)"><mat-icon>add_circle</mat-icon></button>
-                                                                                </mat-panel-title>
-                                                                            </mat-expansion-panel-header>
-
-                                                                            <mat-chip-list  class="mat-chip-list-stacked" aria-orientation="vertical">
-                                                                                    <mat-chip class="task-line"  (click)="showTask(goal.goalId, task.taskId)"  *ngFor="let task of goal.tasks" selected>{{task.name}}</mat-chip>
-                                                                            </mat-chip-list>
-                                                        </mat-expansion-panel>
-                                                </mat-accordion>
-                                            </div>
-                                        </div>
-
-                                        <div  fxFlex="60" *ngIf="selectedTask" fxFlex.gt-md="60" fxFlex.gt-sm="60"  fxFlex.sm="60" class="p-2">
-                                                <mat-card class="project-card">
-                                                        <mat-card-header>
-                                                                    <mat-card-title class="mat-card-title">{{selectedTask.name}}</mat-card-title>
-                                                                    <mat-card-subtitle class="mat-card-subtitle">
-                                                                            <mat-icon>date_range</mat-icon> {{selectedTask.startDate | date: 'dd/MM/yyyy'}}, <mat-icon>person</mat-icon>Dr. Imed Romdhani
-                                                                   </mat-card-subtitle>
-
-                                                        </mat-card-header>
-                                                        <mat-divider></mat-divider>
-                                                        <mat-card-content>
-                                                                <h3>Description:</h3>
-                                                                <p class="secondary-text-color mt-2" style="padding:5px;">
-                                                                      This PhD project will focus on the investigation of the crystallization kinetics of several organic molecules (from low molecular weight compounds to polymers),
-                                                                     by means of broadband dielectric spectroscopy. The aim of this research is to unveil the correlation between the relaxation processes active during crystallization and the molecular mechanisms responsible for the formation of ordered structures
-                                                                </p>
-                                                                <h3>Plan:</h3>    <mat-icon>date_range</mat-icon> 21/09/03/18
-                                                                <h3>Attachements:</h3>
-
-                                                                <mat-progress-bar style="margin-top: 5px;" mode="determinate" value="40"></mat-progress-bar>
-                                                        </mat-card-content>
-                                                        <mat-divider></mat-divider>
-                                                        <mat-card-actions fxLayoutAlign="center center">
-                                                            <button mat-icon-button><mat-icon>favorite</mat-icon></button>
-                                                            <button mat-icon-button><mat-icon>share</mat-icon></button>
-                                                            <button mat-icon-button><mat-icon>edit</mat-icon></button>
-                                                            <button  [routerLink]="['.', 1]" mat-icon-button><mat-icon>visibility</mat-icon></button>
-                                                        </mat-card-actions>
-                                                </mat-card>
-                                        </div>
-
-                                </div>
-                        </mat-tab>
-                        <mat-tab label="Current Sprint">
-                                <mat-drawer-container class="chat-container">
-                                        <div fxLayout="row" class="p-2">
-                                            <div fxFlex="100" fxFlex.gt-md="25" fxFlex.sm="50" class="p-2">
-                                            <mat-card class="status-panel">
-                                                    <mat-card-header class="back-blue-dark p-2" fxLayoutAlign="space-between center">
-                                                            <mat-card-title class="m-0"><h3>IDEAS/TASKS (4)</h3></mat-card-title>
-                                                            <button mat-icon-button><mat-icon>add_circle_ou...</mat-icon></button>
-                                                    </mat-card-header>
-
-                                                    <mat-card-content class="bag">
-                                                        <mat-card *ngFor="let color of colors"  class="task-card draggable" >
-                                                        <div fxLayoutAlign="space-between center">
-                                                                <p>You can move these elements between these two containers</p>
-                                                                <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
-                                                            </div>
-                                                            <div fxLayoutAlign="space-between center">
-                                                                    <button mat-icon-button class="small"><mat-icon>chat</mat-icon>22</button>
-                                                                    <img matlistavatar  mattooltip="Lina Miller"  src="assets/images/users/michael.jpg">
-                                                                </div>
-                                                        </mat-card>
-                                                    </mat-card-content>
-                                                </mat-card>
-                                            </div>
-
-                                            <div fxFlex="100" fxFlex.gt-md="25" fxFlex.sm="50" class="p-2">
-                                                <mat-card class="status-panel">
-                                                    <mat-card-header class="back-orange p-2" fxLayoutAlign="space-between center">
-                                                        <mat-card-title class="m-0"><h3>IN PROGRESS (3)</h3></mat-card-title>
-                                                        <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
-                                                    </mat-card-header>
-
-                                                    <mat-card-content class="bag">
-                                                        <mat-card *ngFor="let color of colors"  class="task-card draggable ">
-                                                            You can move these elements between these two containers
-                                                        </mat-card>
-                                                    </mat-card-content>
-                                                </mat-card>
-                                            </div>
-                                            <div  fxFlex="100" fxFlex.gt-md="25" fxFlex.sm="50" class="p-2">
-                                                    <mat-card class="status-panel">
-
-
-                                                        <mat-card-header class="back-blue-light p-2" fxLayoutAlign="space-between center">
-                                                                <mat-card-title class="m-0"><h3>READY FOR REVIEW</h3></mat-card-title>
-                                                                <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
-                                                            </mat-card-header>
-
-                                                        <mat-card-content class="bag">
-                                                            <mat-card *ngFor="let color of colors"  class="task-card draggable ">
-                                                                You can move these elements between these two containers
-                                                            </mat-card>
-                                                        </mat-card-content>
-                                                    </mat-card>
-                                                </div>
-                                                <div  fxFlex="100" fxFlex.gt-md="25" fxFlex.sm="50" class="p-2">
-                                                        <mat-card class="status-panel">
-                                                            <mat-card-header class="back-green-light p-2" fxLayoutAlign="space-between center">
-                                                                <mat-card-title class="m-0"><h3>APPROVED </h3></mat-card-title>
-                                                                <button mat-icon-button (click)="personInfo.toggle()"><mat-icon>more_vert</mat-icon></button>
-                                                            </mat-card-header>
-
-
-                                                            <mat-card-content class="bag">
-                                                                <mat-card *ngFor="let color of colors"  class="task-card draggable ">
-                                                                    You can move these elements between these two containers
-                                                                </mat-card>
-                                                            </mat-card-content>
-                                                        </mat-card>
-                                                    </div>
-                                        </div>
-
-                                        <mat-drawer #personInfo mode="over" position="end" class="person-info-sidenav mat-elevation-z1" autoFocus="false">
-                                                <div class="p-0 h-100" perfectScrollbar>
-
-                                                    <div class="bg-primary w-100 text-center">
-                                                        <div fxLayout="row" fxLayoutAlign="space-between center" class="p-2">
-                                                            <h2>Contact Info</h2>
-                                                            <button mat-icon-button (click)="personInfo.toggle()"><mat-icon>close</mat-icon></button>
-                                                        </div>
-
-                                                    </div>
-                                                    <mat-list>
-                                                        <mat-list-item>
-                                                            <mat-icon matListIcon class="secondary-text-color">mail_outline</mat-icon>
-                                                            <h3 matLine>author@gmail.com</h3>
-                                                        </mat-list-item>
-                                                        <mat-list-item>
-                                                            <mat-icon matListIcon class="secondary-text-color">call</mat-icon>
-                                                            <h3 matLine>(202) 756-9756</h3>
-                                                        </mat-list-item>
-                                                        <mat-list-item>
-                                                            <mat-icon matListIcon class="secondary-text-color">location_on</mat-icon>
-                                                            <h3 matLine>2903 Avenue Z, Brooklyn, NY</h3>
-                                                        </mat-list-item>
-                                                    </mat-list>
-                                                </div>
-                                            </mat-drawer>
-
-                                </mat-drawer-container>
-
-                        </mat-tab>
-                        <mat-tab label="Results">
-
-                        </mat-tab>
-
-                        <mat-tab label="Goals & Tasks (V2)">
-                            <mat-vertical-stepper [linear]="false" #stepper>
-                                    <mat-step>
-                                        <ng-template matStepLabel>
-                                                <h3 matLine> Goal 1: Bibliograhy  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
-                                        </ng-template>
-                                        <mat-list>
-                                                <mat-list-item *ngFor="let number of [1,2,3]">
-                                                    <mat-icon matListIcon>check_circle</mat-icon>
-                                                    <h3 matLine> Title {{number}} </h3>
-                                                </mat-list-item>
-                                            </mat-list>
-                                    </mat-step>
-                                    <mat-step>
-                                            <ng-template matStepLabel>
-                                                <h3 matLine> Goal 2: Specification  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
-                                            </ng-template>
-                                   </mat-step>
-
-                                   <mat-step>
-                                            <ng-template matStepLabel>
-                                                <h3 matLine> Goal 3: Design & Devlopment  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
-                                            </ng-template>
-                                    </mat-step>
-                                    <mat-step>
-                                            <ng-template matStepLabel>
-                                                    <h3 matLine> Goal 4: Statistic  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
-                                            </ng-template>
-                                    </mat-step>
-
-                                    <mat-step>
-                                            <ng-template matStepLabel>
-                                                    <h3 matLine> Goal 5: Demo  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
-                                            </ng-template>
-                                    </mat-step>
-
-                                    <mat-step>
-                                            <ng-template matStepLabel>
-                                                    <h3 matLine> Goal 6: Check point  </h3><p matLine> <small> 09/03/18 -  21/03/18 </small></p>
-                                            </ng-template>
-                                    </mat-step>
-
-                            </mat-vertical-stepper>
-                    </mat-tab>
-                    </mat-tab-group>
-
-                </mat-card-content>
-            </mat-card>
-      </div>
-
-</div>
-
-
-
-</div-->
+      </ngb-tab-->
+  

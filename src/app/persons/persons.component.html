@@ -37,7 +37,7 @@
           <thead>
           <tr>
             <th>Name</th>
-            <th>Status</th>
+            <th>Role</th>
             <th>Email</th>
             <th>Valid</th>
             <th>Department</th>
@@ -52,7 +52,7 @@
                     <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
                 </div>
             </td>
-            <td> <span class="badge badge-pill badge-danger fs-1"> {{element.status}}</span></td>
+            <td> <span *ngIf="element.personfunction" span class="badge badge-pill badge-danger fs-1"> {{element.personfunction}}</span></td>
             <td> <span class="btn btn-label-brand btn-sm btn-bold btn-upper"> {{element.email}}</span></td>
             <td> <span class="btn btn-label-danger btn-sm btn-bold btn-upper"> {{element.valid}}</span></td>
             <td>

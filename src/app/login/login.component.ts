@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   public form: FormGroup;
+  errorMessage = null;
 
 
   constructor(  private router: Router, public fb: FormBuilder , private authService: AuthService) {
@@ -32,7 +33,11 @@ export class LoginComponent implements OnInit {
           if (authUser.needToInitOrg === true) {
             this.router.navigate(['login/init-organisation/']);
           } else {
+            if (authUser.enabled === false) {
+                  this.errorMessage = 'Your account is not activated by administrator';
+            } else {
             this.router.navigate(['home/']);
+            }
           }
         } else {
           this.router.navigate(['login/choose-organisation/']);

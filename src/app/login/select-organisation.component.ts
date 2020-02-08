@@ -13,6 +13,7 @@ export class SelectOrganisationComponent implements OnInit {
 
   organisations: Array<ShortOrganisation> = [];
   selectedTenantId = 0;
+  errorMessage = null;
 
   constructor(  private router: Router, private authService: AuthService) {
 
@@ -38,8 +39,12 @@ export class SelectOrganisationComponent implements OnInit {
 
   next() {
     this.authService.linkToOrganisation(this.selectedTenantId).subscribe(
-      data => {
-        this.router.navigate(['home/']);
+      authUser => {
+        if (authUser.enabled === false) {
+          this.errorMessage = 'Your account is not activated by administrator';
+          } else {
+          this.router.navigate(['home/']);
+          }
       }
       , error =>  console.log(error)
     );

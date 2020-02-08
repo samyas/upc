@@ -12,4 +12,8 @@ export class Person {
     skype: string;
     department: ShortDepartment;
     valid: boolean;
+
+    get name() {
+      return  this.firstName + ' ' + this.lastName;
+    }
 }

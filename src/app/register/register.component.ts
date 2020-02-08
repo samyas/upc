@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
   submitted = false;
-  emailSent = true;
+  emailSent = false;
   serverError = '';
 
 

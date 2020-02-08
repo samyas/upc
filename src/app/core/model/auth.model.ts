@@ -37,4 +37,5 @@ export class AuthUser {
     token: string;
     needToSelect: boolean;
     needToInitOrg: boolean;
+    enabled: boolean;
 }

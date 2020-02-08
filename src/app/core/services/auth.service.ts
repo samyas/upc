@@ -24,11 +24,13 @@ export class AuthService {
     }
 
     register(register: Register): Observable<string> {
+       this.logout();
         return this.http.post(AuthService.REGISTER_URI +  '/register',  JSON.stringify(register),
          {responseType: 'text'});
     }
 
     login(username: string, password: string): Observable<AuthUser> {
+        this.logout();
         return this.http.post<AuthUser>(AuthService.REGISTER_URI +  '/login',
              JSON.stringify({'username': username, 'password': password }))
               .pipe(map( authUser  => {

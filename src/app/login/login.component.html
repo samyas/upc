@@ -23,6 +23,7 @@
                 <div class="col-sm-12">
                       <div class="small-logo"><i class="fa fa-graduation-cap"></i> PPMS Login </div>
                       <p class="login-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Sed pharetra ut dui in dictum. </p>
+                      <div *ngIf="errorMessage" class="text-danger"> {{errorMessage}} </div>
                       <form [formGroup]="form" role="form" class="mt-5">
 
                           <div class="form-group input-group">

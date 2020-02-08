@@ -16,6 +16,7 @@ export class AddGoalComponent implements OnInit {
 
   submitted = false;
   serverError = '';
+  workshops = ['Edx Material Training', 'Crystal Formation'];
 
   constructor(public activeModal: NgbActiveModal, public fb: FormBuilder, public projectService: ProjectService) {
         this.form = this.fb.group({
@@ -24,14 +25,8 @@ export class AddGoalComponent implements OnInit {
           description: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
           startDate: null,
           endDate: null,
+          followWorkshop: [false],
           workshop: null
-         /* profile: this.fb.group({
-            name: null,
-            surname: null,
-            birthday: null,
-            gender: null,
-            image: null
-          })*/
       });
     }
 
@@ -58,10 +53,6 @@ export class AddGoalComponent implements OnInit {
            this.serverError = error.message;
          }
        );
-    }
-
-    close(): void {
-    //  this.dialogRef.close();
     }
 
 }

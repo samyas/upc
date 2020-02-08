@@ -9,7 +9,7 @@ import { projectsRouting } from './projects.routes';
 
 import { SharedModule } from '../shared/shared.module';
 import { ProjectComponent } from './project/project.component';
-import { TaskComponent } from './task/task.component';
+import { AddTaskComponent } from './task/add-task.component';
 import { AddGoalComponent } from './goal/add-goal.component';
 import { AddProjectComponent } from './project/add-project.component';
 import { ApplyComponent } from './apply/apply.component';
@@ -19,14 +19,15 @@ import {
   NgbDateParserFormatter
 } from '@ng-bootstrap/ng-bootstrap';
 import { CustomAdapter, CustomDateParserFormatter } from 'src/app/core/config/datepicker-adapter';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [ProjectsComponent, ProjectComponent, AddProjectComponent,
-    TaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent ],
+    AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent ],
   imports: [
-    CommonModule, SharedModule, projectsRouting
+    CommonModule, SharedModule, projectsRouting, NgSelectModule
   ],
-  entryComponents: [TaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent],
+  entryComponents: [AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent],
   providers : [ProjectService, PersonService, OrganisationService,
     {provide: NgbDateAdapter, useClass: CustomAdapter},
     {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}

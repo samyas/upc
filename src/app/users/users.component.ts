@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
 
   length = 100;
   pageIndex = 0;
-  pageSize = 10;
+  pageSize = 20;
   tabs = ['Incoming Requests', 'ALL', 'Organisation Creation Requests'];
   isCreator = false;
   activeTab = this.tabs[0];

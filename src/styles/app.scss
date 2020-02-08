@@ -7,9 +7,34 @@
 @import "rtl";
 @import "responsive";
 
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 body {
     font-family: "Roboto",sans-serif;
   //  font-weight: 300;
+}
+
+
+.ng-select.animate-progress .ng-arrow-wrapper {display: none;}
+
+
+.ng-select.animate-progress .ng-select-container  {            
+    height: 45px!important;
+ 
+    border: none;
+}
+
+.ng-select.animate-progress{
+    width: 60px;
+    transition: width 0.4s linear;
+}
+.ng-select.animate-progress:hover{
+    width: 450px;
+    transition: width 0.4s linear;
+    .ng-select-container  { 
+        border: 1px solid #bebebe;
+        border-radius: 30px;
+    }
 }
 
 input[type=text], input[type=date], input[type=datetime], input[type=number], input[type=search], input[type=time], input[type=url], input[type=email], textarea, select {

@@ -12,7 +12,7 @@ import { AuthGuard } from '../core/guards/auth-guard';
 
   {
     path: '',
-   //  canActivate: [AuthGuard],
+     canActivate: [AuthGuard],
     component: HomeComponent,
     data: {
       title: 'Home'
