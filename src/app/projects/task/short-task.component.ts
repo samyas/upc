@@ -8,7 +8,7 @@ import { Task } from '../../core/model/task.model';
   styleUrls: ['./short-task.component.scss']
 })
 export class ShortTaskComponent implements OnInit {
-
+  isCollapsed = false;
 
   constructor() {
     }

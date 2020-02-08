@@ -34,6 +34,8 @@ export class SidebarComponent implements OnInit {
         this.pushRightClass = 'push-right';
     }
 
+    changeLang(lang) {
+    }
 
     eventCalled() {
         this.isActive = !this.isActive;
