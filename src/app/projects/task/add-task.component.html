@@ -1,0 +1,68 @@
+
+            <div class="modal-header">
+                <h4 class="modal-title">Add Task</h4>
+                <button type="button" class="close no-outline" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="form-group">
+                            <label> Name</label>
+                            <input type="text"  formControlName="name" class="form-control" placeholder="Name">
+                            <div *ngIf="submitted && f.name.errors" class="text-danger">
+                                <div *ngIf="f.name.errors.required">Name is required</div>
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" formControlName="description" rows="3"></textarea>
+                        <div *ngIf="submitted && f.description.errors" class="text-danger">
+                                <div *ngIf="f.description.errors.required">Description is required</div>
+                         </div>
+                    </div>
+
+                    
+                 <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Start Date</label>
+                        <div class="input-group datepicker-input">
+                            <input class="form-control"    dateFormat="dd-MMM-yyyy" placeholder="yyyy-mm-dd" name="dps" formControlName="startDate" ngbDatepicker #s="ngbDatepicker">
+                            <button class="input-group-addon" (click)="s.toggle()" type="button">
+                                <span class="fa fa-calendar"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="launchDate">Due Date</label>
+                        <div class="input-group datepicker-input">
+                            <input class="form-control"    dateFormat="dd-MMM-yyyy" placeholder="yyyy-mm-dd" name="dpe" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
+                            <button class="input-group-addon" (click)="e.toggle()" type="button">
+                                <span class="fa fa-calendar"></span>
+                            </button>
+                        </div>
+                
+                    </div>
+                </div>
+
+                <div class="form-group form-check">
+                        <input type="checkbox"  formControlName="followWorkshop" class="form-check-input">
+                        <label class="form-check-label">Follow a workshop?</label>
+                </div>
+
+                
+                <div *ngIf="form?.value?.followWorkshop" class="form-group">
+                        <label>WorkShop</label>
+                        <select formControlName="workshop" class="form-control">
+                            <option disabled>Choose...</option>
+                            <option *ngFor="let workshop of workshops" [value]="workshop">{{workshop}}</option>
+                        </select>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn app-primary focus"  (click)="create()" >ADD</button>
+                <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">CANCEL</button>
+            </div>
+  
