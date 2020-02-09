@@ -80,9 +80,9 @@ export class AddProjectComponent implements OnInit {
     console.log('stange', this.form.value.department);
     this.project = this.form.value;
     console.log('pp', this.project);
-   // if (this.form.invalid) {
-   //   return;
-   // }
+    if (this.form.invalid) {
+      return;
+    }
     this.projectService.addProject(this.form.value).subscribe( id => {
       console.log('success', id);
       this.router.navigate(['home/project/' + id]);
