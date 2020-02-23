@@ -1,3 +1,4 @@
+import { ActivateAccountComponent } from './activate-account.component';
 import { InitOrganisationComponent } from './init-organisation.component';
 import { AuthService } from './../core/services/auth.service';
 import { SelectOrganisationComponent } from './select-organisation.component';
@@ -14,7 +15,7 @@ import { OrganisationService } from '../core/services/organisation.service';
   imports: [
     CommonModule, RouterModule, LoginRoutingModule, SharedModule
   ],
-  declarations: [LoginComponent, SelectOrganisationComponent, InitOrganisationComponent],
+  declarations: [LoginComponent, SelectOrganisationComponent, InitOrganisationComponent, ActivateAccountComponent],
   providers: [ AuthService, OrganisationService ]
 })
 export class LoginModule { }

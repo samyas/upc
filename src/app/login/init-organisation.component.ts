@@ -13,6 +13,7 @@ export class InitOrganisationComponent implements OnInit {
 
   public form: FormGroup;
   submitted = false;
+  serverError = null;
 
   constructor(private organisationService: OrganisationService, private router: Router,
     public fb: FormBuilder , private authService: AuthService) {
@@ -50,6 +51,9 @@ export class InitOrganisationComponent implements OnInit {
      this.organisationService.addOrganisation(this.form.value).subscribe( id => {
       console.log('success', id);
       this.router.navigate(['home/']);
-    }, error => console.log('error', error));
+    }, error =>  {
+      console.log(error);
+      this.serverError = error.message;
+    });
  }
 }

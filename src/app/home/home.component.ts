@@ -7,6 +7,8 @@ import { AppSettings } from '../core/app.settings';
 import { AuthService } from '../core/services/auth.service';
 import { User } from '../core/model/auth.model';
 import { Router } from '@angular/router';
+import { Organisation } from '../core/model/organisation.model';
+import { OrganisationService } from '../core/services/organisation.service';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,7 @@ export class HomeComponent implements OnInit {
   public settings: Settings;
   menuItems: Array<MenuItem> = [];
   userInfo: User = new User();
+  organisation: Organisation = new Organisation();
 
   items: Array<MenuItem> = [
     {
@@ -107,7 +110,7 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor( private router: Router, private auhtService: AuthService,
+  constructor( private router: Router, private auhtService: AuthService, public organisationService: OrganisationService,
     public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
   }
@@ -121,12 +124,25 @@ export class HomeComponent implements OnInit {
       , error =>  {
         console.log(error);
       });
+      this.loadOrganisation();
   }
 
   logout() {
     this.auhtService.logout();
     this.router.navigate(['login']);
   }
+
+  loadOrganisation() {
+    this.organisationService.getOrganisationDetail().subscribe(
+      data => {
+         this.organisation = data;
+      }
+      , error =>  {
+        console.log(error);
+      }
+    );
+  }
+
 
 
   changeTheme(theme: string) {

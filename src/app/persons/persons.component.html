@@ -17,7 +17,7 @@
 
   <div class="margin-right">
     <li class="sep-item">
-      <button class="nav-link btn app-primary btn-circle btn-outline" [routerLink]="['./add']" type="button"><i class="fa fa-plus"></i></button>
+      <button class="nav-link btn app-primary btn-circle btn-outline" (click)="openDialog()" type="button"><i class="fa fa-plus"></i></button>
     </li>
     <li class="sep-item">
       <button class="nav-link btn app-primary btn-circle btn-outline" (click)="list=true" type="button"><i class="fa fa-list"></i></button>
@@ -39,8 +39,8 @@
             <th>Name</th>
             <th>Role</th>
             <th>Email</th>
-            <th>Valid</th>
-            <th>Department</th>
+            <th>Registred</th>
+            <th>Module</th>
             <th>Action</th>
           </tr>
           </thead>
@@ -52,11 +52,11 @@
                     <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
                 </div>
             </td>
-            <td> <span *ngIf="element.personfunction" span class="badge badge-pill badge-danger fs-1"> {{element.personfunction}}</span></td>
+            <td> <span *ngIf="element.personfunction"  class="badge badge-pill badge-danger fs"> {{element.personfunction}}</span></td>
             <td> <span class="btn btn-label-brand btn-sm btn-bold btn-upper"> {{element.email}}</span></td>
             <td> <span class="btn btn-label-danger btn-sm btn-bold btn-upper"> {{element.valid}}</span></td>
             <td>
-                <span> {{element.department}}</span>
+                <span> {{element.department?.name}}</span>
             </td>
             <td>
               <div class="d-flex flex-row bd-highlight">

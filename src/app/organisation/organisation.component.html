@@ -1,42 +1,115 @@
-<h1>Oragnisation info</h1>
-<div  class="splash">
-
-  <div  class="right">
-
-      <div  class="details">
-          <div  class="detail">
-              <div  class="name">University Name</div>
-              <div  class="value">{{organisation?.name}}</div>
-          </div>
-          <div  class="Contact Email">
-            <div  class="name">Contact email</div>
-            <div  class="value">{{organisation?.email}}</div>
-          </div>
-      </div>
-      <div  class="divider reverse"></div>
-      <div  class="right-bottom">
-          <div  class="description-title">University Presentation</div>
-          <div  class="description">
-              <p>
-                  {{organisation?.description}}
-              </p>
-          </div>
-      </div>
-      <div  class="divider reverse"></div>
-      <div  class="right-bottom">
-          <div  class="description-title">University Description</div>
-          <div  class="description">
-              <p>
-                  {{organisation?.longDescription}}
-              </p>
-          </div>
-      </div>
-      <ul>
-            <li  *ngFor="let  dep of organisation?.departments">
-                        {{dep.name}}
-            </li>
-
-      </ul>
-  </div>
+<div class=" pb-5 page-header">
+    <h1>Organisation Information </h1>
+    <hr>
 </div>
-<button class=" btn app-primary btn-circle btn-outline" (click)="openDialog()" type="button"><i class="fa fa-plus"></i></button>
+
+<div class="container-fluid">
+    <div class="row mt-3">
+         <div class="col-sm-12">
+            <div class="media">
+                    <img src="../../../assets/images/edinburgh-university-logo.jpeg" class="project-icon mr-2" alt="...">
+                    <div class="media-body">
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-12"><a class="project-title mt-0">{{organisation.name}}</a></div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-sm-12">
+                                                <span class="project-section-title">Presentation</span><br>
+                                                <p class="card-text">
+                                                    {{organisation.description}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    
+                                    <div class="container-fluid">
+                                        <div class="row mt-3">
+                                            <div class="col-sm-12">
+                                                <span class="project-section-title">Responsable</span><br>
+                                                <div class="d-flex">
+                                                  <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sx mr-2" alt="...">
+                                                  <a class="align-self-center"> <strong> Dr.  {{organisation.responsible?.firstName}}  {{organisation.responsible?.lastName}} </strong></a>
+                                                </div>
+                                            </div> 
+                                            
+                                            <div class="col-sm-12">
+                                                    <span class="project-section-title">Founded:</span>
+                                                    <p><strong>{{organisation.creationDate}}</strong></p>
+                                            </div> 
+                                        </div>
+                                    </div>
+
+                            
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+            
+            <div class="col-md-12">
+                    <div class="section-title-wrapper">
+                        <div class="section-title">
+                            <h3>Modules</h3>
+                            <!--p>28 modules</p-->
+                        </div>
+                    </div>
+            </div>
+
+         
+    </div>
+
+    <div class="row mt-3">
+            <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                            <button class="ml-2 btn app-primary  btn-outline"   [class.focus] = "!selectedModuleType" (click)="setCurrentModuleType(null)" type="button">ALL</button>
+                            <button *ngFor="let m of moduleTypes" class="ml-2 btn app-primary btn-outline" 
+                                 [class.focus] = "selectedModuleType==m" (click)="setCurrentModuleType(m)" type="button"> {{m}} </button>            
+                            <button class="ml-2 btn app-primary btn-outline" (click)="openDialog()" type="button"><i class="fa fa-plus mr-2"></i>NEW MODULE</button>
+                    </div>
+            
+        </div>
+    </div>
+
+    <div class="row mt-3">
+            <div *ngFor="let  dep of departments" class="col-md-3">
+                    <div class="single-teacher-item">
+                            <div class="single-teacher-text">
+                                    <h3> {{dep.name}}</h3>
+                                  
+                                    <div class="module-type">
+                                            {{dep.type}}
+
+                                    </div>
+                                    <div *ngIf ="dep.responsible" class="d-flex justify-content-center mt-3">
+                                      <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                      <a class="align-self-center"> <strong> Dr {{dep.responsible?.firstName}}  {{dep.responsible?.lastName}}</strong></a>
+                                    </div>
+                                <p>   {{dep.description}}</p>
+
+                                <div class="d-flex justify-content-around">
+
+                                        <div class="p-2 bd-highlight"><i class="fa fa-users"></i>28</div>
+                                        <div class="p-2 bd-highlight"><i class="fa fa-product-hunt"></i>28</div>
+                                        <div class="p-2 bd-highlight"><i class="fa fa-user"></i>28</div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+           
+    </div>
+</div>
+
+

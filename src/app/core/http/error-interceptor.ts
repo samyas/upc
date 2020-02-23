@@ -6,6 +6,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { ErrorResponse } from '../model/error.response';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -19,9 +20,24 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.authService.logout();
             location.reload(true);
         }
-
-        const error = err.error.message || err.statusText;
-        return throwError(error);
+        let errorReponse: ErrorResponse = new ErrorResponse();
+        if ( (err.status === 400 || err.status === 500)   && err && err.error) {
+            console.log('Parse json', typeof err.error);
+            if (typeof err.error === 'object') {
+                errorReponse = err.error;
+                console.log('object', err.error);
+            } else {
+                console.log('not object', err.error);
+                errorReponse = JSON.parse(err.error);
+            }
+            if (!errorReponse.message) {
+                errorReponse.message = 'Currently system is unavailable. Please contact Adminsitrators';
+            }
+            return throwError(errorReponse);
+        }
+        console.log('Uncatched error', err);
+        errorReponse.message = 'Currently system is unavailable. Please contact Adminsitrators';
+        return throwError(errorReponse);
     }));
 }
 }

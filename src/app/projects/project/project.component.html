@@ -196,23 +196,20 @@
                           <div class="d-flex justify-content-between" *ngIf="!project.supervisor">
                            <button class="img-circle img-bordered-sm mr-2"  *ngIf="!selectionSupervisorActive" type="button" (click)="selectionSupervisorActive = !selectionSupervisorActive"><i class="fa fa-user-plus"></i></button>
                       
-                          <ng-select    *ngIf="!!selectionSupervisorActive" class="animate-progress"  [items]="persons" 
-                              [loading]="true" [clearable]="false" bindValue="id" (change)="onSelectSupervisor($event)">
+                              <ng-select    *ngIf="!!selectionSupervisorActive" class="animate-progress"  [items]="persons" 
+                                  [loading]="true" [clearable]="false" bindValue="id" (change)="onSelectSupervisor($event)">
 
-                              <ng-template ng-loadingspinner-tmp>
-                                <button class="img-circle img-bordered-sm mr-2 search_icon" type="button" ><i class="fa fa-user-plus"></i></button>
-                              </ng-template>
+                                  <ng-template ng-loadingspinner-tmp>
+                                    <button class="img-circle img-bordered-sm mr-2 search_icon" type="button" ><i class="fa fa-user-plus"></i></button>
+                                  </ng-template>
 
-                              <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-                                <div class="d-flex">
-                                  <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                                  <a class="align-self-center">  {{item.lastName}}  {{item.firstName}} </a>
-                                </div>
-                            </ng-template>
-                          </ng-select>
-
-                        
-                      
+                                  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                    <div class="d-flex">
+                                      <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                      <a class="align-self-center">  {{item.lastName}}  {{item.firstName}} </a>
+                                    </div>
+                                </ng-template>
+                              </ng-select>
                           </div>
                         </div>
                       </div>
@@ -272,11 +269,6 @@
 
                 </div>
               </div>
-
-
-
-
-
 
             </div>
           </div>

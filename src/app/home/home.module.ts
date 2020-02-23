@@ -8,12 +8,14 @@ import { HomeComponent } from './home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { OrganisationService } from '../core/services/organisation.service';
 
 
 @NgModule({
   imports: [
     CommonModule, SharedModule, RouterModule,  HomeRoutingModule, NgSelectModule
   ],
-  declarations: [SidebarComponent, HeaderComponent, HomeComponent]
+  declarations: [SidebarComponent, HeaderComponent, HomeComponent],
+  providers: [ OrganisationService ]
 })
 export class HomeModule { }

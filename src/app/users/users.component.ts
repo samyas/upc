@@ -24,6 +24,7 @@ export class UsersComponent implements OnInit {
   isCreator = false;
   activeTab = this.tabs[0];
   pageSizeOptions = [10, 25, 50];
+  serverError = null;
 
   onPageChange(e) {
     this.pageIndex = e.pageIndex;
@@ -49,8 +50,12 @@ export class UsersComponent implements OnInit {
       data => {
         this.users =  data.content;
         this.length = data.totalElements;
+        this.serverError  = null;
       }
-      , error => alert(error)
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 
@@ -58,8 +63,12 @@ export class UsersComponent implements OnInit {
     this.authService.activate(userId).subscribe(
       data => {
         this.loadData(this.pageIndex, this.pageSize);
+        this.serverError  = null;
       }
-      , error => alert(error)
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 

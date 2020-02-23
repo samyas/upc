@@ -27,6 +27,11 @@
           
           
           <div class="col-sm-12">
+
+              <div class="row  pb-3 text-center">
+                  <div *ngIf="serverError" class="col-md-12 text-danger">{{serverError}}</div>
+              </div>
+              
               <div class="card mb-3">
           
                 <div class="card-body table-responsive">

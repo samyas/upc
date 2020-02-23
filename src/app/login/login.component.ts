@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   public form: FormGroup;
-  errorMessage = null;
+  serverError = null;
 
 
   constructor(  private router: Router, public fb: FormBuilder , private authService: AuthService) {
@@ -29,21 +29,21 @@ export class LoginComponent implements OnInit {
     const password = this.form.value.password;
   this.authService.login(username, password).subscribe(
       authUser => {
-        if (authUser.needToSelect === false) {
-          if (authUser.needToInitOrg === true) {
-            this.router.navigate(['login/init-organisation/']);
-          } else {
-            if (authUser.enabled === false) {
-                  this.errorMessage = 'Your account is not activated by administrator';
-            } else {
-            this.router.navigate(['home/']);
-            }
-          }
+        if (authUser.needToActivate === true) {
+           this.router.navigate(['login/activate-account/']);
+        } else if (authUser.needToInitOrg === true) {
+           this.router.navigate(['login/init-organisation/']);
+        } else if (authUser.enabled === false) {
+          this.serverError = 'Your account is not activated by administrator';
         } else {
-          this.router.navigate(['login/choose-organisation/']);
+          this.router.navigate(['home/']);
         }
+         // this.router.navigate(['login/choose-organisation/']);
       }
-      , error =>  console.log(error)
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 
@@ -60,7 +60,10 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['home/']);
            }
       }
-      , error => console.error(error)
+      , error  =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 }

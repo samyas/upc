@@ -7,6 +7,12 @@
 
             <form [formGroup]="form">
 
+                
+            <div class="row  pb-3 text-center">
+                    <div *ngIf="serverError" class="col-md-12 text-danger">{{serverError}}</div>
+                </div>
+    
+
             <div class="form-row">
                         <div class="form-group  col-md-4">
                             <label for="inputAddress">University Logo</label>
@@ -30,13 +36,13 @@
                             </div>
                             <div class="form-row">
                                     <div class="form-group  col-md-9">
-                                            <label >Department</label>
-                                            <select formControlName="department" class="form-control">
+                                            <label >Modules</label>
+                                            <select formControlName="departmentId" class="form-control">
                                                 <option  disabled> Choose ...</option>
-                                                <option  *ngFor="let dep of organisation.departments"  [ngValue]="dep">{{dep.name}}</option>
+                                                <option  *ngFor="let dep of departments"  [ngValue]="dep.id">{{dep.name}}</option>
                                             </select>
-                                            <div *ngIf="submitted && f.department.errors" class="text-danger">
-                                                <div *ngIf="f.department.errors.required">Departmenent is required</div>
+                                            <div *ngIf="submitted && f.departmentId.errors" class="text-danger">
+                                                <div *ngIf="f.departmentId.errors.required">Departmenent is required</div>
                                             </div>
                                     </div>
                                     <div class="form-group  col-md-3">
@@ -48,7 +54,7 @@
                                         <div *ngIf="submitted && f.type.errors" class="text-danger">
                                             <div *ngIf="f.type.errors.required">Type is required</div>
                                         </div>
-                                </div>
+                                    </div>
                             </div>
                           </div>      
 

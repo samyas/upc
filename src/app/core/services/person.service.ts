@@ -31,6 +31,10 @@ export class PersonService {
     return this.http.get<Person>(PersonService.PERSON_URI + '/' + id);
   }
 
+  getPersonCurrent(): Observable<Person> {
+    return this.http.get<Person>(PersonService.PERSON_URI + '/current/info');
+  }
+
   addPerson(person: Person): Observable<any> {
     return this.http.post(PersonService.PERSON_URI, JSON.stringify(person),  {responseType: 'text'});
   }

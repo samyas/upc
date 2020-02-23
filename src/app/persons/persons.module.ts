@@ -1,19 +1,20 @@
 import { AddPersonComponent } from './add/add-person.component';
 import { PersonService } from './../core/services/person.service';
-import { ProjectService } from './../core/services/project.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from '../shared/shared.module';
 import { PersonsComponent } from './persons.component';
 import { PersonComponent } from './person.component';
-import { personsRouting } from './persons.routes';
+import { OrganisationService } from '../core/services/organisation.service';
+import { PersonsRoutingModule } from './persons-routing.module';
 
 @NgModule({
-  declarations: [PersonsComponent, PersonComponent, AddPersonComponent],
   imports: [
-    CommonModule, SharedModule, personsRouting
+    CommonModule, SharedModule, PersonsRoutingModule
   ],
-  providers : [PersonService]
+  entryComponents: [AddPersonComponent],
+  declarations: [PersonsComponent, PersonComponent, AddPersonComponent],
+  providers : [PersonService, OrganisationService]
 })
 export class PersonsModule { }

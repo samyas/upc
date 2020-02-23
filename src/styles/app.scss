@@ -20,9 +20,13 @@ body {
 
 .ng-select.animate-progress .ng-select-container  {            
     height: 45px!important;
- 
     border: none;
 }
+
+.ng-select.person .ng-select-container {
+    height: 50px!important;
+}
+
 
 .ng-select.animate-progress{
     width: 60px;

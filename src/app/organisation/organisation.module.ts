@@ -5,6 +5,7 @@ import { OrganisationRoutingModule } from './organisation-routing.module';
 import { OrganisationComponent } from './organisation.component';
 import {SharedModule} from '../shared/shared.module';
 import { AddDepartmentComponent } from './add-department.component';
+import { PersonService } from '../core/services/person.service';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { AddDepartmentComponent } from './add-department.component';
   ],
   entryComponents: [AddDepartmentComponent],
   declarations: [OrganisationComponent, AddDepartmentComponent],
-  providers: [ OrganisationService ]
+  providers: [ OrganisationService, PersonService ]
 })
 export class OrganisationModule { }

@@ -64,6 +64,23 @@ export class AuthService {
          {responseType: 'text'});
     }
 
+    activateAccount(code: string): Observable<AuthUser> {
+        return this.http.get<AuthUser>(AuthService.REGISTER_URI +  '/activate-account?code=' + code).pipe(map( authUser  => {
+            // login successful if there's a jwt token in the response
+            if (authUser) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+               authUser.username = this.currentUserValue.username;
+               this.saveCurrentUser(authUser);
+               return authUser;
+            }
+            return null;
+        }));
+    }
+
+    getCodeForTest(): Observable<any> {
+        return this.http.get(AuthService.REGISTER_URI +  '/getActivationToken/',
+         {responseType: 'text'});
+    }
     userInfo(): Observable<User> {
         return this.http.get<User>(AuthService.REGISTER_URI +  '/info/');
     }

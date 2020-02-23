@@ -31,6 +31,7 @@ export class ProjectsComponent implements OnInit {
   assign: Boolean = true;
   options: string[] = ['One', 'Two', 'Three'];
   persons: Array<Person> = [];
+  serverError = null;
 
   onPageChange(e) {
     this.pageIndex = e.pageIndex;
@@ -62,8 +63,12 @@ export class ProjectsComponent implements OnInit {
       data => {
         this.length = data.totalElements;
         this.projects = data.content;
+        this.serverError  = null;
       }
-      , error => alert(error)
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 
@@ -71,8 +76,12 @@ export class ProjectsComponent implements OnInit {
     this.projectService.apply(projectId, apply).subscribe(
       data => {
         console.log('ssss', data);
+        this.serverError  = null;
       }
-      , error => alert(error)
+      , error => {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 
@@ -81,8 +90,12 @@ export class ProjectsComponent implements OnInit {
       data => {
         this.persons =  data;
         console.log('ssss', this.persons);
+      //  this.serverError  = null;
       }
-      , error => alert(error)
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 
@@ -97,7 +110,10 @@ export class ProjectsComponent implements OnInit {
       data => {
         this.loadData(this.pageIndex, this.pageSize);
       }
-      , error => alert(error)
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 
@@ -111,17 +127,16 @@ export class ProjectsComponent implements OnInit {
       data => {
         this.loadData(this.pageIndex, this.pageSize);
       }
-      , error => alert(error)
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
 
 
 }
 
-const supervisor: ShortPerson = {id: 'ds', firstName: 'Imed', lastName: 'Romdhani', image: 'ss'};
-const examinator: ShortPerson = {id: 'ds', firstName: 'Abdessalem', lastName: 'SAMET', image: 'ss'};
-const students: ShortPerson[] = [{id: 'ds', firstName: 'Abdessalem', lastName: 'SAMET', image: 'ss'} ,
-                                {id: 'ds', firstName: 'Ghada', lastName: 'Fakhfakh', image: 'ss'}];
 /*
 const ELEMENT_DATA: ProjectOverview[] = [
   {projectId: '1', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,

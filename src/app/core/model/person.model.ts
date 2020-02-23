@@ -1,4 +1,4 @@
-import { ParseErrorLevel } from '@angular/compiler';
+
  import { ShortDepartment } from './organisation.model';
 
 
@@ -12,8 +12,14 @@ export class Person {
     skype: string;
     department: ShortDepartment;
     valid: boolean;
+    personfunction: PersonFunction;
+}
 
-    get name() {
-      return  this.firstName + ' ' + this.lastName;
-    }
+
+
+export enum PersonFunction {
+  MODEL_LEADER = 'MODEL_LEADER',
+  ADMIN_CREATOR = 'ADMIN_CREATOR',
+  STUDENT = 'STUDENT',
+  STAFF = 'STAFF'
 }

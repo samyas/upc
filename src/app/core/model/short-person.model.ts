@@ -1,5 +1,5 @@
-export interface ShortPerson {
-    id: string;
+export class ShortPerson {
+    personId: string;
     firstName: string;
     lastName: string;
     image: string;

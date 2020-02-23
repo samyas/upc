@@ -1,17 +1,13 @@
 <div class="flex-container">
         <div class="left-side">
-                <div class="sid-layy">
-                    <div class="row slid-roo">
-                        <div class="data-portion">
-                            <h2>Manage Your orders</h2>
-                            <p>Add captions to your slides easily with the .carousel-caption element within any .carousel-item. They can be easily hidden on smaller viewports, as shown below, with optional display utilities. We hide them initially with .d-none and bring them back on medium-sized devices </p>
-                            <ul>
-                                <li>Ph :- +91 9756545434</li>
-                                <li>Fax :- (+7867 65 544)</li>
-                            </ul>
+                <div class="kt-login__section">
+                        <div class="kt-login__block">
+                            <h3 class="kt-login__title">3C</h3>
+                            <div class="kt-login__desc">
+                                    Collaborate, Communicate, Control
+                            </div>
                         </div>
                     </div>
-                </div>
         </div>
         
         <div class="right-side">
@@ -23,6 +19,11 @@
                     <div class="container">
 
                         <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                                <div class="row  pb-3 text-center">
+                                        <div *ngIf="serverError" class="col-md-12 text-danger">{{serverError}}</div>
+                                    </div>
+    
 
                         <div class="form-group">
                             <label for="inputAddress">University Logo</label>
@@ -101,7 +102,7 @@
                             </div>
                         </div>
                         <div class="input-group center">
-                            <button class="btn btn-success btn-round">Next <i class="fas fa-arrow-right"></i></button>
+                            <button class="btn btn-round ripple">CREATE</button>
                         </div>
                         </form>
                     </div>

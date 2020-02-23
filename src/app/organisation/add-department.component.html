@@ -1,6 +1,6 @@
 
     <div class="modal-header">
-        <h4 class="modal-title">Add Department</h4>
+        <h4 class="modal-title">Add Module</h4>
         <button type="button" class="close no-outline" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -8,7 +8,10 @@
     <form [formGroup]="form"> 
         <div class="modal-body">
     
-            
+                <div class="row  pb-3 text-center">
+                        <div *ngIf="serverError" class="col-md-12 text-danger">{{serverError}}</div>
+                    </div>
+                    
             <div class="form-group">
                 <label>Name*</label>
                 <input type="text"   formControlName="name" class="form-control">
@@ -16,8 +19,56 @@
                         <div *ngIf="f.name.errors.required">Name is required</div>
                      </div>
             </div>
+
+            <div class="form-group">
+                    <label>Code*</label>
+                    <input type="text"   formControlName="code" class="form-control">
+                    <div *ngIf="submitted && f.code.errors" class="text-danger">
+                            <div *ngIf="f.code.errors.required">Code is required</div>
+                         </div>
+            </div>
     
+
+            <div class="form-group">
+                    <label>Module Type</label>
+                    <select formControlName="type" class="form-control">
+                        <option disabled>Choose...</option>
+                        <option *ngFor="let type of moduleTypes" [value]="type">{{type}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.type.errors" class="text-danger">
+                        <div *ngIf="f.type.errors.required">Module Type is required</div>
+                    </div>
+            </div>
+
+            <div *ngIf="isDissertation(form?.value?.type)" class="form-group">
+                <label>Sub Module Type</label>
+                <select formControlName="subType" class="form-control">
+                    <option disabled>Choose...</option>
+                    <option *ngFor="let type of subModuleTypes" [value]="type">{{type}}</option>
+                </select>
+                <div *ngIf="submitted && f.subType.errors" class="text-danger">
+                    <div *ngIf="f.subType.errors.required">Sub Module Type is required</div>
+                </div>
+            </div>
         
+            <!--div class="form-group">
+                    <label>Responsible</label>
+                    <ng-select class="person"  [items]="persons" [clearable]="false" bindValue="id" formControlName="responsable">
+                        <ng-template ng-label-tmp let-item="item">
+                                <div class="d-flex">
+                                     <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                     <a class="align-self-center">  {{item.lastName}}  {{item.firstName}} </a>
+                                </div>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                            <div class="d-flex">
+                                <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                <a class="align-self-center">  {{item.lastName}}  {{item.firstName}} </a>
+                            </div>
+                        </ng-template>
+                </ng-select>
+            </div-->
+
             <div class="form-group">
                 <label>Description</label>
                 <textarea class="form-control" formControlName="description" rows="3"></textarea>

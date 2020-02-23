@@ -1,3 +1,4 @@
+import { ModuleType, MODULES_TYPE, Department } from './../core/model/organisation.model';
 import { AddDepartmentComponent } from './add-department.component';
 import { OrganisationService } from './../core/services/organisation.service';
 
@@ -17,6 +18,9 @@ export class OrganisationComponent implements OnInit {
   organisation: Organisation = new Organisation();
   public form: FormGroup;
   submitted = false;
+  selectedModuleType: ModuleType = null;
+  moduleTypes: Array<ModuleType> = MODULES_TYPE;
+  departments: Array<Department> = [];
 
   constructor(public organisationService: OrganisationService,
       private modalService: NgbModal) { }
@@ -28,6 +32,7 @@ export class OrganisationComponent implements OnInit {
     this.organisationService.getOrganisationDetail().subscribe(
       data => {
          this.organisation = data;
+         this.applyFilter();
       }
       , error =>  {
         console.log(error);
@@ -45,5 +50,18 @@ export class OrganisationComponent implements OnInit {
           console.log('modal failed:' + reason);
         }
       );
+  }
+
+  setCurrentModuleType(type: ModuleType) {
+     this.selectedModuleType = type;
+     this.applyFilter();
+  }
+
+  applyFilter() {
+    if (this.selectedModuleType) {
+      this.departments = this.organisation.departments.filter(d => d.type === this.selectedModuleType);
+    } else {
+      this.departments = this.organisation.departments;
+    }
   }
 }
