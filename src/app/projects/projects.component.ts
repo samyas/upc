@@ -26,7 +26,7 @@ export class ProjectsComponent implements OnInit {
   projects: Array<ProjectOverview> = [];
   length = 100;
   pageIndex = 0;
-  pageSize = 10;
+  pageSize = 20;
   pageSizeOptions = [10, 25, 50];
   assign: Boolean = true;
   options: string[] = ['One', 'Two', 'Three'];

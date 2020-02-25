@@ -33,7 +33,7 @@ export class ProjectComponent implements OnInit {
   project: Project = new Project();
   selectedGoalId = null;
   selectedTask: Task;
-  doubleVue = true;
+  doubleVue = false;
   selectionTeamActive = false;
   selectionSupervisorActive = false;
   selectionAssignTaskActive = false;

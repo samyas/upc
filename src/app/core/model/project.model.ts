@@ -21,6 +21,7 @@ export class ProjectOverview {
     keywords: string;
     department: ShortDepartment;
     imageId: string;
+    extended: boolean;
 
 }
 

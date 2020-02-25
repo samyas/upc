@@ -56,6 +56,7 @@ export class AddProjectComponent implements OnInit {
           name : [this.project.name, Validators.compose([Validators.required, Validators.minLength(5)])],
           type: [this.project.type, [Validators.required]],
           departmentId: [null, [Validators.required]],
+          keywords: [null, [Validators.required]],
           description: [this.project.longDescription, Validators.compose([Validators.required, Validators.minLength(3)])],
           shortDescription: [this.project.description, Validators.compose([Validators.required, Validators.minLength(3)])],
           startDate: this.project.startDate,
@@ -66,6 +67,13 @@ export class AddProjectComponent implements OnInit {
 
   ngOnInit() {
     this.loadOrganisation();
+  }
+
+  updateForm() {
+    if (this.departments && this.departments.length === 1) {
+      console.log('update form');
+      this.form.controls['departmentId'].patchValue( this.departments[0].id);
+    }
   }
 
   loadOrganisation() {
@@ -90,19 +98,21 @@ export class AddProjectComponent implements OnInit {
      } else {
       this.departments = this.organisation.departments;
      }
-
+     this.updateForm();
     }, error => {
       console.log(error);
       this.serverError = error.message;
     });
   }
 
+  addkeyword = (term) => (term);
   save() {
     this.submitted = true;
     console.log('stange', this.form.value);
     if (this.form.invalid) {
       return;
     }
+    this.form.value.keywords = this.form.value.keywords;
     this.projectService.addProject(this.form.value).subscribe( id => {
       console.log('success', id);
       this.router.navigate(['home/project/' + id]);

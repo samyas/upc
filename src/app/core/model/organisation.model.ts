@@ -25,6 +25,8 @@ export class Organisation {
     email: string;
     address: Address;
     departments: Array<Department>;
+    responsible: ShortPerson;
+    creationDate: string;
 
 }
 

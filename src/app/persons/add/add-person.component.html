@@ -40,9 +40,8 @@
     
                         <div class="form-group">
                                 <label >Modules</label>
-                                <select formControlName="departmentId" class="form-control">
-                                    <option  disabled> Choose ...</option>
-                                    <option  *ngFor="let dep of departments"  [ngValue]="dep.id">{{dep.name}}</option>
+                                <select  formControlName="departmentId" class="form-control">
+                                    <option [disabled]="departments?.length === 1"  *ngFor="let dep of departments"  [ngValue]="dep.id">{{dep.name}}</option>
                                 </select>
                                 <div *ngIf="submitted && f.departmentId.errors" class="text-danger">
                                     <div *ngIf="f.departmentId.errors.required">Departmenent is required</div>

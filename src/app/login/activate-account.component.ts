@@ -24,6 +24,7 @@ export class ActivateAccountComponent implements OnInit {
     this.form = this.fb.group({
       activationCode: ['', Validators.required],
   });
+  this.test();
   }
 
    // convenience getter for easy access to form fields

@@ -1,9 +1,9 @@
 <div class=" pb-5 page-header">
-  <h1>Project: Nexa - Next generation SAAS </h1>
+  <h1>Project: {{project.name}}</h1>
   <hr>
 </div>
 
-<div *ngIf="doubleVue else projectDetails" class="container-fluid">
+<div *ngIf="project.extended else projectDetails" class="container-fluid">
   <ngb-tabset [justify]="'justified'">
     <ngb-tab title="Goals View">
       <ng-template ngbTabContent>
@@ -164,9 +164,7 @@
                               <span class="project-section-title">Technologies</span><br>
                               <div class="container">
                                 <div class="row">
-                                  <a class="btn keywords" href="#">UX</a>
-                                  <a class="btn keywords" href="#">JAVA</a>
-                                  <a class="btn keywords" href="#">Angular</a>
+                                  <a *ngFor="let keyword of project.keywords" class="btn keywords">{{keyword}}</a>
                                 </div>
                               </div>
                             </div>
@@ -184,7 +182,7 @@
 
                         <div class="col-sm-6">
                           <span class="project-section-title"><i class="fa fa-building"></i>Department</span><br>
-                          <span class="">    {{project.department.name}}</span>
+                          <span class="">    {{project.department?.name}}</span>
                         </div>
 
                         <div class="col-sm-6">
@@ -227,7 +225,14 @@
                       </div>
 
                       <div class="row mt-3">
-                        <div class="col-sm-12 flex-fill bd-highlight">
+                          <div class="col-sm-6">
+                              <span class="project-section-title">Creator</span><br>
+                              <div  class="d-flex">
+                                <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                <a class="align-self-center">   {{project.creator?.firstName}}  {{project.creator?.lastName}}</a>
+                              </div>
+                          </div>
+                        <div class="col-sm-16 flex-fill bd-highlight">
                           <span class="project-section-title">Progress</span>
                           <div class="kt-widget__progress d-flex   align-items-center">
                             <div class="progress" style="height: 5px;width: 100%;">

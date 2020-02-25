@@ -23,18 +23,24 @@ export class AddPersonComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
     public fb: FormBuilder, public personService: PersonService) {
-        this.form = this.fb.group({
-          id: null,
-          firstName: [null, Validators.compose([Validators.required, Validators.minLength(2)])],
-          lastName: [null, Validators.compose([Validators.required, Validators.minLength(2)])],
-          email: ['', [Validators.required, Validators.email]],
-          departmentId: [null, [Validators.required]],
-          isStaff: [false],
-          isModelLeader: [false]
-      });
+
     }
 
     ngOnInit() {
+      console.log('departementsssssss', this.departments);
+      let departmentId = null;
+      if (this.departments && this.departments.length === 1) {
+         departmentId = this.departments[0].id;
+      }
+      this.form = this.fb.group({
+        id: null,
+        firstName: [null, Validators.compose([Validators.required, Validators.minLength(2)])],
+        lastName: [null, Validators.compose([Validators.required, Validators.minLength(2)])],
+        email: ['', [Validators.required, Validators.email]],
+        departmentId: [departmentId, [Validators.required]],
+        isStaff: [false],
+        isModelLeader: [false]
+    });
     }
 
     get f() { return this.form.controls; }

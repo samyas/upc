@@ -33,7 +33,7 @@
 </div>
 
 
-<div *ngIf="list==false" >
+<div class="row"  *ngIf="list==false" >
 
   <div  *ngFor="let project of projects" class="col-sm-4">
     <div class="card  mb-3">
@@ -44,7 +44,8 @@
             <a class="project-title mt-0">{{project.name}}</a>
             <span class="project-author">
                                 <small class="text-muted">
-                                    <i class="fa fa-building"></i> {{project.department?.name}} ,  <i class="fa fa-user"></i> Dr. Imed Romdani
+                                    <i class="fa fa-building"></i> {{project.department?.name}} ,  <i class="fa fa-user"></i> 
+                                    Dr. {{project.creator?.firstName}} {{project.creator?.lastName}}
                                 </small>
 
                             </span>
@@ -62,9 +63,7 @@
             <span class="project-section-title">Technologies</span><br>
             <div class="container">
               <div class="row">
-                <a class="btn keywords" href="#">UX</a>
-                <a class="btn keywords" href="#">JAVA</a>
-                <a class="btn keywords" href="#">Angular</a>
+                  <a *ngFor="let keyword of project.keywords" class="btn keywords">{{keyword}}</a>
               </div>
             </div>
           </div>
@@ -160,7 +159,7 @@
                   </div>
                 </td>
                 <td>
-                    <span class="project-author-small"><i class="fa fa-user"></i> Dr. Imed Romdhani</span>
+                    <span class="project-author-small"><i class="fa fa-user"></i> Dr. {{project.creator?.firstName}} {{project.creator?.lastName}}</span>
                 </td>
                 <td> <span class="badge badge-pill badge-danger fs-1">{{project.type}}</span></td>
                 <td> <span class="btn btn-label-brand btn-sm btn-bold btn-upper">{{project.startDate  | date:'dd/MM/yyyy'}}</span></td>

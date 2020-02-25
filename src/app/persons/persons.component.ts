@@ -1,4 +1,4 @@
-import { Organisation } from './../core/model/organisation.model';
+import { Organisation, Department } from './../core/model/organisation.model';
 import { Assign } from './../core/model/assign.model';
 import { PersonService } from './../core/services/person.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
@@ -25,6 +25,10 @@ export class PersonsComponent implements OnInit {
 
   displayedColumns = [ 'firstName', 'lastName', 'email', 'status', 'department', 'valid'];
   persons: Array<Person>  = [];
+  public currentPerson: Person = new Person();
+  public departments: Array<Department> = [];
+  submitted = false;
+  serverError = '';
 
   length = 100;
   pageIndex = 0;
@@ -50,17 +54,38 @@ export class PersonsComponent implements OnInit {
         this.persons =  data.content;
         this.length = data.totalElements;
       }
-      , error => alert(error)
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
     );
   }
+
+  getPersonInfo() {
+    this.personService.getPersonCurrent().subscribe( data => {
+     this.currentPerson = data;
+     if (this.currentPerson.department) {
+      this.departments = this.organisation.departments.filter(d => d.id === this.currentPerson.department.id );
+     } else {
+      this.departments = this.organisation.departments;
+     }
+
+    }, error => {
+      console.log(error);
+      this.serverError = error.message;
+    });
+  }
+
 
   loadOrganisation() {
     this.organisationService.getOrganisationDetail().subscribe(
       data => {
          this.organisation = data;
+         this.getPersonInfo();
       }
-      , error =>  {
+      , error => {
         console.log(error);
+        this.serverError = error.message;
       }
     );
   }
@@ -68,8 +93,8 @@ export class PersonsComponent implements OnInit {
 
   public openDialog() {
     const modalRef = this.modalService.open(AddPersonComponent);
-    console.log('dd', this.organisation);
-    modalRef.componentInstance.departments = this.organisation.departments;
+   // console.log('dd', this.organisation);
+    modalRef.componentInstance.departments = this.departments;
      modalRef.result.then((result) => {
          console.log('modal sucess:' + result);
          this.loadData(0, this.pageSize);
