@@ -11,6 +11,7 @@ import 'rxjs/add/operator/delay';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Paged } from '../model/paged.model';
+import { JoinRequest } from '../model/join-request.model';
 
 @Injectable()
 export class AuthService {
@@ -55,8 +56,12 @@ export class AuthService {
 
 
     validate(emailValidationToken: string): Observable<any> {
-        return this.http.get(AuthService.REGISTER_URI +  '/validate?token=' + emailValidationToken,
+        return this.http.get(AuthService.REGISTER_URI +  '/validate-creator?token=' + emailValidationToken,
          {responseType: 'text'});
+    }
+
+    validateJoinRequest(emailValidationToken: string): Observable<JoinRequest> {
+        return this.http.get<JoinRequest>(AuthService.REGISTER_URI +  '/validate-join-request?token=' + emailValidationToken);
     }
 
     activate(userId: string): Observable<any> {

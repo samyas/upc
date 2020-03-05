@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
-        isCreator: [false],
+        isCreator: [true],
         message: null
     }, {
       validator: MustMatch('password', 'confirmPassword')
@@ -39,15 +39,6 @@ export class RegisterComponent implements OnInit {
 
 next() {
   this.router.navigate(['register/email-sent']);
-}
-
-shortCut() {
-  this.authService.getEmailToken( localStorage.getItem('userId')).subscribe(
-    data => {
-      this.router.navigate(['register/validate/' + data]);
-    }
-    , error =>  console.log(error)
-  );
 }
 
  // convenience getter for easy access to form fields

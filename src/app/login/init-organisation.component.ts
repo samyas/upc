@@ -25,7 +25,6 @@ export class InitOrganisationComponent implements OnInit {
       contactEmail: ['',  [Validators.required, Validators.email]],
       description: ['', Validators.required],
       longDescription: null,
-      creationDate: null,
       address: this.fb.group({
         street: [null, Validators.required],
         zipCode: [null, Validators.required],

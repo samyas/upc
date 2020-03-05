@@ -19,7 +19,13 @@ import { EmailVerificationComponent } from './email-verification.component';
   },
   {
     path: 'validate/:token',
-    component: EmailVerificationComponent
+    component: EmailVerificationComponent,
+    data : { name : 'validate'}
+  },
+  {
+    path: 'join/:token',
+    component: EmailVerificationComponent,
+    data : { name : 'join'}
   }
   ])],
   exports: [RouterModule]

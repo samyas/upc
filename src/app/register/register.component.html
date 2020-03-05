@@ -18,7 +18,6 @@
                       <p class="login-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br> Sed pharetra ut dui in dictum. </p>
                       <div *ngIf="!!emailSent" class="email-sent-box">
                             <p>Please check your mailbox, an email has been sent.<br> Please click on the button to activate your account </p>
-                            <button class="btn btn-round" (click)="shortCut()">Just for test</button>
                       </div>
                       <form *ngIf="!emailSent"  [formGroup]="registerForm" (ngSubmit)="onSubmit()" role="form" class="mt-5">
 
@@ -100,14 +99,9 @@
                                   <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
                                 </div>
                             </div>
-                          </div>
+                          </div>                        
 
-                          <div class="form-group form-check">
-                            <input type="checkbox"  formControlName="isCreator" class="form-check-input">
-                            <label class="form-check-label">Do you want to create new university profile?</label>
-                          </div>
-
-                          <div *ngIf="registerForm?.value?.isCreator" class="form-group input-group">
+                          <div class="form-group input-group">
                             <div class="input-group-prepend">
                               <span class="input-group-text">Message</span>
                             </div>
