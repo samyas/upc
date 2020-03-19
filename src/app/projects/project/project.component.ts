@@ -1,3 +1,4 @@
+import { FileUploaderService } from './../../core/services/file-uploader.service';
 import { Observable } from 'rxjs/Observable';
 
 import { AddTaskComponent } from '../task/add-task.component';
@@ -14,6 +15,12 @@ import { PersonService } from 'src/app/core/services/person.service';
 import { Person } from 'src/app/core/model/person.model';
 import { Assign } from 'src/app/core/model/assign.model';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { FileDownloadService } from 'src/app/core/services/file-download.service';
+
+
+// import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+
+
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -29,6 +36,9 @@ export class ProjectComponent implements OnInit {
   persons: Array<Person> = [];
 
   selectedPerson = null;
+  // <img imgViewer [id]="consultant.photoFileId" default="../assets/img/avatar5.png" class="profile-user-img img-responsive img-circle"/>
+  //  <input type="file" id="photo-anchor" (change)="onChangePhoto()" ng2FileSelect [uploader]="photoUploader" />
+  // public uploader:FileUploader = new FileUploader({});
 
   project: Project = new Project();
   selectedGoalId = null;
@@ -37,9 +47,15 @@ export class ProjectComponent implements OnInit {
   selectionTeamActive = false;
   selectionSupervisorActive = false;
   selectionAssignTaskActive = false;
+  uploadResponse = { status: '', message: '', filePath: '' };
+  error = null;
+  files: any = [];
+
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
-    private  personService: PersonService, private modalService: NgbModal) { }
+    private  personService: PersonService, private modalService: NgbModal,
+    private  uploadService: FileUploaderService, private downloadService: FileDownloadService
+    ) { }
 
   ngOnInit() {
 
@@ -57,15 +73,49 @@ export class ProjectComponent implements OnInit {
 
 
 
+  uploadFile(event) {
+    for (let index = 0; index < event.length; index++) {
+      const element = event[index];
+      this.uploadService.uploadFile(element, element.name, this.project.projectId, 'PROJECT')
+      .subscribe( data => {console.log('attch success'); this.loadProject(this.project.projectId); },
+      error => console.log(error));
+    }
+  }
+  deleteAttachment(key) {
+    this.uploadService.deleteFile(key, 'PROJECT', this.project.projectId)
+      .subscribe( data => {console.log('delete attch success'); this.loadProject(this.project.projectId); },
+      error => console.log(error));
+  }
+
+  download(key: string, fileName: string, contentType: string) {
+    this.downloadService.downloadFile(key, fileName, contentType);
+  }
+
+  uploadFileTask(event) {
+    for (let index = 0; index < event.length; index++) {
+      const element = event[index];
+      const id = this.project.projectId + ':' + this.selectedGoalId + ':' + this.selectedTask.taskId;
+      this.uploadService.uploadFile(element, element.name, id , 'TASK')
+      .subscribe( data => {console.log('attch success'); this.loadTask(this.selectedTask.taskId); },
+      error => console.log(error));
+    }
+  }
+  deleteAttachmentTask(key) {
+    const id = this.project.projectId + ':' + this.selectedGoalId + ':' + this.selectedTask.taskId;
+    this.uploadService.deleteFile(key, 'TASK', id)
+      .subscribe( data => {console.log('delete attch success'); this.loadTask(this.selectedTask.taskId); },
+      error => console.log(error));
+  }
+
     loadProject(id: string) {
          this.projectService.getProjectDetail(id).subscribe(
-         data => {this.project = data; this.init();},
+         data => {this.project = data; this.init(); },
          error => console.log(error));
     }
 
     loadTask(id: string) {
       this.projectService.getTask(this.project.projectId, this.selectedGoalId, id).subscribe(
-      data => {this.selectedTask = data;},
+      data => {this.selectedTask = data; },
       error => console.log(error));
  }
 
@@ -209,4 +259,24 @@ export class ProjectComponent implements OnInit {
     .subscribe( taskId => this.loadProject(this.project.projectId)
     , error => console.log('failed to add task', error));
   }
+
+   /**CV Actions*/
+   cvUpload(fileInput) {
+    document.getElementById('cv-file').click();
+  //  this.fileData = <File>fileInput.target.files[0];
+ }
+ onChangeCV($event) {
+     // Upload new cv
+  //   if (this.uploader.queue.length > 0) {
+    //   let fileItem = this.uploader.queue[this.uploader.queue.length-1]; //GET Last cv
+      /* this.uploadService.uploadFile('fileItem._file', 'fileItem.file.name')
+       .subscribe(
+        (res) => this.uploadResponse = res,
+        (err) => this.error = err
+      );*/
+ //    }
+ }
+
+
+
 }

@@ -1,9 +1,37 @@
 @import '../../../styles/variables.scss';
 
 $brand-color: #863dd9;
+.upload-drop-zone {
+    height: 150px;
+    border-width: 2px;
+    margin-bottom: 20px;
+  }
+  
+  /* skin.css Style*/
+  .upload-drop-zone {
+    color: #ccc;
+    border-style: dashed;
+    border-color: #ccc;
+    line-height: 150px;
+    text-align: center
+  }
+  .upload-drop-zone.drop {
+    color: #222;
+    border-color: #222;
+  }
 
 .dropdown-item{
     cursor: pointer;
+}
+
+.file-link{
+    cursor: pointer;
+   // border-bottom: 1px solid $app-primary-color;
+    color:  $app-primary-color;
+    &:hover {
+        color:  $app-primary-color;
+        text-decoration: underline;
+    }
 }
 
 .searchbar{

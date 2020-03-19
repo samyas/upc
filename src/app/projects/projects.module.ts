@@ -1,3 +1,7 @@
+import { UploadFileComponent } from './../shared/file-upload/upload-file.component';
+
+import { FileUploaderService } from './../core/services/file-uploader.service';
+import { FileDownloadService } from 'src/app/core/services/file-download.service';
 import { OrganisationService } from './../core/services/organisation.service';
 import { PersonService } from './../core/services/person.service';
 import { ProjectService } from './../core/services/project.service';
@@ -20,15 +24,16 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { CustomAdapter, CustomDateParserFormatter } from 'src/app/core/config/datepicker-adapter';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DragDropDirective } from '../shared/file-upload/drag-drop.directive';
 
 @NgModule({
   declarations: [ProjectsComponent, ProjectComponent, AddProjectComponent,
-    AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent ],
+    AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent , UploadFileComponent, DragDropDirective],
   imports: [
     CommonModule, SharedModule, projectsRouting, NgSelectModule
   ],
   entryComponents: [AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent],
-  providers : [ProjectService, PersonService, OrganisationService,
+  providers : [ProjectService, PersonService, OrganisationService, FileDownloadService, FileUploaderService,
     {provide: NgbDateAdapter, useClass: CustomAdapter},
     {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}
   ]

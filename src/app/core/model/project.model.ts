@@ -1,3 +1,4 @@
+import { FileDescriptor } from './file-descriptor.model';
 import { Department, ShortDepartment } from './organisation.model';
 import { ShortPerson } from './short-person.model';
 import { Task } from './task.model';
@@ -11,6 +12,7 @@ export class ProjectOverview {
     examinator: ShortPerson;
     creator: ShortPerson;
     students: Array<ShortPerson>;
+    attachments: Array<FileDescriptor>;
     status: string;
     nbrMileStones: number;
     nbrTasks: number;
@@ -32,6 +34,7 @@ export class Goal {
     startDate: Object;
     endDate: Object;
     tasks: Array<Task>;
+    attachmentsArrayList: Array<FileDescriptor>;
 }
 
 export class Apply {

@@ -1,4 +1,5 @@
 import { ShortPerson } from './short-person.model';
+import { FileDescriptor } from './file-descriptor.model';
 
 export class Task {
     taskId: string;
@@ -9,4 +10,5 @@ export class Task {
     workshop: string;
     assignedTo:  Array<ShortPerson>;
    createdBy: ShortPerson;
+   attachmentList: Array<FileDescriptor>;
 }

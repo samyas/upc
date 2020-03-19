@@ -115,7 +115,23 @@
                         <div class="clearfix"></div>
 
                         <span class="project-section-title">Attchement</span><br>
-                      
+                        <div   *ngFor="let attachment of selectedTask.attachmentList">
+                          
+
+                          <div class="d-flex justify-content-start">
+                              <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
+                              <button class="ml-2 btn app-primary btn-circle btn-outline" (click)="deleteAttachmentTask(attachment.key)" type="button">
+                                <i class="fa fa-times"></i>
+                              </button>
+                            </div> 
+
+
+                        </div>
+                    
+                        <div class="mt-2 upload-drop-zone"  (click)="fileInput.click()" appDragDrop (fileDropped)="uploadFileTask($event)">
+                              <input hidden type="file" #fileInput (change)="uploadFileTask($event.target.files)">
+                              <i class="fa fa-cloud-upload fa-3"></i> Just drag and drop files here
+                        </div>
                     
                       </div>
                   </div>
@@ -268,6 +284,32 @@
                         
                         </div>
 
+                      </div>
+
+                      <div class="row mt-3">
+                          <div class="col-sm-12">
+                            <span class="project-section-title">Attachement</span><br>
+                            <div   *ngFor="let attachment of project.attachments">
+                                <div class="d-flex justify-content-start">
+                                  <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
+                                  <button class="ml-2 btn app-primary btn-circle btn-outline" (click)="deleteAttachment(attachment.key)" type="button">
+                                    <i class="fa fa-times"></i>
+                                  </button>
+                                </div> 
+                             </div>
+
+                             <div class="mt-2">
+
+                                <button class="btn app-primary btn-rounded btn-outline" (click)="fileInput.click()" type="button">
+                                    ATTACH
+                                  </button>
+                                  <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                             </div>
+                            
+
+                         
+                          
+                           </div>
                       </div>
                     </div>
                   </div>

@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (isLoggedIn) {
         request = request.clone({ headers: request.headers.set('Authorization', `Bearer ${currentUser.token}`)});
     }
-    if (!request.headers.has('Content-Type')) {
+    if (!request.headers.has('Content-Type') && !request.url.includes('upload')) {
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
 
