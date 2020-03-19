@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Input, Renderer, SimpleChanges } from '@angular/core';
+/*import { Directive, ElementRef, Input, Renderer, SimpleChanges } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
 @Directive({ selector: 'img[appImgViewer]' })
 export class ImageViewerDirective {
 
-    public static readonly DOWNLOAD_URI = environment.baseUrl + '/api/files/download/';
+    public static readonly DOWNLOAD_URI = environment.baseUrl + 'files/download/';
 
     @Input() default: string;
     @Input() id: string;
@@ -23,3 +23,4 @@ export class ImageViewerDirective {
           }
     }
 }
+*/
