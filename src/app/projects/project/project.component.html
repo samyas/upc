@@ -131,17 +131,7 @@
                         <div class="clearfix"></div>
 
                         <span class="mt-2 project-section-title">Messages (8)</span><br>
-                     
-                        <div class="message-box mt-3">
-                          <div class="d-flex justify-content-start bd-highlight mb-1">
-                              <div class="ml-2">  <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="..."></div>
-                              <div class="ml-2 align-self-center" > <span> <a class="mr-2"><strong>Abdessalem SAMET</strong></a> added a comment </span> - <small class="text-muted">23 minutes ago</small></div>
-                          </div>
-                          <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          </p>
-                      </div>
+                
 
                       
                       <div *ngFor="let m of selectedTask.messages" class="message-box mt-3">
@@ -151,7 +141,7 @@
                                   <span> 
                                     <a class="mr-2"><strong>{{m.writer.lastName}}  {{m.writer.firstName}}</strong></a> added a comment 
                                   </span>
-                                  <small class="text-muted"> - {{m.start  | date:'dd/MM/yyyy'}}</small>
+                                  <small class="text-muted"> - {{m.start  | date:'dd/MM/yyyy  HH:mm'}}</small>
                                </div>
                           </div>
                           <div [innerHTML]="m.content">
