@@ -25,12 +25,14 @@ import {
 import { CustomAdapter, CustomDateParserFormatter } from 'src/app/core/config/datepicker-adapter';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragDropDirective } from '../shared/file-upload/drag-drop.directive';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 
 @NgModule({
   declarations: [ProjectsComponent, ProjectComponent, AddProjectComponent,
     AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent , UploadFileComponent, DragDropDirective],
   imports: [
-    CommonModule, SharedModule, projectsRouting, NgSelectModule
+    CommonModule, SharedModule, projectsRouting, NgSelectModule, CKEditorModule
   ],
   entryComponents: [AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent],
   providers : [ProjectService, PersonService, OrganisationService, FileDownloadService, FileUploaderService,

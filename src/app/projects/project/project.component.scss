@@ -1,6 +1,13 @@
 @import '../../../styles/variables.scss';
 
 $brand-color: #863dd9;
+
+
+
+.message-box{
+    border-bottom: 1px solid #ccc
+}
+
 .upload-drop-zone {
     height: 150px;
     border-width: 2px;

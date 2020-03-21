@@ -89,13 +89,13 @@
     border-color: $app-primary-color;
 }
 
-.app-primary:hover, .app-primary:focus, .app-primary.focus, {
+.app-primary:hover, .app-primary:focus, .app-primary.focus, .app-primary.active{
     color: $app-secondary-color;
     background-color: $app-primary-color;
     border-color: $app-primary-color;
 }
 
-.app-primary-btn:hover, .app-primary-btn.focus {
+.app-primary-btn:hover, .app-primary-btn.focus, .app-primary.active{
     color: $app-secondary-color;
     background-color: $app-primary-color;
 }

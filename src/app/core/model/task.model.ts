@@ -11,4 +11,14 @@ export class Task {
     assignedTo:  Array<ShortPerson>;
    createdBy: ShortPerson;
    attachmentList: Array<FileDescriptor>;
+   messages: Array<Message>;
+}
+
+
+export class Message {
+    messageId: string;
+    content: string;
+    start: Object;
+    modifiedTime: Object;
+    writer: ShortPerson;
 }

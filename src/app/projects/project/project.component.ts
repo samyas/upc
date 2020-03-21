@@ -1,6 +1,6 @@
 import { FileUploaderService } from './../../core/services/file-uploader.service';
 import { Observable } from 'rxjs/Observable';
-
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AddTaskComponent } from '../task/add-task.component';
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from './../../core/services/project.service';
@@ -9,7 +9,7 @@ import { ProjectOverview, Project, Goal } from './../../core/model/project.model
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AddGoalComponent } from '../goal/add-goal.component';
-import { Task } from 'src/app/core/model/task.model';
+import { Task, Message } from 'src/app/core/model/task.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PersonService } from 'src/app/core/services/person.service';
 import { Person } from 'src/app/core/model/person.model';
@@ -34,6 +34,7 @@ export class ProjectComponent implements OnInit {
   mode = 'determinate';
   value = 50;
   persons: Array<Person> = [];
+  public Editor = ClassicEditor;
 
   selectedPerson = null;
   // <img imgViewer [id]="consultant.photoFileId" default="../assets/img/avatar5.png" class="profile-user-img img-responsive img-circle"/>
@@ -49,8 +50,12 @@ export class ProjectComponent implements OnInit {
   selectionAssignTaskActive = false;
   uploadResponse = { status: '', message: '', filePath: '' };
   error = null;
+  errorComment = null;
   files: any = [];
-
+  isComment = false;
+  public model = {
+    editorData: '<p>Hello, world!</p>'
+  };
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
     private  personService: PersonService, private modalService: NgbModal,
@@ -260,23 +265,32 @@ export class ProjectComponent implements OnInit {
     , error => console.log('failed to add task', error));
   }
 
-   /**CV Actions*/
-   cvUpload(fileInput) {
-    document.getElementById('cv-file').click();
-  //  this.fileData = <File>fileInput.target.files[0];
- }
- onChangeCV($event) {
-     // Upload new cv
-  //   if (this.uploader.queue.length > 0) {
-    //   let fileItem = this.uploader.queue[this.uploader.queue.length-1]; //GET Last cv
-      /* this.uploadService.uploadFile('fileItem._file', 'fileItem.file.name')
-       .subscribe(
-        (res) => this.uploadResponse = res,
-        (err) => this.error = err
-      );*/
- //    }
- }
+  initComment() {
+    this.isComment = false;
+    this.model.editorData = null;
+    this.errorComment = null;
+  }
+  addMessage(goalId: string, taskId: string) {
+    const message: Message = new Message();
+    message.content =  this.model.editorData;
+    this.projectService.addMessage(this.project.projectId,
+      this.selectedGoalId, this.selectedTask.taskId, message)
+    .subscribe( messageId => {  this.initComment(); this.loadTask(this.selectedTask.taskId); }
+    , error => {
+      console.log('failed to add message', error);
+      this.errorComment = error.message;
+    });
+  }
 
-
-
+  updateMessage(goalId: string, taskId: string, messageId: string) {
+    const message: Message = new Message();
+    message.content = this.model.editorData;
+    this.projectService.updateMessage(this.project.projectId,
+      this.selectedGoalId, this.selectedTask.taskId, messageId, message)
+      .subscribe( umessageId => {  this.initComment(); this.loadTask(this.selectedTask.taskId); }
+      , error => {
+        console.log('failed to add message', error);
+        this.errorComment = error.message;
+      });
+  }
 }

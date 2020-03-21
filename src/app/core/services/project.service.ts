@@ -1,3 +1,4 @@
+import { Message } from './../model/task.model';
 import { Assign } from './../model/assign.model';
 import { Paged } from '../model/paged.model';
 import { Project, ProjectOverview, Goal, Apply } from '../model/project.model';
@@ -54,6 +55,16 @@ export class ProjectService {
   addTask(id: string, goalId: string, task: Task): Observable<any> {
     return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks',  JSON.stringify(task),
      {responseType: 'text'});
+  }
+
+  addMessage(id: string, goalId: string, taskId: string, message: Message): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks/'
+     + taskId + '/messages',  JSON.stringify(message), {responseType: 'text'});
+  }
+
+  updateMessage(id: string, goalId: string, taskId: string, messageId: string, message: Message): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks/'
+     + taskId + '/messages/' + messageId,  JSON.stringify(message), {responseType: 'text'});
   }
 
   changeStatus(id: string, goalId: string, taskId: string, status: string): Observable<any> {

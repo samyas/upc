@@ -116,23 +116,63 @@
 
                         <span class="project-section-title">Attchement</span><br>
                         <div   *ngFor="let attachment of selectedTask.attachmentList">
-                          
-
                           <div class="d-flex justify-content-start">
                               <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
                               <button class="ml-2 btn app-primary btn-circle btn-outline" (click)="deleteAttachmentTask(attachment.key)" type="button">
                                 <i class="fa fa-times"></i>
                               </button>
                             </div> 
-
-
                         </div>
-                    
                         <div class="mt-2 upload-drop-zone"  (click)="fileInput.click()" appDragDrop (fileDropped)="uploadFileTask($event)">
                               <input hidden type="file" #fileInput (change)="uploadFileTask($event.target.files)">
                               <i class="fa fa-cloud-upload fa-3"></i> Just drag and drop files here
                         </div>
-                    
+
+                        <div class="clearfix"></div>
+
+                        <span class="mt-2 project-section-title">Messages (8)</span><br>
+                     
+                        <div class="message-box mt-3">
+                          <div class="d-flex justify-content-start bd-highlight mb-1">
+                              <div class="ml-2">  <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="..."></div>
+                              <div class="ml-2 align-self-center" > <span> <a class="mr-2"><strong>Abdessalem SAMET</strong></a> added a comment </span> - <small class="text-muted">23 minutes ago</small></div>
+                          </div>
+                          <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                          </p>
+                      </div>
+
+                      
+                      <div *ngFor="let m of selectedTask.messages" class="message-box mt-3">
+                          <div class="d-flex justify-content-start bd-highlight mb-1">
+                              <div class="ml-2">  <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="..."></div>
+                              <div class="ml-2 align-self-center" > 
+                                  <span> 
+                                    <a class="mr-2"><strong>{{m.writer.lastName}}  {{m.writer.firstName}}</strong></a> added a comment 
+                                  </span>
+                                  <small class="text-muted"> - {{m.start  | date:'dd/MM/yyyy'}}</small>
+                               </div>
+                          </div>
+                          <div [innerHTML]="m.content">
+                              
+                          </div>
+                      </div>
+
+                      <div *ngIf="!!isComment" class="message-box mt-3">
+                          <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }" [editor]="Editor" [(ngModel)]="model.editorData" ></ckeditor>
+                       
+                           <div *ngIf="errorComment" class="text-danger">{{errorComment}}</div>
+                         
+                          <div class="d-flex justify-content-start bd-highlight mt-3">
+                              <button class="btn app-primary active mr-3" (click)="addMessage()" type="button"> Confirm </button>
+                              <button class="btn btn-default mt-1"  (click)="isComment = false"  type="button"> Cancel </button>
+                          </div>
+                         
+                      </div>
+
+                       <button  *ngIf="!isComment" (click)="isComment = true" class=" btn app-primary active mt-3" type="button"> <i class="fa fa-comment"></i> Comment </button>
+
                       </div>
                   </div>
             </div>
