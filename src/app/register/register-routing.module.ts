@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { RegisterComponent } from './register.component';
 import { EmailVerificationComponent } from './email-verification.component';
+import { PasswordResetComponent } from './password-reset.component';
 
 
 
@@ -26,6 +27,11 @@ import { EmailVerificationComponent } from './email-verification.component';
     path: 'join/:token',
     component: EmailVerificationComponent,
     data : { name : 'join'}
+  },
+  {
+    path: 'reset/:token',
+    component: PasswordResetComponent,
+    data : { name : 'reset'}
   }
   ])],
   exports: [RouterModule]

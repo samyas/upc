@@ -6,7 +6,7 @@ export const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterModule' },
   { path: 'login', loadChildren: './login/login.module#LoginModule' },
   { path: 'home', loadChildren: './home/home.module#HomeModule' },
-  { path: '', redirectTo: 'register', pathMatch: 'full'}
+  { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({

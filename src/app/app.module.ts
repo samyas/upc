@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-//import { OverlayModule } from '@angular/cdk/overlay';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +29,6 @@ export const httpInterceptorProviders = [
     // BrowserModule,
     BrowserAnimationsModule,
     RouterModule, AppRoutingModule,
-    //OverlayModule,
      HttpClientModule
   ],
   providers: [   AppSettings, AuthService, httpInterceptorProviders],

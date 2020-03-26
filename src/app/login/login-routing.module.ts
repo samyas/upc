@@ -16,8 +16,8 @@ import { AuthGuard } from '../core/guards/auth-guard';
     component: LoginComponent
   },
   {
-    canActivate: [AuthGuard],
-    path: 'activate-account',
+   // canActivate: [AuthGuard],
+    path: 'reset',
     component: ActivateAccountComponent
   },
   {

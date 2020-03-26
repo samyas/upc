@@ -4,4 +4,5 @@ export class JoinRequest {
     lastName: string;
     email: string;
     result: string;
+    username: string;
 }

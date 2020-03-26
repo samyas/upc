@@ -14,6 +14,7 @@ export class ActivateAccountComponent implements OnInit {
   public form: FormGroup;
   submitted = false;
   serverError = null;
+  emailSent = false;
   testCode = null;
 
   constructor(  private router: Router, public fb: FormBuilder , private authService: AuthService) {
@@ -22,9 +23,8 @@ export class ActivateAccountComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      activationCode: ['', Validators.required],
+      email: ['',  [Validators.required, Validators.email]],
   });
-  this.test();
   }
 
    // convenience getter for easy access to form fields
@@ -39,25 +39,14 @@ export class ActivateAccountComponent implements OnInit {
     }
 
     console.log(this.form.value);
-    this.authService.activateAccount(this.form.value.activationCode).subscribe(
+    this.authService.requestResetPassword(this.form.value.email).subscribe(
       authUser => {
-        if (authUser.enabled === false) {
-          this.serverError = 'Your account is not activated by administrator';
-          } else {
-          this.router.navigate(['home/']);
-          }
+          this.emailSent = true;
       }
       , error =>  {
         console.log(error);
         this.serverError = error.message;
       }
-    );
-  }
-
-  test() {
-    this.authService.getCodeForTest().subscribe(
-      data => this.testCode = data
-      , error =>  console.log(error)
     );
   }
 }

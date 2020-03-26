@@ -1,3 +1,4 @@
+import { PasswordResetComponent } from './password-reset.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -14,7 +15,7 @@ import { EmailVerificationComponent } from './email-verification.component';
   imports: [
     CommonModule, RouterModule, RegisterRoutingModule, SharedModule
   ],
-  declarations: [RegisterComponent, EmailSentComponent, EmailVerificationComponent],
+  declarations: [RegisterComponent, EmailSentComponent, EmailVerificationComponent, PasswordResetComponent],
   providers: [ AuthService ]
 })
 export class RegisterModule { }

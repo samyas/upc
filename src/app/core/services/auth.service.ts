@@ -60,8 +60,24 @@ export class AuthService {
          {responseType: 'text'});
     }
 
+    resetPassword(register: Register): Observable<string> {
+        this.logout();
+         return this.http.post(AuthService.REGISTER_URI +  '/reset-password',  JSON.stringify(register),
+          {responseType: 'text'});
+     }
+
+     requestResetPassword(email: string): Observable<string> {
+        this.logout();
+         return this.http.post(AuthService.REGISTER_URI +  '/reset-password-request',  email,
+          {responseType: 'text'});
+     }
+
     validateJoinRequest(emailValidationToken: string): Observable<JoinRequest> {
         return this.http.get<JoinRequest>(AuthService.REGISTER_URI +  '/validate-join-request?token=' + emailValidationToken);
+    }
+
+    validateResetRequest(emailValidationToken: string): Observable<JoinRequest> {
+        return this.http.get<JoinRequest>(AuthService.REGISTER_URI +  '/validate-reset-request?token=' + emailValidationToken);
     }
 
     activate(userId: string): Observable<any> {
