@@ -165,10 +165,11 @@
                 <td> <span class="btn btn-label-brand btn-sm btn-bold btn-upper">{{project.startDate  | date:'dd/MM/yyyy'}}</span></td>
                 <td> <span class="btn btn-label-danger btn-sm btn-bold btn-upper">{{project.endDate  | date:'dd/MM/yyyy'}}</span></td>
                 <td>
-                  <div  *ngIf="!!project.supervisor" class="d-flex">
-                    <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                    <a class="align-self-center"> {{project.supervisor?.firstName}}  {{project.supervisor?.lastName}}</a>
-                  </div>
+                    <div *ngFor="let supervisor of project.supervisors"  class="d-flex">
+                        <img src="../../../assets/images/100_7.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                        <a class="align-self-center">  {{supervisor.lastName}}  {{supervisor.firstName}} </a>
+                      </div>
+              
                 </td>
                 <td>
                   <div class="d-flex flex-row bd-highlight">

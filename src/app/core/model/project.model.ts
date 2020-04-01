@@ -8,10 +8,10 @@ export class ProjectOverview {
     description: string;
     startDate: Date;
     endDate: Date;
-    supervisor: ShortPerson;
-    examinator: ShortPerson;
+    supervisors: Array<ShortPerson>;
+    examinators: Array<ShortPerson>;
     creator: ShortPerson;
-    students: Array<ShortPerson>;
+    teams: Array<ShortPerson>;
     attachments: Array<FileDescriptor>;
     status: string;
     nbrMileStones: number;

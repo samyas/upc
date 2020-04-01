@@ -38,7 +38,7 @@ export class ProjectComponent implements OnInit {
 
   selectedPerson = null;
   // <img imgViewer [id]="consultant.photoFileId" default="../assets/img/avatar5.png" class="profile-user-img img-responsive img-circle"/>
-  //  <input type="file" id="photo-anchor" (change)="onChangePhoto()" ng2FileSelect [uploader]="photoUploader" />
+  // <input type="file" id="photo-anchor" (change)="onChangePhoto()" ng2FileSelect [uploader]="photoUploader" />
   // public uploader:FileUploader = new FileUploader({});
 
   project: Project = new Project();
@@ -46,16 +46,14 @@ export class ProjectComponent implements OnInit {
   selectedTask: Task;
   doubleVue = false;
   selectionTeamActive = false;
-  selectionSupervisorActive = false;
   selectionAssignTaskActive = false;
-  uploadResponse = { status: '', message: '', filePath: '' };
+  selectionSupervisorActive = false;
   error = null;
-  errorComment = null;
-  files: any = [];
-  isComment = false;
-  public model = {
-    editorData: '<p>Hello, world!</p>'
-  };
+
+  showDescriptionEditor = false;
+  showShortDescriptionEditor = false;
+
+  public editShow = new EditShow();
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
     private  personService: PersonService, private modalService: NgbModal,
@@ -63,7 +61,6 @@ export class ProjectComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-
     this.route.paramMap.pipe(
         switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
         this.loadProject(id);
@@ -74,9 +71,8 @@ export class ProjectComponent implements OnInit {
   init() {
     this.selectionTeamActive = false;
     this.selectionSupervisorActive = false;
+    this.error = null;
   }
-
-
 
   uploadFile(event) {
     for (let index = 0; index < event.length; index++) {
@@ -94,22 +90,6 @@ export class ProjectComponent implements OnInit {
 
   download(key: string, fileName: string, contentType: string) {
     this.downloadService.downloadFile(key, fileName, contentType);
-  }
-
-  uploadFileTask(event) {
-    for (let index = 0; index < event.length; index++) {
-      const element = event[index];
-      const id = this.project.projectId + ':' + this.selectedGoalId + ':' + this.selectedTask.taskId;
-      this.uploadService.uploadFile(element, element.name, id , 'TASK')
-      .subscribe( data => {console.log('attch success'); this.loadTask(this.selectedTask.taskId); },
-      error => console.log(error));
-    }
-  }
-  deleteAttachmentTask(key) {
-    const id = this.project.projectId + ':' + this.selectedGoalId + ':' + this.selectedTask.taskId;
-    this.uploadService.deleteFile(key, 'TASK', id)
-      .subscribe( data => {console.log('delete attch success'); this.loadTask(this.selectedTask.taskId); },
-      error => console.log(error));
   }
 
     loadProject(id: string) {
@@ -145,25 +125,6 @@ export class ProjectComponent implements OnInit {
       this.assign(this.project.projectId, assignment);
     }
 
-    onAssignTask($event) {
-      console.log('Assign task selected', $event.id);
-      console.log('test');
-      const assignment:  Assign = new Assign();
-      assignment.personId = $event.id;
-      assignment.action = 'ADD';
-      assignment.position = 'TEAM';
-      this.assignTask(this.project.projectId, this.selectedGoalId, this.selectedTask.taskId, assignment);
-    }
-
-    changeStatus(newStatus) {
-      this.projectService.changeStatus(this.project.projectId,  this.selectedGoalId, this.selectedTask.taskId, newStatus).subscribe(
-        data => {
-          this.loadTask(this.selectedTask.taskId);
-        }
-        , error => alert(error)
-      );
-    }
-
     onSelectExecutor($event) {
       console.log('execuctor selected', $event.id);
       const assignment:  Assign = new Assign();
@@ -186,15 +147,6 @@ export class ProjectComponent implements OnInit {
       this.projectService.assign(projectId, assign).subscribe(
         data => {
           this.loadProject(this.project.projectId);
-        }
-        , error => alert(error)
-      );
-    }
-
-    assignTask(projectId, goalId, taskId, assign: Assign) {
-      this.projectService.assignTask(projectId,  goalId, taskId, assign).subscribe(
-        data => {
-          this.loadTask(taskId);
         }
         , error => alert(error)
       );
@@ -249,48 +201,53 @@ export class ProjectComponent implements OnInit {
   createGoal(goal: Goal) {
     this.projectService.addGoal(this.project.projectId, goal)
         .subscribe( goalId => this.loadProject(this.project.projectId)
-        , error => console.log('failed to add goal', error));
+        , error =>  {
+          console.log('failed to add goal', error);
+          this.error = error.message;
+        }
+        );
   }
 
-  showTask(goalId: string, taskId: string) {
-    if (this.project) {
-     // this.selectedGoal =  this.project.goals.find( g => g.goalId === goalId);
-     // this.selectedTask = this.selectedGoal.tasks.find(t => t.taskId === taskId) ;
-    }
-  }
 
   createTask(goalId: string, task: Task) {
     this.projectService.addTask(this.project.projectId, goalId, task)
     .subscribe( taskId => this.loadProject(this.project.projectId)
-    , error => console.log('failed to add task', error));
+    , error => {
+      console.log('failed to add task', error);
+      this.error = error.message;
+    }
+      );
   }
 
-  initComment() {
-    this.isComment = false;
-    this.model.editorData = null;
-    this.errorComment = null;
-  }
-  addMessage(goalId: string, taskId: string) {
-    const message: Message = new Message();
-    message.content =  this.model.editorData;
-    this.projectService.addMessage(this.project.projectId,
-      this.selectedGoalId, this.selectedTask.taskId, message)
-    .subscribe( messageId => {  this.initComment(); this.loadTask(this.selectedTask.taskId); }
+
+  updateProject() {
+    this.projectService.updateProject(this.project)
+    .subscribe( data => {
+      this.editShow.reset();
+      this.loadProject(this.project.projectId);
+    }
     , error => {
-      console.log('failed to add message', error);
-      this.errorComment = error.message;
+      console.log('failed to update project', error);
+      this.error = error.message;
     });
   }
 
-  updateMessage(goalId: string, taskId: string, messageId: string) {
-    const message: Message = new Message();
-    message.content = this.model.editorData;
-    this.projectService.updateMessage(this.project.projectId,
-      this.selectedGoalId, this.selectedTask.taskId, messageId, message)
-      .subscribe( umessageId => {  this.initComment(); this.loadTask(this.selectedTask.taskId); }
-      , error => {
-        console.log('failed to add message', error);
-        this.errorComment = error.message;
-      });
+}
+
+class EditShow {
+  title: boolean;
+  shortDescription: boolean;
+  description: boolean;
+
+  constructor() {
+    this.title = false;
+    this.shortDescription = false;
+    this.description = false;
+  }
+
+  reset() {
+    this.title = false;
+    this.shortDescription = false;
+    this.description = false;
   }
 }

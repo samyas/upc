@@ -1,0 +1,142 @@
+<div class="task-medium ui-sortable-handle p-3">
+
+    <div class="d-flex justify-content-between bottom-line">
+        <a class="project-title mt-0">{{task.name}}</a>
+        
+
+          <div class="input-group-append" ngbDropdown>
+            <button class="btn btn app-primary btn-outline dropdown-toggle" type="button" ngbDropdownToggle>ACTION</button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <a class="dropdown-item"(click)="changeStatus('OPEN')">OPEN</a>
+              <a class="dropdown-item"(click)="changeStatus('PROGRESS')">PROGRESS</a>
+              <a class="dropdown-item" (click)="changeStatus('REVIEW')">REVIEW</a>
+              <div role="separator" class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="changeStatus('DONE')">DONE</a>
+            </div>
+        
+        </div>
+    </div>
+  
+    <div class="box-task">
+      
+      <div class="d-flex justify-content-between">
+        <div class="p-2 bd-highlight">
+          <span class="project-section-title">Status</span><br>
+          <span class="btn btn-label-brand btn-sm btn-bold btn-upper">{{task.status }}</span>
+      </div>
+
+      </div>
+        <div class="d-flex justify-content-between">
+            
+            <div class="p-2 bd-highlight">
+                <span class="project-section-title">Start Date</span><br>
+                <span class="btn btn-label-brand btn-sm btn-bold btn-upper">{{task.startDate | date:'dd/MM/yyyy' }}</span>
+            </div>
+
+            <div class="p-2 bd-highlight">
+                <span class="project-section-title">End Date</span><br>
+                <span class="btn btn-label-danger btn-sm btn-bold btn-upper">{{task.endDate  | date:'dd/MM/yyyy'}}</span>
+            </div>
+
+            <div class="p-2 bd-highlight">
+                <span class="project-section-title">Assigned</span><br>
+                <div  *ngIf="task.assignedTo?.length > 0; else selectUser" class="d-flex">
+                    <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                    <a class="align-self-center">{{task.assignedTo[0]?.firstName}} {{task.assignedTo[0]?.lastName}}</a>
+                </div>
+                <ng-template #selectUser>
+                
+                    <div class="d-flex justify-content-between">
+                      <button class="img-circle img-bordered-sm mr-2"  *ngIf="!selectionAssignTaskActive" type="button" (click)="selectionAssignTaskActive = !selectionAssignTaskActive"><i class="fa fa-user-plus"></i></button>
+                  
+                      <ng-select    *ngIf="!!selectionAssignTaskActive" class="animate-progress"  [items]="persons" 
+                          [loading]="true" [clearable]="false" bindValue="id" (change)="onAssignTask($event)">
+
+                          <ng-template ng-loadingspinner-tmp>
+                            <button class="img-circle img-bordered-sm mr-2 search_icon" type="button" ><i class="fa fa-user-plus"></i></button>
+                          </ng-template>
+
+                          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                            <div class="d-flex">
+                              <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                              <a class="align-self-center">  {{item.lastName}}  {{item.firstName}} </a>
+                            </div>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </ng-template>
+            </div>
+
+        </div>
+
+          <div class="d-flex justify-content-between pt-3">
+                <span class="project-section-title">Description</span>
+                <button class="btn btn-edit btn-circle" type="button" (click)="editShow.description=true"><i class="fa fa-pencil"></i></button>
+          </div>
+          <div *ngIf="!editShow.description" [innerHTML]="task.description"></div>
+          <div *ngIf="!!editShow.description">
+              <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                    [editor]="Editor" [(ngModel)]="task.description" >
+              </ckeditor>
+              <div class="d-flex flex-row-reverse editor-footer">
+                  <button class="btn btn-primary m-1" (click)="updateTask()" type="button"> Save </button>
+                  <button class="btn btn-default m-1"  (click)="editShow.description=false"  type="button"> Cancel </button>
+              </div>
+              <div *ngIf="error" class="text-danger mt-3">{{error}}</div>
+          </div>
+
+
+        <div class="clearfix"></div>
+
+        <span class="project-section-title">Attchement</span><br>
+        <div   *ngFor="let attachment of task.attachmentList">
+          <div class="d-flex justify-content-start">
+              <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
+              <button class="ml-2 btn app-primary btn-circle btn-outline" (click)="deleteAttachmentTask(attachment.key)" type="button">
+                <i class="fa fa-times"></i>
+              </button>
+            </div> 
+        </div>
+        <div class="mt-2 upload-drop-zone"  (click)="fileInput.click()" appDragDrop (fileDropped)="uploadFileTask($event)">
+              <input hidden type="file" #fileInput (change)="uploadFileTask($event.target.files)">
+              <i class="fa fa-cloud-upload fa-3"></i> Just drag and drop files here
+        </div>
+
+        <div class="clearfix"></div>
+
+        <span class="mt-2 project-section-title">Messages (8)</span><br>
+
+
+      
+      <div *ngFor="let m of task.messages" class="message-box mt-3">
+          <div class="d-flex justify-content-start bd-highlight mb-1">
+              <div class="ml-2">  <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="..."></div>
+              <div class="ml-2 align-self-center" > 
+                  <span> 
+                    <a class="mr-2"><strong>{{m.writer.lastName}}  {{m.writer.firstName}}</strong></a> added a comment 
+                  </span>
+                  <small class="text-muted"> - {{m.start  | date:'dd/MM/yyyy  HH:mm'}}</small>
+               </div>
+          </div>
+          <div [innerHTML]="m.content">
+              
+          </div>
+      </div>
+
+      <div *ngIf="!!isComment" class="message-box mt-3">
+          <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }" [editor]="Editor" [(ngModel)]="model.editorData" ></ckeditor>
+       
+           <div *ngIf="errorComment" class="text-danger">{{errorComment}}</div>
+         
+          <div class="d-flex justify-content-start bd-highlight mt-3">
+              <button class="btn app-primary active mr-3" (click)="addMessage()" type="button"> Confirm </button>
+              <button class="btn btn-default mt-1"  (click)="isComment = false"  type="button"> Cancel </button>
+          </div>
+         
+      </div>
+
+       <button  *ngIf="!isComment" (click)="isComment = true" class=" btn app-primary active mt-3" type="button"> 
+           <i class="fa fa-comment"></i> Comment </button>
+
+      </div>
+  </div>

@@ -1,4 +1,71 @@
 @import 'variables';
+
+.to-hover {
+    .to-show {
+        display: none;
+    }
+    &:hover {
+        .to-show {
+            display: block;
+        }
+    }
+}
+.editor-footer{
+    background-color: rgb(250, 250, 250);
+    border-right: 1px solid rgb(196, 196, 196);
+    border-left: 1px solid rgb(196, 196, 196);
+    border-bottom: 1px solid rgb(196, 196, 196);
+}
+
+
+.form-material .form-group {
+	overflow: hidden
+}
+
+.form-material .form-control {
+	background-color: rgba(0, 0, 0, 0);
+	background-position: center bottom, center calc(100% - 1px);
+	background-repeat: no-repeat;
+	background-size: 0 2px, 100% 1px;
+	padding: 0;
+	transition: background 0s ease-out 0s
+}
+
+.form-material .form-control,
+.form-material .form-control.focus,
+.form-material .form-control:focus {
+	background-image: linear-gradient(#fb9678, #fb9678), linear-gradient(#e9ecef, #e9ecef);
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	float: none
+}
+
+.form-material .form-control.focus,
+.form-material .form-control:focus {
+	background-size: 100% 2px, 100% 1px;
+	outline: 0;
+	transition-duration: .3s
+}
+
+
+.form-control-line .form-control {
+	border: 0;
+	border-radius: 0;
+	padding-left: 0;
+	border-bottom: 1px solid #e9ecef
+}
+
+.form-control-line .form-control:focus {
+	border-bottom: 1px solid #fb9678
+}
+
+.btn-edit {
+    color: #ccc;
+     background-color: #fff;
+     border-color: #ccc;
+}
+
 .text-center{
     text-align: center;
 }

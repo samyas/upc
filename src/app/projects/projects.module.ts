@@ -26,11 +26,12 @@ import { CustomAdapter, CustomDateParserFormatter } from 'src/app/core/config/da
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragDropDirective } from '../shared/file-upload/drag-drop.directive';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { TaskComponent } from './task/task.component';
 
 
 @NgModule({
   declarations: [ProjectsComponent, ProjectComponent, AddProjectComponent,
-    AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent , UploadFileComponent, DragDropDirective],
+    AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent, TaskComponent , UploadFileComponent, DragDropDirective],
   imports: [
     CommonModule, SharedModule, projectsRouting, NgSelectModule, CKEditorModule
   ],
