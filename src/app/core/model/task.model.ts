@@ -8,6 +8,7 @@ export class Task {
     startDate: Object;
     endDate: Object;
     workshop: string;
+    status: string;
     assignedTo:  Array<ShortPerson>;
    createdBy: ShortPerson;
    attachmentList: Array<FileDescriptor>;
