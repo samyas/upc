@@ -91,10 +91,11 @@ export class PersonsComponent implements OnInit {
   }
 
 
-  public openDialog() {
+  public openDialog(person: Person) {
     const modalRef = this.modalService.open(AddPersonComponent);
    // console.log('dd', this.organisation);
     modalRef.componentInstance.departments = this.departments;
+    modalRef.componentInstance.person = person;
      modalRef.result.then((result) => {
          console.log('modal sucess:' + result);
          this.loadData(0, this.pageSize);

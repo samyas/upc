@@ -14,7 +14,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class AddPersonComponent implements OnInit {
 
   public form: FormGroup;
-  public person: Person;
+  @Input() public person: Person;
   submitted = false;
   serverError = null;
 
@@ -32,14 +32,19 @@ export class AddPersonComponent implements OnInit {
       if (this.departments && this.departments.length === 1) {
          departmentId = this.departments[0].id;
       }
+      if (!this.person) {
+        this.person = new Person();
+      } else {
+        departmentId = this.person.department.id;
+      }
       this.form = this.fb.group({
-        id: null,
-        firstName: [null, Validators.compose([Validators.required, Validators.minLength(2)])],
-        lastName: [null, Validators.compose([Validators.required, Validators.minLength(2)])],
-        email: ['', [Validators.required, Validators.email]],
+        id: this.person.id,
+        firstName: [this.person.firstName, Validators.compose([Validators.required, Validators.minLength(2)])],
+        lastName: [this.person.lastName, Validators.compose([Validators.required, Validators.minLength(2)])],
+        email: [this.person.email, [Validators.required, Validators.email]],
         departmentId: [departmentId, [Validators.required]],
-        isStaff: [false],
-        isModelLeader: [false]
+        isStaff: [this.isStaff(this.person.personfunction)],
+        isModelLeader: [this.isModelLeader(this.person.personfunction)]
     });
     }
 
@@ -61,7 +66,7 @@ export class AddPersonComponent implements OnInit {
         }
         this.person = this.form.value;
         this.person.personfunction = personfunction;
-        this.personService.addPerson(this.person).subscribe(
+        this.personService.savePerson(this.person).subscribe(
          data => {
            console.log('add Person', data);
            this.activeModal.close();
@@ -71,6 +76,42 @@ export class AddPersonComponent implements OnInit {
            this.serverError = error.message;
          }
        );
+    }
+
+    update() {
+      this.submitted = true;
+      // stop here if form is invalid
+      console.log('val', this.form.value);
+      if (this.form.invalid) {
+          return;
+      }
+      let personfunction = PersonFunction.STUDENT;
+      if (this.form.value.isStaff === true) {
+        personfunction = PersonFunction.STAFF;
+        if (this.form.value.isModelLeader === true) {
+          personfunction = PersonFunction.MODEL_LEADER;
+        }
+      }
+      this.person = this.form.value;
+      this.person.personfunction = personfunction;
+      this.personService.savePerson(this.person).subscribe(
+       data => {
+         console.log('add Person', data);
+         this.activeModal.close();
+       }
+       , error =>  {
+         console.log('failed to add person', error);
+         this.serverError = error.message;
+       }
+     );
+  }
+
+    private isStaff(personFunction): boolean {
+      return personFunction === PersonFunction.MODEL_LEADER  || personFunction === PersonFunction.STAFF;
+    }
+
+    private isModelLeader(personFunction): boolean {
+      return personFunction === PersonFunction.MODEL_LEADER;
     }
 
 }

@@ -3,11 +3,17 @@ import { Department, Organisation } from './../../core/model/organisation.model'
 
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../core/services/project.service';
-import { Project } from '../../core/model/project.model';
+
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { PersonService } from 'src/app/core/services/person.service';
 import { Person } from 'src/app/core/model/person.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ProjectOverview, Project, Goal } from './../../core/model/project.model';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export interface Fruit {
   name: string;
@@ -32,6 +38,7 @@ export class AddProjectComponent implements OnInit {
   public form: FormGroup;
   submitted = false;
   serverError = '';
+  public Editor = ClassicEditor;
 
   visible = true;
   selectable = true;
@@ -47,25 +54,34 @@ export class AddProjectComponent implements OnInit {
     {value: 'These', viewValue: 'These'}
   ];
 
-  constructor(  private router: Router, private projectService: ProjectService,
+  constructor(  private router: Router, private route: ActivatedRoute, private projectService: ProjectService,
     private organisationService: OrganisationService,
     private personService: PersonService,
     public fb: FormBuilder) {
-        this.form = this.fb.group({
-          id: this.project.projectId,
-          name : [this.project.name, Validators.compose([Validators.required, Validators.minLength(5)])],
-          type: [this.project.type, [Validators.required]],
-          departmentId: [null, [Validators.required]],
-          keywords: [null, [Validators.required]],
-          description: [this.project.longDescription, Validators.compose([Validators.required, Validators.minLength(3)])],
-          shortDescription: [this.project.description, Validators.compose([Validators.required, Validators.minLength(3)])],
-          startDate: this.project.startDate,
-          endDate: this.project.endDate,
-          workshop: null
-      });
+
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      projectId: this.project.projectId,
+      name : [this.project.name, Validators.compose([Validators.required, Validators.minLength(5)])],
+      type: [this.project.type, [Validators.required]],
+      departmentId: [this.project.department ? this.project.department.id : null, [Validators.required]],
+      keywords: [this.project.keywords, [Validators.required]],
+      description: [this.project.description, Validators.compose([Validators.required, Validators.minLength(3)])],
+      shortDescription: [this.project.shortDescription, Validators.compose([Validators.required, Validators.minLength(3)])],
+      startDate: this.project.startDate,
+      endDate: this.project.endDate,
+      workshop: null
+  });
   }
 
   ngOnInit() {
+    this.initForm();
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
+      this.loadProject(id);
+    });
     this.loadOrganisation();
   }
 
@@ -74,6 +90,12 @@ export class AddProjectComponent implements OnInit {
       console.log('update form');
       this.form.controls['departmentId'].patchValue( this.departments[0].id);
     }
+  }
+
+  loadProject(id: string) {
+    this.projectService.getProjectDetail(id).subscribe(
+    data => {this.project = data; this.initForm(); },
+    error => console.log(error));
   }
 
   loadOrganisation() {
@@ -113,7 +135,7 @@ export class AddProjectComponent implements OnInit {
       return;
     }
     this.form.value.keywords = this.form.value.keywords;
-    this.projectService.addProject(this.form.value).subscribe( id => {
+    this.projectService.saveProject(this.form.value).subscribe( id => {
       console.log('success', id);
       this.router.navigate(['home/project/' + id]);
 

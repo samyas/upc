@@ -21,8 +21,11 @@
                   
                     <div class="d-flex justify-content-between">
                       <span (click)="selectGoal(goal.goalId)">  <strong>{{goal.name}}</strong> </span>
+                      
                      <button class=" btn app-primary btn-circle btn-outline" (click)="openTaskDialog(goal.goalId)" type="button"><i class="fa fa-plus"></i></button>
-                  </div>
+                     <button class=" btn app-primary btn-circle btn-outline" (click)="openGoalDialog(goal)" type="button"><i class="fa fa-pencil"></i></button>
+              
+                    </div>
                   <small class="text-muted"> {{goal.startDate  | date:'dd/MM/yyyy'}} - {{goal.endDate  | date:'dd/MM/yyyy'}}</small>
                   <div  class="sortable-list tasklist list-unstyled ui-sortable" [ngbCollapse]="selectedGoalId!=goal.goalId">
                       <div   *ngFor="let task of goal.tasks" (click)="selectTask(task)"  class="task-medium ui-sortable-handle">

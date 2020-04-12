@@ -38,4 +38,13 @@ export class PersonService {
   addPerson(person: Person): Observable<any> {
     return this.http.post(PersonService.PERSON_URI, JSON.stringify(person),  {responseType: 'text'});
   }
+
+  updatePerson(person: Person): Observable<any> {
+    return this.http.put(PersonService.PERSON_URI  + '/' + person.id, JSON.stringify(person),  {responseType: 'text'});
+  }
+
+  savePerson(person: Person): Observable<any> {
+    return (person.id) ? this.updatePerson(person) : this.addPerson(person);
+  }
+
 }

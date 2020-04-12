@@ -1,3 +1,4 @@
+
 import { ShortPerson } from './../core/model/short-person.model';
 import { Person } from './../core/model/person.model';
 
@@ -20,6 +21,8 @@ import { Assign } from '../core/model/assign.model';
 export class AddDepartmentComponent implements OnInit {
 
   @Input() public organisationId;
+  @Input() public department: Department = new Department();
+
 
    public form: FormGroup;
    submitted = false;
@@ -30,10 +33,10 @@ export class AddDepartmentComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,  private  personService: PersonService,
     public organisationService: OrganisationService, public formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      type: ['', Validators.required],
-      code: ['', Validators.required],
+      name: [this.department.name, Validators.required],
+      description: [this.department.description, Validators.required],
+      type: [this.department.type, Validators.required],
+      code: [this.department.code, Validators.required],
       subType: null
   });
 

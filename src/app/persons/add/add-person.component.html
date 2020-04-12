@@ -1,6 +1,7 @@
 
             <div class="modal-header">
-                    <h4 class="modal-title">Add Person</h4>
+                    <h4 *ngIf="!person.id" class="modal-title">Add Person</h4>
+                    <h4 *ngIf="!!person.id" class="modal-title">Edit Person</h4>
                     <button type="button" class="close no-outline" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,7 +75,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn app-primary focus"  (click)="create()" >ADD</button>
+                    <button *ngIf="!person.id" type="button" class="btn app-primary focus"  (click)="create()" >ADD</button>
+                    <button *ngIf="!!person.id" type="button" class="btn app-primary focus"  (click)="create()" >UPDATE</button>
                     <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">CANCEL</button>
                 </div>
       

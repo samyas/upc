@@ -1,7 +1,8 @@
 
 <div class="container-fluid">
 
-        <div class="border-title">Add New Project</div>
+        <div *ngIf="!project.projectId" class="border-title">Add New Project</div>
+        <div *ngIf="!!project.projectId" class="border-title">Edit Project</div>
 
         <div class="container-fluid">
 
@@ -78,7 +79,9 @@
 
             <div class="form-group">
                 <label for="description">Abstract</label>
-                <textarea class="form-control" id="description" formControlName="shortDescription" rows="3"></textarea>
+                <ckeditor  [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                        [editor]="Editor" formControlName="shortDescription" >
+                </ckeditor>
                 <div *ngIf="submitted && f.shortDescription.errors" class="text-danger">
                     <div *ngIf="f.shortDescription.errors.required">Abstract is required</div>
                 </div>
@@ -108,7 +111,9 @@
 
             <div class="form-group">
                 <label>Description</label>
-                <textarea class="form-control" rows="6" formControlName="description"></textarea>
+                <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                        [editor]="Editor" formControlName="description" >
+                </ckeditor>
                 <div *ngIf="submitted && f.description.errors" class="text-danger">
                     <div *ngIf="f.description.errors.required">Description is required</div>
                 </div>
@@ -116,7 +121,8 @@
 
             
             <div class="input-group center">
-                <button class="btn btn-success btn-round" (click)="save()">CREATE <i class="fa fa-plus"></i></button>
+                <button *ngIf="!project.projectId" class="btn btn-success btn-round" (click)="save()">CREATE <i class="fa fa-plus"></i></button>
+                <button *ngIf="!!project.projectId" class="btn btn-success btn-round" (click)="save()">UPDATE <i class="fa fa-plus"></i></button>
             </div>
             </form>
         </div>

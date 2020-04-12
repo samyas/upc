@@ -8,6 +8,8 @@ import { FileUploaderService } from 'src/app/core/services/file-uploader.service
 import { FileDownloadService } from 'src/app/core/services/file-download.service';
 import { Assign } from 'src/app/core/model/assign.model';
 import { Person } from 'src/app/core/model/person.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddTaskComponent } from './add-task.component';
 
 @Component({
   selector: 'app-task',
@@ -36,7 +38,8 @@ export class TaskComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
-    private  uploadService: FileUploaderService, private downloadService: FileDownloadService
+    private  uploadService: FileUploaderService, private downloadService: FileDownloadService,
+    private modalService: NgbModal,
     ) { }
 
     ngOnInit() {
@@ -95,6 +98,20 @@ export class TaskComponent implements OnInit {
         }
         , error => alert(error)
       );
+    }
+
+    public editTaskDialog() {
+      const modalRef = this.modalService.open(AddTaskComponent);
+      modalRef.componentInstance.projectId = this.projectId;
+      modalRef.componentInstance.goalId = this.goalId;
+      modalRef.componentInstance.task = this.task;
+      modalRef.result.then((result) => {
+          console.log('modal sucess:' + result);
+          this.loadTask(this.task.taskId);
+          }, (reason) => {
+            console.log('modal failed:' + reason);
+          }
+        );
     }
 
     updateTask() {

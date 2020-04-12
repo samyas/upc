@@ -17,11 +17,12 @@ export class CustomAdapter extends NgbDateAdapter<Date> {
   fromModel(value: Date): NgbDateStruct {
     let result: NgbDateStruct = null;
     if (value) {
-   //   const date = value.get(this.DELIMITER);
+      const date = new Date(value);
+ //  console.log('date', typeof value);
       result = {
-        day : value.getDate(),
-        month : value.getMonth() , // parseInt(date[1], 10),
-        year : value.getFullYear()
+        day : date.getDate(),
+        month : date.getMonth() , // parseInt(date[1], 10),
+        year : date.getFullYear()
       };
     }
     return result;

@@ -183,10 +183,11 @@ export class ProjectComponent implements OnInit {
       );
   }
 
-  public openGoalDialog() {
+  public openGoalDialog(goal: Goal) {
 
     const modalRef = this.modalService.open(AddGoalComponent);
     modalRef.componentInstance.projectId = this.project.projectId;
+    modalRef.componentInstance.goal = goal;
     modalRef.result.then((result) => {
         console.log('modal sucess:' + result);
         this.loadProject(this.project.projectId);
@@ -196,28 +197,6 @@ export class ProjectComponent implements OnInit {
       );
   }
 
-
-
-  createGoal(goal: Goal) {
-    this.projectService.addGoal(this.project.projectId, goal)
-        .subscribe( goalId => this.loadProject(this.project.projectId)
-        , error =>  {
-          console.log('failed to add goal', error);
-          this.error = error.message;
-        }
-        );
-  }
-
-
-  createTask(goalId: string, task: Task) {
-    this.projectService.addTask(this.project.projectId, goalId, task)
-    .subscribe( taskId => this.loadProject(this.project.projectId)
-    , error => {
-      console.log('failed to add task', error);
-      this.error = error.message;
-    }
-      );
-  }
 
 
   updateProject() {

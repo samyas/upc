@@ -5,6 +5,7 @@ import { Task } from './task.model';
 export class ProjectOverview {
     projectId: string;
     name: string;
+    shortDescription: string;
     description: string;
     startDate: Date;
     endDate: Date;

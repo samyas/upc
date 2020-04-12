@@ -1,6 +1,7 @@
 
             <div class="modal-header">
-                <h4 class="modal-title">Add Task</h4>
+                <h4 *ngIf="!task.taskId" class="modal-title">Add Task</h4>
+                <h4 *ngIf="!!task.taskId" class="modal-title">Edit Task</h4>
                 <button type="button" class="close no-outline" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,7 +18,9 @@
 
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" formControlName="description" rows="3"></textarea>
+                        <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                                [editor]="Editor" formControlName="description" >
+                        </ckeditor>
                         <div *ngIf="submitted && f.description.errors" class="text-danger">
                                 <div *ngIf="f.description.errors.required">Description is required</div>
                          </div>
@@ -62,7 +65,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn app-primary focus"  (click)="create()" >ADD</button>
+                <button *ngIf="!task.taskId" type="button" class="btn app-primary focus"  (click)="create()" >ADD</button>
+                <button *ngIf="!!task.taskId" type="button" class="btn app-primary focus"  (click)="update()" >UPDATE</button>
                 <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">CANCEL</button>
             </div>
   

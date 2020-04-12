@@ -32,4 +32,9 @@ export class OrganisationService {
     return this.http.post(OrganisationService.ORGANISATION_URI + '/' + organisationId + '/departments',
      JSON.stringify(department),  {responseType: 'text'});
   }
+
+  updateDepartment(organisationId: string, department: Department): Observable<any> {
+    return this.http.post(OrganisationService.ORGANISATION_URI + '/' + organisationId + '/departments',
+     JSON.stringify(department),  {responseType: 'text'});
+  }
 }

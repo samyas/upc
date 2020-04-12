@@ -23,6 +23,13 @@ export const ProjectsRoutes: Route[] = [
     }
   },
   {
+    path: 'edit/:id',
+    component: AddProjectComponent,
+    data: {
+      title: 'Edit Project'
+    }
+  },
+  {
     path: ':id',
     component: ProjectComponent,
     data: {
