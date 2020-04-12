@@ -17,7 +17,7 @@
 
   <div class="margin-right">
     <li class="sep-item">
-      <button class="nav-link btn app-primary btn-circle btn-outline" (click)="openDialog()" type="button"><i class="fa fa-plus"></i></button>
+      <button class="nav-link btn app-primary btn-circle btn-outline" (click)="openDialog(null)" type="button"><i class="fa fa-plus"></i></button>
     </li>
     <li class="sep-item">
       <button class="nav-link btn app-primary btn-circle btn-outline" (click)="list=true" type="button"><i class="fa fa-list"></i></button>
@@ -34,7 +34,7 @@
     <div class="row  pb-3 text-center">
         <div *ngIf="serverError" class="col-md-12 text-danger">{{serverError}}</div>
     </div>
-    
+
     <div class="card mb-3">
 
       <div class="card-body table-responsive">
