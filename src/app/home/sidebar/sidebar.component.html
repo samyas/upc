@@ -12,27 +12,29 @@
             </div>
         </div>
 
-        <div class="menu-header mt-3 mb-2"> Main Activity </div>
+        <!--div class="menu-header mt-3 mb-2"> Main Activity </div-->
 
-        <a routerLink="./project" [routerLinkActive]="['router-link-active']" class="list-group-element">
-            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-            <span>Projects</span>
-        </a>
-        <a [routerLink]="['./persons']" [routerLinkActive]="['router-link-active']" class="list-group-element">
-            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
-            <span>Persons</span>
-        </a>
+        <div class="menu-bar">
+            <a routerLink="./project" [routerLinkActive]="['router-link-active']" class="list-group-element">
+                <i class="fa fa-fw fa-dashboard"></i>
+                <span>Projects</span>
+            </a>
+            <a [routerLink]="['./persons']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+                <i class="fa fa-fw fa-bar-chart-o"></i>
+                <span>Persons</span>
+            </a>
 
-        <div class="menu-header mt-3 mb-2"> University </div>
+            <!--div class="menu-header mt-3 mb-2"> University </div-->
 
-        <a [routerLink]="['./users']" [routerLinkActive]="['router-link-active']" class="list-group-element">
-            <i class="fa fa-fw fa-desktop"></i>&nbsp;
-            <span>New Requests</span>
-        </a>
-        <a [routerLink]="['./organisation']" [routerLinkActive]="['router-link-active']" class="list-group-element">
-            <i class="fa fa-fw fa-wrench"></i>&nbsp;
-            <span>Organisation</span>
-        </a>
+            <a [routerLink]="['./users']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+                <i class="fa fa-fw fa-desktop"></i>
+                <span>New Requests</span>
+            </a>
+            <a [routerLink]="['./modules']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+                <i class="fa fa-fw fa-wrench"></i>
+                <span>Organisation</span>
+            </a>
+        </div>
 
 
         <!--div class="nested-menu">

@@ -23,3 +23,11 @@ export enum PersonFunction {
   STUDENT = 'STUDENT',
   STAFF = 'STAFF'
 }
+
+
+export enum Role {
+  MODEL_LEADER = 'MODEL_LEADER',
+  ADMIN_CREATOR = 'ADMIN_CREATOR',
+  STUDENT = 'STUDENT',
+  STAFF = 'STAFF'
+}

@@ -9,6 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OrganisationService } from '../core/services/organisation.service';
+import { SharedDataService } from '../core/services/shared-data.service';
 
 
 @NgModule({
@@ -16,6 +17,6 @@ import { OrganisationService } from '../core/services/organisation.service';
     CommonModule, SharedModule, RouterModule,  HomeRoutingModule, NgSelectModule
   ],
   declarations: [SidebarComponent, HeaderComponent, HomeComponent],
-  providers: [ OrganisationService ]
+  providers: [ OrganisationService,  SharedDataService ]
 })
 export class HomeModule { }

@@ -1,3 +1,4 @@
+import { SharedDataService } from './../core/services/shared-data.service';
 import { OrganisationService } from './../core/services/organisation.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

@@ -1,4 +1,5 @@
-import { ModuleType, MODULES_TYPE, Department } from './../core/model/organisation.model';
+import { SharedDataService } from 'src/app/core/services/shared-data.service';
+import { ModuleType, MODULES_TYPE, Module } from './../core/model/organisation.model';
 import { AddDepartmentComponent } from './add-department.component';
 import { OrganisationService } from './../core/services/organisation.service';
 
@@ -20,9 +21,9 @@ export class OrganisationComponent implements OnInit {
   submitted = false;
   selectedModuleType: ModuleType = null;
   moduleTypes: Array<ModuleType> = MODULES_TYPE;
-  departments: Array<Department> = [];
+  departments: Array<Module> = [];
 
-  constructor(public organisationService: OrganisationService,
+  constructor(public organisationService: OrganisationService, public dataService: SharedDataService,
       private modalService: NgbModal) { }
   ngOnInit() {
       this.load();
@@ -32,6 +33,7 @@ export class OrganisationComponent implements OnInit {
     this.organisationService.getOrganisationDetail().subscribe(
       data => {
          this.organisation = data;
+         this.dataService.saveOrganisationId(this.organisation.id);
          this.applyFilter();
       }
       , error =>  {

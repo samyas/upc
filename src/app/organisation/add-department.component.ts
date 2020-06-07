@@ -4,7 +4,7 @@ import { Person } from './../core/model/person.model';
 
 
 import { OrganisationService } from '../core/services/organisation.service';
-import { Department, ModuleType, MODULES_TYPE, SUB_MODULES_TYPE, SubModuleType } from '../core/model/organisation.model';
+import { Module, ModuleType, MODULES_TYPE, SUB_MODULES_TYPE, SubModuleType } from '../core/model/organisation.model';
 
 import {Component, OnInit, Input} from '@angular/core';
 
@@ -21,7 +21,7 @@ import { Assign } from '../core/model/assign.model';
 export class AddDepartmentComponent implements OnInit {
 
   @Input() public organisationId;
-  @Input() public department: Department = new Department();
+  @Input() public department: Module = new Module();
 
 
    public form: FormGroup;

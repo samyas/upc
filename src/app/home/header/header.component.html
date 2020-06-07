@@ -1,51 +1,31 @@
 <nav class="navbar navbar-expand-lg fixed-top">
-    <a class="navbar-brand" href="#"> <i class="fa fa-graduation-cap"></i> PPMS </a>
+ 
+   <a class="navbar-brand navbar-left app-brand" href="#"> 
+        <span class="big-text">3C</span> 
+         <span class="small-text">COLLABORATE, COMMUNICATE, CONTROL</span> 
+        </a>
+    
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
-        <!-- <span class="navbar-toggler-icon"></span> -->
-        <i class="fa fa-bars text-muted" aria-hidden="true"></i>
+                  <span class="navbar-toggler-icon"></span> 
+                    <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
-    <div class="collapse navbar-collapse">
+
+    <div class="navbar-right collapse navbar-collapse">
+
+         
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown" ngbDropdown>
-                <a class="nav-link" href="javascript:void(0)" ngbDropdownToggle>
-                    <i class="fa fa-envelope"></i> <b class="caret"></b><span class="sr-only">(current)</span>
-                </a>
-                <ul class="dropdown-menu-right messages" ngbDropdownMenu>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                            src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg" alt="Generic placeholder image"
-                        >
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">John Smith</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                            <p class="last"> Lorem ipsum dolor sit amet, consectetur...</p>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                            src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg"
-                            alt="Generic placeholder image"
-                        >
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">John Smith</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                            <p class="last"> Lorem ipsum dolor sit amet, consectetur...</p>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                            src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg"
-                            alt="Generic placeholder image"
-                        />
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">John Smith</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                            <p class="last"> Lorem ipsum dolor sit amet, consectetur...</p>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown" ngbDropdown>
+             
+                <li class="nav-item pr-5">
+
+                    <div class="input-group custom-search">
+                            <input class="form-control rounded-pill py-2 pr-5 mr-1" type="text" placeholder="Search...">
+                            <span class="input-group-append">
+                               <div class="input-group-text border-0 bg-transparent ml-n5"><i class="fa fa-search"></i></div>
+                            </span>
+                    </div>
+                </li>
+        
+            <li class="nav-item dropdown padding-caret" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
@@ -67,8 +47,9 @@
             </li>
 
             <li class="nav-item dropdown" ngbDropdown>
-                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    <i class="fa fa-user"></i> {{userInfo?.lastName}} {{userInfo?.firstName}} <b class="caret"></b>
+                <a href="javascript:void(0)" class="nav-link nav-user" ngbDropdownToggle>
+                        <img alt="..." class="img-circle img-mm mr-2" src="../../../assets/images/100_7.jpg">
+                    {{userInfo?.lastName}} {{userInfo?.firstName}} <b class="caret"></b>
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
                     <a class="dropdown-item" href="javascript:void(0)">

@@ -1,0 +1,92 @@
+
+        <div class="sub-content blank-background container-fluid">
+          <div class="row mt-3">
+            <div class="col-sm-12">
+                <div class="d-flex flex-row form-material  p-3  mx-auto" style="width: 600px;">
+                    <input type="text" [(ngModel)]="goal.name" placeholder="Set a goal" class="form-control form-control-line">
+                    <button class="btn-rounded btn-action"  (click)="openGoalDialog()"  type="button"><i class="fa fa-plus"></i> </button>
+                </div>
+
+  
+
+                <div class=" p-3  mx-auto" style="width: 800px;">
+                          
+                  <div *ngIf="error" class="text-danger pl-3 ml-4">{{error}}</div>
+                  <ul class="StepProgress">
+                    <li *ngFor="let gl of project.goals"  class="StepProgress-item" 
+                    [class.current] = "gl.status=='STARTED'"
+                    [class.is-done] = "gl.status=='COMPLETED'">
+                      
+                        <div class="d-flex justify-content-between">
+                          <span class="goal-title" (click)="selectGoal(gl.goalId)"> {{gl.name}} </span>
+                         
+                             <div class="d-flex justify-content-start">
+                                <button *ngIf="getNextStatus(gl.status)" class="mr-2 p-1 btn app-primary btn-outline btn-rounded" type="button"
+                                     (click)="changeGoalStatus(gl.goalId, gl.status, null)"> {{getNextStatus(gl.status).action}}
+                                </button>
+                                <div ngbDropdown class="goal-action">
+                                    <button class="btn btn-circle" ngbDropdownToggle><i class="fa fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-menu" ngbDropdownMenu>
+                                      <a class="dropdown-item"(click)=openTaskDialog(gl.goalId)><i class="fa fa-plus-circle pr-2"></i> Add Task</a>
+                                      <a class="dropdown-item"(click)="openGoalDialog(gl)"><i class="fa fa-pencil pr-2"></i>Edit Goal</a>
+                                      <div role="separator" class="dropdown-divider"></div>
+                                      <a class="dropdown-item" (click)="deleteGoal(gl.goalId)"><i class="fa fa-trash-o pr-2"></i>Delete</a>
+                                    </div>
+                                </div>
+                              </div>
+                  
+                        </div>
+                        <div class="d-flex justify-content-start">
+                            <small class="text-muted pr-2"> {{gl.startDate  | date:'dd/MM/yyyy'}} - {{gl.endDate  | date:'dd/MM/yyyy'}}</small>
+                            <span class="label-status">{{gl.status}}</span>
+                         </div>
+
+                         
+                         <div *ngIf="showActionSubmit.goalId==gl.goalId">
+                          <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                                [editor]="Editor" [(ngModel)]="task.description" >
+                          </ckeditor>
+                          
+                          <div class="d-flex flex-row-reverse editor-footer">
+                              <button class="btn btn-primary m-1" (click)="changeGoalStatus(gl.goalId, gl.status, task)" type="button"> Save </button>
+                              <button class="btn btn-default m-1"  (click)="init()"  type="button"> Cancel </button>
+                          </div>
+                          <div *ngIf="errorSubmit" class="text-danger mt-3">{{errorSubmit}}</div>
+                      </div>
+                     
+                        <div  class="sortable-list tasklist list-unstyled ui-sortable" [ngbCollapse]="selectedGoalId!=gl.goalId">
+                          <div   *ngFor="let task of gl.tasks" (click)="selectTask(task)"  class="task-medium ui-sortable-handle">
+                            <div class="d-flex justify-content-between p-3">
+                              <h5 class="mt-0"><a class="text-dark">{{task.name}}</a></h5>
+                              <i class="fa fa-check"></i>
+                            </div>
+                          
+                          </div>
+                        </div>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+  
+          </div>
+       
+       
+       
+       
+          <div class="sidebar-overlay" [class.active]="selectedTask"></div>
+ 
+          <div class="right-bar" [class.open]="selectedTask">
+              <div class="d-flex justify-content-start">
+                  <div (click)="closeTask()" class="close-box"> 
+                    <span>x</span>
+                     <!--button class="btn btn-edit btn-circle" type="button" (click)="editTaskDialog()"><i class="fa fa-pencil"></i></button-->
+                  </div>
+                  <app-task  *ngIf="selectedTask"   [projectId]="project.projectId" 
+                  [goalId]="selectedGoalId" [task]="selectedTask" [persons]="persons"></app-task> 
+
+              </div>
+             
+          </div>
+       
+        </div>
+  

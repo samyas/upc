@@ -2,9 +2,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
 import { ProjectsComponent } from './projects.component';
-
-import { ProjectComponent } from './project/project.component';
-import { AddProjectComponent } from './project/add-project.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 
 export const ProjectsRoutes: Route[] = [
@@ -29,13 +27,14 @@ export const ProjectsRoutes: Route[] = [
       title: 'Edit Project'
     }
   },
-  {
+ /* {
     path: ':id',
     component: ProjectComponent,
     data: {
       title: 'Project'
     }
-  },
+  },*/
+  { path: ':id', loadChildren: '../project/project.module#ProjectModule' }
 
 ];
 

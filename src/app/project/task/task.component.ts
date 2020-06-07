@@ -83,11 +83,11 @@ export class TaskComponent implements OnInit {
     }
 
     changeStatus(newStatus) {
-      this.projectService.changeStatus(this.projectId,  this.goalId, this.task.taskId, newStatus).subscribe(
+      this.projectService.changeStatuTask(this.projectId,  this.goalId, this.task.taskId, newStatus).subscribe(
         data => {
           this.loadTask(this.task.taskId);
         }
-        , error => alert(error)
+        ,  error => this.error = error.message
       );
     }
 
@@ -96,7 +96,7 @@ export class TaskComponent implements OnInit {
         data => {
           this.loadTask(taskId);
         }
-        , error => alert(error)
+        ,  error => this.error = error.message
       );
     }
 

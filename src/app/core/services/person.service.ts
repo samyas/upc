@@ -27,6 +27,12 @@ export class PersonService {
     return this.http.get<Paged<Person>>(PersonService.PERSON_URI + '/paged?page=' + page + '&size=' + size);
   }
 
+  getFiltredPagedPersons(name: string, student: boolean, sort: string, page: number, size: number): Observable<Paged<Person>> {
+    let url = '/paged?page=' + page + '&size=' + size + '&student=' + student;
+    if (name) { url = url + '&name=' + name; }
+    return this.http.get<Paged<Person>>(PersonService.PERSON_URI + url);
+  }
+
   getPersonDetail(id: string): Observable<Person> {
     return this.http.get<Person>(PersonService.PERSON_URI + '/' + id);
   }

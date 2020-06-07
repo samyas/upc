@@ -1,0 +1,59 @@
+
+   <div class="modal-header">
+      <h4 class="modal-title">Assign {{term.name}}</h4>
+      <button type="button" class="close no-outline" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+
+      <div class="row  pb-3 text-center">
+          <div *ngIf="serverError" class="col-md-12 text-danger">{{serverError}}</div>
+      </div>
+
+      <form [formGroup]="form">
+          <div class="form-group">
+              <label>Filter</label>
+              <input type="text"  formControlName="name" class="form-control" placeholder="First, Last Name">
+          </div>
+        </form>
+
+      <div class="col-sm-12  p-0">
+          <div class="card mb-3">
+  
+            <div class="table-responsive">
+              <table class="table table-hover sm">
+                <tbody>
+                <tr *ngFor="let element of persons">
+                  <td>
+                      <div class="d-flex">
+                          <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                          <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
+                          <span class="align-self-center quota-small"> ({{element.quota}}5)</span>
+                      </div>
+                  </td>
+        
+                  <td>
+                    <div class="d-flex flex-row bd-highlight">
+                          <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline" (click)="assingPerson(element.id)" type="button"><i class="fa fa-check"></i></button></div>
+                    </div>
+                  </td>
+                </tr>
+  
+                </tbody>
+              </table>
+            </div>
+          
+            </div>
+      </div>
+
+
+      <div class="col-sm-12  p-0">
+          <app-pagination-custom [pageSize]="pageSize"  [page]="page" [total]="total" (pageEvent)="onPageChange($event)"></app-pagination-custom>
+      </div>
+
+  
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">CANCEL</button>
+  </div>

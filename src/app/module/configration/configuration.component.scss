@@ -1,0 +1,26 @@
+@import '../../../styles/variables.scss';
+
+.section{
+    border-bottom: 1px solid #ccc;
+    color: #ccc;
+}
+
+.mar-15{
+    margin : 15px
+}
+
+.term-box{
+   .text{
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #202020;
+   }
+
+   .label{
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #202020;
+   }
+ 
+ }
+ 

@@ -12,12 +12,7 @@ import { ProjectsComponent } from './projects.component';
 import { projectsRouting } from './projects.routes';
 
 import { SharedModule } from '../shared/shared.module';
-import { ProjectComponent } from './project/project.component';
-import { AddTaskComponent } from './task/add-task.component';
-import { AddGoalComponent } from './goal/add-goal.component';
-import { AddProjectComponent } from './project/add-project.component';
-import { ApplyComponent } from './apply/apply.component';
-import { ShortTaskComponent } from './task/short-task.component';
+
 import {
   NgbDateAdapter,
   NgbDateParserFormatter
@@ -26,16 +21,14 @@ import { CustomAdapter, CustomDateParserFormatter } from 'src/app/core/config/da
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DragDropDirective } from '../shared/file-upload/drag-drop.directive';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { TaskComponent } from './task/task.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 
 @NgModule({
-  declarations: [ProjectsComponent, ProjectComponent, AddProjectComponent,
-    AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent, TaskComponent , UploadFileComponent, DragDropDirective],
+  declarations: [AddProjectComponent, ProjectsComponent, UploadFileComponent, DragDropDirective],
   imports: [
     CommonModule, SharedModule, projectsRouting, NgSelectModule, CKEditorModule
   ],
-  entryComponents: [AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent],
   providers : [ProjectService, PersonService, OrganisationService, FileDownloadService, FileUploaderService,
     {provide: NgbDateAdapter, useClass: CustomAdapter},
     {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}

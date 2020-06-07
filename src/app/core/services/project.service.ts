@@ -1,5 +1,5 @@
 import { Message } from './../model/task.model';
-import { Assign } from './../model/assign.model';
+import { Assign, AssignMember } from './../model/assign.model';
 import { Paged } from '../model/paged.model';
 import { Project, ProjectOverview, Goal, Apply } from '../model/project.model';
 import { environment } from '../../../environments/environment';
@@ -40,6 +40,11 @@ export class ProjectService {
     return this.http.put(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goal.goalId , JSON.stringify(goal),  {responseType: 'text'});
   }
 
+  updateGoalStatus(id: string, goalId: string, status: string, task: Task): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/status?status=' + status
+    , task === null ? {} : JSON.stringify(task),  {responseType: 'text'});
+  }
+
 
   apply(id: string, apply: Apply): Observable<any> {
     console.log('id' , id, apply);
@@ -51,10 +56,41 @@ export class ProjectService {
     return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/assign', JSON.stringify(assign),  {responseType: 'text'});
   }
 
+  assignMember(id: string, assign: AssignMember): Observable<any> {
+    return  (assign.termId) ? this.assignSupervisor(id, assign) : this.assignTeam(id, assign);
+  }
+
+  assignSupervisor(id: string, assign: AssignMember): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/assign-supervisor', JSON.stringify(assign),  {responseType: 'text'});
+  }
+
+  assignTeam(id: string, assign: AssignMember): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/assign-students', JSON.stringify(assign),  {responseType: 'text'});
+  }
+
+  unAssignSupervisor(id: string, personId: string): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/unassign?position=members&personId=' + personId,
+     null,  {responseType: 'text'});
+  }
+
+  unAssignTeam(id: string, personId: string): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/unassign?position=team&personId=' + personId,
+     null,  {responseType: 'text'});
+  }
+
   assignTask(id: string, goalId: string, taskId: string, assign: Assign): Observable<any> {
-    console.log('id' , id, assign);
     return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks/' + taskId + '/assign',
      JSON.stringify(assign),  {responseType: 'text'});
+  }
+
+  changeStatus(id: string, status: string): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/status/to?status=' + status,
+     null,  {responseType: 'text'});
+  }
+
+  sign(id: string, position: string): Observable<any> {
+    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/sign?position=' + position,
+     null,  {responseType: 'text'});
   }
 
   addTask(id: string, goalId: string, task: Task): Observable<any> {
@@ -72,7 +108,7 @@ export class ProjectService {
      + taskId + '/messages/' + messageId,  JSON.stringify(message), {responseType: 'text'});
   }
 
-  changeStatus(id: string, goalId: string, taskId: string, status: string): Observable<any> {
+  changeStatuTask(id: string, goalId: string, taskId: string, status: string): Observable<any> {
     return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks/'  + taskId + '/status',  status,
      {responseType: 'text'});
   }

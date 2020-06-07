@@ -1,4 +1,4 @@
-import { Department } from './../../core/model/organisation.model';
+import { Module } from './../../core/model/organisation.model';
 import { PersonService } from './../../core/services/person.service';
 import { startWith } from 'rxjs/operators';
 import { Component, OnInit, Inject, Input } from '@angular/core';
@@ -18,7 +18,7 @@ export class AddPersonComponent implements OnInit {
   submitted = false;
   serverError = null;
 
-  @Input()  departments: Array<Department> = [];
+  @Input()  departments: Array<Module> = [];
 
 
   constructor(public activeModal: NgbActiveModal,
@@ -27,10 +27,9 @@ export class AddPersonComponent implements OnInit {
     }
 
     ngOnInit() {
-      console.log('departementsssssss', this.departments);
       let departmentId = null;
       if (this.departments && this.departments.length === 1) {
-         departmentId = this.departments[0].id;
+         departmentId = this.departments[0].departmentId;
       }
       if (!this.person) {
         this.person = new Person();

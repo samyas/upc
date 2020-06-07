@@ -1,5 +1,5 @@
 import { OrganisationService } from './../../core/services/organisation.service';
-import { Department, Organisation } from './../../core/model/organisation.model';
+import { Module, Organisation } from './../../core/model/organisation.model';
 
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../core/services/project.service';
@@ -34,7 +34,7 @@ export class AddProjectComponent implements OnInit {
   public project: Project = new Project();
   public person: Person = new Person();
   public organisation: Organisation = new Organisation();
-  public departments: Array<Department> = [];
+  public departments: Array<Module> = [];
   public form: FormGroup;
   submitted = false;
   serverError = '';
@@ -88,7 +88,7 @@ export class AddProjectComponent implements OnInit {
   updateForm() {
     if (this.departments && this.departments.length === 1) {
       console.log('update form');
-      this.form.controls['departmentId'].patchValue( this.departments[0].id);
+      this.form.controls['departmentId'].patchValue( this.departments[0].departmentId);
     }
   }
 
@@ -116,7 +116,7 @@ export class AddProjectComponent implements OnInit {
     this.personService.getPersonCurrent().subscribe( data => {
      this.person = data;
      if (this.person.department) {
-      this.departments = this.organisation.departments.filter(d => d.id === this.person.department.id );
+      this.departments = this.organisation.departments.filter(d => d.departmentId === this.person.department.id );
      } else {
       this.departments = this.organisation.departments;
      }

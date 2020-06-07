@@ -1,0 +1,15 @@
+<div class="page-header  pt-3  d-flex justify-content-center">
+    <h3><i class="fa fa-star-o mr-1"></i>  {{project.name}}  <i class="fa fa-cog edit-project-icon"></i></h3>
+  </div>
+  
+  <div class="page-header pt-2 d-flex justify-content-center">
+      <a   [routerLink]="['.']" [routerLinkActive]="['active']" class="tab-item p-4">Overview</a>
+      <a  routerLink="./goals" [state]="{ hello: 'world' }" [routerLinkActive]="['active']"  class="tab-item p-4">Goals</a>
+      <a  [routerLink]="['./kanboard']" [routerLinkActive]="['active']"  class="tab-item p-4">kanboard</a>
+      <a  [routerLink]="['./meetings']" [routerLinkActive]="['active']"  class="tab-item p-4">Meeting</a>
+      <a  [routerLink]="['./administration']" [routerLinkActive]="['active']"  class="tab-item p-4">Adminstration</a>
+  </div>
+  <router-outlet></router-outlet>
+  <!--div class="content" [@routerAnimation]="getRouteAnimation(router)">
+    <router-outlet #router="outlet"></router-outlet>
+  </div-->

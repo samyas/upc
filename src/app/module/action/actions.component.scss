@@ -1,0 +1,45 @@
+@import '../../../styles/variables.scss';
+$brand-color: #863dd9;
+
+.action-box{
+    .title{
+      background-color : $brand-color;
+      color: #ffffff;
+      border-radius: 3px;
+
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.2;
+      cursor: pointer;
+
+      padding-left: 0;
+      .number{
+        padding: 12px 27px;
+        background-color: rgba(0,0,0,.15);
+      } 
+      .text{
+            align-self: center;
+            padding-left: 5px;
+      }  
+    
+      .icon{
+        align-self: center;
+        padding: 12px 35px;
+        background-color: rgba(0,0,0,.15);
+       } 
+    }
+
+    .date, .week{
+      span{
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #202020;
+      }
+   
+     }  
+    
+    .description{
+     // background-color : #cccc
+    }
+ }
+ 

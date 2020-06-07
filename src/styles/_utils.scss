@@ -1,5 +1,146 @@
 @import 'variables';
 
+.avatar-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-top: -.5rem;
+
+    .avatar-item {
+        position: relative;
+        z-index: 0;
+      //  margin-left: -10px;
+        border: 2px solid #fff;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        border-radius: 4px;
+        border-radius: 50%;
+        cursor: pointer;
+        &:first-child {
+            margin-left: 0;
+       }
+       &.plus{
+        background: #C4C4C4;
+        background-blend-mode: normal;
+        border: 1px solid #FFFFFF;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        padding: 5px 7px 5px 7px;
+       }
+       &:hover {
+       z-index: 1;
+    }
+
+       img {
+            border-radius: 50%;
+            width: 100%;
+            max-width: 30px;
+            height: 30px;
+       }
+    
+    }
+}
+
+.btn-b{
+    padding-left: 0;
+    b{
+      padding: 7px 12px;
+      background-color: rgba(0,0,0,.15);
+    }   
+  }
+  
+.img-mm {
+    width: 45px;
+    height: 45px;
+}
+  
+.blank-background{
+    background: #FFFFFF;
+}
+
+.float-right{
+    float: right;
+}
+
+.float-left{
+    float: left;
+}
+
+
+
+.tooltip:hover:after{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background: #444;
+    border-radius: 8px;
+    color: #fff;
+    content: attr(title);
+    margin: -82px auto 0;
+    font-size: 16px;
+    padding: 13px;
+    width: 220px;
+  }
+  .tooltip:hover:before{
+    border: solid;
+    border-color: #444 transparent;
+    border-width: 12px 6px 0 6px;
+    content: "";
+    left: 45%;
+    bottom: 30px;
+    position: absolute;
+  }
+
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.img-sm {
+    width: 30px;
+    height: 30px;
+}
+
+.white-box{
+    background-color: #fff;
+}
+
+
+.page-header{
+    background-color: #fff;
+    box-shadow: 3px 10px 9px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow:  3px 10px 9px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow:  3px 10px 9px rgba(0, 0, 0, 0.15);
+    .title{
+        font-weight: 500;
+       font-size: 19px;
+       line-height: 27px;
+    }
+}
+
+.page-body{
+  padding:30px;
+}
+.tab-item{
+    font-size: 12px;
+    line-height: 18px;
+    color: #202020;
+    padding-right: 1.5rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    &:hover,  &.active {
+        color: $app-secondary-color-3;
+        border-bottom:  2px solid $app-secondary-color-3;
+        cursor: pointer;
+    }
+  
+
+}
 .to-hover {
     .to-show {
         display: none;
@@ -83,7 +224,7 @@
  border-right : 1px solid #000
 }
 
-.page-header{
+.page-header-old{
   hr{
     width: 5%;
     border-top: 5px solid $app-primary-color;
@@ -211,11 +352,11 @@ background-image:  url(../assets/images/university-png.png);
 }*/
 
 .user-picture {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    border: 3px solid #000;
+    border: 7px solid rgba(7, 71, 166, 0.2);
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .user-picture img {
@@ -234,13 +375,27 @@ background-image:  url(../assets/images/university-png.png);
     z-index: 1;
 }
 
-.nav-tabs{
-  .nav-link.active{
-       background-color: $app-primary-color;
-       color: $app-secondary-color;
-  }
-
+.tab-custom{
+    .nav-tabs{
+        .nav-link.active{
+            // background-color: $app-primary-color-2;
+             //color: $app-secondary-color-2;
+             color: #f5f5f5;
+             display: inline-block;
+             font-size: 16px;
+            // padding: 7px 12px;
+             font-weight: 700;
+            // cursor: pointer;
+            //text-transform: uppercase;
+             background: $app-secondary-color-3;
+        }
+      }
+      .tab-content{
+        background-color: $app-primary-color-2;
+        padding:10px;
+      }
 }
+
 
 
 /*Create ripple effec*/
@@ -280,9 +435,9 @@ background-image:  url(../assets/images/university-png.png);
   }
   
   
-.img-bordered-sm {
+.img-bordered-tm {
     border: 2px solid #d2d6de;
     padding: 2px;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
 }

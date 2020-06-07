@@ -89,5 +89,4 @@ export class PasswordResetComponent implements OnInit {
       }
     );
  }
-
 }

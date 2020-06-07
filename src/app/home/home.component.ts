@@ -1,3 +1,4 @@
+import { SharedDataService } from './../core/services/shared-data.service';
 import { MenuItem } from './../shared/menu-item/menu-item.model';
 import { Component, OnInit } from '@angular/core';
 
@@ -111,7 +112,7 @@ export class HomeComponent implements OnInit {
   ];
 
   constructor( private router: Router, private auhtService: AuthService, public organisationService: OrganisationService,
-    public appSettings: AppSettings) {
+    public appSettings: AppSettings, private dataService: SharedDataService) {
     this.settings = this.appSettings.settings;
   }
 
@@ -120,6 +121,7 @@ export class HomeComponent implements OnInit {
     this.menuItems = this.modelManagerItems;
     this.auhtService.userInfo().subscribe(
       data => { this.userInfo = data;
+        this.dataService.saveUser(this.userInfo);
       }
       , error =>  {
         console.log(error);
@@ -136,6 +138,7 @@ export class HomeComponent implements OnInit {
     this.organisationService.getOrganisationDetail().subscribe(
       data => {
          this.organisation = data;
+         this.dataService.saveOrganisationId(this.organisation.id);
       }
       , error =>  {
         console.log(error);

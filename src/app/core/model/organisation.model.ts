@@ -1,7 +1,8 @@
 import { ShortPerson } from './short-person.model';
+import { FileDescriptor } from './file-descriptor.model';
 
-export class Department {
-    id: string;
+export class Module {
+    departmentId: string;
     name: string;
     code: string;
     description: string;
@@ -9,6 +10,9 @@ export class Department {
     responsible: ShortPerson;
     type: ModuleType;
     subType: SubModuleType;
+    actions: Array<Action>;
+    supervisorTerms: Array<Term>;
+    maxTeamNbr: number;
 }
 
 
@@ -24,11 +28,37 @@ export class Organisation {
     longDescription: boolean;
     email: string;
     address: Address;
-    departments: Array<Department>;
+    departments: Array<Module>;
     responsible: ShortPerson;
     creationDate: string;
 
+
 }
+
+
+export class Action {
+    actionId: string;
+    name: string;
+    description: string;
+    startDate: Object;
+    endDate: Object;
+    weekNbr: number;
+    dayNbr: number;
+    order: number;
+    beforeStart: boolean;
+    attachmentsArrayList: Array<FileDescriptor>;
+}
+
+
+export class Term {
+     termId: string;
+     name: string;
+     description: string;
+     quota: number;
+     order: number;
+     mandatoryBeforeStart: boolean;
+}
+
 
 export enum ModuleType {
     DISSERTATION = 'Dissertation',

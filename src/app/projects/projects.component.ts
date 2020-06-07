@@ -2,13 +2,12 @@ import { Assign } from './../core/model/assign.model';
 import { PersonService } from './../core/services/person.service';
 import { ProjectService } from './../core/services/project.service';
 import { ShortPerson } from './../core/model/short-person.model';
-import { ProjectOverview, Apply } from './../core/model/project.model';
+import { ProjectOverview, Apply, StatusProperties, P_ALL_STATUS } from './../core/model/project.model';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { Person } from '../core/model/person.model';
-import { ApplyComponent } from './apply/apply.component';
 
 @Component({
   selector: 'app-project',
@@ -20,9 +19,11 @@ export class ProjectsComponent implements OnInit {
   public icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite',  'work', 'mail', 'favorite'];
   public  nbrs: Array<any> = [1, 2, 3, 4, 5, 7, 8, 9, 10];
 
+  public statuses: Array<StatusProperties> = [];
+
   constructor( private projectService: ProjectService, private  personService: PersonService) { }
 
-  list = true;
+  list = false;
   projects: Array<ProjectOverview> = [];
   length = 100;
   pageIndex = 0;
@@ -32,50 +33,75 @@ export class ProjectsComponent implements OnInit {
   options: string[] = ['One', 'Two', 'Three'];
   persons: Array<Person> = [];
   serverError = null;
+  departmentId = null;
+
+
+  public from = 1;
+  public to = 1;
+  public total = 0;
+  public isNext = false;
+  public isPrevious = false;
+  public isNextNext = false;
+  public isPreviousPrevious = false;
 
   onPageChange(e) {
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
-    this.loadData(this.pageIndex, this.pageSize);
+    this.loadData();
   }
 
   ngOnInit() {
-    this.loadData(0, this.pageSize);
+    this.loadData();
     this.loadPersonData();
+    this.statuses = P_ALL_STATUS;
   }
 
 
-  public favorite(projectId) {
-/*
-    const dialogRef = this.dialog.open(ApplyComponent, {
-        data: null
-    });
-    dialogRef.afterClosed().subscribe(applyToSave => {
-        if (applyToSave) {
-          applyToSave.personId(this.persons[0].id);
-          this.apply(projectId, applyToSave);
-        }
-    });*/
-  }
 
-  loadData(page: number, pageSize: number) {
-    this.projectService.getPagedProjects(null, null, page, pageSize).subscribe(
+  loadData() {
+    this.projectService.getPagedProjects(null, null, this.pageIndex, this.pageSize).subscribe(
       data => {
-        this.length = data.totalElements;
+        this.total = data.totalElements;
         this.projects = data.content;
         this.serverError  = null;
+      this.from = 1 + (data.number *  this.pageSize);
+      this.to = this.from + (data.numberOfElements - 1);
+      this.isNext = this.to < this.total;
+      this.isPrevious = !(this.from === 1);
+
+      this.isNextNext = (this.to + this.pageSize) < this.total;
+      this.isPreviousPrevious = !( (this.from - this.pageSize) <= 1);
+
       }
       , error =>  {
         console.log(error);
         this.serverError = error.message;
       }
     );
+
+  }
+
+  next() {
+    this.pageIndex += 1;
+    this.loadData();
+  }
+  previous() {
+    this.pageIndex -= 1;
+    this.loadData();
+  }
+
+  nextnext() {
+    this.pageIndex += 2;
+    this.loadData();
+  }
+  previousprevious() {
+    this.pageIndex -= 2;
+    this.loadData();
   }
 
   apply(projectId, apply: Apply) {
     this.projectService.apply(projectId, apply).subscribe(
       data => {
-        console.log('ssss', data);
         this.serverError  = null;
       }
       , error => {
@@ -91,41 +117,6 @@ export class ProjectsComponent implements OnInit {
         this.persons =  data;
         console.log('ssss', this.persons);
       //  this.serverError  = null;
-      }
-      , error =>  {
-        console.log(error);
-        this.serverError = error.message;
-      }
-    );
-  }
-
-  onSelectSupervisor(projectId, $event) {
-    console.log('supervisor selected', $event.id);
-    console.log('test');
-    const assignment:  Assign = new Assign();
-    assignment.personId = $event.id;
-    assignment.action = 'ADD';
-    assignment.position = 'SUPERVISOR';
-    this.projectService.assign(projectId, assignment).subscribe(
-      data => {
-        this.loadData(this.pageIndex, this.pageSize);
-      }
-      , error =>  {
-        console.log(error);
-        this.serverError = error.message;
-      }
-    );
-  }
-
-  onSelectExecutor(projectId, $event) {
-    console.log('execuctor selected', $event.id);
-    const assignment:  Assign = new Assign();
-    assignment.personId = $event.id;
-    assignment.action = 'ADD';
-    assignment.position = 'EXAMINATOR';
-    this.projectService.assign(projectId, assignment).subscribe(
-      data => {
-        this.loadData(this.pageIndex, this.pageSize);
       }
       , error =>  {
         console.log(error);

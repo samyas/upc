@@ -1,0 +1,63 @@
+<div class="container-fluid">
+        
+  <div class="row mt-3">
+     <div class="col-sm-12">
+            <div class="d-flex flex-row self-align-center pr-3">
+                    <span class="filter-label align-self-center pr-2">Goals: </span>
+                    <ng-select  [items]="goals" class="custom-x" bindValue="goalId"  [(ngModel)]="selectedGoalId"  (change)="onGoalChange($event)" >
+                        <ng-template ng-label-tmp let-item="item">
+                            <b>{{item.name}}</b>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item"  let-index="index">
+                            <div class="d-flex">
+                                <span class="align-self-center"> {{item.name}} </span>
+                            </div>
+                         </ng-template>
+                      </ng-select>
+             </div>
+     </div>
+  </div>
+
+  <div class="row m-5">
+    <div class="col-md-4 task-type p-3">
+            <span class="mt-1">IN PROGRESS</span>
+            <div  *ngFor="let ts of goal.tasks" (click)="selectTask(ts)"  class="task p-1">
+                    <div class="d-flex justify-content-between">
+                      <span class="mt-0"><a class="title">{{ts.name}}</a></span>
+                    
+                    </div>
+                    <div  class="d-flex justify-content-between info" >
+                        <div class="d-flex align-items-center pt-1">
+                            <i class="fa fa-clock-o pr-2"></i>
+                            <span class="text-small pr-3">{{ts.startDate  | date:'dd-MM-yyyy'}}</span>
+
+                            <i class="fa fa-comment-o pr-2"></i>
+                            <span class="text-small pr-3"> {{ts.messages?.length}}</span>
+                          </div>
+                    </div>
+
+             </div>
+    </div>
+
+    <div class="col-md-4 task-type p-3">
+            <span class="mt-1">IN PROGRESS</span>
+            <div  *ngFor="let ts of goal.tasks" (click)="selectTask(ts)"  class="task p-1">
+                    <div class="d-flex justify-content-between">
+                      <span class="mt-0"><a class="title">{{ts.name}}</a></span>
+                    
+                    </div>
+                    <div  class="d-flex justify-content-between info" >
+                        <div class="d-flex align-items-center pt-1">
+                            <i class="fa fa-clock-o pr-2"></i>
+                            <span class="text-small pr-3">{{ts.startDate  | date:'dd-MM-yyyy'}}</span>
+
+                            <i class="fa fa-comment-o pr-2"></i>
+                            <span class="text-small pr-3"> {{ts.messages?.length}}</span>
+                          </div>
+                    </div>
+
+             </div>
+    </div>
+    <!-- /.col -->
+  </div>
+</div>

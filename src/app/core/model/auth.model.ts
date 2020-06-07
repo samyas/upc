@@ -26,6 +26,8 @@ export class User {
     tenantIds: Array<number>;
     defaultTenantId: number;
     enabled: boolean;
+    roles: Array<string>;
+    personId: string;
 
     hasNoTenants(): boolean {
        return this.tenantIds && this.tenantIds.length === 0;

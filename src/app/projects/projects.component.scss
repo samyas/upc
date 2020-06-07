@@ -1,5 +1,279 @@
 @import '../../styles/variables.scss';
 $brand-color: #863dd9;
+
+.filter-box{
+    border-bottom: 1px solid #000000;
+    align-items: center;
+}
+.self-align-center{
+    align-items: center;
+
+}
+
+
+
+.r-select::after {
+    border-color: #3273dc;
+}
+
+.filter-label{
+    font-size: 16px;
+    font-weight: 600;
+    color: #777777;
+}
+
+.project-total{
+    font-size: 18px;
+    font-weight: 800;
+    color: #777777;
+}
+
+.float-right{
+    float: right;
+}
+
+.btn-add-project {
+   // font-size: 18px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+   
+}
+
+.status-label {
+    border-radius: 2px;
+    color: #f5f5f5;
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 10px;
+    width: 120px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    span{
+        padding-left: 12px;
+    }
+  }
+
+
+  .proposal .status-label,
+  .proposal .progress-bar {
+    background: $app-secondary-color-3;
+  }
+  .positive .status-label,
+.positive .progress-bar {
+  background: #50C97F;
+}
+
+.neutral .status-label,
+.neutral .progress-bar {
+  background: #E9AE36;
+}
+
+.negative .status-label,
+.negative .progress-bar {
+  background: #E7504E;
+}
+
+.label-department-s{
+    color: $app-secondary-color-3;
+}
+
+.label-status-text{
+    color: $app-secondary-color-3;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.project-card{
+    .label-s{
+        font-weight: 800;
+        font-size: 14px;
+        color: #777777;
+    }
+    .label-m{
+        font-weight: 800;
+        font-size: 18px;
+        color: #777777;
+    }
+    .value-sb{
+        font-weight: 700;
+        font-size: 14px;
+        color: #000;
+    }
+    .label-department{
+        color: $app-secondary-color-3;
+        font-weight: 700;
+        font-size: 14px;
+    }
+    .submitted-name{
+        font-weight: bold;
+        font-size: 18px;
+        color: $app-secondary-color-3;
+    }
+    .card-header{
+        border-bottom: none;
+    }
+    .self-center{
+        align-self: center;
+    }
+    .align-center{
+        align-items: center;
+    }
+
+}
+
+.technology{
+    min-height: 50px;
+}
+.card-text{
+    font-size: 16px;
+    line-height: 15px;
+    color: #202020;
+    min-height: 130px
+}
+
+.submitted-text{
+ 
+    font-size: 18px;
+    line-height: 15px;
+    color: #202020;
+}
+
+
+
+.members-text{
+    font-size: 15px;
+    line-height: 15px;
+    color: #C4C4C4;
+}
+
+
+.project-icon-2 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.card-button{
+    &.active{
+        background: #00B2FF;
+    }
+    background: #F6F6F6;
+    box-shadow: inset 2px 4px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0px;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 25px;
+
+    color: #000000;
+}
+
+.project-card{
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+border-radius: 9px;
+}
+
+
+
+.team-info  { 
+    li {
+            transition: all .3s ease-in-out;
+            display: inline-block;
+            &:hover {
+                transform: translateY(-4px) scale(1.02);
+                z-index: 999;
+            }
+    }
+
+    li+li {
+        margin-left: -10px;
+    }
+	
+	img {
+    width: 32px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.2);
+   }
+}
+.margin-right{
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+    .sep-item{
+      //  margin-right: 10px;
+    }
+}
+
+.btn-action{
+    background: $app-primary-color-2;
+  //  border: 0.15px solid $app-secondary-color-2;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    &:hover {
+        box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.15);
+     }
+    .fa{
+        background: #BBEBFF;
+        border-radius: 50%;
+        padding: 5px;
+        color: $app-secondary-color-3;
+
+    }
+}
+
+.btn-square{
+    color:  $app-secondary-color-2;
+   // border:  1px solid $app-secondary-color-2;
+   // padding: 5px 5px 5px 5px;
+    background: #F6F6F6;
+    border: none;
+   // border: 0.15px solid #202020;
+    box-sizing: border-box;
+    box-shadow: inset -1px -1px 5px rgba(0, 0, 0, 0.07), inset 1px 1px 5px rgba(0, 0, 0, 0.07);
+    border-radius: 3px 0px 0px 3px;
+    // transform: rotate(-180deg);
+    // background: $app-secondary-color-3;
+    &:hover,  &.active {
+           color:  $app-primary-color-2;
+           background: $app-secondary-color-3;
+    }
+
+}
+
+
+.nav-filter{
+
+    margin-bottom: 5px;
+ //   border-bottom: 1px solid #d2d6de;
+ .nav-item {
+          .nav-link{
+                         color: #48465b;
+                         text-transform: uppercase;
+                         font-size: 1.0rem;
+                         font-weight: 500;
+           }
+            &:hover {
+                border-bottom: 1px solid $app-primary-color;
+                .nav-link{
+                color:  $app-primary-color;
+                }
+            }
+             .active {
+                border-bottom: 1px solid $app-primary-color;
+                 color:  $app-primary-color;
+                  .nav-link{
+
+                  }
+             }
+        }
+
+}
+
 .user-block img {
     width: 40px;
     height: 40px;
@@ -117,42 +391,6 @@ $brand-color: #863dd9;
     display: block;
 }
 
-.margin-right{
-    align-items: center;
-    display: flex;
-    margin-left: auto;
-    .sep-item{
-        margin-right: 10px;
-    }
-}
-
-.nav-filter{
-
-    margin-bottom: 5px;
-    border-bottom: 1px solid #d2d6de;
- .nav-item {
-          .nav-link{
-                         color: #48465b;
-                         text-transform: uppercase;
-                         font-size: 1.0rem;
-                         font-weight: 500;
-           }
-            &:hover {
-                border-bottom: 1px solid $app-primary-color;
-                .nav-link{
-                color:  $app-primary-color;
-                }
-            }
-             .active {
-                border-bottom: 1px solid $app-primary-color;
-                 color:  $app-primary-color;
-                  .nav-link{
-
-                  }
-             }
-        }
-
-}
 .project-icon-small {
     width: 50px;
     height: 50px;

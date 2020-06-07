@@ -25,7 +25,7 @@ import { AuthGuard } from '../core/guards/auth-guard';
 
       },
       {
-        path: 'organisation',
+        path: 'modules',
         loadChildren: '../organisation/organisation.module#OrganisationModule',
       },
       {

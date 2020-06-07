@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { PaginationComponent } from './pagination/pagination.component';
+import { TruncateTextPipe } from '../core/config/truncate-text.pipe';
 
 
 @NgModule({
@@ -14,15 +16,18 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RouterModule,
     NgbModule,
     NgSelectModule
+
   ],
- // declarations: [ MenuItemComponent],
+  declarations: [ PaginationComponent, TruncateTextPipe],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
-    NgSelectModule
+    NgSelectModule,
+    PaginationComponent,
+    TruncateTextPipe
   ]
 })
 export class SharedModule { }

@@ -9,7 +9,8 @@ import { OrganisationComponent } from './organisation.component';
      {
     path: '',
     component: OrganisationComponent,
-  }
+  },
+  { path: ':id', loadChildren: '../module/module.module#ModuleModule' }
 
   ])],
   exports: [RouterModule]

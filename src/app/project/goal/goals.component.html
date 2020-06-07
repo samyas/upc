@@ -1,0 +1,162 @@
+<div class="container-fluid">
+        
+  <div class="row mt-3">
+     <div class="col-sm-12">
+            <div class="d-flex flex-row form-material  p-3  mx-auto" style="width: 600px;">
+                <input type="text" [(ngModel)]="goal.name" placeholder="Set a goal" class="form-control form-control-line">
+                <button class="btn-rounded btn-action"  (click)="openGoalDialog(null)"  type="button"><i class="fa fa-plus"></i> </button>
+            </div>
+     </div>
+  </div>
+  <!-- Timelime example  -->
+  <div class="row m-5">
+    <div class="col-md-8">
+      <!-- The time line -->
+      <div class="timeline">
+        <!-- timeline time label -->
+        <!--div class="time-label done">
+          <span class="bg-red">10 Feb. 2014</span>
+        </div-->
+        <!-- /.timeline-label -->
+        <!-- timeline item -->
+        <div *ngFor="let gl of project.goals;  let isFirst = first"   [class.in-progress] = "gl.status=='START'"
+                  [class.done] = "gl.status=='COMPLETED'">
+          <i  *ngIf="!!isFirst" class="fa fa-rocket"></i>
+          <i  *ngIf="!isFirst" class="fa fa-check"></i>
+        
+            <div class="row">
+                <div class="col-md-2">
+                    <div *ngIf="gl.actionId" class="d-flex flex-column">
+                        <div class="goal-end-date">{{gl.startDate  | date:'dd-MM-yyyy'}}</div>
+                        <div class="d-flex flex-row date-action-box">
+                             <i class="fa fa-dot-circle-o fa-action"></i>
+                             <div class="goal-action-date-line"></div>
+                        </div>
+                   </div>
+                   <div *ngIf="!gl.actionId" class="d-flex flex-column">
+                      <div class="goal-start-date">{{gl.startDate  | date:'dd-MM-yyyy'}}</div>
+                      <div class="goal-end-date">{{gl.endDate  | date:'dd-MM-yyyy'}}</div>
+                 </div>
+                </div>
+
+                <div class="col-md-10">
+                    <div class="card shadow box-item">
+                        <div class="goal-body">
+                            <div class="d-flex justify-content-between">
+                                <span class="status-label"><i class="fa fa-circle pr-2"></i> {{gl.status}}</span>
+                       
+                                <div ngbDropdown class="goal-action padding-top-5">
+                                        <button class="btn btn-circle" ngbDropdownToggle><i class="fa fa-ellipsis-v"></i></button>
+                                        <div class="dropdown-menu" ngbDropdownMenu>
+                                          <a class="dropdown-item"(click)=openTaskDialog(gl.goalId)><i class="fa fa-plus-circle pr-2"></i> Add Task</a>
+                                          <a class="dropdown-item"(click)="openGoalDialog(gl)"><i class="fa fa-pencil pr-2"></i>Edit Goal</a>
+                                          <div role="separator" class="dropdown-divider"></div>
+                                          <a class="dropdown-item" (click)="deleteGoal(gl.goalId)"><i class="fa fa-trash-o pr-2"></i>Delete</a>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <span class="goal-title" (click)="selectGoal(gl.goalId)">
+                               <i *ngIf="selectedGoalId!=gl.goalId" class="fa fa-caret-right pr-2"></i> 
+                               <i *ngIf="selectedGoalId==gl.goalId" class="fa fa-caret-down pr-2"></i> 
+                               {{gl.name}} 
+                             </span>
+                        
+
+               
+                            <div  class="" [ngbCollapse]="selectedGoalId!=gl.goalId">
+
+                                  <div  class="card-text" [innerHTML]="gl.description | truncatetext:150"></div>
+
+                                  <div *ngIf="gl.actionId || gl.isAction" >
+
+                                        <div *ngIf="gl.actualStartDate" class="activity">
+                                            <!-- timeline time label -->
+                                              <div class="time-label">
+                                                <span class="">{{gl.actualStartDate  | date:'dd-MM-yyyy'}}</span>
+                                              </div>
+                                              <!-- /.timeline-label -->
+                                              <!-- timeline item -->
+                                              <div *ngFor="let tsk of gl.tasks" [class.completed]="tsk.name=='COMPLETED'" >
+                                                  <i *ngIf="tsk.name=='COMPLETED'" class="fa fa-bullseye"></i>
+                                                  <i *ngIf="tsk.name!='COMPLETED'" class="fa fa-circle"></i>
+                                                  <div class="box-item-activity">
+                                                  
+                                                      <div class="goal-body">
+                                                          <span class=""> <strong>{{tsk.createdBy.lastName}}  {{tsk.createdBy.firstName}} </strong>
+                                                            updates status <strong> {{tsk.name}}</strong>  at <strong> {{tsk.startDate  | date:'dd-MM-yyyy HH:mm'}}</strong>
+                                                            </span>
+                                                          <div class="card-text" [innerHTML]="tsk.description | truncatetext:150"></div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+                                        </div>
+
+                                        <div class="d-flex flex-row-reverse">
+                                            <button *ngFor="let cs of getNextStatus(gl.status)" class="btn action-bg-color mr-2" type="button"
+                                                  (click)="changeGoalStatus(gl.goalId, cs, null)"> {{cs.action}}
+                                            </button>
+                                        </div>
+                            
+                  
+                                        <div *ngIf="showActionSubmit.goalId==gl.goalId">
+                                          <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                                                [editor]="Editor" [(ngModel)]="task.description" >
+                                          </ckeditor>
+                                          
+                                          <div class="d-flex flex-row-reverse editor-footer">
+                                              <button class="btn btn-primary m-1" (click)="changeGoalStatus(gl.goalId, null, task)" type="button"> Save </button>
+                                              <button class="btn btn-default m-1"  (click)="init()"  type="button"> Cancel </button>
+                                          </div>
+                                          <div *ngIf="errorSubmit" class="text-danger mt-3">{{errorSubmit}}</div>
+                                        </div>
+
+                                  </div>
+
+                                  <div  class="" *ngIf="!gl.actionId || !gl.isAction" >
+                                      <div  *ngFor="let task of gl.tasks" (click)="selectTask(task)"  class="task p-1">
+                                        <div class="d-flex justify-content-between">
+                                          <span class="mt-0"><a class="title">{{task.name}}</a></span>
+                                        
+                                        </div>
+                                        <div  class="d-flex justify-content-between info" >
+                                            <div class="d-flex align-items-center pt-1">
+                                                <i class="fa fa-clock-o pr-2"></i>
+                                                <span class="text-small pr-3">{{task.startDate  | date:'dd-MM-yyyy'}}</span>
+
+                                                <i class="fa fa-comment-o pr-2"></i>
+                                                <span class="text-small pr-3"> {{task.messages?.length}}</span>
+                                              </div>
+                                        </div>
+
+                                      </div>
+                                  </div>
+                            </div>  
+                            <div  class="d-flex justify-content-between" *ngIf="!gl.actionId || !gl.isAction" >
+                                <div class="d-flex align-items-center pt-1">
+                                    <i class="fa fa-tasks pr-2"></i>
+                                    <span class="text-small">0/ {{gl.tasks?.length}}</span>
+                                  </div>
+                            </div>
+                      
+                  
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+               
+        </div>
+        <!-- END timeline item -->
+      
+        <div>
+          <i class="fa fa-shield"></i>
+        </div>
+      </div>
+    </div>
+    <!-- /.col -->
+  </div>
+</div>
+<!-- /.timeline -->

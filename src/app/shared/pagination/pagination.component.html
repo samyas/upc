@@ -1,0 +1,9 @@
+<div class="d-flex justify-content-center">
+  
+  <button *ngIf="isPreviousPrevious" (click)="previousprevious()" class="nav-link btn app-primary btn-circle btn-outline mr-2" type="button">«</button>
+  <button *ngIf="isPrevious" (click)="previous()"  class="nav-link btn app-primary btn-circle btn-outline mr-2" type="button">{{page}}</button>
+  <button *ngIf="pageSize <= total" class="nav-link btn app-primary btn-circle btn-outline active mr-2" type="button">{{page + 1}}</button>
+  <button *ngIf="isNext" (click)="next()" class="nav-link btn app-primary btn-circle btn-outline  mr-2" type="button">{{page + 2}}</button>
+  <button *ngIf="isNextNext" (click)="nextnext()" class="nav-link btn app-primary btn-circle btn-outline  mr-2" type="button">»</button>
+
+</div>
