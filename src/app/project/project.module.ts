@@ -28,6 +28,7 @@ import { TaskComponent } from './task/task.component';
 import { ProjectOverviewComponent } from './overview/project-overview.component';
 import { ProjectRoutingModule } from './project.routes';
 import { AssignPersonsComponent } from './assign/assign-persons.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { AssignPersonsComponent } from './assign/assign-persons.component';
     AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent, TaskComponent, AssignPersonsComponent,
      ProjectOverviewComponent, GoalsComponent, KanbanComponent],
   imports: [
-    CommonModule, SharedModule, ProjectRoutingModule, NgSelectModule, CKEditorModule
+    CommonModule, SharedModule, ProjectRoutingModule, NgSelectModule, CKEditorModule, DragDropModule
   ],
   entryComponents: [AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent, AssignPersonsComponent],
   providers : [ProjectService, PersonService, OrganisationService, FileDownloadService, FileUploaderService,

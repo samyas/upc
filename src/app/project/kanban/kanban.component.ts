@@ -9,7 +9,7 @@ import { ActivatedRoute, ParamMap, Router, NavigationStart } from '@angular/rout
 import { ProjectOverview, Project, Goal, GOAL_STATUS_FLOWS } from '../../core/model/project.model';
 import { of } from 'rxjs';
 import { switchMap, filter, map } from 'rxjs/operators';
-import { Task, Message } from 'src/app/core/model/task.model';
+import { Task, Message, T_ALL_STATUS } from 'src/app/core/model/task.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PersonService } from 'src/app/core/services/person.service';
 import { Person } from 'src/app/core/model/person.model';
@@ -25,10 +25,7 @@ import { FileDownloadService } from 'src/app/core/services/file-download.service
 })
 export class KanbanComponent implements OnInit {
 
-  public icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite'];
-  public colors = [ 'accent', 'primary', 'warn' ];
-  color = 'primary';
-  mode = 'determinate';
+
   value = 50;
   persons: Array<Person> = [];
   public Editor = ClassicEditor;
@@ -42,6 +39,9 @@ export class KanbanComponent implements OnInit {
   goal: Goal = new Goal();
   goals: Array<Goal> = [];
   task: Task = new Task();
+  kanban: Array<TaskBoard> = T_ALL_STATUS.map(x => new TaskBoard(x.code + '-view', x, []));
+
+
   selectedGoalId = null;
   selectedTask: Task = null;
   doubleVue = false;
@@ -216,6 +216,11 @@ export class KanbanComponent implements OnInit {
     });
   }
 
+
+  fillTasksInKanban(tasks: Array<Task>) {
+      T_ALL_STATUS.map(x => new TaskBoard(x.code + '-view', x, []));
+  }
+
 }
 
 class EditShow {
@@ -233,5 +238,17 @@ class EditShow {
     this.title = false;
     this.shortDescription = false;
     this.description = false;
+  }
+}
+
+class TaskBoard {
+  id: string;
+  status: StatusProperties;
+  tasks: Array<Task>;
+
+  constructor(id, status, tasks) {
+    this.id = id;
+    this.status = status;
+    this.tasks = tasks;
   }
 }

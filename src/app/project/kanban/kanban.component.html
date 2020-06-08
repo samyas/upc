@@ -19,9 +19,12 @@
   </div>
 
   <div class="row m-5">
-    <div class="col-md-4 task-type p-3">
+    <div class="col-md-4 task-type p-3"  cdkDropList #pendingList="cdkDropList" 
+         [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList,reviewList]" (cdkDropListDropped)="drop($event)">
             <span class="mt-1">IN PROGRESS</span>
-            <div  *ngFor="let ts of goal.tasks" (click)="selectTask(ts)"  class="task p-1">
+
+
+            <div  *ngFor="let ts of goal.tasks" (click)="selectTask(ts)"  class="task p-1" cdkDrag>
                     <div class="d-flex justify-content-between">
                       <span class="mt-0"><a class="title">{{ts.name}}</a></span>
                     
