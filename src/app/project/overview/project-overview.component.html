@@ -1,9 +1,7 @@
 
 <div class="container-fluid p-5">
 
-    <div class="row">
-      <div *ngIf="error" class="col-sm-12 text-danger"> {{error}} </div>  
-    </div>
+
     <div class="row">
         <div class="col-sm-7">
              <div class="container-fluid">
@@ -131,6 +129,17 @@
                           {{action.label}} 
                           </button>
                     </div>
+            </div>
+
+            <div class="row">
+                <div *ngIf="error" class="col-sm-12 text-danger"> {{error}} </div>  
+              </div>
+
+            <div *ngIf="userMember && !userMember.signed" class="row mt-1">
+              <div class="col-md-12">
+                <span class="text-danger"> Please confirm your subscription to this project: <a class="sign-b" (click)="sign()"> Sign</a></span>
+               
+              </div>
             </div>
                     
              <div class="container-fluid  project-right-side proposal p-3">
