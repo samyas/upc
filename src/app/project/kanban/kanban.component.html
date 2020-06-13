@@ -17,50 +17,53 @@
              </div>
      </div>
   </div>
+  <div class="row">
+    <div  *ngIf="error" class="col-sm-12 text-danger"> {{error}} </div>  
+  </div>
+  <div class="row p-1">
+    <div *ngFor="let taskboard of kanban" class="col-md-3 " >
+            
+       <div class="d-flex flex-column self-align-center">
+            <div class="mt-1 board-title"><span >{{taskboard.status.label}}</span></div> 
+            <div cdkDropList id="{{taskboard.id}}" [cdkDropListData]="taskboard.tasks"
+                 [cdkDropListConnectedTo]="taskboard.next" class="item-list task-type" (cdkDropListDropped)="drop($event)">
+              <div  *ngFor="let ts of taskboard.tasks" (click)="selectTask(ts)"  class="task p-2 item-box d-flex align-items-start flex-column" cdkDrag>
+                <div class="d-flex flex-row mb-auto">
+                  <i class="fa fa-bookmark fa-b mr-2"></i>
+                  <span class="mt-0"> <a class="title">{{ts.name}}</a></span>
+                
+                </div>
+                <div  class="d-flex justify-content-between info" >
+                    <div class="d-flex align-items-center pt-1">
+                        <i class="fa fa-clock-o pr-2"></i>
+                        <span class="text-small pr-3">{{ts.startDate  | date:'dd-MM-yyyy'}}</span>
 
-  <div class="row m-5">
-    <div class="col-md-4 task-type p-3"  cdkDropList #pendingList="cdkDropList" 
-         [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList,reviewList]" (cdkDropListDropped)="drop($event)">
-            <span class="mt-1">IN PROGRESS</span>
+                        <i class="fa fa-comment-o pr-2"></i>
+                        <span class="text-small pr-3"> {{ts.messages?.length}}</span>
+                      </div>
+                </div>
+              </div>
+            </div>
 
-
-            <div  *ngFor="let ts of goal.tasks" (click)="selectTask(ts)"  class="task p-1" cdkDrag>
-                    <div class="d-flex justify-content-between">
-                      <span class="mt-0"><a class="title">{{ts.name}}</a></span>
-                    
-                    </div>
-                    <div  class="d-flex justify-content-between info" >
-                        <div class="d-flex align-items-center pt-1">
-                            <i class="fa fa-clock-o pr-2"></i>
-                            <span class="text-small pr-3">{{ts.startDate  | date:'dd-MM-yyyy'}}</span>
-
-                            <i class="fa fa-comment-o pr-2"></i>
-                            <span class="text-small pr-3"> {{ts.messages?.length}}</span>
-                          </div>
-                    </div>
-
-             </div>
-    </div>
-
-    <div class="col-md-4 task-type p-3">
-            <span class="mt-1">IN PROGRESS</span>
-            <div  *ngFor="let ts of goal.tasks" (click)="selectTask(ts)"  class="task p-1">
-                    <div class="d-flex justify-content-between">
-                      <span class="mt-0"><a class="title">{{ts.name}}</a></span>
-                    
-                    </div>
-                    <div  class="d-flex justify-content-between info" >
-                        <div class="d-flex align-items-center pt-1">
-                            <i class="fa fa-clock-o pr-2"></i>
-                            <span class="text-small pr-3">{{ts.startDate  | date:'dd-MM-yyyy'}}</span>
-
-                            <i class="fa fa-comment-o pr-2"></i>
-                            <span class="text-small pr-3"> {{ts.messages?.length}}</span>
-                          </div>
-                    </div>
-
-             </div>
+        </div>
+          
     </div>
     <!-- /.col -->
   </div>
+
+  <div class="sidebar-overlay" [class.active]="selectedTask"></div>
+ 
+  <div class="right-bar" [class.open]="selectedTask">
+      <div class="d-flex justify-content-start">
+          <div (click)="closeTask()" class="close-box"> 
+            <span>x</span>
+             <!--button class="btn btn-edit btn-circle" type="button" (click)="editTaskDialog()"><i class="fa fa-pencil"></i></button-->
+          </div>
+          <app-task  *ngIf="selectedTask"   [projectId]="project.projectId" 
+          [goalId]="selectedGoalId" [task]="selectedTask" [persons]="persons"></app-task> 
+
+      </div>
+     
+  </div>
+
 </div>

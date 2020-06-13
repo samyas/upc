@@ -1,3 +1,5 @@
+import { StatusProperties } from './../../core/model/project.model';
+import { T_ALL_STATUS } from 'src/app/core/model/task.model';
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Task, Message } from '../../core/model/task.model';
@@ -35,6 +37,7 @@ export class TaskComponent implements OnInit {
   submitted = false;
   serverError = '';
   workshops = ['Edx Material Training', 'Crystal Formation'];
+  statuses: Array<StatusProperties> = T_ALL_STATUS;
 
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,

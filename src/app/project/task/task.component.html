@@ -9,11 +9,10 @@
           <div class="input-group-append" ngbDropdown>
             <button class="btn btn app-primary btn-outline dropdown-toggle" type="button" ngbDropdownToggle>ACTION</button>
             <div class="dropdown-menu" ngbDropdownMenu>
-              <a class="dropdown-item"(click)="changeStatus('OPEN')">OPEN</a>
-              <a class="dropdown-item"(click)="changeStatus('PROGRESS')">PROGRESS</a>
-              <a class="dropdown-item" (click)="changeStatus('REVIEW')">REVIEW</a>
+              <a *ngFor="let st of statuses; ;  let isLast = last" class="dropdown-item" (click)="changeStatus(st.code)">{{st.action}}</a>
+     
               <div role="separator" class="dropdown-divider"></div>
-              <a class="dropdown-item" (click)="changeStatus('DONE')">DONE</a>
+          
             </div>
         
         </div>

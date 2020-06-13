@@ -11,7 +11,6 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 
 import * as FileSaver from 'file-saver';
-import { ResponseContentType, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class FileDownloadService {

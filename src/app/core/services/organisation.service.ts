@@ -1,10 +1,8 @@
 import { Organisation, Module, Action, Term } from './../model/organisation.model';
 import { Paged } from '../model/paged.model';
 import { environment } from '../../../environments/environment';
-import { Project, ProjectOverview, Goal } from '../model/project.model';
 
 import { Injectable } from '@angular/core';
-import { Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';

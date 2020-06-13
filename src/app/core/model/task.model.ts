@@ -38,7 +38,8 @@ export class Message {
  export const T_STATUS_FLOWS: Array<StatusFlow> = [
         new StatusFlow(T_NEW, [T_START]),
         new StatusFlow(T_START, [T_REVIEW]),
-        new StatusFlow(T_REVIEW, [ T_COMPLETED, T_NEW, T_START])
+        new StatusFlow(T_REVIEW, [ T_COMPLETED, T_NEW, T_START]),
+        new StatusFlow(T_COMPLETED, [ T_REVIEW, T_NEW, T_START])
        ] ;
 
  export const T_ALL_STATUS: Array<StatusProperties> = [T_NEW, T_START, T_REVIEW, T_COMPLETED];

@@ -34,7 +34,7 @@ export const ProjectsRoutes: Route[] = [
       title: 'Project'
     }
   },*/
-  { path: ':id', loadChildren: '../project/project.module#ProjectModule' }
+  { path: ':id', loadChildren: () => import('../project/project.module').then(m => m.ProjectModule) }
 
 ];
 

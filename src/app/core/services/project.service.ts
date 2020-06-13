@@ -5,7 +5,6 @@ import { Project, ProjectOverview, Goal, Apply } from '../model/project.model';
 import { environment } from '../../../environments/environment';
 
 import { Injectable } from '@angular/core';
-import { Response, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';

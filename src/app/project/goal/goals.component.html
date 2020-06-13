@@ -115,18 +115,18 @@
                                   </div>
 
                                   <div  class="" *ngIf="!gl.actionId || !gl.isAction" >
-                                      <div  *ngFor="let task of gl.tasks" (click)="selectTask(task)"  class="task p-1">
+                                      <div  *ngFor="let ts of gl.tasks" (click)="selectTask(ts)"  class="task p-1">
                                         <div class="d-flex justify-content-between">
-                                          <span class="mt-0"><a class="title">{{task.name}}</a></span>
+                                          <span class="mt-0"><a class="title">{{ts.name}}</a></span>
                                         
                                         </div>
                                         <div  class="d-flex justify-content-between info" >
                                             <div class="d-flex align-items-center pt-1">
                                                 <i class="fa fa-clock-o pr-2"></i>
-                                                <span class="text-small pr-3">{{task.startDate  | date:'dd-MM-yyyy'}}</span>
+                                                <span class="text-small pr-3">{{ts.startDate  | date:'dd-MM-yyyy'}}</span>
 
                                                 <i class="fa fa-comment-o pr-2"></i>
-                                                <span class="text-small pr-3"> {{task.messages?.length}}</span>
+                                                <span class="text-small pr-3"> {{ts.messages?.length}}</span>
                                               </div>
                                         </div>
 
@@ -158,5 +158,21 @@
     </div>
     <!-- /.col -->
   </div>
+
+  <div class="sidebar-overlay" [class.active]="selectedTask"></div>
+ 
+  <div class="right-bar" [class.open]="selectedTask">
+      <div class="d-flex justify-content-start">
+          <div (click)="closeTask()" class="close-box"> 
+            <span>x</span>
+             <!--button class="btn btn-edit btn-circle" type="button" (click)="editTaskDialog()"><i class="fa fa-pencil"></i></button-->
+          </div>
+          <app-task  *ngIf="selectedTask"   [projectId]="project.projectId" 
+          [goalId]="selectedGoalId" [task]="selectedTask" [persons]="persons"></app-task> 
+
+      </div>
+     
+  </div>
+  
 </div>
 <!-- /.timeline -->

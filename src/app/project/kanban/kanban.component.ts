@@ -9,12 +9,13 @@ import { ActivatedRoute, ParamMap, Router, NavigationStart } from '@angular/rout
 import { ProjectOverview, Project, Goal, GOAL_STATUS_FLOWS } from '../../core/model/project.model';
 import { of } from 'rxjs';
 import { switchMap, filter, map } from 'rxjs/operators';
-import { Task, Message, T_ALL_STATUS } from 'src/app/core/model/task.model';
+import { Task, Message, T_ALL_STATUS, T_STATUS_FLOWS } from 'src/app/core/model/task.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PersonService } from 'src/app/core/services/person.service';
 import { Person } from 'src/app/core/model/person.model';
 import { Assign } from 'src/app/core/model/assign.model';
 import { FileDownloadService } from 'src/app/core/services/file-download.service';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 
 
@@ -39,7 +40,7 @@ export class KanbanComponent implements OnInit {
   goal: Goal = new Goal();
   goals: Array<Goal> = [];
   task: Task = new Task();
-  kanban: Array<TaskBoard> = T_ALL_STATUS.map(x => new TaskBoard(x.code + '-view', x, []));
+  kanban: Array<TaskBoard> = T_ALL_STATUS.map(x => new TaskBoard(x.code, x, []));
 
 
   selectedGoalId = null;
@@ -95,6 +96,31 @@ export class KanbanComponent implements OnInit {
 
   onGoalChange(e) {
     this.goal = e;
+    this.fillTasksInKanban(this.goal.tasks);
+    console.log('kanban', this.kanban);
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    console.log('darg', event);
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      // console.log('old/new', event.previousContainer.id, event.container.id);
+     // console.log('elemnt',  event.previousContainer.data[ event.previousIndex].taskId);
+      const taskId = event.previousContainer.data[ event.previousIndex].taskId;
+      this.projectService.changeStatuTask(this.project.projectId,  this.goal.goalId,
+        taskId, event.container.id).subscribe(
+        data => {
+         console.log('succss to move', taskId, event.container.id);
+          transferArrayItem(event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex);
+        }
+        ,  error => this.error = error.message
+      );
+
+    }
   }
 
   getNextStatus(status): Array<StatusProperties> {
@@ -126,6 +152,15 @@ export class KanbanComponent implements OnInit {
             }
               });
         }
+  }
+
+  changeStatus(taskToChange, newStatus) {
+    this.projectService.changeStatuTask(this.project.projectId,  this.goal.goalId, taskToChange, newStatus).subscribe(
+      data => {
+
+      }
+      ,  error => this.error = error.message
+    );
   }
 
   uploadFile(event) {
@@ -218,8 +253,9 @@ export class KanbanComponent implements OnInit {
 
 
   fillTasksInKanban(tasks: Array<Task>) {
-      T_ALL_STATUS.map(x => new TaskBoard(x.code + '-view', x, []));
+    this.kanban = this.kanban.map(x =>  new TaskBoard(x.id, x.status, tasks.filter(t => t.status === x.status.code)));
   }
+
 
 }
 
@@ -245,10 +281,12 @@ class TaskBoard {
   id: string;
   status: StatusProperties;
   tasks: Array<Task>;
-
-  constructor(id, status, tasks) {
+  next: Array<string>;
+  constructor(id, status: StatusProperties, tasks) {
     this.id = id;
     this.status = status;
     this.tasks = tasks;
+    this.next = T_STATUS_FLOWS.find(x => x.current.code === status.code)
+                              .next.map(t => t.code);
   }
 }

@@ -21,24 +21,24 @@ import { AuthGuard } from '../core/guards/auth-guard';
     children: [
       {
         path: 'dashboard',
-        loadChildren: '../dashboard/dashboard.module#DashboardModule',
+        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule),
 
       },
       {
         path: 'modules',
-        loadChildren: '../organisation/organisation.module#OrganisationModule',
+        loadChildren: () => import('../organisation/organisation.module').then(m => m.OrganisationModule),
       },
       {
         path: 'project',
-        loadChildren: '../projects/projects.module#ProjectsModule',
+        loadChildren: () => import('../projects/projects.module').then(m => m.ProjectsModule),
       },
       {
         path: 'persons',
-        loadChildren: '../persons/persons.module#PersonsModule',
+        loadChildren: () => import('../persons/persons.module').then(m => m.PersonsModule),
       },
       {
         path: 'users',
-        loadChildren: '../users/users.module#UsersModule',
+        loadChildren: () => import('../users/users.module').then(m => m.UsersModule),
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
      /* {
