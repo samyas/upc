@@ -7,69 +7,90 @@
                 </button>
             </div>
             <div class="modal-body">
+                    <div *ngIf="error" class="text-danger mt-3">{{error}}</div>
                 <form [formGroup]="form">
                     <div class="form-row">
                             <div class="form-group col-md-2">
                                     <label> Order</label>
-                                    <input type="number"  formControlName="order" class="form-control" placeholder="Order">
+                                    <input type="number"  formControlName="order" class="form-control">
                                     <div *ngIf="submitted && f.order.errors" class="text-danger">
                                         <div *ngIf="f.order.errors.required">Order is required</div>
                                     </div>
                             </div>
                             <div class="form-group col-md-10">
                                     <label> Name</label>
-                                    <input type="text"  formControlName="name" class="form-control" placeholder="Name">
+                                    <input type="text"  formControlName="name" class="form-control" >
                                     <div *ngIf="submitted && f.name.errors" class="text-danger">
                                         <div *ngIf="f.name.errors.required">Name is required</div>
                                     </div>
                             </div>
+                    </div>
+
+                            
+                 <div class="form-row">
+                    <div class="form-group col-md-6">
+                            <label>Week </label>
+                            <input type="number"  formControlName="weekNbr" class="form-control">
+                            <div *ngIf="submitted && f.weekNbr.errors" class="text-danger">
+                                <div *ngIf="f.weekNbr.errors.required">Week is required</div>
+                            </div>
+                        </div>
+                 
+                        <div class="form-group col-md-6">
+                            <label>Start Date</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control"    dateFormat="dd-MMM-yyyy" name="dps" formControlName="startDate" ngbDatepicker #s="ngbDatepicker">
+                                <button class="input-group-addon" (click)="s.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <!--div class="form-group col-md-5">
+                            <label for="launchDate">Due Date</label>
+                            <div class="input-group datepicker-input">
+                                <input class="form-control"    dateFormat="dd-MMM-yyyy"  name="dpe" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
+                                <button class="input-group-addon" (click)="e.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                    
+                        </div-->
                     </div>
         
 
                     <div class="form-group">
                         <label for="description">Description</label>
                         <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
-                                [editor]="Editor" formControlName="description" >
+                        class="description"   [editor]="Editor" formControlName="description" >
                         </ckeditor>
                         <div *ngIf="submitted && f.description.errors" class="text-danger">
                                 <div *ngIf="f.description.errors.required">Description is required</div>
                          </div>
                     </div>
 
-                    
-                 <div class="form-row">
-                        <div class="form-group col-md-2">
-                                <label>Week </label>
-                                <input type="number"  formControlName="weekNbr" class="form-control">
-                                <div *ngIf="submitted && f.weekNbr.errors" class="text-danger">
-                                    <div *ngIf="f.weekNbr.errors.required">Week is required</div>
-                                </div>
-                            </div>
-                    <div class="form-group col-md-5">
-                        <label>Start Date</label>
-                        <div class="input-group datepicker-input">
-                            <input class="form-control"    dateFormat="dd-MMM-yyyy" placeholder="yyyy-mm-dd" name="dps" formControlName="startDate" ngbDatepicker #s="ngbDatepicker">
-                            <button class="input-group-addon" (click)="s.toggle()" type="button">
-                                <span class="fa fa-calendar"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label for="launchDate">Due Date</label>
-                        <div class="input-group datepicker-input">
-                            <input class="form-control"    dateFormat="dd-MMM-yyyy" placeholder="yyyy-mm-dd" name="dpe" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
-                            <button class="input-group-addon" (click)="e.toggle()" type="button">
-                                <span class="fa fa-calendar"></span>
-                            </button>
-                        </div>
-                
-                    </div>
-                 </div>
+                    <div class="form-group  col-md-12 d-flex justify-content-start">
+                            <div class="mr-2 attach-file"  *ngFor="let item of action.attachmentList"> 
+                                <a class="btn btn-default btn-sm float-right" (click)="removeAttachement(item.url)"><i class="fa fa-times"></i></a>
+                                
+                                <span class="attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
 
-                 <div class="form-group form-check">
-                        <input type="checkbox"  formControlName="beforeStart" class="form-check-input">
-                        <label class="form-check-label">Should be validated before project start?</label>
-                 </div>
+                                <div class="attachment-info d-flex flex-row" >
+                                        <a class="attachment-name"><i class="fa fa-paperclip"></i> {{item.fileName}}</a>
+                                </div>
+
+                            </div>
+                            <div class="mt-2 upload-drop-zone"  (click)="fileInput.click()" (fileDropped)="uploadFileTask($event)" >
+                               
+                                    <input hidden type="file" #fileInput (change)="uploadFileTask($event.target.files)">
+                                    <i class="fa fa-cloud-upload fa-3"></i> Just drag and drop files here
+                             </div>
+                    </div>
+            
+
+                    <div class="form-group form-check">
+                            <input type="checkbox"  formControlName="beforeStart" class="form-check-input">
+                            <label class="form-check-label">Should be validated before project start?</label>
+                    </div>
 
                 </form>
             </div>

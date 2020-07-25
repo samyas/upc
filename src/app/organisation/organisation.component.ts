@@ -8,6 +8,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Organisation } from '../core/model/organisation.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Role } from '../core/model/person.model';
 
 @Component({
   selector: 'app-organisation',
@@ -22,11 +23,13 @@ export class OrganisationComponent implements OnInit {
   selectedModuleType: ModuleType = null;
   moduleTypes: Array<ModuleType> = MODULES_TYPE;
   departments: Array<Module> = [];
+  isAdminCreator = false;
 
   constructor(public organisationService: OrganisationService, public dataService: SharedDataService,
       private modalService: NgbModal) { }
   ngOnInit() {
       this.load();
+      this.checkRole();
   }
 
   load() {
@@ -40,6 +43,18 @@ export class OrganisationComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  checkRole() {
+    this.dataService.currentUser.subscribe(
+    data => {
+              if (data.roles.includes(Role.ADMIN_CREATOR)) {
+                  this.isAdminCreator = true;
+              }
+            },
+    error => {
+     console.log(error);
+   });
   }
 
   public openDialog() {

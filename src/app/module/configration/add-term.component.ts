@@ -2,7 +2,7 @@ import { SharedDataService } from '../../core/services/shared-data.service';
 import { Term } from '../../core/model/organisation.model';
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationService } from 'src/app/core/services/organisation.service';

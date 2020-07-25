@@ -1,3 +1,5 @@
+import { ShortDepartment } from './organisation.model';
+import { Role } from './person.model';
 
 export class Register {
     id: string;
@@ -26,8 +28,9 @@ export class User {
     tenantIds: Array<number>;
     defaultTenantId: number;
     enabled: boolean;
-    roles: Array<string>;
+    roles: Array<Role>;
     personId: string;
+    department: ShortDepartment;
 
     hasNoTenants(): boolean {
        return this.tenantIds && this.tenantIds.length === 0;

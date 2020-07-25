@@ -1,7 +1,8 @@
 
 
 <div class="page-header  pt-3  d-flex justify-content-center">
-  <h3>Persons</h3>
+  <h3 *ngIf="!!isStudent">STUDENTS</h3>
+  <h3 *ngIf="!isStudent">STAFF</h3>
 </div>
 
 <div class="page-header pt-3 d-flex justify-content-center">
@@ -28,6 +29,9 @@
           <li class="sep-item">
             <button class="nav-link  btn-square" [class.active] = "list==false" (click)="list=false" type="button"><i class="fa fa-th-large"></i></button>
           </li>
+          <li class="sep-item">
+            <button class="nav-link  btn-square" [class.active] = "list==false" (click)="refreshWorkload()" type="button"><i class="fa fa-refresh"></i></button>
+          </li>
         </div>
     </ul>
     <div class="row  pb-3 text-center">
@@ -44,10 +48,12 @@
               <thead>
               <tr>
                 <th>Name</th>
-                <th>Role</th>
+        
                 <th>Email</th>
                 <th>Registred</th>
                 <th>Module</th>
+                <th>Projects (current)</th>
+                <th *ngIf="!isStudent">Workload</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -59,12 +65,14 @@
                         <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
                     </div>
                 </td>
-                <td> <span *ngIf="element.personfunction"  class="badge badge-pill badge-danger fs"> {{element.personfunction}}</span></td>
+                <!--td> <span *ngIf="element.personfunction"  class="badge badge-pill badge-danger fs"> {{element.personfunction}}</span></td-->
                 <td> <span class="btn btn-label-brand btn-sm btn-bold btn-upper"> {{element.email}}</span></td>
                 <td> <span class="btn btn-label-danger btn-sm btn-bold btn-upper"> {{element.valid}}</span></td>
                 <td>
                     <span> {{element.department?.name}}</span>
                 </td>
+                <td><span> {{element.currentProjects}}</span> </td>
+                <td *ngIf="!isStudent"><span> {{element.workload}}</span> </td>
                 <td>
                   <div class="d-flex flex-row bd-highlight">
                     <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline" type="button"><i class="fa fa-heart"></i></button></div>
@@ -83,19 +91,7 @@
     </div>
 
     <div class="col-sm-12  p-0">
-
         <app-pagination-custom [page]="page" [total]="total" (pageEvent)="onPageChange($event)"></app-pagination-custom>
-
-
-        <!--div class="d-flex flex-row bd-highlight">
-            <div  *ngIf="isPreviousPrevious" class="p-2 bd-highlight"><button (click)="previousprevious()" class="nav-link btn app-primary btn-circle btn-outline" type="button">«</button></div>
-            <div *ngIf="isPrevious" class="p-2 bd-highlight"><button (click)="previous()"  class="nav-link btn app-primary btn-circle btn-outline" type="button">{{pageIndex}}</button></div>
-            <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline active" type="button">{{pageIndex + 1}}</button></div>
-            <div  *ngIf="isNext" class="p-2 bd-highlight"><button (click)="next()" class="nav-link btn app-primary btn-circle btn-outline" type="button">{{pageIndex + 2}}</button></div>
-            <div *ngIf="isNextNext" class="p-2 bd-highlight"><button (click)="nextnext()" class="nav-link btn app-primary btn-circle btn-outline" type="button">»</button></div>
-          </div-->
-
- 
     </div>
 
 

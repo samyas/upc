@@ -1,1 +1,110 @@
-<h1>Person detail</h1>
+
+<div class="container-fluid p-5">
+
+    <div class="row mt-1">
+        <div class="media float-left mt-1 col-sm-12 col-md-12 center-box">
+            <img src="../../../assets/images/100_7.jpg" class="project-icon mr-2" alt="...">
+            <div class="media-body center-box pl-2">
+                <div class="d-flex justify-content-between">
+                    <a class="project-title mt-0">{{person.firstName}} {{person.lastName}}</a>
+                </div>
+            </div>
+         </div>
+    </div>
+
+    <div class="row mt-3">
+            <div class="col-sm-4">
+                <div class="d-flex justify-content-between">
+                   <span class="project-section-title">Abstract</span>
+                </div>
+                <div class="card-text" *ngIf="!editShow.shortDescription" [innerHTML]="person.shortDescription | slice:0:300"></div>
+                <div *ngIf="!!editShow.shortDescription">
+                    <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                        [editor]="Editor" [(ngModel)]="person.shortDescription" >
+                    </ckeditor>
+                    
+                    <div class="d-flex flex-row-reverse editor-footer">
+                        <button class="btn btn-primary m-1" (click)="updatePerson()" type="button"> Save </button>
+                        <button class="btn btn-default m-1"  (click)="editShow.shortDescription=false"  type="button"> Cancel </button>
+                    </div>
+                    <div *ngIf="error" class="text-danger mt-3">{{error}}</div>
+                </div>
+                <div class="d-flex flex-row bd-highlight">
+                    <div class="flex-fill bd-highlight">
+                        <span class="project-section-title">Skills</span><br>
+                        <div class="container">
+                        <div class="row">
+                            <a *ngFor="let keyword of person.skills" class="btn keywords">{{keyword}}</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+    </div>
+
+    <div class="row mt-3">
+            <div class="col-sm-4">
+                    <span class="project-section-title">Active projects</span><br>
+            </div>
+    </div>
+
+
+
+
+    <div *ngFor="let project of projects" class=" mt-1 card shadow project-body proposal">
+
+            <div class="row">
+                    <div class="col-sm-2">
+                            <div class="media">
+                                    <img src="../../../assets/images/3.png" class="project-icon-small mr-2" alt="...">
+                                    <div class="media-body">
+                                      <a class="project-title-small mt-0" [routerLink]="['../../project', project.projectId]" >{{project.name}}</a>
+                                      <span class="project-author-small">
+                                          <small class="text-muted label-department-s">
+                                                <i class="fa fa-building"></i> {{project.department?.name}}
+                                          </small>
+                                      </span>
+                                    </div>
+                            </div>
+                    </div>
+            
+                    <div class="col-sm-2">
+                            <div class="d-flex flex-column">
+                                    <a class="value-sb mt-0">Status</a>
+                                    <span class="label-status-text">    <i class="fa fa-circle"></i>  {{project.status}}</span>
+                             </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                            <div class="d-flex flex-column">
+                                    <div class="d-flex">
+                                        <div  class="project-section-title align-self-center wf-50"> DATE:</div>
+                                        <span class="align-self-center value-simple"> <i class="fa fa-calendar"></i> {{project.startDate  | date:'dd.MM.yyyy'}} -  {{project.endDate  | date:'dd.MM.yyyy'}} </span>
+                                    </div>
+                           
+                             
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                    </div>
+                           </div>
+
+                    </div>
+
+        
+
+                    <div *ngIf="project.nextAction" class="col-sm-3">
+                            <div class="d-flex flex-column">
+                                    <a class="value-sb mt-0">Action: {{project.nextAction.name}} ({{project.nextAction.startDate  | date:'dd.MM.yyyy'}} )</a>
+                                    <span class="label-status-action">
+                                        <i class="fa fa-circle"></i>   {{project.nextAction.status}}
+                                    </span>
+                             </div>
+                    </div>
+        
+            </div>
+
+
+
+
+    </div>
+</div>

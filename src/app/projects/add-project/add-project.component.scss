@@ -2,6 +2,16 @@
 
 $brand-color: #863dd9;
 
+ :host ::ng-deep {
+    .abstract .ck-editor__editable_inline {
+        min-height: 100px;
+    }
+
+    .description .ck-editor__editable_inline {
+        min-height: 200px;
+    }
+}
+
 .border-top{
     border-top: 3px solid #848484;
 }

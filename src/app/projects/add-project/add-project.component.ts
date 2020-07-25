@@ -13,7 +13,7 @@ import { ProjectOverview, Project, Goal } from './../../core/model/project.model
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 
 export interface Fruit {
   name: string;

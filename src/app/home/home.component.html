@@ -1,54 +1,5 @@
-<app-header [userInfo]="userInfo" ></app-header>
-<app-sidebar [organisation]="organisation" ></app-sidebar>
+<app-header *ngIf="userInfo" [userInfo]="userInfo" ></app-header>
+<app-sidebar *ngIf="userInfo" [userInfo]="userInfo" [organisation]="organisation" ></app-sidebar>
 <section class="main-container">
   <router-outlet></router-outlet>
 </section>
-
-
-<!--mat-toolbar color="primary">
-
-  <a routerLink="/" fxLayout="row" fxLayoutAlign="start center" class="logo">
-    <img src="assets/images/logo-micr1o.png" class="logos" alt="logo">
-    <span class="mx-2">PPMS</span>
-  </a>
-  <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-  <span class="fill-remaining-space"></span>
-
-  <button aria-haspopup="true" class="ml-xs mat-icon-button" mat-icon-button="" [matMenuTriggerFor]="appMenu">
-    <span class="mat-button-wrapper">
-       <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">person</mat-icon>
-    </span>
-    <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div>
-    <div class="mat-button-focus-overlay"></div>
-  </button>
-
-  <mat-menu #appMenu="matMenu"  [overlapTrigger]="false">
-    <button mat-menu-item>
-      <mat-icon>person</mat-icon>
-      <a (click)="logout()"  >Logout</a>
-    </button>
-  </mat-menu>
-
-</mat-toolbar>
-
-
-	<mat-drawer-container class="fullscreen">
-
-
-		<mat-drawer class="sidenav" [opened] = "!(isHandset | async)!.matches" #snav [mode]="'side'">
-
-
-          <div class="user-block py-3" fxlayout="column" fxlayoutalign="center center">
-            <img alt="user-image" src="assets/images/users/user.jpg">
-            <h2 class="mt-2 ng-star-inserted" >{{userInfo?.lastName}} {{userInfo?.firstName}}</h2>
-            <p class="secondary-text-color ng-star-inserted" >{{userInfo?.email}}</p>
-          </div>
-
-
-          <mat-divider></mat-divider>
-          <div class="group-title"><span class="hint-text">{{userInfo?.type}} Menu</span></div>
-          <mat-nav-list>
-              <app-menu-item *ngFor="let item of menuItems" [menuItem]="item"></app-menu-item>
-          </mat-nav-list>
-
-		</mat-drawer-->

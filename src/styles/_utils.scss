@@ -1,5 +1,54 @@
 @import 'variables';
 
+
+.form-control:focus {
+    border: 1px solid  $app-primary-color;
+    box-shadow: none;
+}
+
+.modal-header {
+    background-color: #004a96;
+    color: #FFF;
+	 .close {
+	     opacity: 1;	
+	     span{
+             color: #FFF;	 
+ 		}
+	 }
+}
+
+.form-group {
+    label {
+           color: #5f5555;
+           display: inline-block;
+           margin-bottom: 0.5rem;
+           font-size: 13px;
+           font-weight: 900;
+           /* text-transform: uppercase; */
+           line-height: 0.4;
+    }
+}
+
+.form-control {
+font-size: 14px;
+width: 100%;
+height: 40px;
+font-family: 'Roboto', sans-serif;
+border: 1px solid #e5e5e5;
+border-radius: 3px;
+color: #242424;
+}
+
+
+.ck.ck-content {
+    border: 1px solid #e5e5e5 !important;
+}
+
+.ck.ck-balloon-panel {
+  z-index: 9999!important;
+}
+
+
 .avatar-group {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -333,6 +382,10 @@
    // background: white;
     border: 1px solid #e7eaec;
     background-color: #f8f9fa;
+}
+
+.btn.focus {
+    box-shadow: none;
 }
 
 /*

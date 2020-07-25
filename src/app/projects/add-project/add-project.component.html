@@ -1,5 +1,5 @@
 
-        <div class="page-header  pt-3 justify-content-center">
+        <div class="page-header  p-3 justify-content-center">
             <h3> New Project </h3>
         </div>
 
@@ -24,7 +24,7 @@
 
                     <div class="form-row">
                                 <div class="form-group  col-md-4">
-                                    <label for="inputAddress">University Logo</label>
+                                    <label for="inputAddress">Project Logo</label>
                                     <div class="avatar-upload">
                                         <div class="avatar-edit">
                                             <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
@@ -88,7 +88,7 @@
                     <div class="form-group">
                         <label for="description">Abstract</label>
                         <ckeditor  [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
-                                [editor]="Editor" formControlName="shortDescription" >
+                              class="abstract"  [editor]="Editor" formControlName="shortDescription" >
                         </ckeditor>
                         <div *ngIf="submitted && f.shortDescription.errors" class="text-danger">
                             <div *ngIf="f.shortDescription.errors.required">Abstract is required</div>
@@ -119,7 +119,7 @@
 
                     <div class="form-group">
                         <label>Description</label>
-                        <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                        <ckeditor class="description"  [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
                                 [editor]="Editor" formControlName="description" >
                         </ckeditor>
                         <div *ngIf="submitted && f.description.errors" class="text-danger">

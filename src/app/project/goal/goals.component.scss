@@ -4,7 +4,21 @@
 $border-radius:50%;
 @import '../../../styles/variables.scss';
 
+.file-link{
+  cursor: pointer;
+  color:  $app-primary-color;
+  font-weight: bold;
+  text-decoration: underline;
+  &:hover {
+      color:  $app-primary-color;
+  }
+}
 
+:host ::ng-deep {
+  .description .ck-editor__editable_inline {
+      min-height: 200px;
+  }
+}
 
 .sub-content{
   //position: relative;

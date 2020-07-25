@@ -26,6 +26,7 @@ export class ProjectOverview {
     department: ShortDepartment;
     imageId: string;
     extended: boolean;
+    nextAction: Goal;
 
 }
 
@@ -97,14 +98,14 @@ export class StatusFlow {
 /***********************PROJECT STATUS*********************************/
 
   export const P_PROPOSAL = new StatusProperties('PROPOSAL', 'Proposal', 'Proposal', [Role.STAFF]);
-  export const P_ASSIGNED = new StatusProperties('ASSIGNED', 'Assigned', 'Assign', [Role.STAFF]);
-  export const P_REGISTRATION = new StatusProperties('REGISTRATION', 'Registration', 'Regsiter', [Role.STAFF]);
-  export const P_START = new StatusProperties('START', 'Start', 'Start', [Role.STAFF]);
-  export const P_PROGRESS = new StatusProperties('PROGRESS', 'Progress', 'Progress', [Role.STAFF]);
-  export const P_SUSPEND = new StatusProperties('SUSPEND', 'Suspend', 'Suspend', [Role.STAFF]);
-  export const P_REALLOCATED = new StatusProperties('REALLOCATED', 'Re-Allocated', 'Re Allocate', [Role.STAFF]);
-  export const P_WITHDRAW = new StatusProperties('WITHDRAW', 'Withdraw', 'Withdraw', [Role.STAFF]);
-  export const P_COMPLETED = new StatusProperties('COMPLETED', 'Completed', 'Completed', [Role.STAFF]);
+  export const P_ASSIGNED = new StatusProperties('ASSIGNED', 'Assigned', 'Assign', [Role.STAFF, Role.MODULE_LEADER]);
+  export const P_REGISTRATION = new StatusProperties('REGISTRATION', 'Registration', 'Regsiter', [Role.STAFF, Role.MODULE_LEADER]);
+  export const P_START = new StatusProperties('START', 'Start', 'Start', [Role.MODULE_LEADER]);
+  export const P_PROGRESS = new StatusProperties('PROGRESS', 'Progress', 'Progress', [Role.STAFF, Role.MODULE_LEADER, Role.STUDENT]);
+  export const P_SUSPEND = new StatusProperties('SUSPEND', 'Suspend', 'Suspend', [Role.MODULE_LEADER]);
+  export const P_REALLOCATED = new StatusProperties('REALLOCATED', 'Re-Allocated', 'Re Allocate', [Role.MODULE_LEADER]);
+  export const P_WITHDRAW = new StatusProperties('WITHDRAW', 'Withdraw', 'Withdraw', [Role.MODULE_LEADER]);
+  export const P_COMPLETED = new StatusProperties('COMPLETED', 'Completed', 'Completed', [Role.MODULE_LEADER]);
 
   export const PROJECT_STATUS_FLOWS: Array<StatusFlow> = [
     new StatusFlow(P_PROPOSAL, [P_ASSIGNED]),
@@ -122,10 +123,10 @@ export class StatusFlow {
 
 /***********************GOAL STATUS*********************************/
   export const G_NEW = new StatusProperties('NEW', 'New', 'New', [Role.STAFF]);
-  export const G_START = new StatusProperties('START', 'Started', 'Start', [Role.STAFF]);
-  export const G_REVIEW = new StatusProperties('REVIEW', 'Review', 'Submit', [Role.STAFF]);
-  export const G_DECLINED = new StatusProperties('DECLINED', 'Declined', 'Decline', [Role.STAFF]);
-  export const G_COMPLETED = new StatusProperties('COMPLETED', 'Completed', 'Completed', [Role.STAFF]);
+  export const G_START = new StatusProperties('START', 'Started', 'Start', [Role.STAFF, Role.MODULE_LEADER, Role.STUDENT]);
+  export const G_REVIEW = new StatusProperties('REVIEW', 'Review', 'Submit', [Role.STAFF, Role.MODULE_LEADER]);
+  export const G_DECLINED = new StatusProperties('DECLINED', 'Declined', 'Decline', [Role.STAFF, Role.MODULE_LEADER]);
+  export const G_COMPLETED = new StatusProperties('COMPLETED', 'Completed', 'Completed', [Role.STAFF, Role.MODULE_LEADER]);
 
  export const GOAL_STATUS_FLOWS: Array<StatusFlow> = [
         new StatusFlow(G_NEW, [G_START]),

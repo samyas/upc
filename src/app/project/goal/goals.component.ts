@@ -1,7 +1,7 @@
 import { StatusProperties, G_REVIEW, G_DECLINED, G_COMPLETED } from './../../core/model/project.model';
 import { FileUploaderService } from '../../core/services/file-uploader.service';
 import { Observable } from 'rxjs/Observable';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { AddTaskComponent } from '../task/add-task.component';
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../core/services/project.service';
@@ -33,6 +33,8 @@ export class GoalsComponent implements OnInit {
   value = 50;
   persons: Array<Person> = [];
   public Editor = ClassicEditor;
+
+  files:  Array<any> = [];
 
   selectedPerson = null;
   // <img imgViewer [id]="consultant.photoFileId" default="../assets/img/avatar5.png" class="profile-user-img img-responsive img-circle"/>
@@ -101,9 +103,9 @@ export class GoalsComponent implements OnInit {
     return null;
   }
 
-  changeGoalStatus(goalId, nextStatus, task: Task) {
+  changeGoalStatus(goalId, nextStatus, editShow: EditShow) {
 
-        if (task === null && (nextStatus) && (nextStatus.code === G_REVIEW.code || nextStatus.code === G_DECLINED.code
+        if (editShow === null && (nextStatus) && (nextStatus.code === G_REVIEW.code || nextStatus.code === G_DECLINED.code
           || nextStatus.code === G_COMPLETED.code)) {
           this.showActionSubmit.goalId = goalId;
           this.showActionSubmit.nextStatus = nextStatus.code;
@@ -112,7 +114,8 @@ export class GoalsComponent implements OnInit {
           if (nextStatus) {
             this.showActionSubmit.nextStatus = nextStatus.code;
           }
-          this.projectService.updateGoalStatus(this.project.projectId, goalId,  this.showActionSubmit.nextStatus , task)
+          this.projectService.updateGoalStatusExt(this.project.projectId, goalId,  this.showActionSubmit.nextStatus ,
+             editShow.description, editShow.files)
           .subscribe( data => { this.loadProject(this.project.projectId); },
           error => {console.log(error);
             if (this.showActionSubmit.goalId) {
@@ -127,9 +130,10 @@ export class GoalsComponent implements OnInit {
   uploadFile(event) {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
-      this.uploadService.uploadFile(element, element.name, this.project.projectId, 'PROJECT')
-      .subscribe( data => {console.log('attch success'); this.loadProject(this.project.projectId); },
-      error => {console.log(error),  this.error = error.message; });
+      this.editShow.files.push(element);
+    //  this.uploadService.uploadFile(element, element.name, this.project.projectId, 'PROJECT')
+    //  .subscribe( data => {console.log('attch success'); this.loadProject(this.project.projectId); },
+    //  error => {console.log(error),  this.error = error.message; });
     }
   }
   deleteAttachment(key) {
@@ -199,11 +203,12 @@ export class GoalsComponent implements OnInit {
       );
   }
 
-  public openGoalDialog(goal: Goal) {
+  public openGoalDialog(goal?: Goal, isAction?: boolean) {
 
-    const modalRef = this.modalService.open(AddGoalComponent);
+    const modalRef = this.modalService.open(AddGoalComponent,  {windowClass: 'xlModal'});
     modalRef.componentInstance.projectId = this.project.projectId;
     modalRef.componentInstance.goal = goal;
+    modalRef.componentInstance.isAction = isAction;
     modalRef.result.then((result) => {
         console.log('modal sucess:' + result);
         this.loadProject(this.project.projectId);
@@ -214,35 +219,25 @@ export class GoalsComponent implements OnInit {
   }
 
 
-
-  updateProject() {
-    this.projectService.updateProject(this.project)
-    .subscribe( data => {
-      this.editShow.reset();
-      this.loadProject(this.project.projectId);
-    }
-    , error => {
-      console.log('failed to update project', error);
-      this.error = error.message;
-    });
-  }
-
 }
 
 class EditShow {
   title: boolean;
   shortDescription: boolean;
-  description: boolean;
+  description: string;
+  files: Array<any>;
 
   constructor() {
     this.title = false;
     this.shortDescription = false;
-    this.description = false;
+    this.description = null;
+    this.files = [];
   }
 
   reset() {
     this.title = false;
     this.shortDescription = false;
-    this.description = false;
+    this.description = null;
+    this.files = [];
   }
 }

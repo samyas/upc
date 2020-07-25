@@ -1,6 +1,6 @@
 import { Term, Module } from './../../core/model/organisation.model';
 import { SharedDataService } from '../../core/services/shared-data.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { of } from 'rxjs';

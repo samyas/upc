@@ -8,6 +8,7 @@ import { Person } from '../core/model/person.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPersonComponent } from './add/add-person.component';
 import { OrganisationService } from '../core/services/organisation.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-persons',
@@ -18,7 +19,14 @@ export class PersonsComponent implements OnInit {
 
   public  nbrs: Array<any> = [1, 2, 3, 4, 5, 7, 8, 9, 10];
 
-  constructor( private modalService: NgbModal, private  personService: PersonService, private organisationService: OrganisationService) { }
+  constructor( private modalService: NgbModal, private  personService: PersonService,
+    private organisationService: OrganisationService, private route: ActivatedRoute) {
+      this.route.data.subscribe(data => {
+        this.isStudent  = data.type === 'STAFF' ? false : true;
+        this.loadData();
+    });
+
+    }
 
    list = true;
 
@@ -27,6 +35,7 @@ export class PersonsComponent implements OnInit {
   public currentPerson: Person = new Person();
   public departments: Array<Module> = [];
   submitted = false;
+  isStudent = null;
   serverError = '';
 
   total = 5;
@@ -37,9 +46,7 @@ export class PersonsComponent implements OnInit {
   organisation: Organisation = new Organisation();
 
   onPageChange(e) {
-    console.log('ev', e);
     this.page = e;
-   // this.pageSize = e.pageSize;
     this.loadData();
 
   }
@@ -50,7 +57,7 @@ export class PersonsComponent implements OnInit {
   }
 
   loadData() {
-    this.personService.getPagedPersons(null, null, this.page, this.pageSize).subscribe(
+    this.personService.getFiltredPagedPersons(null, this.isStudent, null, this.page, this.pageSize).subscribe(
       data => {
         this.persons =  data.content;
         this.total = data.totalElements;
@@ -64,6 +71,19 @@ export class PersonsComponent implements OnInit {
     );
   }
 
+  refreshWorkload() {
+    this.personService.syncAll(null).subscribe(
+      data => {
+        this.loadData();
+
+        this.serverError  = null;
+      }
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
+    );
+  }
 
   getPersonInfo() {
     this.personService.getPersonCurrent().subscribe( data => {

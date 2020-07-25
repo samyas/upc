@@ -36,8 +36,16 @@ export class PersonService {
     return this.http.get<Person>(PersonService.PERSON_URI + '/' + id);
   }
 
+  getPersonProjects(id: string): Observable<Array<ProjectOverview>> {
+    return this.http.get<Array<ProjectOverview>>(PersonService.PERSON_URI + '/' + id + '/projects');
+  }
+
   getPersonCurrent(): Observable<Person> {
     return this.http.get<Person>(PersonService.PERSON_URI + '/current/info');
+  }
+
+  syncAll(moduleId: string): Observable<any> {
+    return this.http.put(PersonService.PERSON_URI + '/sync-all?departmentId=' + moduleId, {},  {responseType: 'text'});
   }
 
   addPerson(person: Person): Observable<any> {

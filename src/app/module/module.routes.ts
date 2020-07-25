@@ -5,6 +5,7 @@ import { ModuleComponent } from './module.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActionsComponent } from './action/actions.component';
+import { FilesComponent } from './files/files.component';
 
 
 @NgModule({
@@ -37,6 +38,11 @@ import { ActionsComponent } from './action/actions.component';
         path: 'configuration',
         component: ConfigurationComponent,
         data: {num: 3}
+      },
+      {
+        path: 'files',
+        component: FilesComponent,
+        data: {num: 4}
       }
 
     ]

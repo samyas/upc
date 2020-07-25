@@ -1,27 +1,31 @@
 
-import { ModuleWithProviders } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
 
 import { SupervisorDashboardComponent } from './supervisor-dashboard.component';
 import { LeaderDashboardComponent } from './leader-dashboard.component';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 
-export const DashboardRoutes: Route[] = [
-  {
-    path: 'supervisor',
+
+
+@NgModule({
+  imports: [RouterModule.forChild([
+     {
+    path: '',
     component: SupervisorDashboardComponent,
     data: {
       title: 'Dashboard'
     }
   },
-
   {
-    path: 'leader',
+    path: '',
     component: LeaderDashboardComponent,
     data: {
       title: 'Dashboard'
     }
-  }
-];
+  },
 
-export const dashboardRouting: ModuleWithProviders = RouterModule.forChild(DashboardRoutes);
+  ])],
+  exports: [RouterModule]
+})
+export class DashboardRoutingModule {}

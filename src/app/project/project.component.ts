@@ -3,12 +3,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../core/services/project.service';
 import { ActivatedRoute, ParamMap, RouterOutlet } from '@angular/router';
-import { Project } from '../core/model/project.model';
+import { Project, P_PROPOSAL, P_ASSIGNED, Member } from '../core/model/project.model';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { PersonService } from 'src/app/core/services/person.service';
-import { Person } from 'src/app/core/model/person.model';
+import { Person, Role } from 'src/app/core/model/person.model';
 import { routerAnimation } from '../core/config/route-animation';
+import { User } from '../core/model/auth.model';
 
 
 
@@ -20,20 +21,15 @@ import { routerAnimation } from '../core/config/route-animation';
 })
 export class ProjectComponent implements OnInit {
 
-  value = 50;
-  persons: Array<Person> = [];
   project: Project = new Project();
   error = null;
 
-  constructor(private route: ActivatedRoute, private projectService: ProjectService,
-    private  personService: PersonService
-    ) { }
+  constructor(private route: ActivatedRoute, private projectService: ProjectService) { }
 
   ngOnInit() {
     this.route.paramMap.pipe(
         switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
         this.loadProject(id);
-        this.loadPersonData();
       });
   }
 
@@ -50,14 +46,5 @@ export class ProjectComponent implements OnInit {
          this.projectService.getProjectDetail(id).subscribe(
          data => {this.project = data; },
          error => console.log(error));
-    }
-
-    loadPersonData() {
-      this.personService.getPersons().subscribe(
-        data => {
-          this.persons =  data;
-        }
-        ,  error => this.error = error.message
-      );
     }
 }

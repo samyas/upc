@@ -5,6 +5,8 @@
             <div class="d-flex flex-row form-material  p-3  mx-auto" style="width: 600px;">
                 <input type="text" [(ngModel)]="goal.name" placeholder="Set a goal" class="form-control form-control-line">
                 <button class="btn-rounded btn-action"  (click)="openGoalDialog(null)"  type="button"><i class="fa fa-plus"></i> </button>
+
+                <button class="pl-2 btn-rounded btn-action"  (click)="openGoalDialog(null, true)"  type="button"><i class="fa fa-plus"></i> </button>
             </div>
      </div>
   </div>
@@ -48,8 +50,9 @@
                                 <div ngbDropdown class="goal-action padding-top-5">
                                         <button class="btn btn-circle" ngbDropdownToggle><i class="fa fa-ellipsis-v"></i></button>
                                         <div class="dropdown-menu" ngbDropdownMenu>
-                                          <a class="dropdown-item"(click)=openTaskDialog(gl.goalId)><i class="fa fa-plus-circle pr-2"></i> Add Task</a>
-                                          <a class="dropdown-item"(click)="openGoalDialog(gl)"><i class="fa fa-pencil pr-2"></i>Edit Goal</a>
+                                          <a class="dropdown-item" *ngIf="!gl.actionId" (click)=openTaskDialog(gl.goalId)><i class="fa fa-plus-circle pr-2"></i> Add Task</a>
+                                          <a class="dropdown-item" *ngIf="!gl.actionId" (click)="openGoalDialog(gl)"><i class="fa fa-pencil pr-2"></i>Edit Goal</a>
+                                          <a class="dropdown-item" *ngIf="!!gl.actionId" (click)="openGoalDialog(gl, true)"><i class="fa fa-pencil pr-2"></i>Edit Action</a>
                                           <div role="separator" class="dropdown-divider"></div>
                                           <a class="dropdown-item" (click)="deleteGoal(gl.goalId)"><i class="fa fa-trash-o pr-2"></i>Delete</a>
                                         </div>
@@ -67,6 +70,13 @@
                             <div  class="" [ngbCollapse]="selectedGoalId!=gl.goalId">
 
                                   <div  class="card-text" [innerHTML]="gl.description | truncatetext:150"></div>
+                                  <div class="row pb-2">
+                                    <div class="d-flex flex-row" *ngFor="let attachment of gl.attachmentsArrayList">
+                                      <div class="pl-3">
+                                        <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
+                                      </div> 
+                                    </div>
+                                  </div>
 
                                   <div *ngIf="gl.actionId || gl.isAction" >
 
@@ -87,13 +97,22 @@
                                                             updates status <strong> {{tsk.name}}</strong>  at <strong> {{tsk.startDate  | date:'dd-MM-yyyy HH:mm'}}</strong>
                                                             </span>
                                                           <div class="card-text" [innerHTML]="tsk.description | truncatetext:150"></div>
+
+                                                          <div class="row pb-2">
+                                                              <div class="d-flex flex-row" *ngFor="let at of tsk.attachmentList">
+                                                                <div class="pl-3">
+                                                                  <a class="file-link" (click)="download(at.key, at.fileName, at.contentType)">{{ at.fileName }} </a>
+                                                                </div> 
+                                                              </div>
+                                                            </div>
+
                                                       </div>
                                                   </div>
                                               </div>
 
                                         </div>
 
-                                        <div class="d-flex flex-row-reverse">
+                                        <div class="d-flex flex-row-reverse pb-2">
                                             <button *ngFor="let cs of getNextStatus(gl.status)" class="btn action-bg-color mr-2" type="button"
                                                   (click)="changeGoalStatus(gl.goalId, cs, null)"> {{cs.action}}
                                             </button>
@@ -102,13 +121,29 @@
                   
                                         <div *ngIf="showActionSubmit.goalId==gl.goalId">
                                           <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
-                                                [editor]="Editor" [(ngModel)]="task.description" >
+                                              class="description"  [editor]="Editor" [(ngModel)]="editShow.description" >
                                           </ckeditor>
                                           
-                                          <div class="d-flex flex-row-reverse editor-footer">
-                                              <button class="btn btn-primary m-1" (click)="changeGoalStatus(gl.goalId, null, task)" type="button"> Save </button>
-                                              <button class="btn btn-default m-1"  (click)="init()"  type="button"> Cancel </button>
+                                          <div class="editor-footer">
+                                              <div *ngFor="let item of editShow.files" class="">
+                                                  <div class="pl-3">
+                                                      <a class="file-link">{{ item.name }} </a>
+                                                   </div> 
+                                              </div>
+
+                                              <div class="d-flex justify-content-between">
+                                                  <div class="p-1">
+                                                       <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                                                       <a class="btn btn-default btn-sm" (click)="fileInput.click()"><i class="fa fa-paperclip"></i></a>
+                                                  </div>
+                                                  <div class="d-flex flex-row-reverse">
+                                                      <button class="btn btn-primary m-1" (click)="changeGoalStatus(gl.goalId, null, editShow)" type="button"> Save </button>
+                                                      <button class="btn btn-default m-1"  (click)="init()"  type="button"> Cancel </button>
+                                                   </div>
+                                              </div>
+                                
                                           </div>
+                                     
                                           <div *ngIf="errorSubmit" class="text-danger mt-3">{{errorSubmit}}</div>
                                         </div>
 

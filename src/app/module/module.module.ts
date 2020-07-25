@@ -1,3 +1,4 @@
+import { FilesComponent } from './files/files.component';
 import { AddTermComponent } from './configration/add-term.component';
 import { SharedDataService } from './../core/services/shared-data.service';
 import { ModuleRoutingModule } from './module.routes';
@@ -32,7 +33,7 @@ import { ModuleOverviewComponent } from './overview/module-overview.component';
 @NgModule({
   declarations: [ModuleComponent,
     AddActionComponent, ActionsComponent, AddTermComponent,
-     ModuleOverviewComponent, ConfigurationComponent],
+     ModuleOverviewComponent, ConfigurationComponent, FilesComponent],
   imports: [
     CommonModule, SharedModule, ModuleRoutingModule, NgSelectModule, CKEditorModule
   ],

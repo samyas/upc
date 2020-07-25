@@ -1,3 +1,4 @@
+import { ModuleFile } from './../model/file-descriptor.model';
 import { environment } from '../../../environments/environment';
 
 import { Injectable } from '@angular/core';
@@ -11,18 +12,19 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 
 import * as FileSaver from 'file-saver';
+import { FileDescriptor } from '../model/file-descriptor.model';
 
 @Injectable()
 export class FileDownloadService {
 
 
-  public static readonly DOWNLOAD_URI = environment.baseUrl + 'files/download';
+  public static readonly DOWNLOAD_URI = environment.baseUrl + 'files/';
   constructor(private http: HttpClient) {}
 
     downloadFile(id: string, fileName: string, contentType: string) {
         const options = new HttpHeaders({'responseType': 'blob' });
 
-         this.http.get(FileDownloadService.DOWNLOAD_URI + '?key=' + id, {'responseType': 'blob' })
+         this.http.get(FileDownloadService.DOWNLOAD_URI  + 'download?key=' + id, {'responseType': 'blob' })
          .subscribe(res => {
            // window.open(window.URL.createObjectURL(res));
            this.showFile(res, fileName, contentType);
@@ -54,6 +56,29 @@ export class FileDownloadService {
           window.URL.revokeObjectURL(data);
         }, 100);
       }
+
+
+
+      fileList(id: string): Observable<Array<ModuleFile>> {
+        return this.http.get<Array<ModuleFile>>(FileDownloadService.DOWNLOAD_URI  + 'list?moduleId=' + id);
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
        /*  .subscribe(response => {
                      let blob: any = new Blob([response.blob()], { type: 'text/json; charset=utf-8' });
                      const url = window.URL.createObjectURL(blob);

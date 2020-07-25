@@ -2,7 +2,7 @@ import { SharedDataService } from './../../core/services/shared-data.service';
 import { Action } from './../../core/model/organisation.model';
 import { FileUploaderService } from '../../core/services/file-uploader.service';
 import { Observable } from 'rxjs/Observable';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, NavigationStart } from '@angular/router';
 import { of } from 'rxjs';
@@ -84,10 +84,21 @@ export class ActionsComponent implements OnInit {
   }
 }
 
+/*
+deleteAttachment(key) {
+  this.uploadService.deleteFile(key, 'MODULE', this.project.projectId)
+    .subscribe( data => { this.loadActions(); },
+    error => {
+      console.log(error);
+      this.error = error.message;
+    });
+}
+*/
+
 
   public openActionDialog(action: Action) {
 
-    const modalRef = this.modalService.open(AddActionComponent);
+    const modalRef = this.modalService.open(AddActionComponent, {windowClass: 'xlModal'} );
     modalRef.componentInstance.moduleId = this.moduleId;
     modalRef.componentInstance.action = action;
     modalRef.result.then((result) => {

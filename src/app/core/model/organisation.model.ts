@@ -31,8 +31,6 @@ export class Organisation {
     departments: Array<Module>;
     responsible: ShortPerson;
     creationDate: string;
-
-
 }
 
 
@@ -46,7 +44,7 @@ export class Action {
     dayNbr: number;
     order: number;
     beforeStart: boolean;
-    attachmentsArrayList: Array<FileDescriptor>;
+    attachmentList: Array<FileDescriptor>;
 }
 
 

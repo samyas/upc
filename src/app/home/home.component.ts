@@ -1,3 +1,4 @@
+import { PersonService } from 'src/app/core/services/person.service';
 import { SharedDataService } from './../core/services/shared-data.service';
 import { MenuItem } from './../shared/menu-item/menu-item.model';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +20,8 @@ import { OrganisationService } from '../core/services/organisation.service';
 export class HomeComponent implements OnInit {
   public settings: Settings;
   menuItems: Array<MenuItem> = [];
-  userInfo: User = new User();
+  userInfo: User = null;
+  serverError = null;
   organisation: Organisation = new Organisation();
 
   items: Array<MenuItem> = [
@@ -57,68 +59,16 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  modelSupervisorItems: Array<MenuItem> = [
-    {
-      label: 'Dashboards',
-      icon: 'dashboard',
-      link: './dashboard/leader'
-    },
-    {
-      label: 'Projects',
-      icon: 'computer',
-      link: './project'
-    }
-  ];
 
-  modelManagerItems: Array<MenuItem> = [
-    {
-      label: 'Dashboards',
-      icon: 'dashboard',
-      link: './dashboard/leader'
-    },
-    {
-      label: 'Persons',
-      icon: 'supervisor_account',
-      link: './persons'
-    },
-    {
-      label: 'Users',
-      icon: 'supervisor_account',
-      link: './users'
-    },
-    {
-      label: 'My Projects',
-      icon: 'computer',
-      link: './project'
-    },
-    {
-      label: 'University',
-      icon: 'computer',
-      link: './organisation'
-    }
-  ];
-
-  modelStudentsItems: Array<MenuItem> = [
-    {
-      label: 'Dashboards',
-      icon: 'dashboard',
-      link: './dashboard/leader'
-    },
-    {
-      label: 'My Projects',
-      icon: 'computer',
-      link: './project'
-    }
-  ];
-
-  constructor( private router: Router, private auhtService: AuthService, public organisationService: OrganisationService,
+  constructor( private router: Router, private auhtService: AuthService,
+    public organisationService: OrganisationService,
     public appSettings: AppSettings, private dataService: SharedDataService) {
     this.settings = this.appSettings.settings;
   }
 
 
   ngOnInit() {
-    this.menuItems = this.modelManagerItems;
+ //   this.menuItems = this.modelManagerItems;
     this.auhtService.userInfo().subscribe(
       data => { this.userInfo = data;
         this.dataService.saveUser(this.userInfo);
@@ -145,7 +95,6 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
 
 
   changeTheme(theme: string) {

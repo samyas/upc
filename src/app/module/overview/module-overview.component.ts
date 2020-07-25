@@ -1,6 +1,6 @@
 import { FileUploaderService } from './../../core/services/file-uploader.service';
 import { Observable } from 'rxjs/Observable';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { of } from 'rxjs';

@@ -1,7 +1,7 @@
 import { StatusProperties } from './../../core/model/project.model';
 import { T_ALL_STATUS } from 'src/app/core/model/task.model';
 import { Component, OnInit, Inject, Input } from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { Task, Message } from '../../core/model/task.model';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { ActivatedRoute } from '@angular/router';

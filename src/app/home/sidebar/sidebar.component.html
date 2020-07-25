@@ -15,25 +15,40 @@
         <!--div class="menu-header mt-3 mb-2"> Main Activity </div-->
 
         <div class="menu-bar">
+                <a routerLink="./dashboard" [routerLinkActive]="['router-link-active']" class="list-group-element">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
             <a routerLink="./project" [routerLinkActive]="['router-link-active']" class="list-group-element">
                 <i class="fa fa-fw fa-dashboard"></i>
                 <span>Projects</span>
             </a>
-            <a [routerLink]="['./persons']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <a *ngIf="!!isModelLeaderOrAdminCreator()" [routerLink]="['./staff']" [routerLinkActive]="['router-link-active']" class="list-group-element">
                 <i class="fa fa-fw fa-bar-chart-o"></i>
-                <span>Persons</span>
+                <span>STAFF</span>
+            </a>
+
+            <a *ngIf="!!isModelLeaderOrAdminCreator()" [routerLink]="['./students']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+                <i class="fa fa-fw fa-bar-chart-o"></i>
+                <span>Students</span>
             </a>
 
             <!--div class="menu-header mt-3 mb-2"> University </div-->
 
-            <a [routerLink]="['./users']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <a *ngIf="!!isAdmin()" [routerLink]="['./users']" [routerLinkActive]="['router-link-active']" class="list-group-element">
                 <i class="fa fa-fw fa-desktop"></i>
                 <span>New Requests</span>
             </a>
-            <a [routerLink]="['./modules']" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <a [routerLink]="['./organisation']" [routerLinkActive]="['router-link-active']" class="list-group-element">
                 <i class="fa fa-fw fa-wrench"></i>
                 <span>Organisation</span>
             </a>
+
+            <a *ngIf="userInfo.department" [routerLink]="['./modules',  userInfo.department.id]" [routerLinkActive]="['router-link-active']" class="list-group-element">
+                <i class="fa fa-fw fa-desktop"></i>
+                <span>{{userInfo.department.name}}</span>
+            </a>
+
         </div>
 
 

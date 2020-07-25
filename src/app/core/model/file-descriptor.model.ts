@@ -5,3 +5,10 @@ export class FileDescriptor {
     contentType: string;
     key: string;
 }
+
+
+export class ModuleFile extends FileDescriptor {
+    id: string;
+    identifier: string;
+    moduleId: string;
+}

@@ -1,6 +1,9 @@
 @import '../../../styles/variables.scss';
 $brand-color: #863dd9;
 
+
+
+
 .action-box{
     .title{
       background-color : $brand-color;
@@ -43,3 +46,14 @@ $brand-color: #863dd9;
     }
  }
  
+
+ 
+.file-link{
+  cursor: pointer;
+  color:  $app-primary-color;
+  font-weight: bold;
+  text-decoration: underline;
+  &:hover {
+      color:  $app-primary-color;
+  }
+}

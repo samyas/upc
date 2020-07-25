@@ -29,23 +29,24 @@ export class FileUploaderService {
     formData.append('id', id);
     formData.append('type', type);
 
-    return this.http.post<any>(FileUploaderService.UPLOAD_URI + 'upload/', formData,
+    return this.http.post(FileUploaderService.UPLOAD_URI + 'upload/', formData,
       {
+        responseType: 'text',
      //   headers: {'Content-Type': 'multipart/form-data'} ,
       reportProgress: true,
       observe: 'events'
     }).pipe(map((event) => {
-
+      console.log('ev ty', event.type);
       switch (event.type) {
 
-        case HttpEventType.UploadProgress:
+       /* case HttpEventType.UploadProgress:
           const progress = Math.round(100 * event.loaded / event.total);
-          return { status: 'progress', message: progress };
+          return { status: 'progress', message: progress };*/
 
         case HttpEventType.Response:
           return event.body;
-        default:
-          return `Unhandled event: ${event.type}`;
+        // default:
+        // return `Unhandled event: ${event.type}`;
       }
     })
     );

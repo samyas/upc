@@ -47,11 +47,11 @@ $brand-color: #863dd9;
     display: inline-block;
     font-size: 12px;
     padding: 5px 10px;
-    width: 120px;
+    min-width: 120px;
     margin-bottom: 5px;
     text-transform: uppercase;
-    border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
+   // border-bottom-right-radius: 25px;
+   // border-bottom-left-radius: 25px;
     span{
         padding-left: 12px;
     }

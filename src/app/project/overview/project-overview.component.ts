@@ -2,16 +2,16 @@ import { Term } from './../../core/model/organisation.model';
 import { SharedDataService } from 'src/app/core/services/shared-data.service';
 import { FileUploaderService } from './../../core/services/file-uploader.service';
 import { Observable } from 'rxjs/Observable';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from './../../core/services/project.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Project, Member, PROJECT_STATUS_FLOWS, StatusProperties } from './../../core/model/project.model';
+import { Project, Member, PROJECT_STATUS_FLOWS, StatusProperties, P_PROPOSAL, P_ASSIGNED } from './../../core/model/project.model';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PersonService } from 'src/app/core/services/person.service';
-import { Person } from 'src/app/core/model/person.model';
+import { Person, Role } from 'src/app/core/model/person.model';
 import { FileDownloadService } from 'src/app/core/services/file-download.service';
 import { OrganisationService } from 'src/app/core/services/organisation.service';
 import { AssignPersonsComponent } from '../assign/assign-persons.component';
@@ -41,8 +41,8 @@ export class ProjectOverviewComponent implements OnInit {
   currentUser: User = new User();
   userMember: Member = null;
   error = null;
-  showSign = null;
   public editShow = new EditShow();
+  public vh = new ViewHide();
   termWithmembers: Array<Member> = [];
   actions: Array<StatusProperties> = [];
 
@@ -79,15 +79,36 @@ export class ProjectOverviewComponent implements OnInit {
   init() {
     this.error = null;
   }
+  refreshDisableAssign() {
+    console.log('tet', this.project.status,  this.currentUser.roles);
+    if (this.project.statusCode === P_PROPOSAL.code) {
+         if (this.currentUser.roles.includes(Role.STAFF) ||
+         this.currentUser.roles.includes(Role.MODULE_LEADER)) {
+              this.vh.assign = true;
+         }
+    }
 
+    if (this.project.statusCode === P_PROPOSAL.code || this.project.statusCode === P_ASSIGNED.code) {
+      if (this.currentUser.roles.includes(Role.MODULE_LEADER) ||
+          ((this.currentUser.roles.includes(Role.STAFF) || this.currentUser.roles.includes(Role.STUDENT)) && this.userMember) ||
+          (this.project.creator.personId === this.currentUser.personId)
+          ) {
+           this.vh.edit = true;
+      }
+    }
+  }
   refreshNextStatus() {
-    this.actions = PROJECT_STATUS_FLOWS.find(x => x.current.code === this.project.statusCode).next;
+    const next: Array<StatusProperties> = PROJECT_STATUS_FLOWS.find(x => x.current.code === this.project.statusCode).next;
+    if (next) {
+      console.log('sss', next, this.currentUser);
+      this.actions =    next.filter(x => x.roles.includes(this.currentUser.roles[0]));
+    }
   }
 
    loadProject(id: string) {
    // this.dataService.currentUser.subscribe( u => {this.currentUser = u;
          this.projectService.getProjectDetail(id).subscribe(
-         data => {this.project = data; this.refreshNextStatus(); this.loadModuleIfNeeded(this.project.department.id);
+         data => {this.project = data; this.loadModuleIfNeeded(this.project.department.id);
           this.loadUserProfile(); this.init(); },
          error => {
           console.log(error);
@@ -98,7 +119,12 @@ export class ProjectOverviewComponent implements OnInit {
 
    loadUserProfile() {
     this.dataService.currentUser.subscribe(
-    data => {this.currentUser = data;  this.syncProjectWithUser(); },
+    data => {
+              this.currentUser = data;
+              this.syncProjectWithUser();
+              this.refreshDisableAssign();
+              this.refreshNextStatus();
+            },
     error => {
      console.log(error);
    });
@@ -266,5 +292,24 @@ class EditShow {
     this.title = false;
     this.shortDescription = false;
     this.description = false;
+  }
+}
+
+
+class ViewHide {
+  assign: boolean;
+  edit: boolean;
+  resume: boolean;
+
+  constructor() {
+    this.assign = false;
+    this.edit = false;
+    this.resume = false;
+  }
+
+  reset() {
+    this.assign = false;
+    this.edit = false;
+    this.resume = false;
   }
 }

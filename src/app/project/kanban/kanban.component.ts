@@ -1,7 +1,7 @@
 import { StatusProperties, G_REVIEW, G_DECLINED, G_COMPLETED } from '../../core/model/project.model';
 import { FileUploaderService } from '../../core/services/file-uploader.service';
 import { Observable } from 'rxjs/Observable';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { AddTaskComponent } from '../task/add-task.component';
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../core/services/project.service';
@@ -131,28 +131,7 @@ export class KanbanComponent implements OnInit {
     return null;
   }
 
-  changeGoalStatus(goalId, nextStatus, task: Task) {
 
-        if (task === null && (nextStatus) && (nextStatus.code === G_REVIEW.code || nextStatus.code === G_DECLINED.code
-          || nextStatus.code === G_COMPLETED.code)) {
-          this.showActionSubmit.goalId = goalId;
-          this.showActionSubmit.nextStatus = nextStatus.code;
-          this.errorSubmit = null;
-        } else {
-          if (nextStatus) {
-            this.showActionSubmit.nextStatus = nextStatus.code;
-          }
-          this.projectService.updateGoalStatus(this.project.projectId, goalId,  this.showActionSubmit.nextStatus , task)
-          .subscribe( data => { this.loadProject(this.project.projectId); },
-          error => {console.log(error);
-            if (this.showActionSubmit.goalId) {
-              this.errorSubmit =  error.message;
-             } else {
-              this.error = error.message;
-            }
-              });
-        }
-  }
 
   changeStatus(taskToChange, newStatus) {
     this.projectService.changeStatuTask(this.project.projectId,  this.goal.goalId, taskToChange, newStatus).subscribe(

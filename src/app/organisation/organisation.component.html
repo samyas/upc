@@ -78,7 +78,9 @@
                             <button class="ml-2 btn app-primary  btn-outline"   [class.focus] = "!selectedModuleType" (click)="setCurrentModuleType(null)" type="button">ALL</button>
                             <button *ngFor="let m of moduleTypes" class="ml-2 btn app-primary btn-outline" 
                                  [class.focus] = "selectedModuleType==m" (click)="setCurrentModuleType(m)" type="button"> {{m}} </button>            
-                            <button class="ml-2 btn app-primary btn-outline" (click)="openDialog()" type="button"><i class="fa fa-plus mr-2"></i>NEW MODULE</button>
+                            <button *ngIf="isAdminCreator" class="ml-2 btn app-primary btn-outline" (click)="openDialog()" type="button">
+                                <i class="fa fa-plus mr-2"></i>NEW MODULE
+                            </button>
                     </div>
             
         </div>
@@ -107,7 +109,7 @@
                                         <div class="p-2 bd-highlight"><i class="fa fa-user"></i>28</div>
                                 </div>
 
-                                <div class="d-flex justify-content-around">
+                                <div  *ngIf="isAdminCreator" class="d-flex justify-content-around">
                                     <button class="nav-link btn app-primary btn-outline" type="button" [routerLink]="['.', dep.departmentId]">
                                         <i class="fa fa-eye"></i> View Module
 

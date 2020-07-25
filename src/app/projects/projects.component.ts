@@ -25,28 +25,21 @@ export class ProjectsComponent implements OnInit {
 
   list = false;
   projects: Array<ProjectOverview> = [];
-  length = 100;
-  pageIndex = 0;
-  pageSize = 20;
-  pageSizeOptions = [10, 25, 50];
+
   assign: Boolean = true;
   options: string[] = ['One', 'Two', 'Three'];
   persons: Array<Person> = [];
   serverError = null;
   departmentId = null;
 
+  total = 5;
+  page = 0;
+  pageSize = 10;
+  pageSizeOptions = [10, 25, 50];
 
-  public from = 1;
-  public to = 1;
-  public total = 0;
-  public isNext = false;
-  public isPrevious = false;
-  public isNextNext = false;
-  public isPreviousPrevious = false;
 
   onPageChange(e) {
-    this.pageIndex = e.pageIndex;
-    this.pageSize = e.pageSize;
+    this.page = e;
     this.loadData();
   }
 
@@ -59,19 +52,11 @@ export class ProjectsComponent implements OnInit {
 
 
   loadData() {
-    this.projectService.getPagedProjects(null, null, this.pageIndex, this.pageSize).subscribe(
+    this.projectService.getPagedProjects(null, null, this.page, this.pageSize).subscribe(
       data => {
         this.total = data.totalElements;
         this.projects = data.content;
         this.serverError  = null;
-      this.from = 1 + (data.number *  this.pageSize);
-      this.to = this.from + (data.numberOfElements - 1);
-      this.isNext = this.to < this.total;
-      this.isPrevious = !(this.from === 1);
-
-      this.isNextNext = (this.to + this.pageSize) < this.total;
-      this.isPreviousPrevious = !( (this.from - this.pageSize) <= 1);
-
       }
       , error =>  {
         console.log(error);
@@ -81,28 +66,22 @@ export class ProjectsComponent implements OnInit {
 
   }
 
-  next() {
-    this.pageIndex += 1;
-    this.loadData();
-  }
-  previous() {
-    this.pageIndex -= 1;
-    this.loadData();
-  }
-
-  nextnext() {
-    this.pageIndex += 2;
-    this.loadData();
-  }
-  previousprevious() {
-    this.pageIndex -= 2;
-    this.loadData();
-  }
-
   apply(projectId, apply: Apply) {
     this.projectService.apply(projectId, apply).subscribe(
       data => {
         this.serverError  = null;
+      }
+      , error => {
+        console.log(error);
+        this.serverError = error.message;
+      }
+    );
+  }
+
+  delete(projectId) {
+    this.projectService.deleteProject(projectId).subscribe(
+      data => {
+        this.loadData();
       }
       , error => {
         console.log(error);
@@ -127,39 +106,4 @@ export class ProjectsComponent implements OnInit {
 
 
 }
-
-/*
-const ELEMENT_DATA: ProjectOverview[] = [
-  {projectId: '1', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-   examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-    nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-  {projectId: '2', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-   examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-    nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-    {projectId: '3', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-     examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-      nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-      {projectId: '4', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-       examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-        nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-        {projectId: '5', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-         examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-          nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-          {projectId: '6', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-           examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-            nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-            {projectId: '7', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-             examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-              nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-              {projectId: '8', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-               examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-                nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-                {projectId: '9', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-                 examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-                  nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12},
-           {projectId: '10', name: 'Chemical Research ', description: 'desc', startDate: '45', endDate: '12',  supervisor:  supervisor,
-                   examinator: examinator, creator: supervisor, students: students, status: 'NEW', nbrMileStones: 8, nbrTasks: 20,
-                    nbrCheckPoint: 2, imageId: 'ds', category: 'low', progress: 12}
-
-];*/
 

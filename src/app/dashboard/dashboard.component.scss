@@ -1,0 +1,144 @@
+
+@import '../../styles/variables.scss';
+.bg-app{
+    background:  $app-secondary-color-3;
+}
+
+.panel-title{
+    color: #FFF;
+    text-transform: uppercase;
+}
+
+
+.project-section-title{
+    //  text-transform: uppercase;
+      font-size: 0.8rem;
+      color: #999;
+      font-weight: 700;
+  }
+ 
+  .project-title{
+     font-size: 1.3rem;
+     color: #48465b;
+     font-weight: 600;
+ }
+ 
+ .project-icon {
+     width: 65px;
+     height: 65px;
+     border-radius: 50%;
+ }
+ 
+ .center-box{
+     align-self: center;
+ }
+  
+ .project-icon-small {
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+ }
+ 
+ 
+ .project-title-small{
+     color: #48465b;
+     font-weight: 600;
+     cursor: pointer;
+     &:hover{
+         text-decoration: underline;
+       
+ 
+     }
+ }
+ .project-author-small{
+     color: #595d6e;
+     font-weight: 500;
+     display: block;
+ }
+ 
+ .label-department-s{
+     color: $app-secondary-color-3;
+ }
+ .label-status-text{
+     color: $app-secondary-color-3;
+     font-size: 16px;
+     font-weight: 600;
+     text-transform: uppercase;
+ }
+ 
+ .label-status-action{
+     color: #2e7d06;
+     font-size: 12px;
+     font-weight: 600;
+     text-transform: uppercase;
+ }
+ 
+ .project-body{
+     padding : 15px 15px 15px 15px;
+   }  
+ 
+ 
+   .label-s{
+     font-weight: 800;
+     font-size: 14px;
+     color: #777777;
+ }
+ .label-m{
+     font-weight: 800;
+     font-size: 18px;
+     color: #777777;
+ }
+ .value-sb{
+     font-weight: 700;
+     font-size: 14px;
+     color: #000;
+ }
+ 
+ 
+ .proposal .status-label,
+ .proposal .progress-bar {
+   background: $app-secondary-color-3;
+ }
+ .positive .status-label,
+ .positive .progress-bar {
+ background: #50C97F;
+ }
+ 
+ .neutral .status-label,
+ .neutral .progress-bar {
+ background: #E9AE36;
+ }
+ 
+ .negative .status-label,
+ .negative .progress-bar {
+ background: #E7504E;
+ }
+ 
+ .value-simple{
+     font-size: 12px;
+     line-height: 15px;
+     color:  #202020;
+     font-weight: 700;
+ }
+ 
+ 
+ .wf-50 {
+   width: 50px !important;
+ }
+ 
+ .w-20 {
+   width: 20% !important;
+ }
+ 
+
+ .tab-action{
+
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    &.active, &:hover{
+        color: whitesmoke;
+        text-decoration: underline;
+    }
+ }

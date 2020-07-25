@@ -23,15 +23,29 @@
   
             <div class="table-responsive">
               <table class="table table-hover sm">
+
+                <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Projects (current)</th>
+                      <th *ngIf="!student">Workload</th>
+                      <th>Action</th>
+                    </tr>
+
+                        
+                </thead>
                 <tbody>
                 <tr *ngFor="let element of persons">
                   <td>
                       <div class="d-flex">
                           <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
                           <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
-                          <span class="align-self-center quota-small"> ({{element.quota}}5)</span>
+                        
                       </div>
                   </td>
+
+                  <td><span> {{element.currentProjects}}</span> </td>
+                  <td *ngIf="!student"><span> {{element.workload}}</span> </td>
         
                   <td>
                     <div class="d-flex flex-row bd-highlight">

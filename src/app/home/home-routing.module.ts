@@ -29,12 +29,26 @@ import { AuthGuard } from '../core/guards/auth-guard';
         loadChildren: () => import('../organisation/organisation.module').then(m => m.OrganisationModule),
       },
       {
+        path: 'organisation',
+        loadChildren: () => import('../organisation/organisation.module').then(m => m.OrganisationModule),
+      },
+      {
         path: 'project',
         loadChildren: () => import('../projects/projects.module').then(m => m.ProjectsModule),
       },
       {
-        path: 'persons',
+        path: 'staff',
         loadChildren: () => import('../persons/persons.module').then(m => m.PersonsModule),
+        data: {
+          type: 'STAFF'
+        }
+      },
+      {
+        path: 'students',
+        loadChildren: () => import('../persons/persons.module').then(m => m.PersonsModule),
+        data: {
+          type: 'STUDENT'
+        }
       },
       {
         path: 'users',

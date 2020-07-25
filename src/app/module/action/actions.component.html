@@ -27,10 +27,18 @@
                     <div class="week"><span>- Week:</span> {{action.weekNbr}},  </div>
                     <div class="ml-3 date"><span>Date(s):</span> {{action.startDate  | date:'dd/MM/yyyy'}} -  {{action.endDate  | date:'dd/MM/yyyy'}}</div>
                 </div>
-
-             
                 <div  class="description mt-3"  [innerHTML]="action.description"></div>
-
+                <div class="row">
+                  <div class="d-flex flex-row" *ngFor="let attachment of action.attachmentList">
+                    <div class="pl-3">
+                      <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
+                      <!--button class="ml-2 btn app-primary btn-circle btn-outline" (click)="deleteAttachment(attachment.key)" type="button">
+                        <i class="fa fa-times"></i>
+                      </button-->
+                    </div> 
+                   </div>
+                </div>
+  
              </div>
            
 

@@ -2,6 +2,8 @@ import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Organisation } from 'src/app/core/model/organisation.model';
+import { User } from 'src/app/core/model/auth.model';
+import { Role } from 'src/app/core/model/person.model';
 
 @Component({
     selector: 'app-sidebar',
@@ -14,6 +16,7 @@ export class SidebarComponent implements OnInit {
     showMenu: string;
     pushRightClass: string;
     @Input() organisation: Organisation;
+    @Input() userInfo: User;
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -42,6 +45,17 @@ export class SidebarComponent implements OnInit {
     eventCalled() {
         this.isActive = !this.isActive;
     }
+
+    isAdmin() {
+       // if (this.userInfo.roles.includes(Role.STAFF) ||
+      return  this.userInfo.roles.includes(Role.ADMIN_CREATOR);
+    }
+
+
+    isModelLeaderOrAdminCreator() {
+        // if (this.userInfo.roles.includes(Role.STAFF) ||
+       return  this.userInfo.roles.includes(Role.MODULE_LEADER) || this.userInfo.roles.includes(Role.ADMIN_CREATOR);
+     }
 
     addExpandClass(element: any) {
         if (element === this.showMenu) {

@@ -28,22 +28,58 @@ export class ProjectService {
     return this.http.get<Paged<Project>>(ProjectService.PROJECT_URI + '/paged?page=' + page + '&size=' + size);
   }
 
+  getPagedProjectsWithGoals(filter: string, sort: string, page: number, size: number): Observable<Paged<ProjectOverview>> {
+    return this.http.get<Paged<Project>>(ProjectService.PROJECT_URI + '/with-goals/paged?page=' + page + '&size=' + size);
+  }
+
   getProjectDetail(id: string): Observable<Project> {
     return this.http.get<Project>(ProjectService.PROJECT_URI + '/' + id);
   }
-  addGoal(id: string, goal: Goal): Observable<any> {
-    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals', JSON.stringify(goal),  {responseType: 'text'});
+  addGoal(id: string, goal: Goal, files?: Array<any>): Observable<any> {
+    if (files && files.length && files.length > 0) {
+      const formData: any = new FormData();
+      files.forEach(f =>  formData.append('files', f));
+      formData.append('goal', new Blob([JSON.stringify(goal)], { type: 'application/json'}));
+      return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals-with-upload'
+      , formData,  {responseType: 'text'});
+    } else {
+      return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals',
+      JSON.stringify(goal),  {responseType: 'text'});
+    }
+
   }
 
-  updateGoal(id: string, goal: Goal): Observable<any> {
-    return this.http.put(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goal.goalId , JSON.stringify(goal),  {responseType: 'text'});
+  updateGoal(id: string, goal: Goal, files?: Array<any>): Observable<any> {
+    if (files && files.length && files.length > 0) {
+      const formData: any = new FormData();
+      files.forEach(f =>  formData.append('files', f));
+      formData.append('goal', new Blob([JSON.stringify(goal)], { type: 'application/json'}));
+      return this.http.put(ProjectService.PROJECT_URI + '/' + id + '/goals-with-upload/' + goal.goalId
+      , formData,  {responseType: 'text'});
+    } else {
+      return this.http.put(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goal.goalId ,
+      JSON.stringify(goal),  {responseType: 'text'});
+    }
   }
 
-  updateGoalStatus(id: string, goalId: string, status: string, task: Task): Observable<any> {
+  updateGoalStatus(id: string, goalId: string, status: string, description: string): Observable<any> {
     return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/status?status=' + status
-    , task === null ? {} : JSON.stringify(task),  {responseType: 'text'});
+    , description === null ? {} : JSON.stringify({'description' : description}),  {responseType: 'text'});
   }
 
+  updateGoalStatusExt(id: string, goalId: string, status: string,  description: string, files: Array<any>): Observable<any> {
+    if (files && files.length && files.length > 0) {
+      const formData: any = new FormData();
+      files.forEach(f =>  formData.append('files', f));
+      formData.append('task', new Blob([JSON.stringify({'description' : description})], { type: 'application/json'}));
+      return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/status-with-upload?status=' + status
+      , formData,  {responseType: 'text'});
+    } else {
+      return this.updateGoalStatus(id, goalId, status, description);
+    }
+
+
+  }
 
   apply(id: string, apply: Apply): Observable<any> {
     console.log('id' , id, apply);

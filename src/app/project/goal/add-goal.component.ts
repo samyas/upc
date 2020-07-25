@@ -1,7 +1,7 @@
 import { ProjectService } from '../../core/services/project.service';
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 
 import { Goal } from '../../core/model/project.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,13 +13,16 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class AddGoalComponent implements OnInit {
 
   @Input() public goal: Goal;
+
   public form: FormGroup;
   @Input() public projectId;
+  @Input() public isAction;
 
   public Editor = ClassicEditor;
 
+  files: Array<any> = [];
   submitted = false;
-  serverError = '';
+  serverError = null;
   workshops = ['Edx Material Training', 'Crystal Formation'];
 
   constructor(public activeModal: NgbActiveModal, public fb: FormBuilder, public projectService: ProjectService) {
@@ -28,6 +31,9 @@ export class AddGoalComponent implements OnInit {
     ngOnInit() {
       if (!this.goal) {
         this.goal = new Goal();
+        if (this.isAction) {
+          this.goal.isAction = true;
+        }
       }
       this.form = this.fb.group({
         goalId: this.goal.goalId,
@@ -50,7 +56,7 @@ export class AddGoalComponent implements OnInit {
             return;
         }
         this.goal = this.form.value;
-        this.projectService.addGoal(this.projectId, this.goal).subscribe(
+        this.projectService.addGoal(this.projectId, this.goal, this.files).subscribe(
          data => {
            console.log('add Goal', data);
            this.activeModal.close();
@@ -70,7 +76,7 @@ export class AddGoalComponent implements OnInit {
           return;
       }
       this.goal = this.form.value;
-      this.projectService.updateGoal(this.projectId, this.goal).subscribe(
+      this.projectService.updateGoal(this.projectId, this.goal, this.files).subscribe(
        data => {
          console.log('update Goal', data);
          this.activeModal.close();
@@ -80,6 +86,16 @@ export class AddGoalComponent implements OnInit {
          this.serverError = error.message;
        }
      );
+    }
+
+    uploadFile(event) {
+      for (let index = 0; index < event.length; index++) {
+        const element = event[index];
+        this.files.push(element);
+      }
+    }
+    removeFile(name) {
+        this.files = this.files.filter(f => f.name !== name);
     }
 
 }

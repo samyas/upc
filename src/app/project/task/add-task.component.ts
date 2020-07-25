@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Task } from '../../core/model/task.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { ProjectService } from 'src/app/core/services/project.service';
 
 @Component({
