@@ -27,11 +27,11 @@
                                     <label for="inputAddress">Project Logo</label>
                                     <div class="avatar-upload">
                                         <div class="avatar-edit">
-                                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" (change)="uploadFile($event.target.files)" />
                                             <label for="imageUpload"></label>
                                         </div>
-                                        <div class="avatar-preview">
-                                        
+                                        <div class="avatar-preview m-auto">
+                                            <img *ngIf="imageURL" [src]="imageURL" class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                     
                     <div class="input-group center">
                         <button *ngIf="!project.projectId" class="btn btn-success btn-round" (click)="save()">CREATE <i class="fa fa-plus"></i></button>
-                        <button *ngIf="!!project.projectId" class="btn btn-success btn-round" (click)="save()">UPDATE <i class="fa fa-plus"></i></button>
+                        <button *ngIf="!!project.projectId" class="btn btn-success btn-round" (click)="update()">UPDATE <i class="fa fa-plus"></i></button>
                     </div>
                     </form>
        

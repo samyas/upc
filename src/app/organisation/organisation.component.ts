@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Organisation } from '../core/model/organisation.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Role } from '../core/model/person.model';
+import { FileUploaderService } from '../core/services/file-uploader.service';
 
 @Component({
   selector: 'app-organisation',
@@ -24,9 +25,10 @@ export class OrganisationComponent implements OnInit {
   moduleTypes: Array<ModuleType> = MODULES_TYPE;
   departments: Array<Module> = [];
   isAdminCreator = false;
+  serverError = null;
 
-  constructor(public organisationService: OrganisationService, public dataService: SharedDataService,
-      private modalService: NgbModal) { }
+  constructor(public organisationService: OrganisationService, public dataService: SharedDataService, 
+    private  uploadService: FileUploaderService, private modalService: NgbModal) { }
   ngOnInit() {
       this.load();
       this.checkRole();
@@ -40,6 +42,7 @@ export class OrganisationComponent implements OnInit {
          this.applyFilter();
       }
       , error =>  {
+        this.serverError = error.message;
         console.log(error);
       }
     );
@@ -53,6 +56,7 @@ export class OrganisationComponent implements OnInit {
               }
             },
     error => {
+      this.serverError = error.message;
      console.log(error);
    });
   }
@@ -67,6 +71,18 @@ export class OrganisationComponent implements OnInit {
           console.log('modal failed:' + reason);
         }
       );
+  }
+
+  uploadFile(event) {
+    for (let index = 0; index < event.length; index++) {
+      const element = event[index];
+      this.uploadService.uploadFile(element, element.name, this.organisation.id, 'ORGANISATION')
+      .subscribe( data => { this.load(); },
+      error => {
+        console.log( error);
+        this.serverError = error.message;
+      });
+    }
   }
 
   setCurrentModuleType(type: ModuleType) {

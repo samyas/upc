@@ -250,6 +250,17 @@ export class ProjectOverviewComponent implements OnInit {
   }
 
 
+  uploadLogo(event) {
+    for (let index = 0; index < event.length; index++) {
+      const element = event[index];
+      this.uploadService.uploadFile(element, element.name, this.project.projectId, 'PROJECT_LOGO')
+      .subscribe( data => { this.loadProject(this.project.projectId); },
+      error => {
+        console.log( error);
+        this.error = error.message;
+      });
+    }
+  }
   uploadFile(event) {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];

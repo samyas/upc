@@ -7,6 +7,7 @@ import { OrganisationComponent } from './organisation.component';
 import {SharedModule} from '../shared/shared.module';
 import { AddDepartmentComponent } from './add-department.component';
 import { PersonService } from '../core/services/person.service';
+import { FileUploaderService } from '../core/services/file-uploader.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { PersonService } from '../core/services/person.service';
   ],
   entryComponents: [AddDepartmentComponent],
   declarations: [OrganisationComponent, AddDepartmentComponent],
-  providers: [ OrganisationService, PersonService ]
+  providers: [ OrganisationService, PersonService, FileUploaderService ]
 })
 export class OrganisationModule { }

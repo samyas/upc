@@ -161,13 +161,17 @@ export class ProjectService {
     return this.http.put(ProjectService.PROJECT_URI +  '/' +  project.projectId, JSON.stringify(project),  {responseType: 'text'});
   }
 
-  addProject(project: Project): Observable<any> {
-    return this.http.post(ProjectService.PROJECT_URI, JSON.stringify(project),  {responseType: 'text'});
+  addProject(project: Project, image?: any): Observable<any> {
+    if (image) {
+      const formData: any = new FormData();
+      formData.append('image', image);
+      formData.append('project', new Blob([JSON.stringify(project)], { type: 'application/json'}));
+      return this.http.post(ProjectService.PROJECT_URI + '/with-upload' , formData,  {responseType: 'text'});
+    } else {
+      return this.http.post(ProjectService.PROJECT_URI, JSON.stringify(project),  {responseType: 'text'});
+    }
   }
 
-  saveProject(project: Project): Observable<any> {
-   return project.projectId ? this.updateProject(project) : this.addProject(project);
-   }
 
     deleteProject(id: string): Observable<any> {
     return this.http.delete(ProjectService.PROJECT_URI + '/' + id);

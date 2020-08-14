@@ -27,6 +27,7 @@ export class ProjectOverview {
     imageId: string;
     extended: boolean;
     nextAction: Goal;
+    logo: FileDescriptor;
 
 }
 

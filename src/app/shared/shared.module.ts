@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PaginationComponent } from './pagination/pagination.component';
 import { TruncateTextPipe } from '../core/config/truncate-text.pipe';
+import { DefaultImageDirective } from './image/default-image.directive';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { TruncateTextPipe } from '../core/config/truncate-text.pipe';
     NgSelectModule
 
   ],
-  declarations: [ PaginationComponent, TruncateTextPipe],
+  declarations: [ PaginationComponent, TruncateTextPipe, DefaultImageDirective],
   exports: [
     CommonModule,
     FormsModule,
@@ -27,7 +28,8 @@ import { TruncateTextPipe } from '../core/config/truncate-text.pipe';
     NgbModule,
     NgSelectModule,
     PaginationComponent,
-    TruncateTextPipe
+    TruncateTextPipe,
+    DefaultImageDirective
   ]
 })
 export class SharedModule { }

@@ -279,10 +279,10 @@ div.border-title:after {
 }
 .avatar-upload .avatar-edit input + label:after {
   content: "\f093";
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'FontAwesome';
   color: #7f298c;
   position: absolute;
-  top: 6px;
+  top: 12px;
   left: 0;
   right: 0;
   text-align: center;
@@ -293,9 +293,18 @@ div.border-title:after {
   width: 192px;
   height: 192px;
   position: relative;
-  border-radius: 100%;
-  border: 6px solid #F8F8F8;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 7px solid rgba(7, 71, 166, 0.2);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  img{
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+  }
 }
 .avatar-upload .avatar-preview > div {
   width: 100%;

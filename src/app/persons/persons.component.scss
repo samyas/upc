@@ -1,16 +1,54 @@
 @import '../../styles/variables.scss';
 
 
+.img-container{
+    position:relative;
+    display:inline-block;
+    .overlay{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:#f6f6f6;
+        opacity:0;
+        transition:opacity 500ms ease-in-out;
+        cursor: pointer;
+        span{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+          //  color:#fff;
+          }
+      }
+      &:hover{
+        .overlay{
+            opacity:0.5;
+          }  
+      }
+  }
+
+  .person-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+
+
+
+
 .nav-filter{
 
     margin-bottom: 5px;
  //   border-bottom: 1px solid #d2d6de;
  .nav-item {
           .nav-link{
-                         color: #48465b;
-                         text-transform: uppercase;
-                         font-size: 1.0rem;
-                         font-weight: 500;
+                color: #48465b;
+                text-transform: uppercase;
+                font-size: 1.0rem;
+                font-weight: 500;
            }
             &:hover {
                 border-bottom: 1px solid $app-primary-color;

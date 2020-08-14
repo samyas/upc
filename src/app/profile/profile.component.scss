@@ -1,77 +1,229 @@
-.mat-form-field{
-    font:400 16px/1.125 Roboto,"Helvetica Neue",sans-serif
+@import '../../styles/variables.scss';
+
+
+.img-container{
+    position:relative;
+    display:inline-block;
+    .overlay{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:#f6f6f6;
+        opacity:0;
+        transition:opacity 500ms ease-in-out;
+        cursor: pointer;
+        span{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+          //  color:#fff;
+          }
+      }
+      &:hover{
+        .overlay{
+            opacity:0.5;
+          }  
+      }
+  }
+
+  .person-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
 }
-.profile{
-    padding:24px
+
+
+
+.label-department{
+    color: $app-secondary-color-3;
+    font-weight: 700;
+    font-size: 14px;
 }
-@media screen and (max-width:1279px){
-    .profile{
-        padding:16px
+.nav-filter{
+
+    margin-bottom: 5px;
+ //   border-bottom: 1px solid #d2d6de;
+ .nav-item {
+          .nav-link{
+                color: #48465b;
+                text-transform: uppercase;
+                font-size: 1.0rem;
+                font-weight: 500;
+           }
+            &:hover {
+                border-bottom: 1px solid $app-primary-color;
+                .nav-link{
+                color:  $app-primary-color;
+                }
+            }
+             .active {
+                border-bottom: 1px solid $app-primary-color;
+                 color:  $app-primary-color;
+                  .nav-link{
+
+                  }
+             }
+        }
+
+}
+
+.margin-right{
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+}
+
+.btn-action{
+    background: $app-primary-color-2;
+    border: 0.15px solid $app-secondary-color-2;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    &:hover {
+        box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.15);
+     }
+    .fa{
+        background: #BBEBFF;
+        border-radius: 50%;
+        padding: 5px;
+        color: $app-secondary-color-3;
     }
 }
-.profile .splash{
-    background:#fff;
-    padding:32px 8px;
-    border:1px solid #e0e0e0
+
+.btn-square{
+    color: $app-secondary-color-2;
+    padding: 0px 5px 0px 5px;
+    background: #F6F6F6;
+    border: 0.15px solid #202020;
+    box-sizing: border-box;
+    box-shadow: inset -1px -1px 5px rgba(0, 0, 0, 0.07), inset 1px 1px 5px rgba(0, 0, 0, 0.07);
+    border-radius: 3px 0px 0px 3px;
+    &:hover,  &.active {
+        color: $app-primary-color-2;
+        background: $app-secondary-color-3;
+    }
+
 }
-.profile .splash .left{
-    padding:16px 32px
+
+
+.project-section-title{
+   //  text-transform: uppercase;
+     font-size: 0.8rem;
+     color: #999;
+     font-weight: 700;
+ }
+
+ .project-title{
+    font-size: 1.3rem;
+    color: #48465b;
+    font-weight: 600;
 }
-.profile .splash .left .picture{
-    width:150px;
-    height:150px;
-    border-radius:50%;
-    margin-right:38px;
-    box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)
+
+.project-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
 }
-.profile .splash .left .name{
-    font-size:28px
+
+.center-box{
+    align-self: center;
 }
-.profile .splash .left .contact, .profile .splash .left .description{
-    margin-top:6px;
-    font-size:14px;
-    color:#666
+ 
+.project-icon-small {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
-.profile .splash .left .contact .icon, .profile .splash .left .description .icon{
-    font-size:18px;
-    line-height:18px;
-    width:18px;
-    height:18px
-}
-.profile .splash .left .actions{
-    margin-top:6px
-}
-.profile .splash .left .actions .primary-button{
-    padding:2px 32px
-}
-.profile .splash .right{
-    padding:16px 32px;
-    border-left:1px solid #e0e0e0
-}
-@media screen and (max-width:959px){
-    .profile .splash .right{
-        border-left:none
+
+
+.project-title-small{
+    color: #48465b;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+      
+
     }
 }
-.profile .splash .right .info{
-    font-size:14px
+.project-author-small{
+    color: #595d6e;
+    font-weight: 500;
+    display: block;
 }
-.profile .splash .right .info .names .name{
-    font-weight:500
+
+.label-department-s{
+    color: $app-secondary-color-3;
 }
-.profile .splash .right .info .values{
-    margin-left:24px
+.label-status-text{
+    color: $app-secondary-color-3;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
-.profile .splash .right .info .name, .profile .splash .right .info .value{
-    padding:8px 0
+
+.label-status-action{
+    color: #2e7d06;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
-.profile .splash .right .social{
-    height:40px;
-    font-size:20px;
-    color:#455a64;
-    cursor:pointer
+
+.project-body{
+    padding : 15px 15px 15px 15px;
+  }  
+
+
+  .label-s{
+    font-weight: 800;
+    font-size: 14px;
+    color: #777777;
 }
-.profile .profile-tabs{
-    margin-top:24px;
-    background:#fff
+.label-m{
+    font-weight: 800;
+    font-size: 18px;
+    color: #777777;
+}
+.value-sb{
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+}
+
+
+.proposal .status-label,
+.proposal .progress-bar {
+  background: $app-secondary-color-3;
+}
+.positive .status-label,
+.positive .progress-bar {
+background: #50C97F;
+}
+
+.neutral .status-label,
+.neutral .progress-bar {
+background: #E9AE36;
+}
+
+.negative .status-label,
+.negative .progress-bar {
+background: #E7504E;
+}
+
+.value-simple{
+    font-size: 12px;
+    line-height: 15px;
+    color:  #202020;
+    font-weight: 700;
+}
+
+
+.wf-50 {
+  width: 50px !important;
+}
+
+.w-20 {
+  width: 20% !important;
 }

@@ -31,6 +31,7 @@ export class Organisation {
     departments: Array<Module>;
     responsible: ShortPerson;
     creationDate: string;
+    logo: FileDescriptor;
 }
 
 

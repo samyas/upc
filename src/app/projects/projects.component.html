@@ -44,11 +44,11 @@
       <div class="row"  *ngIf="list==false" >
 
         <div  *ngFor="let project of projects" class="col-sm-4">
-          <div class="card  mb-3 project-card proposal">
+          <div class="card  mb-3 project-card" [class]="project.statusCode?.toLowerCase()">
             <div class="card-header bg-transparent pb-1 pt-0">
                 <div class="float-right status-label"><span class=""><i class="fa fa-circle"></i> {{project.status}}</span></div>
                 <div class="media float-left mt-1">
-                  <img src="../../../assets/images/3.png" class="project-icon mr-2" alt="...">
+                  <img  [src]="project?.logo?.url" default="../../../assets/images/project-icon.png" class="project-icon mr-2" alt="...">
                   <div class="media-body self-center pl-2">
                     <a class="project-title">{{project.name}}</a>
                   </div>
@@ -83,7 +83,7 @@
               <div class="d-flex flex-row mt-3 align-center">
                   <span class="label-m mr-3">Submitted by: </span>
                   <div class="d-flex">
-                      <img src="../../../assets/images/100_3.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                      <img [src]="project.creator?.imageId" default="../../../assets/images/person-icon.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
                       <a class="submitted-name align-self-center"> {{project.creator?.firstName}} {{project.creator?.lastName}}</a>
                   </div>
               </div>
@@ -95,26 +95,12 @@
               <div class="d-flex flex-row bd-highlight  mt-3">
               
                   <div class="avatar-group">
-                      <a title="Holy shit" class="avatar-item">
-                            <img  alt="Avatar"  src="../../../assets/images/users/1.jpg">
+                      <a title="Holy shit" *ngFor="let member of project.members" class="avatar-item">
+                            <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
                       </a>
-                    
-                      <a title="Mary shit"  class="avatar-item" >
-                            <img  alt="Avatar" src="../../../assets/images/users/2.jpg">
-                      </a>
-                  
-                      <a  title="Joujou shit"  class="avatar-item">
-                            <img  alt="Avatar" src="../../../assets/images/users/3.jpg">
-                      </a>
-                  
-                      <a  title="Foutou shit"  class="avatar-item">
-                            <img  alt="Avatar" src="../../../assets/images/users/4.jpg">
-                      </a>	
-                  
-                      <a class="avatar-item plus">
-                         <span>+3</span>
-                      </a>	
-                  
+                      <a title="Holy shit" *ngFor="let member of project.team" class="avatar-item">
+                          <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
+                    </a>
                   </div>	
                   <span class="members-text ml-3">15 members </span>
               </div>
@@ -160,7 +146,7 @@
                 <tr *ngFor="let project of projects">
                     <td>
                         <div class="media">
-                          <img src="../../../assets/images/3.png" class="project-icon-small mr-2" alt="...">
+                          <img  [src]="project?.logo?.url" default="../../../assets/images/project-icon.png" class="project-icon-small mr-2" alt="...">
                           <div class="media-body">
                             <a class="project-title-small mt-0">{{project.name}}</a>
                             <span class="project-author-small">
@@ -180,7 +166,7 @@
                             <li   class="ml-2"><span >2+</span></li>
                           </ul-->
                           <div *ngIf="project.creator" class="d-flex">
-                              <img src="../../../assets/images/100_7.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                              <img [src]="project.creator?.imageId" default="../../../assets/images/person-icon.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
                               <a class="align-self-center">  {{project.creator?.firstName}} {{project.creator?.lastName}} </a>
                            </div>
                       </td>
@@ -194,25 +180,17 @@
                               <a class="align-self-center">  {{supervisor.lastName}}  {{supervisor.firstName}} </a>
                             </div-->
                             <div class="avatar-group">
-                                <a title="Holy shit" class="avatar-item">
-                                      <img  alt="Avatar"  src="../../../assets/images/users/1.jpg">
-                                </a>
-                              
-                                <a title="Mary shit"  class="avatar-item" >
-                                      <img  alt="Avatar" src="../../../assets/images/users/2.jpg">
-                                </a>
+                                <a title="Holy shit" *ngFor="let member of project.members" class="avatar-item">
+                                    <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
+                              </a>
+                              <a title="Holy shit" *ngFor="let member of project.team" class="avatar-item">
+                                  <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
+                            </a>
+                    	
                             
-                                <a  title="Joujou shit"  class="avatar-item">
-                                      <img  alt="Avatar" src="../../../assets/images/users/3.jpg">
-                                </a>
-                            
-                                <a  title="Foutou shit"  class="avatar-item">
-                                      <img  alt="Avatar" src="../../../assets/images/users/4.jpg">
-                                </a>	
-                            
-                                <a class="avatar-item">
+                                <!---a class="avatar-item">
                                    <span>+3</span>
-                                </a>	
+                                </a-->	
                             
                             </div>	
                     

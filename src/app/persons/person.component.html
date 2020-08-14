@@ -3,7 +3,15 @@
 
     <div class="row mt-1">
         <div class="media float-left mt-1 col-sm-12 col-md-12 center-box">
-            <img src="../../../assets/images/100_7.jpg" class="project-icon mr-2" alt="...">
+            <div class="img-container">
+                    <img  [src]="person.image?.url" default="../../../assets/images/person-icon.jpg" class="person-icon mr-2"/>
+
+                    <div class="overlay  person-icon"  (click)="fileInput.click()" > 
+                        <span> <i class="fa fa-photo"></i> </span>  
+                        <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                    </div>  
+            </div>
+          
             <div class="media-body center-box pl-2">
                 <div class="d-flex justify-content-between">
                     <a class="project-title mt-0">{{person.firstName}} {{person.lastName}}</a>

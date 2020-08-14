@@ -9,6 +9,7 @@ import { PersonsComponent } from './persons.component';
 import { PersonComponent } from './person.component';
 import { OrganisationService } from '../core/services/organisation.service';
 import { PersonsRoutingModule } from './persons-routing.module';
+import { FileUploaderService } from '../core/services/file-uploader.service';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { PersonsRoutingModule } from './persons-routing.module';
   ],
   entryComponents: [AddPersonComponent],
   declarations: [PersonsComponent, PersonComponent, AddPersonComponent],
-  providers : [PersonService, OrganisationService]
+  providers : [PersonService, OrganisationService, FileUploaderService]
 })
 export class PersonsModule { }

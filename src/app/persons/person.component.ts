@@ -6,6 +6,7 @@ import { ParamMap, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { Person } from '../core/model/person.model';
 import { ProjectOverview, Goal } from '../core/model/project.model';
+import { FileUploaderService } from '../core/services/file-uploader.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class PersonComponent implements OnInit {
   editShow = new EditShow();
   projects: Array<ProjectOverview> = [];
 
-  constructor(private route: ActivatedRoute, private  personService: PersonService) { }
+  constructor(private route: ActivatedRoute, private  personService: PersonService, private  uploadService: FileUploaderService) { }
   ngOnInit() {
     this.route.paramMap.pipe(
         switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
@@ -58,6 +59,19 @@ export class PersonComponent implements OnInit {
         this.serverError = error.message;
       }
     );
+  }
+
+  uploadFile(event) {
+    for (let index = 0; index < event.length; index++) {
+      const element = event[index];
+      console.log('tetet');
+      this.uploadService.uploadFile(element, element.name, this.person.id, 'PERSON')
+      .subscribe( data => { this.loadPerson(this.person.id); },
+      error => {
+        console.log( error);
+        this.serverError = error.message;
+      });
+    }
   }
 
 }

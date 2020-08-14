@@ -48,12 +48,12 @@
 
             <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link nav-user" ngbDropdownToggle>
-                        <img alt="..." class="img-circle img-mm mr-2" src="../../../assets/images/100_7.jpg">
+                        <img alt="..." class="img-circle img-mm mr-2" [src]="userInfo?.image?.url" default="../../../assets/images/person-icon.jpg">
                     {{userInfo?.lastName}} {{userInfo?.firstName}} <b class="caret"></b>
         
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a class="dropdown-item" href="javascript:void(0)">
+                    <a class="dropdown-item" href="javascript:void(0)"  [routerLink]="['profile']">
                         <i class="fa fa-fw fa-user"></i> Profile
                     </a>
                     <a class="dropdown-item" href="javascript:void(0)">

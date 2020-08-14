@@ -1,3 +1,4 @@
+import { FileDescriptor } from './file-descriptor.model';
 
  import { ShortDepartment } from './organisation.model';
 
@@ -18,6 +19,7 @@ export class Person {
     previousProjects: number;
     shortDescription: string;
     skills: Array<string>;
+    image: FileDescriptor;
 }
 
 

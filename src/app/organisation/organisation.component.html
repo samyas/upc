@@ -5,10 +5,21 @@
 
 
 <div class="container-fluid">
+
+    <div *ngIf="serverError" class="row mt-1">
+        <div  class="text-danger mt-3">{{serverError}}</div>
+    </div>
+
     <div class="row mt-3">
          <div class="col-sm-12">
             <div class="media">
-                    <img src="../../../assets/images/edinburgh-university-logo.jpeg" class="project-icon mr-2" alt="...">
+                    <div class="img-container">
+                        <img  [src]="organisation.logo?.url" default="../../../assets/images/university-icon5.png" class="project-icon mr-2"/>
+                        <div class="overlay  project-icon"  (click)="fileInput.click()" > 
+                            <span> <i class="fa fa-photo"></i> </span>  
+                            <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                        </div>  
+                    </div>
                     <div class="media-body">
 
                         <div class="container-fluid">
@@ -36,7 +47,7 @@
                                             <div class="col-sm-12">
                                                 <span class="project-section-title">Responsable</span><br>
                                                 <div class="d-flex">
-                                                  <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sx mr-2" alt="...">
+                                                  <img  [src]="organisation.responsible?.imageId" default="../../../assets/images/person-icon.jpg"  class="img-circle img-bordered-sx mr-2" alt="...">
                                                   <a class="align-self-center"> <strong> Dr.  {{organisation.responsible?.firstName}}  {{organisation.responsible?.lastName}} </strong></a>
                                                 </div>
                                             </div> 
@@ -97,7 +108,7 @@
 
                                     </div>
                                     <div *ngIf ="dep.responsible" class="d-flex justify-content-center mt-3">
-                                      <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                      <img  [src]="dep.responsible?.imageId" default="../../../assets/images/person-icon.jpg"  class="img-circle img-bordered-sm mr-2" alt="...">
                                       <a class="align-self-center"> <strong> Dr {{dep.responsible?.firstName}}  {{dep.responsible?.lastName}}</strong></a>
                                     </div>
                                 <p>   {{dep.description}}</p>

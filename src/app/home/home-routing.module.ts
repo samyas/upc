@@ -44,6 +44,10 @@ import { AuthGuard } from '../core/guards/auth-guard';
         }
       },
       {
+        path: 'profile',
+        loadChildren: () => import('../profile/profile.module').then(m => m.ProfileModule)
+      },
+      {
         path: 'students',
         loadChildren: () => import('../persons/persons.module').then(m => m.PersonsModule),
         data: {

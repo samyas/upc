@@ -46,6 +46,8 @@ export class AddProjectComponent implements OnInit {
   addOnBlur = true;
   fruits: Fruit[] = [
   ];
+  image = null;
+  imageURL = null;
 
   types = [
     {value: 'PFE', viewValue: 'PFE'},
@@ -135,7 +137,7 @@ export class AddProjectComponent implements OnInit {
       return;
     }
     this.form.value.keywords = this.form.value.keywords;
-    this.projectService.saveProject(this.form.value).subscribe( id => {
+    this.projectService.addProject(this.form.value, this.image).subscribe( id => {
       console.log('success', id);
       this.router.navigate(['home/project/' + id]);
 
@@ -143,6 +145,41 @@ export class AddProjectComponent implements OnInit {
       console.log(error);
       this.serverError = error.message;
     });
+  }
+
+  update() {
+    this.submitted = true;
+    console.log('stange', this.form.value);
+    if (this.form.invalid) {
+      return;
+    }
+    this.form.value.keywords = this.form.value.keywords;
+    this.projectService.updateProject(this.form.value).subscribe( id => {
+      console.log('success', id);
+      this.router.navigate(['home/project/' + id]);
+
+    }, error => {
+      console.log(error);
+      this.serverError = error.message;
+    });
+  }
+
+
+  uploadFile(event) {
+    if (event && event.length && event.length > 0) {
+      const element = event[0];
+      this.image = element;
+    if (FileReader) {
+          const fr = new FileReader();
+          fr.readAsDataURL(this.image);
+          fr.onload = (_event) => {
+            this.imageURL = fr.result;
+          };
+      } else {  // Not supported
+          // fallback -- perhaps submit the input to an iframe and temporarily store
+          // them on the server until the user's session ends.
+      }
+    }
   }
 
 

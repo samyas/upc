@@ -69,7 +69,7 @@
                                                               <tr *ngFor="let element of persons">
                                                                 <td>
                                                                     <div class="d-flex">
-                                                                        <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                                                        <img [src]="element.image?.url" default="../../../assets/images/person-icon.jpg"  class="img-circle img-bordered-sm mr-2" alt="...">
                                                                         <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
                                                                       
                                                                     </div>
@@ -133,7 +133,7 @@
                                                   <tr *ngFor="let project of projects">
                                                       <td>
                                                           <div class="media">
-                                                            <img src="../../../assets/images/3.png" class="project-icon-small mr-2" alt="...">
+                                                            <img  [src]="project?.logo?.url" default="../../../assets/images/project-icon.png" class="project-icon-small mr-2" alt="...">
                                                             <div class="media-body">
                                                               <a class="project-title-small mt-0">{{project.name}}</a>
                                                               <span class="project-author-small">
@@ -147,7 +147,7 @@
                                                         <td>
                                       
                                                             <div *ngIf="project.creator" class="d-flex">
-                                                                <img src="../../../assets/images/100_7.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                                                <img  [src]="project.creator?.imageId" default="../../../assets/images/person-icon.jpg"  class="img-circle img-bordered-sm mr-2" alt="...">
                                                                 <a class="align-self-center">  {{project.creator?.firstName}} {{project.creator?.lastName}} </a>
                                                              </div>
                                                         </td>
@@ -167,7 +167,6 @@
                                                         <td>
                                                           <div class="d-flex flex-row bd-highlight">
                                                             <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline"  [routerLink]="['../../project', project.projectId]"  type="button"><i class="fa fa-eye"></i></button></div>
-                                                        
                                                           </div>
                                             
                                                         </td>
@@ -214,7 +213,7 @@
                                 <div class="row">
                                         <div class="col-sm-2">
                                                 <div class="media">
-                                                        <img src="../../../assets/images/3.png" class="project-icon-small mr-2" alt="...">
+                                                        <img  [src]="project?.logo?.url" default="../../../assets/images/project-icon.png" class="project-icon-small mr-2" alt="...">
                                                         <div class="media-body">
                                                           <a class="project-title-small mt-0" [routerLink]="['../../project', project.projectId]" >{{project.name}}</a>
                                                           <span class="project-author-small">

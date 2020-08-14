@@ -38,7 +38,7 @@
                 <tr *ngFor="let element of persons">
                   <td>
                       <div class="d-flex">
-                          <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                          <img [src]="element.image?.url" default="../../../assets/images/person-icon.jpg"  class="img-circle img-bordered-sm mr-2" alt="...">
                           <a class="align-self-center"> {{element.firstName}} {{element.lastName}}</a>
                         
                       </div>

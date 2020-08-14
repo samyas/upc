@@ -1,3 +1,4 @@
+import { FileDescriptor } from './file-descriptor.model';
 import { ShortDepartment } from './organisation.model';
 import { Role } from './person.model';
 
@@ -31,6 +32,7 @@ export class User {
     roles: Array<Role>;
     personId: string;
     department: ShortDepartment;
+    image: FileDescriptor;
 
     hasNoTenants(): boolean {
        return this.tenantIds && this.tenantIds.length === 0;

@@ -57,25 +57,43 @@ $brand-color: #863dd9;
     }
   }
 
-
-  .proposal .status-label,
-  .proposal .progress-bar {
-    background: $app-secondary-color-3;
+  .proposal{
+    .status-label, .progress-bar {
+      background: $app-secondary-color-3;
+    }
   }
-  .positive .status-label,
-.positive .progress-bar {
-  background: #50C97F;
-}
 
-.neutral .status-label,
-.neutral .progress-bar {
-  background: #E9AE36;
-}
+  .proposal, .assigned, .registration, .start, .progress, 
+  .withdraw, .suspend, .reallocated, .completed, .closed, .new{
+    .status-label, .progress-bar {
+      background: $app-secondary-color-3;
+    }
+  }
 
-.negative .status-label,
-.negative .progress-bar {
-  background: #E7504E;
-}
+  
+  .completed{
+    .status-label, .progress-bar {
+        background: $app-green-light;
+    }
+  }
+
+  .start, .progress{
+    .status-label, .progress-bar {
+        background: $app-green-light;
+    }
+  }
+
+ .closed{
+    .status-label, .progress-bar {
+        background: $app-grey-dark;
+    }
+  }
+
+  .withdraw, .suspend, .reallocated{
+    .status-label, .progress-bar {
+        background: $app-red;
+    }
+  }
 
 .label-department-s{
     color: $app-secondary-color-3;
