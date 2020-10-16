@@ -85,6 +85,19 @@ export class PersonsComponent implements OnInit {
     );
   }
 
+  sendInvitation(personId) {
+    this.personService.sendInvitation(personId).subscribe(
+      data => {
+
+        this.serverError  = null;
+      }
+      , error =>  {
+        console.log(error);
+        this.serverError = error.message;
+      }
+    );
+  }
+
   getPersonInfo() {
     this.personService.getPersonCurrent().subscribe( data => {
      this.currentPerson = data;

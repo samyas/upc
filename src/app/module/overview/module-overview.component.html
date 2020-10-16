@@ -31,7 +31,7 @@
                                           <div class="col-sm-12">
                                               <span class="project-section-title">Responsable</span><br>
                                               <div class="d-flex">
-                                                <img src="../../../assets/images/100_4.jpg" class="img-circle img-bordered-sx mr-2" alt="...">
+                                                <img  [src]="module.responsible?.imageId" default="../../../assets/images/person-icon.jpg"  class="img-circle img-bordered-sx mr-2" alt="...">
                                                 <a class="align-self-center"> <strong> Dr.  {{module.responsible?.firstName}}  {{module.responsible?.lastName}} </strong></a>
                                               </div>
                                           </div> 

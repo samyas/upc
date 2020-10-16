@@ -47,11 +47,11 @@ export class PersonComponent implements OnInit {
     );
   }
 
+
   getRelatedProjects() {
     this.personService.getPersonProjects(this.person.id).subscribe(
       data => {
         this.projects =  data;
-        console.log('ppp', data);
         this.serverError  = null;
       }
       , error =>  {
