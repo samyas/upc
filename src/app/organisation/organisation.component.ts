@@ -27,7 +27,7 @@ export class OrganisationComponent implements OnInit {
   isAdminCreator = false;
   serverError = null;
 
-  constructor(public organisationService: OrganisationService, public dataService: SharedDataService, 
+  constructor(public organisationService: OrganisationService, public dataService: SharedDataService,
     private  uploadService: FileUploaderService, private modalService: NgbModal) { }
   ngOnInit() {
       this.load();

@@ -92,6 +92,7 @@ export class GoalsComponent implements OnInit {
     this.errorSubmit = null;
     this.showActionSubmit.goalId = null;
     this.showActionSubmit.nextStatus = null;
+    this.editShow = new EditShow();
     this.task.description = null;
   }
 
@@ -103,9 +104,9 @@ export class GoalsComponent implements OnInit {
     return null;
   }
 
-  changeGoalStatus(goalId, nextStatus, editShow: EditShow) {
+  changeGoalStatus(goalId, nextStatus) {
 
-        if (editShow === null && (nextStatus) && (nextStatus.code === G_REVIEW.code || nextStatus.code === G_DECLINED.code
+        if (nextStatus && (nextStatus.code === G_REVIEW.code || nextStatus.code === G_DECLINED.code
           || nextStatus.code === G_COMPLETED.code)) {
           this.showActionSubmit.goalId = goalId;
           this.showActionSubmit.nextStatus = nextStatus.code;
@@ -114,10 +115,10 @@ export class GoalsComponent implements OnInit {
           if (nextStatus) {
             this.showActionSubmit.nextStatus = nextStatus.code;
           }
-          this.projectService.updateGoalStatusExt(this.project.projectId, goalId,  this.showActionSubmit.nextStatus ,
-             editShow.description, editShow.files)
+          this.projectService.updateGoalStatus(this.project.projectId, goalId,  this.showActionSubmit.nextStatus ,
+             null)
           .subscribe( data => { this.loadProject(this.project.projectId); },
-          error => {console.log(error);
+          error => {
             if (this.showActionSubmit.goalId) {
               this.errorSubmit =  error.message;
              } else {
@@ -126,6 +127,20 @@ export class GoalsComponent implements OnInit {
               });
         }
   }
+
+  changeGoalStatusWithDescription(goalId, editShow: EditShow) {
+
+      this.projectService.updateGoalStatusExt(this.project.projectId, goalId,  this.showActionSubmit.nextStatus ,
+         editShow.description, editShow.files)
+      .subscribe( data => { this.loadProject(this.project.projectId); },
+      error => {
+        if (this.showActionSubmit.goalId) {
+          this.errorSubmit =  error.message;
+         } else {
+          this.error = error.message;
+        }
+          });
+   }
 
   uploadFile(event) {
     for (let index = 0; index < event.length; index++) {

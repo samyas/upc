@@ -48,7 +48,7 @@ export class SidebarComponent implements OnInit {
 
     isAdmin() {
        // if (this.userInfo.roles.includes(Role.STAFF) ||
-      return  this.userInfo.roles.includes(Role.ADMIN_CREATOR);
+      return  this.userInfo.roles.includes(Role.SUPER_ADMIN);
     }
 
 

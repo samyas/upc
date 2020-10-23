@@ -302,6 +302,19 @@ $border-radius:50%;
     color: #FFFFFF;
  }
 
+ .declined .status-label{
+  background: #C50022;
+  color: #FFFFFF;
+}
+
+ 
+
+ .review .status-label{
+  background: #F39500 ;
+  color: #FFFFFF;
+}
+
+
 
 .goal-start-date {
   padding-top:5px;
@@ -367,6 +380,8 @@ $border-radius:50%;
 
 .done .goal-start-date, 
 .in-progress .goal-start-date, 
+.declined .goal-start-date, 
+.review .goal-start-date, 
   .done .goal-end-date{
    color: #35B288;
  }
@@ -590,6 +605,30 @@ $border-radius:50%;
         background: #FFFFFF;
         color: #35B288;
         border: 7px solid #35B288;
+      }
+    }
+    > div.review {
+      > .fa,
+      > .fas,
+      > .far,
+      > .fab,
+      > .glyphicon,
+      > .ion {
+        background: #F39500;
+        color: #FFFFFF ;
+        border: 7px solid #FFFFFF ;
+      }
+    }
+    > div.declined {
+      > .fa,
+      > .fas,
+      > .far,
+      > .fab,
+      > .glyphicon,
+      > .ion {
+        background: #C50022;
+        color: #FFFFFF ;
+        border: 7px solid #FFFFFF ;
       }
     }
     // Time label

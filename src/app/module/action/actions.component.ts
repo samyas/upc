@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 import { switchMap, filter, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PersonService } from 'src/app/core/services/person.service';
-import { Person } from 'src/app/core/model/person.model';
+import { Person, Role } from 'src/app/core/model/person.model';
 import { FileDownloadService } from 'src/app/core/services/file-download.service';
 import { OrganisationService } from 'src/app/core/services/organisation.service';
 import { AddActionComponent } from './add-action.component';
@@ -37,6 +37,7 @@ export class ActionsComponent implements OnInit {
   showShortDescriptionEditor = false;
   moduleId = null;
   selectedActionId = null;
+  isAdminCreatorOrModuleLeader = false;
 
   public editShow = new EditShow();
 
@@ -57,6 +58,19 @@ export class ActionsComponent implements OnInit {
   init() {
     this.error = null;
   }
+
+  checkRole() {
+    this.dataService.currentUser.subscribe(
+    data => {
+              if (data.roles.includes(Role.ADMIN_CREATOR) || data.roles.includes(Role.MODULE_LEADER)) {
+                  this.isAdminCreatorOrModuleLeader = true;
+              }
+            },
+    error => {
+      this.error = error.message;
+   });
+  }
+
 
   download(key: string, fileName: string, contentType: string) {
     this.downloadService.downloadFile(key, fileName, contentType);

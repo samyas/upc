@@ -9,6 +9,7 @@ import { routerAnimation } from '../core/config/route-animation';
 import { Module } from '../core/model/organisation.model';
 import { OrganisationService } from '../core/services/organisation.service';
 import { SharedDataService } from '../core/services/shared-data.service';
+import { Role } from '../core/model/person.model';
 
 
 
@@ -23,6 +24,7 @@ export class ModuleComponent implements OnInit {
   value = 50;
   module: Module = new Module();
   error = null;
+  isAdminCreatorOrModuleLeader = false;
 
   constructor(private route: ActivatedRoute, private organisationService: OrganisationService,
     private dataService: SharedDataService, private  personService: PersonService
@@ -33,6 +35,18 @@ export class ModuleComponent implements OnInit {
         switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
         this.loadModule(id);
       });
+  }
+
+  checkRole() {
+    this.dataService.currentUser.subscribe(
+    data => {
+              if (data.roles.includes(Role.ADMIN_CREATOR) || data.roles.includes(Role.MODULE_LEADER)) {
+                  this.isAdminCreatorOrModuleLeader = true;
+              }
+            },
+    error => {
+      this.error = error.message;
+   });
   }
 
   public getRouteAnimation(outlet: RouterOutlet) {
