@@ -32,9 +32,10 @@ export class AddTermComponent implements OnInit {
       }
       this.form = this.fb.group({
         termId: this.term.termId,
-        order: [this.term.order, Validators.compose([Validators.required])],
+        order: [this.term.order, Validators.compose([Validators.required, Validators.min(1)])],
         name: [this.term.name, Validators.compose([Validators.required, Validators.minLength(5)])],
-        quota:  [this.term.quota, Validators.compose([Validators.required])],
+        quota:  [this.term.quota, Validators.compose([Validators.required, Validators.min(0)])],
+        workload:  [this.term.workload, Validators.compose([Validators.required, Validators.min(0)])],
         description: [this.term.description, Validators.compose([Validators.required, Validators.minLength(6)])],
         mandatoryBeforeStart: this.term.mandatoryBeforeStart
 

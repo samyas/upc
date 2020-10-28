@@ -131,13 +131,30 @@
              </div>
         </div>
         <div class="col-sm-5">
-            <div class="row mb-3">
+
+            <div  *ngIf="!!isApplyActive" class="row mb-3">
+                        <div class="col-md-12 d-flex justify-content-start">
+                            <button class="btn action-bg-color mr-2" (click)="apply()" type="button">
+                              Interested
+                              </button>
+                        </div>
+            </div>
+
+            <div  *ngIf="!!isApplySuccess" class="row">
+                    <div class="col-sm-12 text-success"> You express your interest successfully to this project </div>  
+           </div>
+
+            <div *ngIf="actions.length > 0" class="row mb-3">
                     <div class="col-md-12 d-flex justify-content-start">
                         <button class="btn action-bg-color mr-2" *ngFor="let action of actions" (click)="changeStatus(action.code)" type="button">
                           {{action.label}} 
                           </button>
                     </div>
             </div>
+
+       
+
+            
 
             <div class="row">
                 <div *ngIf="error" class="col-sm-12 text-danger"> {{error}} </div>  
@@ -194,12 +211,12 @@
                                   <span class="section-header">Supervisors</span>
                               </div> 
                            </div>
-                           <div class="row" *ngFor="let member of termWithmembers">
+                           <div class="row" *ngFor="let member of termWithmembers; first as isFirst">
                      
                               <div class="col-md-12 mt-1 align-center self-center">   
                                   <div *ngIf="!member.personId" class="d-flex justify-content-between">
                                       <div class="project-section-title align-self-center"> {{member.termName}}: </div>
-                                      <a  *ngIf="vh.assign" class="align-self-center button-sm-color" (click)="openAssignPersonsDialog(member)"> Assign </a>
+                                      <a  *ngIf="vh.assign || (isFirst && isCreatorNeedToAssignFirstSupervisor())" class="align-self-center button-sm-color" (click)="openAssignPersonsDialog(member)"> Assign </a>
                                   </div>
                                   <div *ngIf="!!member.personId" class="d-flex justify-content-between">
                                       <div class="project-section-title  pr-2 align-self-center"> {{member.termName}}: </div>

@@ -1,3 +1,4 @@
+import { ApplyComponent } from './../apply/apply.component';
 import { Term } from './../../core/model/organisation.model';
 import { SharedDataService } from 'src/app/core/services/shared-data.service';
 import { FileUploaderService } from './../../core/services/file-uploader.service';
@@ -6,7 +7,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from './../../core/services/project.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Project, Member, PROJECT_STATUS_FLOWS, StatusProperties, P_PROPOSAL, P_ASSIGNED } from './../../core/model/project.model';
+import { Project, Member, PROJECT_STATUS_FLOWS, StatusProperties, P_PROPOSAL, P_ASSIGNED, Apply } from './../../core/model/project.model';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -33,9 +34,6 @@ export class ProjectOverviewComponent implements OnInit {
   public Editor = ClassicEditor;
 
   terms: Array<Term> = [];
-  // <img imgViewer [id]="consultant.photoFileId" default="../assets/img/avatar5.png" class="profile-user-img img-responsive img-circle"/>
-  // <input type="file" id="photo-anchor" (change)="onChangePhoto()" ng2FileSelect [uploader]="photoUploader" />
-  // public uploader:FileUploader = new FileUploader({});
 
   project: Project = new Project();
   currentUser: User = new User();
@@ -45,6 +43,8 @@ export class ProjectOverviewComponent implements OnInit {
   public vh = new ViewHide();
   termWithmembers: Array<Member> = [];
   actions: Array<StatusProperties> = [];
+  isApplyActive = false;
+  isApplySuccess = false;
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
     private  personService: PersonService, private modalService: NgbModal,
@@ -66,24 +66,76 @@ export class ProjectOverviewComponent implements OnInit {
          this.organisationService.getModule(organisationId, moduleId).subscribe(
          data => {this.terms = data.supervisorTerms;
           this.termWithmembers = this.mapTermsWithMembers(this.terms, this.project.members);
-          this.init(); },
+          this.loadUserProfile(); this.init(); },
           error => {
             console.log(error);
             this.error = error.message;
           }));
   } else {
     this.termWithmembers = this.mapTermsWithMembers(this.terms, this.project.members);
+    this.loadUserProfile();
   }
  }
 
   init() {
     this.error = null;
   }
+
+  checkApplyIsActive() {
+    if (this.project.statusCode === P_PROPOSAL.code) {
+    //  if (this.currentUser.roles.includes(Role.STUDENT)) {
+         if (this.project.applies.find(x => x.createdBy.personId ===   this.currentUser.personId)) {
+          this.isApplySuccess = true;
+         } else {
+           if (this.termWithmembers.find(x => x.personId === this.currentUser.personId) ||
+                this.project.team.find(x => x.personId === this.currentUser.personId)) {
+           } else {
+            this.isApplyActive = true;
+           }
+         }
+     // }
+    }
+  }
+
+  apply() {
+
+      const modalRef = this.modalService.open(ApplyComponent,  {windowClass: 'xlModal'});
+      modalRef.componentInstance.projectId = this.project.projectId;
+
+      if (this.currentUser.roles.includes(Role.STUDENT)) {
+        modalRef.componentInstance.terms = [];
+      } else {
+        modalRef.componentInstance.terms = this.terms;
+      }
+      modalRef.result.then((result) => {
+          console.log('modal sucess:' + result);
+          this.loadProject(this.project.projectId);
+          }, (reason) => {
+            console.log('modal failed:' + reason);
+          }
+        );
+  }
+
+  isCreatorNeedToAssignFirstSupervisor() {
+    if (this.project.statusCode === P_PROPOSAL.code) {
+      if ( !(this.termWithmembers[0].personId)  && this.currentUser.personId === this.project.creator.personId) {
+        return true;
+      }
+    }
+  }
+
+
+  isAssignButton() {
+    if (this.project.statusCode === P_PROPOSAL.code) {
+      return (!(this.termWithmembers[0].personId) ||  !(this.project.team) || this.project.team.length === 0);
+    }
+  }
+
   refreshDisableAssign() {
     console.log('tet', this.project.status,  this.currentUser.roles);
     if (this.project.statusCode === P_PROPOSAL.code) {
-         if (this.currentUser.roles.includes(Role.STAFF) ||
-         this.currentUser.roles.includes(Role.MODULE_LEADER)) {
+         if (this.currentUser.roles.includes(Role.MODULE_LEADER) ||
+         (this.currentUser.roles.includes(Role.STAFF) && this.termWithmembers[0].personId === this.currentUser.personId)) {
               this.vh.assign = true;
          }
     }
@@ -100,8 +152,12 @@ export class ProjectOverviewComponent implements OnInit {
   refreshNextStatus() {
     const next: Array<StatusProperties> = PROJECT_STATUS_FLOWS.find(x => x.current.code === this.project.statusCode).next;
     if (next) {
-      console.log('sss', next, this.currentUser);
       this.actions =    next.filter(x => x.roles.includes(this.currentUser.roles[0]));
+      if (this.project.statusCode === P_PROPOSAL.code) {
+        if (!(this.termWithmembers[0].personId) ||  !(this.project.team) || this.project.team.length === 0) {
+          this.actions = this.actions.filter( x => x.code !== P_ASSIGNED.code);
+        }
+      }
     }
   }
 
@@ -109,7 +165,7 @@ export class ProjectOverviewComponent implements OnInit {
    // this.dataService.currentUser.subscribe( u => {this.currentUser = u;
          this.projectService.getProjectDetail(id).subscribe(
          data => {this.project = data; this.loadModuleIfNeeded(this.project.department.id);
-          this.loadUserProfile(); this.init(); },
+          this.init(); },
          error => {
           console.log(error);
           this.error = error.message;
@@ -117,12 +173,14 @@ export class ProjectOverviewComponent implements OnInit {
       // });
    }
 
+
    loadUserProfile() {
     this.dataService.currentUser.subscribe(
     data => {
               this.currentUser = data;
               this.syncProjectWithUser();
               this.refreshDisableAssign();
+              this.checkApplyIsActive();
               this.refreshNextStatus();
             },
     error => {

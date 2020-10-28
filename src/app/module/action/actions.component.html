@@ -1,7 +1,7 @@
 
  <div class="container-fluid">
 
-   <div **ngIf="isAdminCreatorOrModuleLeader" class="d-flex flex-row-reverse">
+   <div *ngIf="!!isAdminCreatorOrModuleLeader" class="d-flex flex-row-reverse">
       <button class="mt-3 btn btn-success btn-b" type="button" (click)="openActionDialog(null)">
           <b><i class="fa fa-plus"></i></b> Add Action
      </button>

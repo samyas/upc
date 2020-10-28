@@ -5,11 +5,6 @@
         <div class="media float-left mt-1 col-sm-12 col-md-12 center-box">
             <div class="img-container">
                     <img  [src]="person.image?.url" default="../../../assets/images/person-icon.jpg" class="person-icon mr-2"/>
-
-                    <div class="overlay  person-icon"  (click)="fileInput.click()" > 
-                        <span> <i class="fa fa-photo"></i> </span>  
-                        <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
-                    </div>  
             </div>
           
             <div class="media-body center-box pl-2">
@@ -26,17 +21,6 @@
                    <span class="project-section-title">Abstract</span>
                 </div>
                 <div class="card-text" *ngIf="!editShow.shortDescription" [innerHTML]="person.shortDescription | slice:0:300"></div>
-                <div *ngIf="!!editShow.shortDescription">
-                    <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
-                        [editor]="Editor" [(ngModel)]="person.shortDescription" >
-                    </ckeditor>
-                    
-                    <div class="d-flex flex-row-reverse editor-footer">
-                        <button class="btn btn-primary m-1" (click)="updatePerson()" type="button"> Save </button>
-                        <button class="btn btn-default m-1"  (click)="editShow.shortDescription=false"  type="button"> Cancel </button>
-                    </div>
-                    <div *ngIf="error" class="text-danger mt-3">{{error}}</div>
-                </div>
                 <div class="d-flex flex-row bd-highlight">
                     <div class="flex-fill bd-highlight">
                         <span class="project-section-title">Skills</span><br>

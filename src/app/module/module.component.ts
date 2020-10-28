@@ -35,11 +35,12 @@ export class ModuleComponent implements OnInit {
         switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
         this.loadModule(id);
       });
+      this.checkRole();
   }
 
   checkRole() {
     this.dataService.currentUser.subscribe(
-    data => {
+    data => {  console.log('roles:', data.roles);
               if (data.roles.includes(Role.ADMIN_CREATOR) || data.roles.includes(Role.MODULE_LEADER)) {
                   this.isAdminCreatorOrModuleLeader = true;
               }

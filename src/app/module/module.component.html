@@ -5,8 +5,8 @@
   <div class="page-header pt-2 d-flex justify-content-center">
       <a   [routerLink]="['.']" [routerLinkActive]="['active']" class="tab-item p-4">Overview</a>
       <a  routerLink="./actions" [state]="{ hello: 'world' }" [routerLinkActive]="['active']"  class="tab-item p-4">Actions</a>
-      <a *ngIf="isAdminCreatorOrModuleLeader"  [routerLink]="['./configuration']" [routerLinkActive]="['active']"  class="tab-item p-4">Configuration</a>
-      <a *ngIf="isAdminCreatorOrModuleLeader" [routerLink]="['./files']" [routerLinkActive]="['active']"  class="tab-item p-4">Files</a>
+      <a *ngIf="!!isAdminCreatorOrModuleLeader"  [routerLink]="['./configuration']" [routerLinkActive]="['active']"  class="tab-item p-4">Configuration</a>
+      <a *ngIf="!!isAdminCreatorOrModuleLeader" [routerLink]="['./files']" [routerLinkActive]="['active']"  class="tab-item p-4">Files</a>
   </div>
   <router-outlet></router-outlet>
  

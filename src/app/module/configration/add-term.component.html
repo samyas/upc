@@ -14,6 +14,7 @@
                                     <input type="number"  formControlName="order" class="form-control" placeholder="Order">
                                     <div *ngIf="submitted && f.order.errors" class="text-danger">
                                         <div *ngIf="f.order.errors.required">Order is required</div>
+                                        <div *ngIf="f.order.errors.min">Order should be above 1</div>
                                     </div>
                             </div>
                             <div class="form-group col-md-10">
@@ -36,17 +37,23 @@
                          </div>
                     </div>
 
-                    
-                 <div class="form-group ">
-                     
-                        <label>Quota </label>
+                    <div class="form-group">
+                        <label>Supervision Quota (max number of projects) </label>
                         <input type="number"  formControlName="quota" class="form-control">
                         <div *ngIf="submitted && f.quota.errors" class="text-danger">
                             <div *ngIf="f.quota.errors.required">Quota is required</div>
+                            <div *ngIf="f.quota.errors.min">Quota should be above 0</div>
                         </div>
-                     
-                
-                 </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Workload Allocation (per project) </label>
+                        <input type="number"  formControlName="workload" class="form-control">
+                        <div *ngIf="submitted && f.workload.errors" class="text-danger">
+                            <div *ngIf="f.workload.errors.required">workload is required</div>
+                            <div *ngIf="f.workload.errors.min">Workload should be above 0</div>
+                        </div>
+                     </div>
 
                  <div class="form-group form-check">
                         <input type="checkbox"  formControlName="mandatoryBeforeStart" class="form-check-input">

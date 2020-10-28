@@ -49,6 +49,16 @@ export class ProjectService {
 
   }
 
+  apply(id: string, apply: Apply, files?: Array<any>): Observable<any> {
+    const formData: any = new FormData();
+    if (files && files.length && files.length > 0) {
+      files.forEach(f =>  formData.append('files', f));
+    }
+      formData.append('apply', new Blob([JSON.stringify(apply)], { type: 'application/json'}));
+      return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/apply-with-upload'
+      , formData,  {responseType: 'text'});
+  }
+
   updateGoal(id: string, goal: Goal, files?: Array<any>): Observable<any> {
     if (files && files.length && files.length > 0) {
       const formData: any = new FormData();
@@ -79,11 +89,6 @@ export class ProjectService {
     }
 
 
-  }
-
-  apply(id: string, apply: Apply): Observable<any> {
-    console.log('id' , id, apply);
-    return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/apply', JSON.stringify(apply),  {responseType: 'text'});
   }
 
   assign(id: string, assign: Assign): Observable<any> {

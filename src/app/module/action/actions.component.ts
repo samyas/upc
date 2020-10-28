@@ -47,7 +47,7 @@ export class ActionsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-
+    this.checkRole();
     this.route.parent.paramMap.pipe(
         switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
           this.moduleId = id;

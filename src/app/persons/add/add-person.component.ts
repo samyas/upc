@@ -15,6 +15,7 @@ export class AddPersonComponent implements OnInit {
 
   public form: FormGroup;
   @Input() public person: Person;
+  @Input() public isStudent = true;
   submitted = false;
   serverError = null;
 
@@ -41,6 +42,7 @@ export class AddPersonComponent implements OnInit {
         firstName: [this.person.firstName, Validators.compose([Validators.required, Validators.minLength(2)])],
         lastName: [this.person.lastName, Validators.compose([Validators.required, Validators.minLength(2)])],
         email: [this.person.email, [Validators.required, Validators.email]],
+        identifier: [this.person.identifier],
         departmentId: [departmentId, [Validators.required]],
         isStaff: [this.isStaff(this.person.personfunction)],
         isModelLeader: [this.isModelLeader(this.person.personfunction)]
@@ -106,7 +108,10 @@ export class AddPersonComponent implements OnInit {
   }
 
     private isStaff(personFunction): boolean {
-      return personFunction === PersonFunction.MODEL_LEADER  || personFunction === PersonFunction.STAFF;
+      if (personFunction) {
+        return personFunction === PersonFunction.MODEL_LEADER  || personFunction === PersonFunction.STAFF;
+      }
+      return !this.isStudent;
     }
 
     private isModelLeader(personFunction): boolean {

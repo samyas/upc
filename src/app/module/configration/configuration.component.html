@@ -4,7 +4,7 @@
 
         <div class="d-flex flex-row-reverse">
            <button class="mt-3 btn btn-success btn-b" type="button" (click)="openTermDialog(null)">
-               <b><i class="fa fa-plus"></i></b> Add New Supervisor Term
+               <b><i class="fa fa-plus"></i></b>Add New Supervisor, Examiner or Chair
           </button>
         </div>
      
@@ -43,13 +43,20 @@
 
                         <div class="col-md-6 " >
                             
-                            <div class="row">
-                                    <div class="col-md-3" > <span class="label"> Quota: </span>{{term.quota}},   </div>
-                                    <div *ngIf="term.mandatoryBeforeStart" class="col-md-6" > <span class="label"> Should be assigned Before Start </span> </div>
+                            <div *ngIf="term.mandatoryBeforeStart" class="row">
+                                <div  class="col-md-6"> <span class="label">- Should be assigned Before Start </span> </div>
                             </div>
 
                             <div class="row">
-                                    <div class="col-md-2" > <span class="label"> Responsibility: </span> </div>
+                                <div class="col-md-12" > <span class="label">- Supervision Quota (max number of projects) :</span>{{term.quota}} </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12" > <span class="label">- Workload Allocation (per project) :</span>{{term.workload}}  </div>
+                            </div>
+
+                            <div class="row">
+                                    <div class="col-md-3" > <span class="label">- Responsibility : </span> </div>
                             </div>
                             <div class="row">
                                     <div class="col-md-10" [innerHTML]="term.description"></div>

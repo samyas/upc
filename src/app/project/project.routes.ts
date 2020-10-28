@@ -1,3 +1,4 @@
+import { AppliesComponent } from './apply/applies.component';
 import { KanbanComponent } from './kanban/kanban.component';
 import { ProjectComponent } from './project.component';
 import { ProjectOverviewComponent } from './overview/project-overview.component';
@@ -38,8 +39,8 @@ import { Route, RouterModule } from '@angular/router';
         data: {num: 3}
       },
       {
-        path: 'meetings',
-        component: GoalsComponent,
+        path: 'applies',
+        component: AppliesComponent,
         data: {num: 4}
       },
       {

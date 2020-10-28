@@ -1,3 +1,4 @@
+import { AppliesComponent } from './apply/applies.component';
 import { KanbanComponent } from './kanban/kanban.component';
 import { GoalsComponent } from './goal/goals.component';
 import { UploadFileComponent } from './../shared/file-upload/upload-file.component';
@@ -33,7 +34,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [ProjectComponent,
-    AddTaskComponent, AddGoalComponent, ApplyComponent, ShortTaskComponent, TaskComponent, AssignPersonsComponent,
+    AddTaskComponent, AddGoalComponent, ApplyComponent, AppliesComponent, ShortTaskComponent, TaskComponent, AssignPersonsComponent,
      ProjectOverviewComponent, GoalsComponent, KanbanComponent],
   imports: [
     CommonModule, SharedModule, ProjectRoutingModule, NgSelectModule, CKEditorModule, DragDropModule

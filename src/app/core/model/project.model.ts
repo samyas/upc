@@ -28,7 +28,7 @@ export class ProjectOverview {
     extended: boolean;
     nextAction: Goal;
     logo: FileDescriptor;
-
+    applies: Array<Apply>;
 }
 
 export class Goal {
@@ -47,8 +47,11 @@ export class Goal {
 }
 
 export class Apply {
-    personId: string;
     description: string;
+    createdBy: ShortPerson;
+    files: Array<FileDescriptor>;
+    submitDate: Object;
+    termId: string;
 }
 
 export class Member {

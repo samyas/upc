@@ -15,6 +15,8 @@ export class Person {
     valid: boolean;
     personfunction: PersonFunction;
     workload: number;
+    identifier: string;
+    description: string;
     currentProjects: number;
     previousProjects: number;
     shortDescription: string;

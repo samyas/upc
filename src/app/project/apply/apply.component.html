@@ -1,14 +1,59 @@
-<h1 class="blue-light"> Apply</h1>
+<div class="modal-header">
+    <h4 class="modal-title">Apply</h4>
+    <button type="button" class="close no-outline" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form">
+    
+            <div *ngIf="serverError"  class="row">
+                    <div class="col-sm-12 text-danger"> {{serverError}} </div>  
+                  </div>
 
-<div>
-    <form [formGroup]="form" class="goal-form">
-      <div class="form-field-outer">
 
-        <!--mat-form-field class="w-100 mt-4">
-            <textarea  matInput placeholder="Description" formControlName="description"> </textarea>
-        </mat-form-field-->
+                  <div *ngIf="terms?.length > 0" class="form-group">
+                        <label >Role</label>
+                        <select  formControlName="termId" class="form-control">
+                            <option  *ngFor="let term of terms"  [ngValue]="term.termId">{{term.name}} -(workload: {{term.workload}})</option>
+                        </select>
+                        <div *ngIf="submitted && f.termId.errors" class="text-danger">
+                            <div *ngIf="f.termId.errors.required">Role is required</div>
+                        </div>
+                </div>
+
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <ckeditor class="description" [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                    [editor]="Editor" formControlName="description" >
+            </ckeditor>
+            <div *ngIf="submitted && f.description.errors" class="text-danger">
+                    <div *ngIf="f.description.errors.required">Description is required</div>
+             </div>
+        </div>
+
+        
+
+
+        <div class="form-group  d-flex justify-content-start">
+            <div class="mr-2 attach-file"  *ngFor="let item of files"> 
+                    <a class="btn btn-default btn-sm float-right" (click)="removeFile(item.name)"><i class="fa fa-times"></i></a>
+                    <span class="attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+                    <div class="attachment-info d-flex flex-row" >
+                            <a class="attachment-name"><i class="fa fa-paperclip"></i> {{item.name}}</a>
+                    </div>
+            </div>
+            <div class="mt-2 upload-drop-zone"  (click)="fileInput.click()" (fileDropped)="uploadFile($event)">
+                    <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                    <i class="fa fa-cloud-upload fa-3"></i> Just drag and drop files here
+             </div>
     </div>
+
+
     </form>
 </div>
-
-    <button class="btn-save">  <span class="text"> Apply </span></button>
+<div class="modal-footer">
+    <button type="button" class="btn app-primary focus"  (click)="create()" >Apply</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">CANCEL</button>
+</div>

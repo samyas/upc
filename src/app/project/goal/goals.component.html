@@ -197,15 +197,31 @@
   <div class="sidebar-overlay" [class.active]="selectedTask"></div>
  
   <div class="right-bar" [class.open]="selectedTask">
-      <div class="d-flex justify-content-start">
+ 
+            <div class="row">
+                    <div class="col-sm-1">
+                            <div (click)="closeTask()" class="close-box"> 
+                                    <span>x</span>
+                                  </div>
+                    </div>
+                    <div class="col-sm-11">
+                            <app-task  *ngIf="selectedTask"   [projectId]="project.projectId" 
+                             [goalId]="selectedGoalId" [task]="selectedTask" [persons]="persons"></app-task> 
+
+                     </div>
+            </div>
+
+   
+
+
+
+      <!--div class="d-flex justify-content-start">
           <div (click)="closeTask()" class="close-box"> 
             <span>x</span>
-             <!--button class="btn btn-edit btn-circle" type="button" (click)="editTaskDialog()"><i class="fa fa-pencil"></i></button-->
           </div>
           <app-task  *ngIf="selectedTask"   [projectId]="project.projectId" 
           [goalId]="selectedGoalId" [task]="selectedTask" [persons]="persons"></app-task> 
-
-      </div>
+      </div-->
      
   </div>
   

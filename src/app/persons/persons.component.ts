@@ -133,6 +133,7 @@ export class PersonsComponent implements OnInit {
    // console.log('dd', this.organisation);
     modalRef.componentInstance.departments = this.departments;
     modalRef.componentInstance.person = person;
+    modalRef.componentInstance.isStudent = this.isStudent;
      modalRef.result.then((result) => {
          console.log('modal sucess:' + result);
          this.loadData();

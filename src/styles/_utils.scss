@@ -125,7 +125,7 @@ color: #242424;
 .btn-b{
     padding-left: 0;
     b{
-      padding: 7px 12px;
+      padding: 9px 12px;
       background-color: rgba(0,0,0,.15);
     }   
   }
@@ -296,6 +296,11 @@ color: #242424;
 }
 
 .text-danger{
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .text-success{
     font-size: 0.8rem;
     font-weight: 700;
   }

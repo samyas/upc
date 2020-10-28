@@ -54,6 +54,7 @@ export class Term {
      name: string;
      description: string;
      quota: number;
+     workload: number;
      order: number;
      mandatoryBeforeStart: boolean;
 }

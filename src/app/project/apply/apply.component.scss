@@ -1,0 +1,101 @@
+:host ::ng-deep {
+    .description .ck-editor__editable_inline {
+        min-height: 200px;
+    }
+}
+
+.goal-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+   
+    .mat-radio-button{
+        margin-right: 12px;
+    }
+  }
+  
+  .field-full-width {
+    width: 100%;
+  }
+  .user-form{
+    .form-field-outer{
+        width: 280px;
+    }
+    .mat-radio-button{
+        margin-right: 12px;
+    }
+}
+
+
+.mat-dialog-title {
+    margin: 0 0 5px!important;
+}
+
+.mat-dialog-content {
+    overflow-y: hidden !important;
+}
+
+.btn-save{
+    background-color: #21A0D2!important;
+    color: #fff!important;
+    padding: 3px;
+    min-width: 150px;
+    margin: 10px;
+    border-radius:25px;
+}
+
+.upload-drop-zone {
+    color: #ccc;
+    border-style: dashed;
+    border-color: #ccc;
+    line-height: 150px;
+    text-align: center;
+
+    width: 100%;
+  
+    border-width: 2px;
+    .drop {
+        color: #222;
+        border-color: #222;
+    }
+  }
+
+  
+
+.attach-file{
+    border: 1px solid #eee;
+
+    margin-right: 10px;
+
+    .attachment-icon {
+		color: #666;
+		font-size: 45px;
+		max-height: 132.5px;
+		padding: 20px 10px;
+        text-align: center;
+        display: block;
+	}
+	
+	.attachment-info {
+		background: #f8f9fa;
+		padding: 10px;
+		.attachment-name {
+			color: #666;
+            font-weight: 700;
+            font-size: 11px;
+            &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+		}
+		
+		.attachment-size {
+			color: #999;
+			font-size: 12px;
+			span {
+				display: inline-block;
+				padding-top: .75rem;
+			}
+		}
+	}
+}
