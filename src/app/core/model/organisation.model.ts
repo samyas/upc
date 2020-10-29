@@ -62,7 +62,7 @@ export class Term {
 
 export enum ModuleType {
     DISSERTATION = 'Dissertation',
-    GROUP_PROJECT = 'Group project',
+    GROUP_PROJECT = 'Group Project',
     WORK_BASED_LEARNING = 'Work Based Learning',
     PHD = 'PhD'
 }
