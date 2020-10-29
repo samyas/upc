@@ -40,7 +40,7 @@
                     </div>
             </div>
 
-            <div *ngIf="isDissertation(form?.value?.type)" class="form-group">
+            <div *ngIf="haveASubType(form?.value?.type)" class="form-group">
                 <label>Sub Module Type</label>
                 <select formControlName="subType" class="form-control">
                     <option disabled>Choose...</option>

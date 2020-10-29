@@ -48,8 +48,8 @@ export class AddDepartmentComponent implements OnInit {
   // convenience getter for easy access to form fields
  get f() { return this.form.controls; }
 
-isDissertation(moduleType: ModuleType): boolean {
-  return ModuleType.DISSERTATION === moduleType;
+haveASubType(moduleType: ModuleType): boolean {
+  return  moduleType && ModuleType.PHD !== moduleType;
 }
 
 

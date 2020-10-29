@@ -63,19 +63,20 @@ export class Term {
 export enum ModuleType {
     DISSERTATION = 'Dissertation',
     GROUP_PROJECT = 'Group project',
-    WORK_BASED_LEARNING = 'Work Based Learning'
-}
-
-export enum SubModuleType {
-    HONOURS = 'Honours',
-    MASTERS = 'Masters',
+    WORK_BASED_LEARNING = 'Work Based Learning',
     PHD = 'PhD'
 }
 
-export const MODULES_TYPE: Array<ModuleType> = [ModuleType.DISSERTATION, ModuleType.GROUP_PROJECT, ModuleType.WORK_BASED_LEARNING];
+export enum SubModuleType {
+    HONOURS = 'Undergraduate',
+    MASTERS = 'Postgraduate'
+}
+
+export const MODULES_TYPE: Array<ModuleType> = [ModuleType.DISSERTATION, ModuleType.GROUP_PROJECT,
+     ModuleType.WORK_BASED_LEARNING,  ModuleType.PHD];
 
 
-export const SUB_MODULES_TYPE: Array<SubModuleType> = [SubModuleType.HONOURS, SubModuleType.MASTERS, SubModuleType.PHD];
+export const SUB_MODULES_TYPE: Array<SubModuleType> = [SubModuleType.HONOURS, SubModuleType.MASTERS];
 
 export class Address {
         address: string;
