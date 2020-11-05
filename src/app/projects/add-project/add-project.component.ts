@@ -39,6 +39,7 @@ export class AddProjectComponent implements OnInit {
   submitted = false;
   serverError = '';
   public Editor = ClassicEditor;
+  public technologies = ['IOT', 'IP'];
 
   visible = true;
   selectable = true;

@@ -25,6 +25,13 @@ export class Person {
 }
 
 
+export class UpdatePerson {
+  id: string;
+  shortDescription: string;
+  description: string;
+  skills: Array<string>;
+
+}
 
 export enum PersonFunction {
   MODEL_LEADER = 'MODEL_LEADER',

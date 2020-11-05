@@ -7,7 +7,7 @@
 @import "rtl";
 @import "responsive";
 
-@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
 // @import url(https://fonts.googleapis.com/css?family=Poppins);
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap');
 
@@ -42,7 +42,7 @@ font-weight: normal;
     }  
 }
 .ng-select.custom .ng-select-container .ng-value-container {
-  padding-top: 5px;
+   padding-top: 5px;
 }
 .ng-select.custom .ng-clear-wrapper {
     padding-top: 5px;

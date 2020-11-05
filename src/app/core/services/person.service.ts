@@ -9,7 +9,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 import { HttpClient } from '@angular/common/http';
-import { Person } from '../model/person.model';
+import { Person, UpdatePerson } from '../model/person.model';
 
 
 @Injectable()
@@ -59,6 +59,10 @@ export class PersonService {
 
   updatePerson(person: Person): Observable<any> {
     return this.http.put(PersonService.PERSON_URI  + '/' + person.id, JSON.stringify(person),  {responseType: 'text'});
+  }
+
+  updateProfile(person: Person): Observable<any> {
+    return this.http.put(PersonService.PERSON_URI  + '/' + person.id + '/profile' , JSON.stringify(person),  {responseType: 'text'});
   }
 
   savePerson(person: Person): Observable<any> {

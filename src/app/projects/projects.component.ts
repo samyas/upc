@@ -21,6 +21,8 @@ export class ProjectsComponent implements OnInit {
 
   public statuses: Array<StatusProperties> = [];
 
+  public selectedStatus = [];
+
   constructor( private projectService: ProjectService, private  personService: PersonService) { }
 
   list = false;
@@ -31,12 +33,17 @@ export class ProjectsComponent implements OnInit {
   persons: Array<Person> = [];
   serverError = null;
   departmentId = null;
+  showSpinner = false;
 
   total = 5;
   page = 0;
   pageSize = 10;
   pageSizeOptions = [10, 25, 50];
 
+  onChangeStatus(e: Array<StatusProperties>) {
+    this.selectedStatus = e.map(x => x.code);
+    this.loadData();
+  }
 
   onPageChange(e) {
     this.page = e;
@@ -52,15 +59,18 @@ export class ProjectsComponent implements OnInit {
 
 
   loadData() {
-    this.projectService.getPagedProjects(null, null, this.page, this.pageSize).subscribe(
+    this.showSpinner = true;
+    this.projectService.getPagedProjects(this.selectedStatus, null, this.page, this.pageSize).subscribe(
       data => {
         this.total = data.totalElements;
         this.projects = data.content;
         this.serverError  = null;
+        this.showSpinner = false;
       }
       , error =>  {
         console.log(error);
         this.serverError = error.message;
+        this.showSpinner = false;
       }
     );
 
@@ -94,8 +104,7 @@ export class ProjectsComponent implements OnInit {
     this.personService.getPersons().subscribe(
       data => {
         this.persons =  data;
-        console.log('ssss', this.persons);
-      //  this.serverError  = null;
+        this.serverError  = null;
       }
       , error =>  {
         console.log(error);

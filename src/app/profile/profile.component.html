@@ -1,8 +1,6 @@
 <div class="container-fluid p-5">
 
-        <div *ngIf="serverError" class="row mt-1">
-            <div  class="text-danger mt-3">{{serverError}}</div>
-        </div>
+  
         <div class="row mt-1">
             <div class="media float-left mt-1 col-sm-12 col-md-12 center-box">
                 <div class="img-container">
@@ -23,12 +21,18 @@
              </div>
         </div>
     
+        <div *ngIf="serverError" class="row mt-1">
+                <div  class="text-danger mt-3">{{serverError}}</div>
+            </div>
+            
         <div class="row mt-3">
-                <div class="col-sm-4">
+             
+                <div class="col-sm-8">
                     <div class="d-flex justify-content-between">
-                       <span class="project-section-title">Abstract</span>
+                        <span class="project-section-title">Biography</span>
+                        <button class="btn btn-edit btn-circle" type="button" (click)="editShow.shortDescription=true"><i class="fa fa-pencil"></i></button>
                     </div>
-                    <div class="card-text" *ngIf="!editShow.shortDescription" [innerHTML]="person.shortDescription | slice:0:300"></div>
+                    <div class="card-text" *ngIf="!editShow.shortDescription" [innerHTML]="person.shortDescription | slice:0:600"></div>
                     <div *ngIf="!!editShow.shortDescription">
                         <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
                             [editor]="Editor" [(ngModel)]="person.shortDescription" >
@@ -43,10 +47,25 @@
                     <div class="d-flex flex-row bd-highlight">
                         <div class="flex-fill bd-highlight">
                             <span class="project-section-title">Skills</span><br>
-                            <div class="container">
-                            <div class="row">
-                                <a *ngFor="let keyword of person.skills" class="btn keywords">{{keyword}}</a>
-                            </div>
+                             <div class="container">
+                                <div *ngIf="!editShow.skills" class="row">
+                                    <a *ngFor="let keyword of person.skills" class="btn keywords">{{keyword}}</a>
+                                    <button class="btn btn-edit btn-circle" type="button" (click)="editShow.skills=true"><i class="fa fa-pencil"></i></button>
+                                </div>
+                                <div *ngIf="!!editShow.skills" class="row">
+                                 
+                                    <div class="d-flex flex-row">
+                                            <ng-select  [(ngModel)]="person.skills"
+                                            [items]="skillList"
+                                            [addTag]="addkeyword"
+                                            [multiple]="true"
+                                            [selectOnTab]="true">
+                                           </ng-select>
+                                        <button class="btn btn-edit btn-circle m-2 mt-4" type="button" (click)="updatePerson()" ><i class="fa fa-check"></i></button>
+                                        <button class="btn btn-edit btn-circle m-2 mt-4" type="button" (click)="editShow.skills=false" ><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                         
                             </div>
                         </div>
                     </div>
