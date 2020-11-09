@@ -6,7 +6,7 @@
                 <input type="text" [(ngModel)]="goal.name" placeholder="Set a goal" class="form-control form-control-line">
                 <button class="btn-rounded btn-action"  (click)="openGoalDialog(null)"  type="button"><i class="fa fa-plus"></i> </button>
 
-                <button class="pl-2 btn-rounded btn-action"  (click)="openGoalDialog(null, true)"  type="button"><i class="fa fa-plus"></i> </button>
+                <button *ngIf="canAddEditAction()" class="pl-2 btn-rounded btn-action"  (click)="openGoalDialog(null, true)"  type="button"><i class="fa fa-plus"></i> </button>
             </div>
      </div>
   </div>
@@ -21,7 +21,7 @@
         </div-->
         <!-- /.timeline-label -->
         <!-- timeline item -->
-        <div *ngFor="let gl of project.goals;  let isFirst = first"   [class.in-progress] = "gl.status=='START'"
+        <div *ngFor="let gl of goals;  let isFirst = first"   [class.in-progress] = "gl.status=='START'"
                   [class.done] = "gl.status=='COMPLETED'"  [class.review] = "gl.status=='REVIEW'"  [class.declined] = "gl.status=='DECLINED'">
           <i  *ngIf="!!isFirst" class="fa fa-rocket"></i>
           <i  *ngIf="!isFirst" class="fa fa-check"></i>
@@ -47,7 +47,7 @@
                             <div class="d-flex justify-content-between">
                                 <span class="status-label"><i class="fa fa-circle pr-2"></i> {{gl.status}}</span>
                        
-                                <div ngbDropdown class="goal-action padding-top-5">
+                                <div  *ngIf="!gl.actionId || (gl.actionId && canAddEditAction())" ngbDropdown class="goal-action padding-top-5">
                                         <button class="btn btn-circle" ngbDropdownToggle><i class="fa fa-ellipsis-v"></i></button>
                                         <div class="dropdown-menu" ngbDropdownMenu>
                                           <a class="dropdown-item" *ngIf="!gl.actionId" (click)=openTaskDialog(gl.goalId)><i class="fa fa-plus-circle pr-2"></i> Add Task</a>
@@ -113,7 +113,7 @@
                                         </div>
 
                                         <div class="d-flex flex-row-reverse pb-2">
-                                            <button *ngFor="let cs of getNextStatus(gl.status)" class="btn action-bg-color mr-2" type="button"
+                                            <button *ngFor="let cs of gl.nextActions" class="btn action-bg-color mr-2" type="button"
                                                   (click)="changeGoalStatus(gl.goalId, cs)"> {{cs.action}}
                                             </button>
                                         </div>

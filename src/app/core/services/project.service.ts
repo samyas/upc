@@ -1,7 +1,7 @@
 import { Message } from './../model/task.model';
 import { Assign, AssignMember } from './../model/assign.model';
 import { Paged } from '../model/paged.model';
-import { Project, ProjectOverview, Goal, Apply } from '../model/project.model';
+import { Project, ProjectOverview, Goal, Apply, EditProject } from '../model/project.model';
 import { environment } from '../../../environments/environment';
 
 import { Injectable } from '@angular/core';
@@ -120,6 +120,10 @@ export class ProjectService {
      null,  {responseType: 'text'});
   }
 
+  delete(id: string): Observable<any> {
+    return this.http.delete(ProjectService.PROJECT_URI + '/' + id,  {responseType: 'text'});
+  }
+
   assignTask(id: string, goalId: string, taskId: string, assign: Assign): Observable<any> {
     return this.http.post(ProjectService.PROJECT_URI + '/' + id + '/goals/' + goalId + '/tasks/' + taskId + '/assign',
      JSON.stringify(assign),  {responseType: 'text'});
@@ -164,7 +168,7 @@ export class ProjectService {
      JSON.stringify(task),  {responseType: 'text'});
   }
 
-  updateProject(project: Project): Observable<any> {
+  updateProject(project: EditProject): Observable<any> {
     return this.http.put(ProjectService.PROJECT_URI +  '/' +  project.projectId, JSON.stringify(project),  {responseType: 'text'});
   }
 

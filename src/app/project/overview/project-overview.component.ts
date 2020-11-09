@@ -6,21 +6,17 @@ import { Observable } from 'rxjs/Observable';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from './../../core/services/project.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Project, Member, PROJECT_STATUS_FLOWS, StatusProperties, P_PROPOSAL, P_ASSIGNED, Apply } from './../../core/model/project.model';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Project, Member, PROJECT_STATUS_FLOWS,
+  StatusProperties, P_PROPOSAL, P_ASSIGNED, Apply, EditProject } from './../../core/model/project.model';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PersonService } from 'src/app/core/services/person.service';
 import { Person, Role } from 'src/app/core/model/person.model';
 import { FileDownloadService } from 'src/app/core/services/file-download.service';
-import { OrganisationService } from 'src/app/core/services/organisation.service';
 import { AssignPersonsComponent } from '../assign/assign-persons.component';
 import { User } from 'src/app/core/model/auth.model';
-
-
-
-// import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { CurrentUserInfo } from '../user-project.model';
 
 
 @Component({
@@ -30,74 +26,135 @@ import { User } from 'src/app/core/model/auth.model';
 })
 export class ProjectOverviewComponent implements OnInit {
 
-  persons: Array<Person> = [];
+
   public Editor = ClassicEditor;
 
-  terms: Array<Term> = [];
-
   project: Project = new Project();
-  currentUser: User = new User();
-  userMember: Member = null;
-  error = null;
-  public editShow = new EditShow();
-  public vh = new ViewHide();
-  termWithmembers: Array<Member> = [];
+  currentUser = new  CurrentUserInfo();
   actions: Array<StatusProperties> = [];
-  isApplyActive = false;
-  isApplySuccess = false;
+  canAssign = false;
+  editRender = new EditRender();
+  applyRender = new ApplyRender();
+
+  error = null;
+  errorEdit = null;
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
-    private  personService: PersonService, private modalService: NgbModal,
-    private organisationService: OrganisationService, private dataService: SharedDataService,
-    private  uploadService: FileUploaderService, private downloadService: FileDownloadService
+    private modalService: NgbModal, private dataService: SharedDataService,
+    private  uploadService: FileUploaderService, private downloadService: FileDownloadService,
+    private router: Router,
     ) { }
 
   ngOnInit() {
     this.route.paramMap.pipe(
         switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
-        this.loadProject(id);
+          this.dataService.currentUser.subscribe(
+            data => {
+              this.currentUser.user = data;
+              this.loadProject(id);
+            },
+            error => {console.log(error); }
+           );
       });
   }
 
 
- loadModuleIfNeeded(moduleId) {
-  if ( this.terms.length === 0) {
-  this.dataService.currentOrganisationId.subscribe(organisationId =>
-         this.organisationService.getModule(organisationId, moduleId).subscribe(
-         data => {this.terms = data.supervisorTerms;
-          this.termWithmembers = this.mapTermsWithMembers(this.terms, this.project.members);
-          this.loadUserProfile(); this.init(); },
-          error => {
-            console.log(error);
-            this.error = error.message;
-          }));
-  } else {
-    this.termWithmembers = this.mapTermsWithMembers(this.terms, this.project.members);
-    this.loadUserProfile();
-  }
- }
+   loadProject(id: string) {
+         this.projectService.getProjectDetail(id).subscribe(
+         data => {this.project = data; this.refresh(); },
+         error => {
+          this.error = error.message;
+        });
+   }
 
-  init() {
-    this.error = null;
-  }
 
-  checkApplyIsActive() {
-    if (this.project.statusCode === P_PROPOSAL.code) {
-    //  if (this.currentUser.roles.includes(Role.STUDENT)) {
-         if (this.project.applies.find(x => x.createdBy.personId ===   this.currentUser.personId)) {
-          this.isApplySuccess = true;
-         } else {
-           if (this.termWithmembers.find(x => x.personId === this.currentUser.personId) ||
-                this.project.team.find(x => x.personId === this.currentUser.personId)) {
-           } else {
-            this.isApplyActive = true;
-           }
-         }
-     // }
+   refresh() {
+              this.isConnectedUserAmemberOfTheProject();
+              this.renderAssign();
+              this.renderApply();
+              this.renderNexActions();
+              this.error = null;
+              this.errorEdit = null;
+   }
+
+    isConnectedUserAmemberOfTheProject() {
+      this.currentUser.projectMember = this.project.members.find(x => x.personId === this.currentUser.personId);
+      if (! this.currentUser.projectMember ) {
+        this.currentUser.projectMember  = this.project.team.find(x => x.personId === this.currentUser.personId);
+      }
+       this.currentUser.isFirstSupervisor =  this.project.members[0].personId === this.currentUser.personId;
+       this.currentUser.isCreator = this.currentUser.personId === this.project.creator.personId;
     }
-  }
 
-  apply() {
+ /***************************ASSIGN RENDERING*********************/
+    renderAssign() {
+      if (this.project.statusCode === P_PROPOSAL.code) {
+          if (this.currentUser.isModelLeader() || this.currentUser.isFirstSupervisor) {
+                this.canAssign = true;
+          }
+      }
+    }
+
+    canAssignFirstSupervisor() {
+      if (this.project.statusCode === P_PROPOSAL.code) {
+        if ( !this.project.members[0].personId && this.currentUser.isCreator) {
+          return true;
+        }
+      }
+    }
+
+/***************************NEXT ACTIONS RENDERING*********************/
+    renderNexActions() {
+      const next: Array<StatusProperties> = PROJECT_STATUS_FLOWS.find(x => x.current.code === this.project.statusCode)?.next;
+      if (next) {
+        this.actions = next.filter(x => x.roles.includes(this.currentUser.roles[0]));
+        if (this.project.statusCode === P_PROPOSAL.code) {
+          if (!(this.project.members[0].personId) ||  !(this.project.team) || this.project.team.length === 0) {
+            this.actions = this.actions.filter( x => x.code !== P_ASSIGNED.code);
+          }
+        }
+      }
+    }
+
+   /*******************APPLY RENDERING *******************************/
+
+    renderApply() {
+      this.applyRender.showApply = this.canApply();
+      this.applyRender.showAlreadyApplied = this.showAlreadyApplied();
+    }
+
+    canApply() {
+      if (!this.currentUser.isMember &&  !this.alreadyApplied() && this.project.statusCode === P_PROPOSAL.code) {
+        if (this.currentUser.roles.includes(Role.STUDENT)) {
+           return  this.project.team.length < this.project.maxTeamMembers;
+        } else  { // Staff
+              return this.getEmtyPositions().length > 0;
+        }
+      }
+      return false;
+    }
+
+    alreadyApplied() {
+      return (this.project.applies.find(x => x.createdBy.personId ===   this.currentUser.personId));
+    }
+
+    showAlreadyApplied() {
+      return !this.currentUser.isMember &&  this.alreadyApplied() && this.project.statusCode === P_PROPOSAL.code;
+    }
+
+    getEmtyPositions() {
+      return this.project.members.filter(x => !x.personId).map( m => {
+        const term = new Term();
+        term.termId = m.termId;
+        term.name = m.termName;
+        return term;
+      });
+    }
+
+
+    /*******************ACTIONS********************************* */
+    // APPLY
+    apply() {
 
       const modalRef = this.modalService.open(ApplyComponent,  {windowClass: 'xlModal'});
       modalRef.componentInstance.projectId = this.project.projectId;
@@ -105,97 +162,17 @@ export class ProjectOverviewComponent implements OnInit {
       if (this.currentUser.roles.includes(Role.STUDENT)) {
         modalRef.componentInstance.terms = [];
       } else {
-        modalRef.componentInstance.terms = this.terms;
+        modalRef.componentInstance.terms = this.getEmtyPositions();
       }
       modalRef.result.then((result) => {
-          console.log('modal sucess:' + result);
           this.loadProject(this.project.projectId);
           }, (reason) => {
             console.log('modal failed:' + reason);
           }
         );
-  }
+     }
 
-  isCreatorNeedToAssignFirstSupervisor() {
-    if (this.project.statusCode === P_PROPOSAL.code) {
-      if ( !(this.termWithmembers[0].personId)  && this.currentUser.personId === this.project.creator.personId) {
-        return true;
-      }
-    }
-  }
-
-
-  isAssignButton() {
-    if (this.project.statusCode === P_PROPOSAL.code) {
-      return (!(this.termWithmembers[0].personId) ||  !(this.project.team) || this.project.team.length === 0);
-    }
-  }
-
-  refreshDisableAssign() {
-    console.log('tet', this.project.status,  this.currentUser.roles);
-    if (this.project.statusCode === P_PROPOSAL.code) {
-         if (this.currentUser.roles.includes(Role.MODULE_LEADER) ||
-         (this.currentUser.roles.includes(Role.STAFF) && this.termWithmembers[0].personId === this.currentUser.personId)) {
-              this.vh.assign = true;
-         }
-    }
-
-    if (this.project.statusCode === P_PROPOSAL.code || this.project.statusCode === P_ASSIGNED.code) {
-      if (this.currentUser.roles.includes(Role.MODULE_LEADER) ||
-          ((this.currentUser.roles.includes(Role.STAFF) || this.currentUser.roles.includes(Role.STUDENT)) && this.userMember) ||
-          (this.project.creator.personId === this.currentUser.personId)
-          ) {
-           this.vh.edit = true;
-      }
-    }
-  }
-  refreshNextStatus() {
-    const next: Array<StatusProperties> = PROJECT_STATUS_FLOWS.find(x => x.current.code === this.project.statusCode).next;
-    if (next) {
-      this.actions =    next.filter(x => x.roles.includes(this.currentUser.roles[0]));
-      if (this.project.statusCode === P_PROPOSAL.code) {
-        if (!(this.termWithmembers[0].personId) ||  !(this.project.team) || this.project.team.length === 0) {
-          this.actions = this.actions.filter( x => x.code !== P_ASSIGNED.code);
-        }
-      }
-    }
-  }
-
-   loadProject(id: string) {
-   // this.dataService.currentUser.subscribe( u => {this.currentUser = u;
-         this.projectService.getProjectDetail(id).subscribe(
-         data => {this.project = data; this.loadModuleIfNeeded(this.project.department.id);
-          this.init(); },
-         error => {
-          console.log(error);
-          this.error = error.message;
-        });
-      // });
-   }
-
-
-   loadUserProfile() {
-    this.dataService.currentUser.subscribe(
-    data => {
-              this.currentUser = data;
-              this.syncProjectWithUser();
-              this.refreshDisableAssign();
-              this.checkApplyIsActive();
-              this.refreshNextStatus();
-            },
-    error => {
-     console.log(error);
-   });
-}
-
- syncProjectWithUser() {
-   console.log('sync user');
-   this.userMember = this.project.members.find(x => x.personId === this.currentUser.personId);
-   if (!this.userMember ) {
-     this.userMember  = this.project.team.find(x => x.personId === this.currentUser.personId);
-   }
- }
-
+   // Change Project status
    changeStatus(status: string) {
     this.projectService.changeStatus(this.project.projectId, status).subscribe(
       data => { this.loadProject(this.project.projectId); },
@@ -205,33 +182,15 @@ export class ProjectOverviewComponent implements OnInit {
       });
    }
 
+   // Assign
    sign() {
-    this.projectService.sign(this.project.projectId, this.userMember.termId ? 'members' : 'team').subscribe(
+    this.projectService.sign(this.project.projectId, this.currentUser.projectMember.termId ? 'members' : 'team').subscribe(
       data => { this.loadProject(this.project.projectId); },
       error => {
         console.log( error);
         this.error = error.message;
       });
    }
-
-   mapTermsWithMembers(terms: Array<Term>, members: Array<Member>) {
-    return terms.map(t => this.convertTerm(t, members));
-   }
-
-  convertTerm(term: Term, members: Array<Member>): Member {
-    const termWithmember = new Member();
-    termWithmember.termId = term.termId;
-    termWithmember.termName = term.name;
-    const matchingMembers = members.filter(d => d.termId === term.termId);
-    if (matchingMembers.length === 1) {
-      termWithmember.firstName =  matchingMembers[0].firstName;
-      termWithmember.lastName =  matchingMembers[0].lastName;
-      termWithmember.personId =  matchingMembers[0].personId;
-      termWithmember.imageId =  matchingMembers[0].imageId;
-      termWithmember.signed = matchingMembers[0].signed;
-    }
-    return termWithmember;
-  }
 
 
   public openAssignPersonsDialog(member: Member) {
@@ -244,10 +203,8 @@ export class ProjectOverviewComponent implements OnInit {
     modalRef.componentInstance.term = term;
     modalRef.componentInstance.student = false;
     modalRef.result.then((result) => {
-        console.log('modal sucess:' + result);
         this.loadProject(this.project.projectId);
         }, error => {
-          console.log('failed to assign project', error);
           this.error = error.message;
         }
       );
@@ -263,7 +220,6 @@ export class ProjectOverviewComponent implements OnInit {
     modalRef.componentInstance.projectId = this.project.projectId;
     modalRef.componentInstance.term = term;
     modalRef.result.then((result) => {
-        console.log('modal sucess:' + result);
         this.loadProject(this.project.projectId);
         }, (reason) => {
           console.log('modal failed:' + reason);
@@ -277,7 +233,6 @@ export class ProjectOverviewComponent implements OnInit {
         this.loadProject(this.project.projectId);
       }
       , error => {
-        console.log('failed to unassign project', error);
         this.error = error.message;
       });
   }
@@ -288,22 +243,28 @@ export class ProjectOverviewComponent implements OnInit {
       this.loadProject(this.project.projectId);
     }
     , error => {
-      console.log('failed to unassign project', error);
       this.error = error.message;
     });
   }
 
 
-
+  // Update Project
   updateProject() {
-    this.projectService.updateProject(this.project)
+    const editProject = new EditProject();
+    editProject.projectId = this.project.projectId;
+    editProject.description = this.project.description;
+    editProject.shortDescription = this.project.shortDescription;
+    editProject.startDate = this.project.startDate;
+    editProject.endDate = this.project.endDate;
+    editProject.keywords = this.project.keywords;
+    editProject.departmentId = this.project.department.id;
+    this.projectService.updateProject(editProject)
     .subscribe( data => {
-      this.editShow.reset();
+      this.editRender.reset();
       this.loadProject(this.project.projectId);
     }
     , error => {
-      console.log('failed to update project', error);
-      this.error = error.message;
+      this.errorEdit = error.message;
     });
   }
 
@@ -314,7 +275,6 @@ export class ProjectOverviewComponent implements OnInit {
       this.uploadService.uploadFile(element, element.name, this.project.projectId, 'PROJECT_LOGO')
       .subscribe( data => { this.loadProject(this.project.projectId); },
       error => {
-        console.log( error);
         this.error = error.message;
       });
     }
@@ -334,7 +294,6 @@ export class ProjectOverviewComponent implements OnInit {
     this.uploadService.deleteFile(key, 'PROJECT', this.project.projectId)
       .subscribe( data => { this.loadProject(this.project.projectId); },
       error => {
-        console.log(error);
         this.error = error.message;
       });
   }
@@ -343,10 +302,33 @@ export class ProjectOverviewComponent implements OnInit {
     this.downloadService.downloadFile(key, fileName, contentType);
   }
 
+  // Delete Project
+  public delete() {
+    this.projectService.delete(this.project.projectId)
+    .subscribe( data => {
+      this.router.navigate(['home/project']);
+    }
+    , error => {
+      this.error = error.message;
+    });
+  }
+
+
 
 }
 
-class EditShow {
+class ApplyRender {
+   showApply: boolean;
+   showAlreadyApplied: boolean;
+
+   constructor() {
+    this.showApply = false;
+    this.showAlreadyApplied = false;
+  }
+}
+
+
+class EditRender {
   title: boolean;
   shortDescription: boolean;
   description: boolean;
@@ -361,24 +343,5 @@ class EditShow {
     this.title = false;
     this.shortDescription = false;
     this.description = false;
-  }
-}
-
-
-class ViewHide {
-  assign: boolean;
-  edit: boolean;
-  resume: boolean;
-
-  constructor() {
-    this.assign = false;
-    this.edit = false;
-    this.resume = false;
-  }
-
-  reset() {
-    this.assign = false;
-    this.edit = false;
-    this.resume = false;
   }
 }

@@ -16,6 +16,8 @@ import { PersonService } from 'src/app/core/services/person.service';
 import { Person } from 'src/app/core/model/person.model';
 import { Assign } from 'src/app/core/model/assign.model';
 import { FileDownloadService } from 'src/app/core/services/file-download.service';
+import { SharedDataService } from 'src/app/core/services/shared-data.service';
+import { CurrentUserInfo } from '../user-project.model';
 
 
 
@@ -31,17 +33,15 @@ export class GoalsComponent implements OnInit {
   color = 'primary';
   mode = 'determinate';
   value = 50;
-  persons: Array<Person> = [];
+  currentUser = new  CurrentUserInfo();
   public Editor = ClassicEditor;
 
   files:  Array<any> = [];
 
   selectedPerson = null;
-  // <img imgViewer [id]="consultant.photoFileId" default="../assets/img/avatar5.png" class="profile-user-img img-responsive img-circle"/>
-  // <input type="file" id="photo-anchor" (change)="onChangePhoto()" ng2FileSelect [uploader]="photoUploader" />
-  // public uploader:FileUploader = new FileUploader({});
 
   project: Project = new Project();
+  goals: Array<Goal> = [];
   goal: Goal = new Goal();
   task: Task = new Task();
   selectedGoalId = null;
@@ -61,28 +61,25 @@ export class GoalsComponent implements OnInit {
   public editShow = new EditShow();
 
   constructor(private router: Router, private route: ActivatedRoute, private projectService: ProjectService,
-    private  personService: PersonService, private modalService: NgbModal,
+     private modalService: NgbModal,  private dataService: SharedDataService,
     private  uploadService: FileUploaderService, private downloadService: FileDownloadService
     ) { }
 
   ngOnInit() {
-  /*
-    this.router.events
-    .pipe(filter(e => e instanceof NavigationStart))
-    .subscribe((e: NavigationStart) => {
-      const t = this.router.getCurrentNavigation().extras.state;
-      console.log('ddddara', t);
-      // Logic here
-        });
-   */
+  /* this.router.events .pipe(filter(e => e instanceof NavigationStart))
+    .subscribe((e: NavigationStart) => { const t = this.router.getCurrentNavigation().extras.state;});*/
 
-
-        this.init();
-    this.route.parent.paramMap.pipe(
-        switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
-        this.loadProject(id);
-        this.loadPersonData();
-      });
+  this.init();
+  this.route.parent.paramMap.pipe(
+      switchMap((params: ParamMap) => of(params.get('id')))).subscribe((id) => {
+        this.dataService.currentUser.subscribe(
+          data => {
+            this.currentUser.user = data;
+            this.loadProject(id);
+          },
+          error => {console.log(error); }
+        );
+       });
   }
 
   init() {
@@ -96,14 +93,51 @@ export class GoalsComponent implements OnInit {
     this.task.description = null;
   }
 
-  getNextStatus(status): Array<StatusProperties> {
-    const result = GOAL_STATUS_FLOWS.filter(x => x.current.code === status);
-    if (result.length > 0) {
-      return result[0].next;
-    }
-    return null;
+  loadProject(id: string) {
+    this.projectService.getProjectDetail(id).subscribe(
+    data => {this.project = data;
+             this.isConnectedUserAmemberOfTheProject();
+             this.init(); this.goalsRender(); },
+    error => {  this.error = error.message; });
   }
 
+
+  isConnectedUserAmemberOfTheProject() {
+    this.currentUser.projectMember = this.project.members.find(x => x.personId === this.currentUser.personId);
+    if (! this.currentUser.projectMember ) {
+      this.currentUser.projectMember  = this.project.team.find(x => x.personId === this.currentUser.personId);
+    }
+    this.currentUser.isFirstSupervisor =  this.project.members[0].personId === this.currentUser.personId;
+    this.currentUser.isCreator = this.currentUser.personId === this.project.creator.personId;
+  }
+  goalsRender() {
+   this.goals = this.project.goals.map(x =>  {
+     x.nextActions = this.getNextStatus(x);
+     return x;
+    });
+  }
+
+  canAddEditAction() {
+    return this.currentUser.isFirstSupervisor || this.currentUser.isModelLeader();
+  }
+
+  getNextStatus(goal: Goal): Array<StatusProperties> {
+    if (goal.isAction) {
+      const next: Array<StatusProperties> = GOAL_STATUS_FLOWS.find(x => x.current.code === goal.status)?.next;
+      if (next) {
+          const nextActions =  next.filter(x => x.roles.includes(this.currentUser.roles[0]));
+          if (status === G_REVIEW.code) {
+            if (this.currentUser.isFirstSupervisor || this.currentUser.isModelLeader()) {
+              return nextActions;
+            }
+          } else {
+            return nextActions;
+          }
+      }
+    }
+  }
+
+  /*****************GOALS ****************************/
   changeGoalStatus(goalId, nextStatus) {
 
         if (nextStatus && (nextStatus.code === G_REVIEW.code || nextStatus.code === G_DECLINED.code
@@ -146,46 +180,8 @@ export class GoalsComponent implements OnInit {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
       this.editShow.files.push(element);
-    //  this.uploadService.uploadFile(element, element.name, this.project.projectId, 'PROJECT')
-    //  .subscribe( data => {console.log('attch success'); this.loadProject(this.project.projectId); },
-    //  error => {console.log(error),  this.error = error.message; });
     }
   }
-  deleteAttachment(key) {
-    this.uploadService.deleteFile(key, 'PROJECT', this.project.projectId)
-      .subscribe( data => {console.log('delete attch success'); this.loadProject(this.project.projectId); },
-      error => {console.log(error),  this.error = error.message; });
-  }
-
-  download(key: string, fileName: string, contentType: string) {
-    this.downloadService.downloadFile(key, fileName, contentType);
-  }
-
-    loadProject(id: string) {
-         this.projectService.getProjectDetail(id).subscribe(
-         data => {this.project = data; this.init(); },
-         error => {console.log(error),  this.error = error.message; });
-    }
-
-    loadTask(id: string) {
-      this.projectService.getTask(this.project.projectId, this.selectedGoalId, id).subscribe(
-      data => {this.selectedTask = data; },
-      error => {console.log(error),  this.error = error.message; });
-    }
-
-    closeTask() {
-        this.selectedTask = null;
-    }
-
-
-    loadPersonData() {
-      this.personService.getPersons().subscribe(
-        data => {
-          this.persons =  data;
-        }
-        ,   error => {console.log(error),  this.error = error.message; }
-      );
-    }
 
     selectGoal(goalId: string) {
       if (this.selectedGoalId === goalId) {
@@ -200,12 +196,38 @@ export class GoalsComponent implements OnInit {
       return this.selectedGoalId === goalId;
     }
 
+    openGoalDialog(goal?: Goal, isAction?: boolean) {
 
+      const modalRef = this.modalService.open(AddGoalComponent,  {windowClass: 'xlModal'});
+      modalRef.componentInstance.projectId = this.project.projectId;
+      modalRef.componentInstance.goal = goal;
+      modalRef.componentInstance.isAction = isAction;
+      modalRef.result.then((result) => {
+          console.log('modal sucess:' + result);
+          this.loadProject(this.project.projectId);
+          }, (reason) => {
+            console.log('modal failed:' + reason);
+          }
+        );
+    }
+
+    /**************TASKS************************* */
     selectTask(task: Task) {
      this.selectedTask = task;
     }
 
-  public openTaskDialog(goalId) {
+
+    loadTask(id: string) {
+      this.projectService.getTask(this.project.projectId, this.selectedGoalId, id).subscribe(
+      data => {this.selectedTask = data; },
+      error => {console.log(error),  this.error = error.message; });
+    }
+
+    closeTask() {
+        this.selectedTask = null;
+    }
+
+   openTaskDialog(goalId) {
     const modalRef = this.modalService.open(AddTaskComponent);
     modalRef.componentInstance.projectId = this.project.projectId;
     modalRef.componentInstance.goalId = goalId;
@@ -218,19 +240,8 @@ export class GoalsComponent implements OnInit {
       );
   }
 
-  public openGoalDialog(goal?: Goal, isAction?: boolean) {
-
-    const modalRef = this.modalService.open(AddGoalComponent,  {windowClass: 'xlModal'});
-    modalRef.componentInstance.projectId = this.project.projectId;
-    modalRef.componentInstance.goal = goal;
-    modalRef.componentInstance.isAction = isAction;
-    modalRef.result.then((result) => {
-        console.log('modal sucess:' + result);
-        this.loadProject(this.project.projectId);
-        }, (reason) => {
-          console.log('modal failed:' + reason);
-        }
-      );
+  download(key: string, fileName: string, contentType: string) {
+    this.downloadService.downloadFile(key, fileName, contentType);
   }
 
 

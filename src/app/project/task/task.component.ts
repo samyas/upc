@@ -31,7 +31,7 @@ export class TaskComponent implements OnInit {
   files: any = [];
   isComment = false;
   public model = {
-    editorData: '<p>Hello, world!</p>'
+    editorData: null
   };
   public editShow = new EditShow();
   submitted = false;

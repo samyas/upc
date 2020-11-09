@@ -22,14 +22,32 @@ export class ProjectOverview {
     nbrCheckPoint:  number;
     progress: number;
     type: string;
-    keywords: string;
+    keywords: Array<string>;
     department: ShortDepartment;
     imageId: string;
     extended: boolean;
     nextAction: Goal;
     logo: FileDescriptor;
     applies: Array<Apply>;
+    canDelete: boolean;
+    canEdit: boolean;
+    maxTeamMembers: number;
 }
+
+export class EditProject {
+    projectId: string;
+    name: string;
+    shortDescription: string;
+    description: string;
+    startDate: Date;
+    endDate: Date;
+    category: string;
+    type: string;
+    keywords: Array<string>;
+    departmentId: string;
+    logo: FileDescriptor;
+}
+
 
 export class Goal {
     goalId: string;
@@ -38,12 +56,14 @@ export class Goal {
     startDate: Object;
     endDate: Object;
     tasks: Array<Task>;
+    status: string;
     createdBy: ShortPerson;
     actualStartDate: Object;
     actualEndDate: Object;
     actionId: string;
     isAction: boolean;
     attachmentsArrayList: Array<FileDescriptor>;
+    nextActions: Array<StatusProperties>;
 }
 
 export class Apply {
@@ -61,7 +81,7 @@ export class Member {
     imageId: string;
     termId: string;
     termName: string;
-    signed: string;
+    signed: boolean;
 }
 
 
@@ -127,8 +147,8 @@ export class StatusFlow {
 
 /***********************GOAL STATUS*********************************/
   export const G_NEW = new StatusProperties('NEW', 'New', 'New', [Role.STAFF]);
-  export const G_START = new StatusProperties('START', 'Started', 'Start', [Role.STAFF, Role.MODULE_LEADER, Role.STUDENT]);
-  export const G_REVIEW = new StatusProperties('REVIEW', 'Review', 'Submit', [Role.STAFF, Role.MODULE_LEADER]);
+  export const G_START = new StatusProperties('START', 'Started', 'Start', [ Role.STUDENT]);
+  export const G_REVIEW = new StatusProperties('REVIEW', 'Review', 'Submit', [Role.STUDENT]);
   export const G_DECLINED = new StatusProperties('DECLINED', 'Declined', 'Decline', [Role.STAFF, Role.MODULE_LEADER]);
   export const G_COMPLETED = new StatusProperties('COMPLETED', 'Completed', 'Completed', [Role.STAFF, Role.MODULE_LEADER]);
 

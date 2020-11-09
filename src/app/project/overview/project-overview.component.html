@@ -6,17 +6,8 @@
         <div class="col-sm-7">
              <div class="container-fluid">
 
-                        <!--div class="row mt-3">
-                            <div class="col-md-12 mt-3">
-                              <div class="d-flex justify-content-between">
-                                <span class="label-department">{{project.department?.name}}</span>
-                                <span class="label-text"><i class="fa fa-ellipsis-v"></i></span>
-                              </div>
-    
-                            </div>
-                        </div-->
                       <div class="row mt-1">
-                        <div *ngIf="!editShow.title" class="media float-left mt-1 col-sm-12 col-md-12 form-material to-hover center-box">
+                        <div *ngIf="!editRender.title" class="media float-left mt-1 col-sm-12 col-md-12 form-material to-hover center-box">
 
                                 <div class="img-container">
                                         <img  [src]="project.logo?.url" default="../../../assets/images/project-icon.png" class="project-icon mr-2"/>
@@ -31,17 +22,17 @@
                             <div class="media-body self-center pl-2">
                                 <div class="d-flex justify-content-between">
                                     <a class="project-title mt-0">{{project.name}}</a>
-                                    <button  *ngIf="vh.edit" class="btn btn-edit btn-circle to-show" type="button" (click)="editShow.title=true"><i class="fa fa-pencil"></i></button>
+                                    <button  *ngIf="project.canEdit" class="btn btn-edit btn-circle to-show" type="button" (click)="editRender.title=true"><i class="fa fa-pencil"></i></button>
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="!!editShow.title" class="media float-left mt-1 col-sm-12 col-md-12 form-material to-hover center-box">
+                        <div *ngIf="!!editRender.title" class="media float-left mt-1 col-sm-12 col-md-12 form-material to-hover center-box">
                             <img [src]="project.logo?.url" default="../../../assets/images/project-icon.png" class="project-icon mr-2" alt="...">
                             <div class="media-body self-center pl-2">
                                 <div class="d-flex flex-row">
                                     <input type="text" [(ngModel)]="project.name" class="form-control form-control-line">
                                     <button class="btn btn-edit btn-circle" type="button" (click)="updateProject()" ><i class="fa fa-check"></i></button>
-                                    <button class="btn btn-edit btn-circle" type="button" (click)="editShow.title=false" ><i class="fa fa-times"></i></button>
+                                    <button class="btn btn-edit btn-circle" type="button" (click)="editRender.title=false" ><i class="fa fa-times"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -51,21 +42,21 @@
                          <div class="col-sm-12">
                             <div class="d-flex justify-content-between">
                                 <span class="project-section-title">Abstract</span>
-                                <button *ngIf="vh.edit" class="btn btn-edit btn-circle" type="button" (click)="editShow.shortDescription=true"><i class="fa fa-pencil"></i></button>
+                                <button *ngIf="project.canEdit" class="btn btn-edit btn-circle" type="button" (click)="editRender.shortDescription=true"><i class="fa fa-pencil"></i></button>
                             </div>
                    
-                          <div class="card-text" *ngIf="!editShow.shortDescription" [innerHTML]="project.shortDescription | slice:0:300"></div>
+                          <div class="card-text" *ngIf="!editRender.shortDescription" [innerHTML]="project.shortDescription | slice:0:300"></div>
 
-                          <div *ngIf="!!editShow.shortDescription">
+                          <div *ngIf="!!editRender.shortDescription">
                               <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
                                     [editor]="Editor" [(ngModel)]="project.shortDescription" >
                               </ckeditor>
                               
                               <div class="d-flex flex-row-reverse editor-footer">
                                   <button class="btn btn-primary m-1" (click)="updateProject()" type="button"> Save </button>
-                                  <button class="btn btn-default m-1"  (click)="editShow.shortDescription=false"  type="button"> Cancel </button>
+                                  <button class="btn btn-default m-1"  (click)="editRender.shortDescription=false"  type="button"> Cancel </button>
                               </div>
-                              <div *ngIf="error" class="text-danger mt-3">{{error}}</div>
+                              <div *ngIf="errorEdit" class="text-danger mt-3">{{errorEdit}}</div>
                           </div>
                           <div class="d-flex flex-row bd-highlight">
                             <div class="flex-fill bd-highlight">
@@ -84,28 +75,28 @@
                           <div class="col-sm-12">
                               <div class="d-flex justify-content-between border-bottom-grey">
                                   <span class="align-self-center project-section-title">Attachement</span>
-                                  <div *ngIf="vh.edit" class="action-btn" (click)="fileInput.click()"> 
+                                  <div *ngIf="!!project.canEdit" class="action-btn" (click)="fileInput.click()"> 
                                      <i class="fa fa-plus-square fa-1-3"></i>
                                     <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
                                   </div>
                               </div>
 
                        
-                            <div  *ngFor="let attachment of project.attachments">
+                             <div  *ngFor="let attachment of project.attachments">
                                 <div class="d-flex justify-content-start">
                                   <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
-                                  <button class="ml-2 btn app-primary btn-circle btn-outline" (click)="deleteAttachment(attachment.key)" type="button">
+                                  <button *ngIf="!!project.canEdit" class="ml-2 btn app-primary btn-circle btn-outline" (click)="deleteAttachment(attachment.key)" type="button">
                                     <i class="fa fa-times"></i>
                                   </button>
                                 </div> 
-                            </div>
+                             </div>
                              <div class="no-attachement" *ngIf="project.attachments?.length==0">No Attachement</div>
 
                           
                            </div>
                       </div>
 
-                      <div *ngIf="vh.resume" class="row mt-5">
+                      <!--div *ngIf="project.canEdit" class="row mt-5">
                           <div class="col-sm-12">
                             <div class="d-flex justify-content-around align-self-center align-center">
 
@@ -126,13 +117,13 @@
                             </div>
                           </div>
 
-                      </div>
+                      </div-->
  
              </div>
         </div>
         <div class="col-sm-5">
 
-            <div  *ngIf="!!isApplyActive" class="row mb-3">
+            <div  *ngIf="!!applyRender.showApply" class="row mb-3">
                         <div class="col-md-12 d-flex justify-content-start">
                             <button class="btn action-bg-color mr-2" (click)="apply()" type="button">
                               Interested
@@ -140,7 +131,15 @@
                         </div>
             </div>
 
-            <div  *ngIf="!!isApplySuccess" class="row">
+            <div  *ngIf="!!project.canDelete">
+                <div class="col-md-12 d-flex justify-content-start">
+                    <button class="btn action-bg-color mr-2" (click)="delete()" type="button">
+                      Delete
+                      </button>
+                </div>
+            </div>
+
+            <div  *ngIf="!!applyRender.showAlreadyApplied" class="row">
                     <div class="col-sm-12 text-success"> You express your interest successfully to this project </div>  
            </div>
 
@@ -160,7 +159,7 @@
                 <div *ngIf="error" class="col-sm-12 text-danger"> {{error}} </div>  
               </div>
 
-            <div *ngIf="userMember && !userMember.signed" class="row mt-1">
+            <div *ngIf="currentUser.shouldSign()" class="row mt-1">
               <div class="col-md-12">
                 <span class="text-danger"> Please confirm your subscription to this project: <a class="sign-b" (click)="sign()"> Sign</a></span>
                
@@ -211,12 +210,12 @@
                                   <span class="section-header">Supervisors</span>
                               </div> 
                            </div>
-                           <div class="row" *ngFor="let member of termWithmembers; first as isFirst">
+                           <div class="row" *ngFor="let member of project.members; first as isFirst">
                      
                               <div class="col-md-12 mt-1 align-center self-center">   
                                   <div *ngIf="!member.personId" class="d-flex justify-content-between">
                                       <div class="project-section-title align-self-center"> {{member.termName}}: </div>
-                                      <a  *ngIf="vh.assign || (isFirst && isCreatorNeedToAssignFirstSupervisor())" class="align-self-center button-sm-color" (click)="openAssignPersonsDialog(member)"> Assign </a>
+                                      <a  *ngIf="canAssign || (isFirst && canAssignFirstSupervisor())" class="align-self-center button-sm-color" (click)="openAssignPersonsDialog(member)"> Assign </a>
                                   </div>
                                   <div *ngIf="!!member.personId" class="d-flex justify-content-between">
                                       <div class="project-section-title  pr-2 align-self-center"> {{member.termName}}: </div>
@@ -227,7 +226,7 @@
                                                   <i class="fa fa-check-circle fa-s" [class.signed]="member.signed"></i>  {{member.lastName}}  {{member.firstName}}
                                                 </span>   
                                           </div>
-                                          <i *ngIf="vh.assign" class="fa fa-close fa-r" (click)="unAssignSupervisor(member)"></i>
+                                          <i *ngIf="canAssign" class="fa fa-close fa-r" (click)="unAssignSupervisor(member)"></i>
                                       </div>
                                   </div>
                                </div>
@@ -237,7 +236,7 @@
                               <div class="col-sm-12 border-bottom-color">
                                   <div class="d-flex justify-content-between">
                                       <span class="section-header">Teams</span>
-                                      <span  *ngIf="vh.assign" class="align-self-center action-sm-color " (click)="openAssignTeamDialog()"> Add Member <i class="fa fa-plus"></i> </span>
+                                      <span  *ngIf="canAssign" class="align-self-center action-sm-color " (click)="openAssignTeamDialog()"> Add Member <i class="fa fa-plus"></i> </span>
                                   
                                   </div>
                               </div> 
@@ -251,7 +250,7 @@
                                               <i class="fa fa-check-circle fa-s" [class.signed]="member.signed"></i>  {{member.lastName}}  {{member.firstName}}
                                             </span>   
                                       </div>
-                                      <i  *ngIf="vh.assign" class="fa fa-close fa-r" (click)="unAssignTeam(member)"></i>
+                                      <i  *ngIf="canAssign" class="fa fa-close fa-r" (click)="unAssignTeam(member)"></i>
                                   </div>  
                              </div>
                            </div>
@@ -266,18 +265,18 @@
                             <ng-template ngbTabTitle><i class="fa fa-list"></i> Description</ng-template>
                             <ng-template ngbTabContent>
                                 <div class="d-flex flex-row-reverse pt-3">
-                                    <button  *ngIf="vh.edit" class="btn btn-edit btn-circle" type="button" (click)="editShow.description=true"><i class="fa fa-pencil"></i></button>
+                                    <button  *ngIf="project.canEdit" class="btn btn-edit btn-circle" type="button" (click)="editRender.description=true"><i class="fa fa-pencil"></i></button>
                                 </div>
-                              <div *ngIf="!editShow.description" [innerHTML]="project.description"></div>
-                              <div *ngIf="!!editShow.description">
+                              <div *ngIf="!editRender.description" [innerHTML]="project.description"></div>
+                              <div *ngIf="!!editRender.description">
                                   <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
                                         [editor]="Editor" [(ngModel)]="project.description" >
                                   </ckeditor>
                                   <div class="d-flex flex-row-reverse editor-footer">
                                       <button class="btn btn-primary m-1" (click)="updateProject()" type="button"> Save </button>
-                                      <button class="btn btn-default m-1"  (click)="editShow.description=false"  type="button"> Cancel </button>
+                                      <button class="btn btn-default m-1"  (click)="editRender.description=false"  type="button"> Cancel </button>
                                   </div>
-                                  <div *ngIf="error" class="text-danger mt-3">{{error}}</div>
+                                  <div *ngIf="errorEdit" class="text-danger mt-3">{{errorEdit}}</div>
                               </div>
                             </ng-template>
                         </ngb-tab>

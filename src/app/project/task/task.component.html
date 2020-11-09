@@ -127,12 +127,32 @@
       <div *ngIf="!!isComment" class="message-box mt-3">
           <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }" [editor]="Editor" [(ngModel)]="model.editorData" ></ckeditor>
        
-           <div *ngIf="errorComment" class="text-danger">{{errorComment}}</div>
+          
+          <div class="editor-footer">
+            <!--div *ngFor="let item of editShow.files" class="">
+                <div class="pl-3">
+                    <a class="file-link">{{ item.name }} </a>
+                 </div> 
+            </div-->
+
+            <div class="d-flex justify-content-between">
+                <div class="p-1">
+                     <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                     <a class="btn btn-default btn-sm" (click)="fileInput.click()"><i class="fa fa-paperclip"></i></a>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                    <button class="btn btn-primary m-1" (click)="addMessage()" type="button"> Save </button>
+                    <button class="btn btn-default m-1"   (click)="isComment = false"  type="button"> Cancel </button>
+                 </div>
+            </div>
+
+        </div>
+         <div *ngIf="errorComment" class="text-danger">{{errorComment}}</div>
          
-          <div class="d-flex justify-content-start bd-highlight mt-3">
+          <!--div class="d-flex justify-content-start bd-highlight mt-3">
               <button class="btn app-primary active mr-3" (click)="addMessage()" type="button"> Confirm </button>
               <button class="btn btn-default mt-1"  (click)="isComment = false"  type="button"> Cancel </button>
-          </div>
+          </div-->
          
       </div>
 

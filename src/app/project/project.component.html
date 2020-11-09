@@ -1,5 +1,6 @@
 <div class="page-header  pt-3  d-flex justify-content-center">
-    <h3><i class="fa fa-star-o mr-1"></i>  {{project.name}}  <i *ngIf="project.extended" class="fa fa-cog edit-project-icon"></i></h3>
+    <h3><i class="fa fa-star-o mr-1"></i>  {{project.name}} 
+       <i *ngIf="project.extended"  [routerLink]="['/home/project/edit', project.projectId]"  class="fa fa-cog edit-project-icon"></i></h3>
   </div>
   
   <div *ngIf="project.extended" class="page-header pt-2 d-flex justify-content-center">

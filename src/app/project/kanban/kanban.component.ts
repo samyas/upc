@@ -218,19 +218,6 @@ export class KanbanComponent implements OnInit {
   }
 
 
-  updateProject() {
-    this.projectService.updateProject(this.project)
-    .subscribe( data => {
-      this.editShow.reset();
-      this.loadProject(this.project.projectId);
-    }
-    , error => {
-      console.log('failed to update project', error);
-      this.error = error.message;
-    });
-  }
-
-
   fillTasksInKanban(tasks: Array<Task>) {
     this.kanban = this.kanban.map(x =>  new TaskBoard(x.id, x.status, tasks.filter(t => t.status === x.status.code)));
   }

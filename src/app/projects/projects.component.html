@@ -1,14 +1,10 @@
 
 
-<div class="page-header d-flex justify-content-center">
+<div class="page-header pt-3 d-flex justify-content-center">
     <h3>Projects</h3>
   </div>
 
-  <div class="page-header d-flex justify-content-center">
-      <a  class="tab-item p-4 active">All projects</a>
-      <a  class="tab-item p-4">Assigned To Me</a>
-      <a  class="tab-item p-4">Managed By Me</a>
-</div>
+
   
 
 <div class="page-body">
@@ -18,12 +14,13 @@
            Add Project <i class="fa fa-plus"></i>
         </span>
         <div class="d-flex flex-row-reverse">
-            <button class="btn  btn-square" [class.active] = "list==false" (click)="list=false" type="button"><i class="fa fa-th-large"></i></button>
-            <button class="btn  btn-square" [class.active] = "list==true" (click)="list=true" type="button"><i class="fa fa-list"></i></button>
+            <button class="btn  btn-square self-align-center" [class.active] = "list==false" (click)="list=false" type="button"><i class="fa fa-th-large"></i></button>
+            <button class="btn  btn-square self-align-center" [class.active] = "list==true" (click)="list=true" type="button"><i class="fa fa-list"></i></button>
             <div class="d-flex flex-row self-align-center pr-3">
-              <span class="filter-label pr-2">Status: </span>
-              <ng-select  [items]="statuses" class="custom"
+              <ng-select  [items]="statuses"
               (change)="onChangeStatus($event)"
+              placeholder="Select"
+              [hideSelected]="true"
               [addTag]="false"
               [multiple]="true"
               [selectOnTab]="true" >
@@ -75,7 +72,6 @@
                   <div><span class="label-s">Technologies:</span></div>
                   <div class="d-flex technology flex-row">
                     <div class="p-2 flex-fill bd-highlight">
-                      <!--span class="project-section-title">Technologies</span><br-->
                       <div class="container">
                         <div class="row">
                             <a *ngFor="let keyword of project.keywords" class="btn keywords">{{keyword}}</a>

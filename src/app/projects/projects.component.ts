@@ -16,20 +16,16 @@ import { Person } from '../core/model/person.model';
 })
 export class ProjectsComponent implements OnInit {
 
-  public icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite',  'work', 'mail', 'favorite'];
+
   public  nbrs: Array<any> = [1, 2, 3, 4, 5, 7, 8, 9, 10];
-
   public statuses: Array<StatusProperties> = [];
-
   public selectedStatus = [];
 
   constructor( private projectService: ProjectService, private  personService: PersonService) { }
 
   list = false;
   projects: Array<ProjectOverview> = [];
-
   assign: Boolean = true;
-  options: string[] = ['One', 'Two', 'Three'];
   persons: Array<Person> = [];
   serverError = null;
   departmentId = null;
