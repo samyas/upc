@@ -1,6 +1,6 @@
 import { StatusProperties } from './../../core/model/project.model';
 import { T_ALL_STATUS } from 'src/app/core/model/task.model';
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject, Input, ViewChild } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
 import { Task, Message } from '../../core/model/task.model';
 import { ProjectService } from 'src/app/core/services/project.service';
@@ -12,6 +12,9 @@ import { Assign } from 'src/app/core/model/assign.model';
 import { Person } from 'src/app/core/model/person.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddTaskComponent } from './add-task.component';
+import { CKEditorComponent } from '@ckeditor/ckeditor5-angular';
+// import { InsertImage } from 'src/app/shared/ckeditor-plugin/file-exporer-plugin';
+
 
 @Component({
   selector: 'app-task',
@@ -25,7 +28,13 @@ export class TaskComponent implements OnInit {
   @Input() goalId;
   @Input() persons: Array<Person>;
 
+
+
   public Editor = ClassicEditor;
+
+  @ViewChild( 'editor' ) editorComponent: CKEditorComponent;
+
+
   error = null;
   errorComment = null;
   files: any = [];
@@ -47,6 +56,12 @@ export class TaskComponent implements OnInit {
 
     ngOnInit() {
     }
+
+  public getEditor() {
+    // Warning: This may return "undefined" if the editor is hidden behind the `*ngIf` directive or
+    // if the editor is not fully initialised yet.
+    return this.editorComponent.editorInstance;
+   }
 
     loadTask(id: string) {
       this.projectService.getTask(this.projectId, this.goalId, id).subscribe(
@@ -127,6 +142,29 @@ export class TaskComponent implements OnInit {
         console.log('failed to update project', error);
         this.error = error.message;
       });
+    }
+
+    addFile() {
+      console.log('add File', this.getEditor());
+      const selection = this.getEditor().model.document.selection;
+      console.log('sel', selection);
+      const range = selection.getFirstRange();
+      console.log('rg', range);
+      console.log('nn', range.getItems());
+
+      for (const item of range.getItems()) {
+          console.log('jj', item.data); // return the selected text
+      }
+      const editor = this.getEditor();
+      editor.model.change( writer => {
+        console.log('insert');
+        const linkedText = writer.createText( 'sousou', { linkHref: 'www.google.fr' } );
+
+        // Insert the image in the current selection location.
+        console.log('replace', linkedText);
+        editor.model.insertContent( linkedText, editor.model.document.selection );
+    } );
+
     }
 
     initComment() {

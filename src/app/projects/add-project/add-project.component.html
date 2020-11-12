@@ -55,13 +55,7 @@
                                             </div>
                                             <div class="form-group  col-md-3">
                                                 <label>Type</label>
-                                                <select formControlName="type" class="form-control">
-                                                    <option disabled>Choose...</option>
-                                                    <option *ngFor="let type of types" [value]="type.value">{{type.viewValue}}</option>
-                                                </select>
-                                                <div *ngIf="submitted && f.type.errors" class="text-danger">
-                                                    <div *ngIf="f.type.errors.required">Type is required</div>
-                                                </div>
+                                                <input type="text"  formControlName="type" class="form-control" placeholder="Type">
                                             </div>
                                     </div>
                                     <div class="form-row">

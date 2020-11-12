@@ -24,8 +24,8 @@ export class ProjectService {
     return this.http.get<Array<Project>>(ProjectService.PROJECT_URI);
   }
 
-  getPagedProjects(status: Array<string>, sort: string, page: number, size: number): Observable<Paged<ProjectOverview>> {
-    let url = ProjectService.PROJECT_URI + '/paged?page=' + page + '&size=' + size;
+  getPagedProjects(status: Array<string>, assignedToMe: boolean, page: number, size: number): Observable<Paged<ProjectOverview>> {
+    let url = ProjectService.PROJECT_URI + '/paged?page=' + page + '&size=' + size + '&assignedToMe=' + assignedToMe;
     if (status) { status.forEach(st => url += '&status=' + st); }
     return this.http.get<Paged<Project>>(url);
   }

@@ -32,6 +32,8 @@ export class ProjectOverview {
     canDelete: boolean;
     canEdit: boolean;
     maxTeamMembers: number;
+    diff: DiffDays;
+    totalMembers: number;
 }
 
 export class EditProject {
@@ -84,6 +86,14 @@ export class Member {
     signed: boolean;
 }
 
+export class DiffDays {
+    months: number;
+    days: number;
+    constructor(months1, days1) {
+        this.months = months1;
+        this.days = days1;
+    }
+}
 
 
 export class Project extends ProjectOverview {

@@ -45,7 +45,7 @@
                                 <button *ngIf="project.canEdit" class="btn btn-edit btn-circle" type="button" (click)="editRender.shortDescription=true"><i class="fa fa-pencil"></i></button>
                             </div>
                    
-                          <div class="card-text" *ngIf="!editRender.shortDescription" [innerHTML]="project.shortDescription | slice:0:300"></div>
+                          <div class="card-text" *ngIf="!editRender.shortDescription" [innerHTML]="project.shortDescription"></div>
 
                           <div *ngIf="!!editRender.shortDescription">
                               <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
@@ -126,12 +126,12 @@
             <div  *ngIf="!!applyRender.showApply" class="row mb-3">
                         <div class="col-md-12 d-flex justify-content-start">
                             <button class="btn action-bg-color mr-2" (click)="apply()" type="button">
-                              Interested
+                              Apply
                               </button>
                         </div>
             </div>
 
-            <div  *ngIf="!!project.canDelete">
+            <div  *ngIf="!!project.canDelete" class="row mb-3">
                 <div class="col-md-12 d-flex justify-content-start">
                     <button class="btn action-bg-color mr-2" (click)="delete()" type="button">
                       Delete
@@ -193,7 +193,7 @@
   
                               <div class="col-md-6 d-flex justify-content-start">
                                   <div  class="project-section-title align-self-center wf-70"> DURATION:</div>
-                                  <span class="align-self-center value-simple">  6 MONTHS </span>
+                                  <span class="align-self-center value-simple">  {{project.diff?.months}} MONTHS </span>
                               </div>
                               <div class="col-md-6 d-flex">
                                   <div  class="project-section-title align-self-center wf-70"> DATE:</div>
@@ -202,7 +202,7 @@
                           </div>
                           <div class="row mt-2  p-2">
                               <div class="progress col-md-12">
-                                  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                  <div class="progress-bar" role="progressbar" [style.width.%]="project.progress"  aria-valuenow="project.progress" aria-valuemin="0" aria-valuemax="100">{{project.progress}}%</div>
                               </div>
                           </div>
                           <div class="row p-3">

@@ -23,6 +23,8 @@ export class ProjectsComponent implements OnInit {
 
   constructor( private projectService: ProjectService, private  personService: PersonService) { }
 
+  assignedToMe = false;
+
   list = false;
   projects: Array<ProjectOverview> = [];
   assign: Boolean = true;
@@ -38,6 +40,11 @@ export class ProjectsComponent implements OnInit {
 
   onChangeStatus(e: Array<StatusProperties>) {
     this.selectedStatus = e.map(x => x.code);
+    this.loadData();
+  }
+
+  refresh(assignedToMe) {
+    this.assignedToMe = assignedToMe;
     this.loadData();
   }
 

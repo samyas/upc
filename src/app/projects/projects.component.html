@@ -4,8 +4,12 @@
     <h3>Projects</h3>
   </div>
 
+<div class="page-header d-flex justify-content-center">
+  <a  class="tab-item p-4" [class.active]="!assignedToMe" (click)="refresh(false)">All projects</a>
+  <a  class="tab-item p-4" [class.active]="assignedToMe" (click)="refresh(true)">Assigned To Me</a>
+</div>
 
-  
+
 
 <div class="page-body">
 
@@ -29,7 +33,7 @@
         </div>
     </div>
 
- 
+
 
     <div *ngIf="!showSpinner" class="">
 
@@ -63,13 +67,13 @@
                   <div class="d-flex justify-content-between">
                         <div><span class="label-s">Start Date:</span><span class="value-sb"> {{project.startDate  | date:'dd.MM.yyyy'}}</span></div>
                         <div><span class="label-s">End Date:</span><span  class="value-sb"> {{project.endDate  | date:'dd.MM.yyyy'}}</span></div>
-                        <div><span class="label-s">Duration:</span><span  class="value-sb"> 6 months</span></div>
+                        <div *ngIf="project.type"><span class="label-s">Type:</span><span  class="value-sb"> {{project.type}}</span></div>
                   </div>
 
-                  <div class="mt-3"><span class="label-s">Abstract:</span></div>
+                  <div class="mt-3"><span class="label-m">Abstract:</span></div>
                   <div class="card-text" [innerHTML]="project.shortDescription  | truncatetext:400"></div>
-              
-                  <div><span class="label-s">Technologies:</span></div>
+
+                  <div><span class="label-m">Technologies:</span></div>
                   <div class="d-flex technology flex-row">
                     <div class="p-2 flex-fill bd-highlight">
                       <div class="container">
@@ -88,28 +92,31 @@
                       </div>
                   </div>
 
-                  <div class="progress mt-2">
+                  <!--div class="progress mt-2">
                       <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                    </div>
+                    </div-->
 
-                  <div class="d-flex flex-row bd-highlight  mt-3">
-                  
+                  <div class="d-flex flex-row bd-highlight  mt-3" style="height: 26px;">
+
                       <div class="avatar-group">
-                          <a  *ngFor="let member of project.members"  title="{{member.firstName}} {{member.lastName}}" class="avatar-item">
-                                <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
-                          </a>
+                        <ng-container *ngFor="let member of project.members" >
+                          <a  *ngIf="member.personId"  title="{{member.firstName}} {{member.lastName}}" class="avatar-item">
+                            <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
+                         </a>
+                        </ng-container>
+
                           <a title="{{member.firstName}} {{member.lastName}}" *ngFor="let member of project.team" class="avatar-item">
                               <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
                         </a>
-                      </div>	
-                      <span class="members-text ml-3">{{project.members?.size + project.team?.size}} members </span>
+                      </div>
+                      <span class="members-text ml-3">{{project.totalMembers}} members </span>
                   </div>
 
                 </div>
                 <div class="card-footer project-footer2 bg-transparent container">
                   <div class="d-flex justify-content-around">
-                    <div class="p-3 flex-fill bd-highlight card-button active"> <i class="fa fa-download"></i> Apply Now</div>
-                    <div class="p-3 flex-fill bd-highlight card-button" [routerLink]="['.', project.projectId]">  <i class="fa fa-eye"></i> View Project</div>
+
+                    <div class="p-3 flex-fill bd-highlight card-button active" [routerLink]="['.', project.projectId]">  <i class="fa fa-eye"></i> View Project</div>
                     <!--div class="p-2 bd-highlight">
                       <button class="nav-link btn app-primary btn-circle btn-outline" type="button" [routerLink]="['.', project.projectId]">
                       <i class="fa fa-heart"></i></button>
@@ -180,29 +187,33 @@
                                   <a class="align-self-center">  {{supervisor.lastName}}  {{supervisor.firstName}} </a>
                                 </div-->
                                 <div class="avatar-group">
-                                    <a title="member.firstName member.lastName" *ngFor="let member of project.members" class="avatar-item">
-                                        <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
-                                  </a>
-                                  <a title="member.firstName member.lastName" *ngFor="let member of project.team" class="avatar-item">
+                                  <ng-container *ngFor="let member of project.members">
+                                    <a *ngIf="!!member.personId" title="{{member.firstName}} {{member.lastName}}"  class="avatar-item">
+                                      <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
+                                    </a>
+                                  </ng-container>
+
+
+                                  <a title="{{member.firstName}} {{member.lastName}}" *ngFor="let member of project.team" class="avatar-item">
                                       <img  alt="Avatar" [src]="member.imageId" default="../../../assets/images/person-icon.jpg">
                                 </a>
-                          
-                                
+
+
                                     <!---a class="avatar-item">
                                       <span>+3</span>
-                                    </a-->	
-                                
-                                </div>	
-                        
+                                    </a-->
+
+                                </div>
+
                           </td>
                           <td>
                             <div class="d-flex flex-row bd-highlight">
                               <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline"  [routerLink]="['.', project.projectId]"  type="button"><i class="fa fa-eye"></i></button></div>
                               <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline"  [routerLink]="['./edit', project.projectId]"  type="button"><i class="fa fa-pencil"></i></button></div>
                               <div class="p-2 bd-highlight"><button class="nav-link btn app-primary btn-circle btn-outline"  (click)="delete(project.projectId)"  type="button"><i class="fa fa-trash"></i></button></div>
-                      
+
                             </div>
-              
+
                           </td>
                     </tr>
 
@@ -222,11 +233,11 @@
     </div>
 
     <div *ngIf="!!showSpinner" class="central-spinner"  style="min-height: 400px;">
-     
+
             <div class="spinner-border text-primary" style="width: 6rem; height: 6rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-    </div> 
+    </div>
 
 
 

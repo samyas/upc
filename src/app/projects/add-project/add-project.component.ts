@@ -50,13 +50,6 @@ export class AddProjectComponent implements OnInit {
   image = null;
   imageURL = null;
 
-  types = [
-    {value: 'PFE', viewValue: 'PFE'},
-    {value: 'MASTER', viewValue: 'MASTER'},
-    {value: 'PFA', viewValue: 'PFA'},
-    {value: 'These', viewValue: 'These'}
-  ];
-
   constructor(  private router: Router, private route: ActivatedRoute, private projectService: ProjectService,
     private organisationService: OrganisationService,
     private personService: PersonService,
@@ -68,7 +61,7 @@ export class AddProjectComponent implements OnInit {
     this.form = this.fb.group({
       projectId: this.project.projectId,
       name : [this.project.name, Validators.compose([Validators.required, Validators.minLength(5)])],
-      type: [this.project.type, [Validators.required]],
+      type: [this.project.type],
       departmentId: [this.project.department ? this.project.department.id : null, [Validators.required]],
       keywords: [this.project.keywords, [Validators.required]],
       description: [this.project.description, Validators.compose([Validators.required, Validators.minLength(3)])],
