@@ -42,6 +42,7 @@ export class SupervisorDashboardComponent implements OnInit {
   currentUser: User = new User();
 
   isAdmin = null;
+  isModuleLeader = null;
 
   constructor(private projectService: ProjectService, private personService: PersonService,
     private dataService: SharedDataService,
@@ -56,12 +57,17 @@ export class SupervisorDashboardComponent implements OnInit {
     this.dataService.currentUser.subscribe(
     data => {
               this.currentUser = data;
-              if ( this.currentUser.roles.includes(Role.STAFF) || this.currentUser.roles.includes(Role.STUDENT)){
+              if ( this.currentUser.roles.includes(Role.STAFF) || this.currentUser.roles.includes(Role.STUDENT)) {
                 this.isAdmin = false;
                 this.getRelatedProjects(this.currentUser.personId);
+              } else if (this.currentUser.roles.includes(Role.MODULE_LEADER)) {
+                this.isModuleLeader = true;
+                this.loadDataProjects();
+                this.loadDataPersons();
+                this.isAdmin = true;
               } else {
                 this.isAdmin = true;
-                this.loadDataProjects();
+              //  this.loadDataProjects();
                 this.loadDataPersons();
               }
             },

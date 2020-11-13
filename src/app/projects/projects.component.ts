@@ -7,7 +7,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { Person } from '../core/model/person.model';
+import { Person, Role } from '../core/model/person.model';
+import { SharedDataService } from '../core/services/shared-data.service';
+import { User } from '../core/model/auth.model';
 
 @Component({
   selector: 'app-project',
@@ -21,7 +23,7 @@ export class ProjectsComponent implements OnInit {
   public statuses: Array<StatusProperties> = [];
   public selectedStatus = [];
 
-  constructor( private projectService: ProjectService, private  personService: PersonService) { }
+  constructor( private projectService: ProjectService, private dataService: SharedDataService) { }
 
   assignedToMe = false;
 
@@ -32,6 +34,9 @@ export class ProjectsComponent implements OnInit {
   serverError = null;
   departmentId = null;
   showSpinner = false;
+  currentUser: User = new User();
+
+  isModelLeader = null;
 
   total = 5;
   page = 0;
@@ -54,16 +59,34 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadUserProfile();
     this.loadData();
-    this.loadPersonData();
     this.statuses = P_ALL_STATUS;
   }
 
 
+  loadUserProfile() {
+    this.dataService.currentUser.subscribe(
+    data => {this.currentUser = data; console.log('mmm', this.currentUser, this.isModuleLeader()); },
+    error => { console.log(error); });
+  }
+
+  public isModuleLeader() {
+    return this.currentUser?.roles?.includes(Role.MODULE_LEADER);
+  }
+  public isStaff() {
+      return this.currentUser?.roles?.includes(Role.STAFF);
+  }
+  public isStudent() {
+      return this.currentUser?.roles?.includes(Role.STUDENT);
+  }
+  public  isAdminCreator() {
+      return this.currentUser?.roles?.includes(Role.ADMIN_CREATOR);
+  }
 
   loadData() {
     this.showSpinner = true;
-    this.projectService.getPagedProjects(this.selectedStatus, null, this.page, this.pageSize).subscribe(
+    this.projectService.getPagedProjects(this.selectedStatus, this.assignedToMe, this.page, this.pageSize).subscribe(
       data => {
         this.total = data.totalElements;
         this.projects = data.content;
@@ -102,20 +125,6 @@ export class ProjectsComponent implements OnInit {
       }
     );
   }
-
-  loadPersonData() {
-    this.personService.getPersons().subscribe(
-      data => {
-        this.persons =  data;
-        this.serverError  = null;
-      }
-      , error =>  {
-        console.log(error);
-        this.serverError = error.message;
-      }
-    );
-  }
-
 
 }
 

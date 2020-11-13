@@ -89,9 +89,7 @@ export class ProjectOverviewComponent implements OnInit {
 
   /******************** DIFF Date RENDERING **********************/
   renderDiff() {
-    console.log('kkk', this.getMonthDiff(this.project.startDate, this.project.endDate));
      this.project.diff = this.getMonthDiff(this.project.startDate, this.project.endDate);
-     console.log('ttt', this.project.diff);
   }
 
  /***************************ASSIGN RENDERING*********************/
@@ -324,28 +322,11 @@ export class ProjectOverviewComponent implements OnInit {
   public getMonthDiff(startDateObject, endDateObject) {
     const startDate = new Date(startDateObject);
     const endDate = new Date(endDateObject);
-   /* const monthsFromYearDiff = (startDate.getFullYear() - endDate.getFullYear()) * 12;
-    const monthsFromMonthDiff = startDate.getMonth() - endDate.getMonth();
-    let dayDiff = startDate.getDate() - endDate.getDate();
-    let monthDiff = null;
-    if (dayDiff < 0) {
-      // means startDate is not a complete month
-      // get last day of month
-      const d = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
-      const numDays = d.getDate();
-      dayDiff += numDays;
-       monthDiff =  monthsFromYearDiff + monthsFromMonthDiff - 1;
-       console.log('vv', monthDiff, dayDiff);
-       return new DiffDays(monthDiff, dayDiff);
-    }
-    monthDiff = monthsFromYearDiff + monthsFromMonthDiff;
-    console.log('ss', monthDiff, dayDiff);
-    return new DiffDays(monthDiff, dayDiff);*/
     const time = (startDate.getTime() - endDate.getTime()) / 1000;
     const year  = Math.abs(Math.round((time / (60 * 60 * 24)) / 365.25));
     const month = Math.abs(Math.round(time / (60 * 60 * 24 * 7 * 4)));
     const days = Math.abs(Math.round(time / (3600 * 24)));
-    return new DiffDays(month, days);
+    return new DiffDays(month + (year * 12), days);
   }
 
 }
