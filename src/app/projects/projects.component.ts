@@ -10,6 +10,7 @@ import {map, startWith} from 'rxjs/operators';
 import { Person, Role } from '../core/model/person.model';
 import { SharedDataService } from '../core/services/shared-data.service';
 import { User } from '../core/model/auth.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -23,14 +24,13 @@ export class ProjectsComponent implements OnInit {
   public statuses: Array<StatusProperties> = [];
   public selectedStatus = [];
 
-  constructor( private projectService: ProjectService, private dataService: SharedDataService) { }
+  constructor(private route: ActivatedRoute, private projectService: ProjectService, private dataService: SharedDataService) { }
 
   assignedToMe = false;
 
   list = false;
   projects: Array<ProjectOverview> = [];
   assign: Boolean = true;
-  persons: Array<Person> = [];
   serverError = null;
   departmentId = null;
   showSpinner = false;
@@ -42,6 +42,7 @@ export class ProjectsComponent implements OnInit {
   page = 0;
   pageSize = 10;
   pageSizeOptions = [10, 25, 50];
+
 
   onChangeStatus(e: Array<StatusProperties>) {
     this.selectedStatus = e.map(x => x.code);
@@ -59,16 +60,29 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadUserProfile();
-    this.loadData();
     this.statuses = P_ALL_STATUS;
+    this.loadUserProfile().subscribe(
+      data => {
+        if (this.isAdminCreator()) {
+          this.route.queryParams.subscribe(params => {this.departmentId = params.departmentId; this.loadData(); });
+        } else {
+          this.loadData();
+        }
+      }
+      , error => {
+        console.log(error);
+        this.serverError = error.message;
+      }
+    );
+
   }
 
 
-  loadUserProfile() {
-    this.dataService.currentUser.subscribe(
-    data => {this.currentUser = data; console.log('mmm', this.currentUser, this.isModuleLeader()); },
-    error => { console.log(error); });
+  loadUserProfile(): Observable<User> {
+    return this.dataService.currentUser.pipe(map( data  => {
+    this.currentUser = data;
+    return data;
+    }));
   }
 
   public isModuleLeader() {
@@ -86,7 +100,7 @@ export class ProjectsComponent implements OnInit {
 
   loadData() {
     this.showSpinner = true;
-    this.projectService.getPagedProjects(this.selectedStatus, this.assignedToMe, this.page, this.pageSize).subscribe(
+    this.projectService.getPagedProjects(this.selectedStatus, this.assignedToMe, this.departmentId, this.page, this.pageSize).subscribe(
       data => {
         this.total = data.totalElements;
         this.projects = data.content;

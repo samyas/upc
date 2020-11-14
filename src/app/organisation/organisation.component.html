@@ -115,18 +115,21 @@
 
                                 <div class="d-flex justify-content-around">
 
-                                        <div class="p-2 bd-highlight"><i class="fa fa-users"></i>28</div>
+                                        <div class="p-2 bd-highlight"><i class="fa fa-users"></i>120</div>
                                         <div class="p-2 bd-highlight"><i class="fa fa-product-hunt"></i>28</div>
-                                        <div class="p-2 bd-highlight"><i class="fa fa-user"></i>28</div>
+                                        <div class="p-2 bd-highlight"><i class="fa fa-user"></i>53</div>
                                 </div>
 
                                 <div  *ngIf="isAdminCreator" class="d-flex justify-content-around">
                                     <button class="nav-link btn app-primary btn-outline" type="button" [routerLink]="['.', dep.departmentId]">
                                         <i class="fa fa-eye"></i> View Module
-
+                                    </button>
+                                    <button class="nav-link btn app-primary btn-outline" type="button"   [routerLink]="['../../project']"
+                                                     [queryParams]="{departmentId: dep.departmentId}" >
+                                        <i class="fa fa-eye"></i> View Projects
                                     </button>
                                    
-                                  </div>
+                                </div>
                             </div>
                     </div>
             </div>

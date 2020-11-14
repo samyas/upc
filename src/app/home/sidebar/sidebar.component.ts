@@ -57,6 +57,11 @@ export class SidebarComponent implements OnInit {
        return  this.userInfo.roles.includes(Role.MODULE_LEADER) || this.userInfo.roles.includes(Role.ADMIN_CREATOR);
      }
 
+     isAdminCreator() {
+       return  this.userInfo.roles?.includes(Role.ADMIN_CREATOR);
+     }
+
+
     addExpandClass(element: any) {
         if (element === this.showMenu) {
             this.showMenu = '0';

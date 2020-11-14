@@ -16,20 +16,20 @@
 
         <div class="menu-bar">
                 <a routerLink="./dashboard" [routerLinkActive]="['router-link-active']" class="list-group-element">
-                    <i class="fa fa-fw fa-dashboard"></i>
+                    <i class="fa fa-fw fa-home"></i>
                     <span>Dashboard</span>
                 </a>
-            <a routerLink="./project" [routerLinkActive]="['router-link-active']" class="list-group-element">
+            <a *ngIf="!isAdminCreator()" routerLink="./project" [routerLinkActive]="['router-link-active']" class="list-group-element">
                 <i class="fa fa-fw fa-dashboard"></i>
                 <span>Projects</span>
             </a>
             <a *ngIf="!!isModelLeaderOrAdminCreator()" [routerLink]="['./staff']" [routerLinkActive]="['router-link-active']" class="list-group-element">
-                <i class="fa fa-fw fa-bar-chart-o"></i>
+                <i class="fa fa-fw fa-users"></i>
                 <span>Staff</span>
             </a>
 
             <a *ngIf="!!isModelLeaderOrAdminCreator()" [routerLink]="['./students']" [routerLinkActive]="['router-link-active']" class="list-group-element">
-                <i class="fa fa-fw fa-bar-chart-o"></i>
+                <i class="fa fa-fw fa-graduation-cap"></i>
                 <span>Students</span>
             </a>
 
@@ -40,12 +40,12 @@
                 <span>New Requests</span>
             </a>
             <a [routerLink]="['./organisation']" [routerLinkActive]="['router-link-active']" class="list-group-element">
-                <i class="fa fa-fw fa-wrench"></i>
+                <i class="fa fa-fw fa-university"></i>
                 <span>Organisation</span>
             </a>
 
             <a *ngIf="userInfo.department" [routerLink]="['./modules',  userInfo.department.id]" [routerLinkActive]="['router-link-active']" class="list-group-element">
-                <i class="fa fa-fw fa-desktop"></i>
+                <i class="fa fa-fw fa-building"></i>
                 <span>{{userInfo.department.name}}</span>
             </a>
 

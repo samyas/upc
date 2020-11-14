@@ -32,7 +32,7 @@ export class EmailVerificationComponent implements OnInit {
       this.route.data.subscribe(data => {
         if (data && data.name === 'join') {
           this.validateJoinRequest(token);
-        }  if (data && data.name === 'reset') {
+        } else if (data && data.name === 'reset') {
           this.validateJoinRequest(token);
         } else {
           this.validate(token);
