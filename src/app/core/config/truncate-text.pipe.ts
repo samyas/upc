@@ -11,6 +11,7 @@ export class TruncateTextPipe implements PipeTransform {
     const elipses = '...';
 
     if (typeof value === 'undefined') {return value; }
+   if ( value === null) {return value; }
     if (value.length <= length) {return value; }
 
     // truncate to about correct lenght
