@@ -70,7 +70,7 @@ $brand-color: #863dd9;
     }
   }
 
-  .proposal, .assigned, .registration, .start, .progress, 
+  .proposal, .assigned, .registration, .start, .progress-s, 
   .withdraw, .suspend, .reallocated, .completed, .closed, .new{
     .status-label, .progress-bar {
       background: $app-secondary-color-3;
@@ -84,7 +84,7 @@ $brand-color: #863dd9;
     }
   }
 
-  .start, .progress{
+  .start, .progress-s{
     .status-label, .progress-bar {
         background: $app-green-light;
     }

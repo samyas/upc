@@ -104,6 +104,13 @@
                                         <span class="label-status-text">    <i class="fa fa-circle"></i>  {{project.status}}</span>
                                  </div>
                         </div>
+
+                        <div *ngIf="project.position" class="col-sm-2">
+                            <div class="d-flex flex-column">
+                                    <a class="value-sb mt-0">Position</a>
+                                    <span class="value-simple-c">   {{project.position}}</span>
+                             </div>
+                       </div>
     
                         <div class="col-sm-2">
                                 <div class="d-flex flex-column">

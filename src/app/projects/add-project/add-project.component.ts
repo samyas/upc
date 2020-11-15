@@ -128,6 +128,7 @@ export class AddProjectComponent implements OnInit {
     this.submitted = true;
     console.log('stange', this.form.value);
     if (this.form.invalid) {
+      console.log(this.form.errors);
       return;
     }
     this.form.value.keywords = this.form.value.keywords;

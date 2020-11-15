@@ -1,4 +1,5 @@
-import { StatusProperties, G_REVIEW, G_DECLINED, G_COMPLETED } from './../../core/model/project.model';
+import { StatusProperties, G_REVIEW, G_DECLINED, G_COMPLETED, P_PROPOSAL,
+   P_ASSIGNED, P_REGISTRATION } from './../../core/model/project.model';
 import { FileUploaderService } from '../../core/services/file-uploader.service';
 import { Observable } from 'rxjs/Observable';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-inline';
@@ -52,6 +53,7 @@ export class GoalsComponent implements OnInit {
   selectionSupervisorActive = false;
   error = null;
   errorSubmit = null;
+  targetGoalId = null;
 
   showDescriptionEditor = false;
   showShortDescriptionEditor = false;
@@ -111,10 +113,19 @@ export class GoalsComponent implements OnInit {
     this.currentUser.isCreator = this.currentUser.personId === this.project.creator.personId;
   }
   goalsRender() {
+    this.activeGoalRender();
+    console.log('lof', this.targetGoalId);
    this.goals = this.project.goals.map(x =>  {
      x.nextActions = this.getNextStatus(x);
      return x;
     });
+  }
+
+  activeGoalRender() {
+    const currentGoal = this.project.goals.find( x => (x.isAction && x.status !==  G_COMPLETED.code));
+    if (currentGoal) {
+     this.targetGoalId = currentGoal.goalId;
+    }
   }
 
   canAddEditAction() {
@@ -122,11 +133,15 @@ export class GoalsComponent implements OnInit {
   }
 
   getNextStatus(goal: Goal): Array<StatusProperties> {
-    if (goal.isAction) {
+    if (goal.isAction && goal.goalId === this.targetGoalId) {
+      if (goal.beforeStart === false  && (this.project.statusCode === P_PROPOSAL.code
+         || this.project.statusCode === P_ASSIGNED.code  || this.project.statusCode === P_REGISTRATION.code) ) {
+           return null;
+      }
       const next: Array<StatusProperties> = GOAL_STATUS_FLOWS.find(x => x.current.code === goal.status)?.next;
       if (next) {
           const nextActions =  next.filter(x => x.roles.includes(this.currentUser.roles[0]));
-          if (status === G_REVIEW.code) {
+          if (goal.status === G_REVIEW.code) {
             if (this.currentUser.isFirstSupervisor || this.currentUser.isModelLeader()) {
               return nextActions;
             }

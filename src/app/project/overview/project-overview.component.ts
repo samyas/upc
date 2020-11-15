@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from './../../core/services/project.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Project, Member, PROJECT_STATUS_FLOWS,
-  StatusProperties, P_PROPOSAL, P_ASSIGNED, Apply, EditProject, DiffDays } from './../../core/model/project.model';
+  StatusProperties, P_PROPOSAL, P_ASSIGNED, Apply, EditProject, DiffDays, P_REGISTRATION } from './../../core/model/project.model';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -99,6 +99,11 @@ export class ProjectOverviewComponent implements OnInit {
                 this.canAssign = true;
           }
       }
+      if (this.project.statusCode === P_ASSIGNED.code || this.project.statusCode === P_REGISTRATION.code) {
+        if (this.currentUser.isModelLeader()) {
+          this.canAssign = true;
+        }
+      }
     }
 
     canAssignFirstSupervisor() {
@@ -126,11 +131,12 @@ export class ProjectOverviewComponent implements OnInit {
 
     renderApply() {
       this.applyRender.showApply = this.canApply();
+      console.log('canApply', this.canApply());
       this.applyRender.showAlreadyApplied = this.showAlreadyApplied();
     }
 
     canApply() {
-      if (!this.currentUser.isMember &&  !this.alreadyApplied() && this.project.statusCode === P_PROPOSAL.code) {
+      if (!this.currentUser.isMember() &&  !this.alreadyApplied() && this.project.statusCode === P_PROPOSAL.code) {
         if (this.currentUser.roles.includes(Role.STUDENT)) {
            return  this.project.team.length < this.project.maxTeamMembers;
         } else  { // Staff
@@ -145,7 +151,7 @@ export class ProjectOverviewComponent implements OnInit {
     }
 
     showAlreadyApplied() {
-      return !this.currentUser.isMember &&  this.alreadyApplied() && this.project.statusCode === P_PROPOSAL.code;
+      return !this.currentUser.isMember() &&  this.alreadyApplied() && this.project.statusCode === P_PROPOSAL.code;
     }
 
     getEmtyPositions() {
@@ -258,6 +264,7 @@ export class ProjectOverviewComponent implements OnInit {
   updateProject() {
     const editProject = new EditProject();
     editProject.projectId = this.project.projectId;
+    editProject.name = this.project.name;
     editProject.description = this.project.description;
     editProject.shortDescription = this.project.shortDescription;
     editProject.startDate = this.project.startDate;

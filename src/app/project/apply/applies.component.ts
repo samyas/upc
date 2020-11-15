@@ -103,6 +103,7 @@ export class AppliesComponent implements OnInit {
       this.projectService.assignMember(this.project.projectId, assignPerson).subscribe(
          data => {
            this.serverError = null;
+           this.loadProject(this.project.projectId);
          }
          , error =>  {
            console.log('failed to assign supervisor', error);

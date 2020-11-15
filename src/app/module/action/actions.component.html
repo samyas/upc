@@ -43,7 +43,7 @@
            
 
           </div>
-          <div class="col-md-2 mt-3">
+          <div *ngIf="!!isAdminCreatorOrModuleLeader" class="col-md-2 mt-3">
               <div class="d-flex flex-row bd-highlight">
                   <div class="p-2 bd-highlight">
                     <button class="btn app-primary btn-circle btn-outline"  (click)="openActionDialog(action)"  type="button">

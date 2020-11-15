@@ -82,12 +82,12 @@
                               </div>
 
                        
-                             <div  *ngFor="let attachment of project.attachments">
+                             <div  class="mt-1" *ngFor="let attachment of project.attachments">
                                 <div class="d-flex justify-content-start">
-                                  <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
-                                  <button *ngIf="!!project.canEdit" class="ml-2 btn app-primary btn-circle btn-outline" (click)="deleteAttachment(attachment.key)" type="button">
-                                    <i class="fa fa-times"></i>
-                                  </button>
+                                    <a class="file-link" (click)="download(attachment.key, attachment.fileName, attachment.contentType)">{{ attachment.fileName }} </a>
+                                    <button *ngIf="!!project.canEdit" class="ml-2 btn app-primary btn-circle-s btn-outline" (click)="deleteAttachment(attachment.key)" type="button">
+                                        <i class="fa fa-times"></i>
+                                    </button>
                                 </div> 
                              </div>
                              <div class="no-attachement" *ngIf="project.attachments?.length==0">No Attachement</div>
@@ -185,7 +185,7 @@
                               
                               <div class="col-md-12 d-flex justify-content-start">
                                   <div  class="project-section-title align-self-center wf-70"> STATUS:</div>
-                                  <span class="align-self-center value-color">  <i class="fa fa-circle"></i> {{project.status}} </span>
+                                  <span class="align-self-center value-color" style="text-transform: uppercase;">  <i class="fa fa-circle"></i> {{project.status}} </span>
                               </div>
                           
                           </div>
@@ -258,29 +258,31 @@
 
         </div>
     </div>
-    <div class="row">
-
-                    <ngb-tabset class="tab-custom">
-                        <ngb-tab>
-                            <ng-template ngbTabTitle><i class="fa fa-list"></i> Description</ng-template>
-                            <ng-template ngbTabContent>
-                                <div class="d-flex flex-row-reverse pt-3">
-                                    <button  *ngIf="project.canEdit" class="btn btn-edit btn-circle" type="button" (click)="editRender.description=true"><i class="fa fa-pencil"></i></button>
-                                </div>
-                              <div *ngIf="!editRender.description" [innerHTML]="project.description"></div>
-                              <div *ngIf="!!editRender.description">
-                                  <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
-                                        [editor]="Editor" [(ngModel)]="project.description" >
-                                  </ckeditor>
-                                  <div class="d-flex flex-row-reverse editor-footer">
-                                      <button class="btn btn-primary m-1" (click)="updateProject()" type="button"> Save </button>
-                                      <button class="btn btn-default m-1"  (click)="editRender.description=false"  type="button"> Cancel </button>
-                                  </div>
-                                  <div *ngIf="errorEdit" class="text-danger mt-3">{{errorEdit}}</div>
-                              </div>
-                            </ng-template>
-                        </ngb-tab>
-                      </ngb-tabset>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <ngb-tabset class="tab-custom">
+                <ngb-tab>
+                    <ng-template ngbTabTitle><i class="fa fa-list"></i> Description</ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="d-flex flex-row-reverse pt-3">
+                            <button  *ngIf="project.canEdit" class="btn btn-edit btn-circle" type="button" (click)="editRender.description=true"><i class="fa fa-pencil"></i></button>
+                        </div>
+                      <div *ngIf="!editRender.description" [innerHTML]="project.description"></div>
+                      <div *ngIf="!!editRender.description">
+                          <ckeditor [config]="{ toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ] }"
+                                [editor]="Editor" [(ngModel)]="project.description" >
+                          </ckeditor>
+                          <div class="d-flex flex-row-reverse editor-footer">
+                              <button class="btn btn-primary m-1" (click)="updateProject()" type="button"> Save </button>
+                              <button class="btn btn-default m-1"  (click)="editRender.description=false"  type="button"> Cancel </button>
+                          </div>
+                          <div *ngIf="errorEdit" class="text-danger mt-3">{{errorEdit}}</div>
+                      </div>
+                    </ng-template>
+                </ngb-tab>
+              </ngb-tabset>
+        </div>
+                 
     
     </div>
 </div>

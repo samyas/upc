@@ -115,6 +115,9 @@ export class ProjectsComponent implements OnInit {
     );
 
   }
+  getStyle(statusCode) {
+   return  statusCode === 'progress' ? 'progress-s' : statusCode;
+  }
 
   apply(projectId, apply: Apply) {
     this.projectService.apply(projectId, apply).subscribe(

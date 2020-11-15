@@ -34,6 +34,7 @@ export class ProjectOverview {
     maxTeamMembers: number;
     diff: DiffDays;
     totalMembers: number;
+    position: string;
 }
 
 export class EditProject {
@@ -66,6 +67,7 @@ export class Goal {
     isAction: boolean;
     attachmentsArrayList: Array<FileDescriptor>;
     nextActions: Array<StatusProperties>;
+    beforeStart: boolean;
 }
 
 export class Apply {
@@ -135,7 +137,7 @@ export class StatusFlow {
   export const P_ASSIGNED = new StatusProperties('ASSIGNED', 'Assigned', 'Assign', [Role.STAFF, Role.MODULE_LEADER]);
   export const P_REGISTRATION = new StatusProperties('REGISTRATION', 'Registration', 'Regsiter', [Role.STAFF, Role.MODULE_LEADER]);
   export const P_START = new StatusProperties('START', 'Start', 'Start', [Role.MODULE_LEADER]);
-  export const P_PROGRESS = new StatusProperties('PROGRESS', 'Progress', 'Progress', [Role.STAFF, Role.MODULE_LEADER, Role.STUDENT]);
+  export const P_PROGRESS = new StatusProperties('PROGRESS', 'Progress', 'Progress', [Role.STAFF, Role.MODULE_LEADER]);
   export const P_SUSPEND = new StatusProperties('SUSPEND', 'Suspend', 'Suspend', [Role.MODULE_LEADER]);
   export const P_REALLOCATED = new StatusProperties('REALLOCATED', 'Re-Allocated', 'Re Allocate', [Role.MODULE_LEADER]);
   export const P_WITHDRAW = new StatusProperties('WITHDRAW', 'Withdraw', 'Withdraw', [Role.MODULE_LEADER]);

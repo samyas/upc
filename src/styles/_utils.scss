@@ -468,6 +468,7 @@ background-image:  url(../assets/images/university-png.png);
 }
 
 .tab-custom{
+    width: 100%;
     .nav-tabs{
         .nav-link.active{
             // background-color: $app-primary-color-2;
@@ -532,4 +533,14 @@ background-image:  url(../assets/images/university-png.png);
     padding: 2px;
     width: 35px;
     height: 35px;
+}
+
+.btn-circle-s {
+    width: 25px;
+    height: 25px;
+    padding: 4px 0;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.428571429;
 }
