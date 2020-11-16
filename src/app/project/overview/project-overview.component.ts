@@ -94,6 +94,7 @@ export class ProjectOverviewComponent implements OnInit {
 
  /***************************ASSIGN RENDERING*********************/
     renderAssign() {
+      this.canAssign = false;
       if (this.project.statusCode === P_PROPOSAL.code) {
           if (this.currentUser.isModelLeader() || this.currentUser.isFirstSupervisor) {
                 this.canAssign = true;
@@ -136,7 +137,8 @@ export class ProjectOverviewComponent implements OnInit {
     }
 
     canApply() {
-      if (!this.currentUser.isMember() &&  !this.alreadyApplied() && this.project.statusCode === P_PROPOSAL.code) {
+      if (!this.currentUser.isMember() && !this.currentUser.isCreator &&
+        !this.alreadyApplied() && this.project.statusCode === P_PROPOSAL.code) {
         if (this.currentUser.roles.includes(Role.STUDENT)) {
            return  this.project.team.length < this.project.maxTeamMembers;
         } else  { // Staff
@@ -333,7 +335,7 @@ export class ProjectOverviewComponent implements OnInit {
     const year  = Math.abs(Math.round((time / (60 * 60 * 24)) / 365.25));
     const month = Math.abs(Math.round(time / (60 * 60 * 24 * 7 * 4)));
     const days = Math.abs(Math.round(time / (3600 * 24)));
-    return new DiffDays(month + (year * 12), days);
+    return new DiffDays(month , days);
   }
 
 }

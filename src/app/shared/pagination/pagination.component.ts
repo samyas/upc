@@ -25,7 +25,7 @@ export class PaginationComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges(changes: any) {
-    console.log(changes);
+   // console.log(changes);
     if (changes.page && changes.page.currentValue) {
       this.page =  changes.page.currentValue;
     }
@@ -41,6 +41,7 @@ export class PaginationComponent implements OnChanges {
     this.to = this.from + (this.pageSize - 1);
     this.isNext = this.to < this.total;
     this.isPrevious = !(this.from === 1);
+
 
     this.isNextNext = (this.to + this.pageSize) < this.total;
     this.isPreviousPrevious = !( (this.from - this.pageSize) <= 1);

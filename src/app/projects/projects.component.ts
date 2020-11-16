@@ -38,19 +38,21 @@ export class ProjectsComponent implements OnInit {
 
   isModelLeader = null;
 
-  total = 5;
+  total = 0;
   page = 0;
-  pageSize = 10;
+  pageSize = 9;
   pageSizeOptions = [10, 25, 50];
 
 
   onChangeStatus(e: Array<StatusProperties>) {
     this.selectedStatus = e.map(x => x.code);
+    this.page = 0;
     this.loadData();
   }
 
   refresh(assignedToMe) {
     this.assignedToMe = assignedToMe;
+    this.page = 0;
     this.loadData();
   }
 

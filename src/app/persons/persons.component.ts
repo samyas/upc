@@ -38,7 +38,7 @@ export class PersonsComponent implements OnInit {
   isStudent = null;
   serverError = '';
 
-  total = 5;
+  total = 0;
   page = 0;
   pageSize = 10;
   pageSizeOptions = [10, 25, 50];
