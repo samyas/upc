@@ -51,8 +51,8 @@
             <div  *ngFor="let project of projects" class="col-sm-4">
               <div class="card  mb-3 project-card" [class]="getStyle(project.statusCode?.toLowerCase())">
                 <div class="card-header bg-transparent pb-1 pt-0">
-                    <div class="float-right status-label"><span class=""><i class="fa fa-circle"></i> {{project.status}}</span></div>
-                    <div class="media float-left mt-1">
+                    <div class="status-label pull-right"><span class=""><i class="fa fa-circle"></i> {{project.status}}</span></div>
+                    <div class="media mt-1">
                       <img  [src]="project?.logo?.url" default="../../../assets/images/project-icon.png" class="project-icon mr-2" alt="...">
                       <div class="media-body self-center pl-2">
                         <a class="project-title">{{project.name}}</a>

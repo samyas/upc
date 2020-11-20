@@ -168,20 +168,23 @@
                     
              <div class="container-fluid  project-right-side proposal p-3">
                           <div class="row ">
-                              <div class="col-md-6 d-flex justify-content-start">
-                                  <div  class="project-section-title align-self-center wf-70"> MODULE:</div>
-                                  <span class="align-self-center value-color">  <i class="fa fa-building"></i> {{project.department?.name}} </span>
-                              </div>
-                              <div class="col-md-6 d-flex justify-content-start">
-                                  <div  class="project-section-title align-self-center wf-70"> AUTHOR:</div>
-                                  <div class="d-flex">
-                                      <img [src]="project.creator?.imageId" default="../../../assets/images/person-icon.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
-                                      <a class="align-self-center value-no-color"> {{project.creator?.firstName}} {{project.creator?.lastName}}</a>
-                                  </div>
-                              </div>
+                            <div class="col-md-12 d-flex justify-content-start">
+                                <div  class="project-section-title align-self-center wf-70"> AUTHOR:</div>
+                                <div class="d-flex">
+                                    <img [src]="project.creator?.imageId" default="../../../assets/images/person-icon.jpg" class="img-circle img-bordered-sm mr-2" alt="...">
+                                    <a class="align-self-center value-no-color"> {{project.creator?.firstName}} {{project.creator?.lastName}}</a>
+                                </div>
+                            </div> 
                              
                           </div>
-                          <div class="row mt-1">
+                          <div class="row  mt-2">
+                            <div class="col-md-12 d-flex justify-content-start">
+                                <div  class="project-section-title align-self-center wf-70"> MODULE:</div>
+                                <span class="align-self-center value-color">  <i class="fa fa-building"></i> {{project.department?.name}} </span>
+                            </div>
+                           
+                          </div>
+                          <div class="row mt-2">
                               
                               <div class="col-md-12 d-flex justify-content-start">
                                   <div  class="project-section-title align-self-center wf-70"> STATUS:</div>
